@@ -4,6 +4,11 @@
     });
 
     $.fn.bootstrapValidator.validators.color = {
+        html5Attributes: {
+            message: 'message',
+            type: 'type'
+        },
+
         SUPPORTED_TYPES: [
             'hex', 'rgb', 'rgba', 'hsl', 'hsla', 'keyword'
         ],

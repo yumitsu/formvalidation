@@ -5,11 +5,14 @@
 __Improvements__
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
 
+__Bug Fixes__
+* [#1105](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1105): The [color](http://bootstrapvalidator.com/validators/color/) validator doesn't provide ```html5Attributes``` mapping
+
 ## v0.5.3 (2014-11-05)
 
 __New Features__
 * [#807](https://github.com/nghuuphuoc/bootstrapvalidator/issues/807), [#821](https://github.com/nghuuphuoc/bootstrapvalidator/pull/821): Add ```min```, ```max``` options for the [date](http://bootstrapvalidator.com/validators/date/) validator, thanks to [@Arkni](https://github.com/Arkni)
-* [#822](https://github.com/nghuuphuoc/bootstrapvalidator/pull/822): Add color validator, thanks to [@emilchristensen](https://github.com/emilchristensen)
+* [#822](https://github.com/nghuuphuoc/bootstrapvalidator/pull/822): Add [color](http://bootstrapvalidator.com/validators/color/) validator, thanks to [@emilchristensen](https://github.com/emilchristensen)
 * [#844](https://github.com/nghuuphuoc/bootstrapvalidator/pull/844), [#874](https://github.com/nghuuphuoc/bootstrapvalidator/pull/874): The [stringLength](http://bootstrapvalidator.com/validators/stringLength/) validator adds option to evaluate length in UTF-8 bytes, thanks to [@thx2001r](https://github.com/thx2001r)
 * [#960](https://github.com/nghuuphuoc/bootstrapvalidator/issues/960), [#1052](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1052): Add ```trim``` option for the [stringLength](http://bootstrapvalidator.com/validators/stringLength/) validator
 * [#1001](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1001): Add ```minFiles```, ```maxFiles```, ```minTotalSize```, ```maxTotalSize``` options for the [file](http://bootstrapvalidator.com/validators/file/) validator, thanks to [@morrizon](https://github.com/morrizon)
