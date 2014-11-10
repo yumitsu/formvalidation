@@ -49,7 +49,7 @@
             }
 
             sum = (10 - (sum % 10)) % 10;
-            return sum === converted[length - 1];
+            return sum === parseInt(converted[length - 1], 10);
         }
     };
 }(window.jQuery));

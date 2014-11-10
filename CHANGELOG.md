@@ -6,7 +6,13 @@ __Improvements__
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
 
 __Bug Fixes__
+* [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
 * [#1105](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1105): The [color](http://bootstrapvalidator.com/validators/color/) validator doesn't provide ```html5Attributes``` mapping
+
+__Document__
+* [#1104](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1104): Update the [Enabling the submit button all the time](http://bootstrapvalidator.com/examples/enabling-submit-button/) example
+* [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
+* [#1114](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1114): Add [Google reCAPTCHA](http://bootstrapvalidator.com/examples/validating-google-recaptcha/) example
 
 ## v0.5.3 (2014-11-05)
 
