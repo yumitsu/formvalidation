@@ -1124,25 +1124,25 @@ if (typeof jQuery === 'undefined') {
                     // Only show the first error message if it is placed inside a tooltip ...
                     case ($icon && 'tooltip' === container):
                         (isValidField === false)
-                                ? $icon.css('cursor', 'pointer').tooltip('destroy').tooltip({
+                                ? $icon.css({"cursor" : "pointer", "pointer-events" : "auto"}).tooltip('destroy').tooltip({
                                     container: 'body',
                                     html: true,
                                     placement: 'auto top',
                                     title: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html()
                                 })
-                                : $icon.css('cursor', '').tooltip('destroy');
+                                : $icon.css({"cursor" : "", "pointer-events" : "none"}).tooltip('destroy');
                         break;
                     // ... or popover
                     case ($icon && 'popover' === container):
                         (isValidField === false)
-                                ? $icon.css('cursor', 'pointer').popover('destroy').popover({
+                                ? $icon.css({"cursor" : "pointer", "pointer-events" : "auto"}).popover('destroy').popover({
                                     container: 'body',
                                     content: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html(),
                                     html: true,
                                     placement: 'auto top',
                                     trigger: 'hover click'
                                 })
-                                : $icon.css('cursor', '').popover('destroy');
+                                : $icon.css({"cursor" : "", "pointer-events" : "none"}).popover('destroy');
                         break;
                     default:
                         (status === this.STATUS_INVALID) ? $errors.show() : $errors.hide();
