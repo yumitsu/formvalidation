@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.6.0 (not released yet)
+
+__Improvements__
+* [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
+
 ## v0.5.3 (2014-11-05)
 
 __New Features__
