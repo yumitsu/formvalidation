@@ -97,7 +97,7 @@ describe('submit', function() {
         this.bv.addField('username', {
             validators: {
                 remote: {
-                    url: 'http://echo.jsontest.com/valid/true',
+                    url: '/test/valid.json',
                     message: 'The username is not available'
                 }
             }
@@ -114,7 +114,7 @@ describe('submit', function() {
         this.bv.addField('username', {
             validators: {
                 remote: {
-                    url: 'http://echo.jsontest.com/valid/false',
+                    url: '/test/invalid.json',
                     message: 'The username is not available'
                 }
             }
