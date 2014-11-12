@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-12 11:58:20 AM
+ * @version     v0.6.0-dev, built on 2014-11-12 3:08:41 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -2784,6 +2784,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var locale     = validator.getLocale(),
+                message    = options.message || $.fn.bootstrapValidator.i18n[locale].date['default'],
                 formats    = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
@@ -2795,7 +2796,7 @@ if (typeof jQuery === 'undefined') {
             if (formats.length !== sections.length) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                    message: message
                 };
             }
 
@@ -2807,7 +2808,7 @@ if (typeof jQuery === 'undefined') {
             if (separator === null || date.indexOf(separator) === -1) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                    message: message
                 };
             }
 
@@ -2817,7 +2818,7 @@ if (typeof jQuery === 'undefined') {
             if (date.length !== dateFormat.length) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                    message: message
                 };
             }
 
@@ -2828,7 +2829,7 @@ if (typeof jQuery === 'undefined') {
             if (!year || !month || !day || year.length !== 4) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                    message: message
                 };
             }
 
@@ -2841,7 +2842,7 @@ if (typeof jQuery === 'undefined') {
                 if (timeFormat.length !== time.length) {
                     return {
                         valid: false,
-                        message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                        message: message
                     };
                 }
 
@@ -2849,19 +2850,26 @@ if (typeof jQuery === 'undefined') {
                 minutes = time.length > 1 ? time[1] : null;
                 seconds = time.length > 2 ? time[2] : null;
 
+                if (hours === '' || minutes === '' || seconds === '') {
+                    return {
+                        valid: false,
+                        message: message
+                    };
+                }
+
                 // Validate seconds
                 if (seconds) {
                     if (isNaN(seconds) || seconds.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                            message: message
                         };
                     }
                     seconds = parseInt(seconds, 10);
                     if (seconds < 0 || seconds > 60) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                            message: message
                         };
                     }
                 }
@@ -2871,14 +2879,14 @@ if (typeof jQuery === 'undefined') {
                     if (isNaN(hours) || hours.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                            message: message
                         };
                     }
                     hours = parseInt(hours, 10);
                     if (hours < 0 || hours >= 24 || (amOrPm && hours > 12)) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                            message: message
                         };
                     }
                 }
@@ -2888,25 +2896,23 @@ if (typeof jQuery === 'undefined') {
                     if (isNaN(minutes) || minutes.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                            message: message
                         };
                     }
                     minutes = parseInt(minutes, 10);
                     if (minutes < 0 || minutes > 59) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
+                            message: message
                         };
                     }
                 }
             }
 
             // Validate day, month, and year
-            var valid   = $.fn.bootstrapValidator.helpers.date(year, month, day),
-                message = options.message || $.fn.bootstrapValidator.i18n[locale].date['default'];
-
-            // declare the date, min and max objects
-            var min       = null,
+            var valid     = $.fn.bootstrapValidator.helpers.date(year, month, day),
+                // declare the date, min and max objects
+                min       = null,
                 max       = null,
                 minOption = options.min,
                 maxOption = options.max;

@@ -2148,7 +2148,7 @@ describe('submit', function() {
         this.bv.addField('username', {
             validators: {
                 remote: {
-                    url: 'http://echo.jsontest.com/valid/true',
+                    url: '/test/valid.json',
                     message: 'The username is not available'
                 }
             }
@@ -2165,7 +2165,7 @@ describe('submit', function() {
         this.bv.addField('username', {
             validators: {
                 remote: {
-                    url: 'http://echo.jsontest.com/valid/false',
+                    url: '/test/invalid.json',
                     message: 'The username is not available'
                 }
             }
@@ -3610,6 +3610,20 @@ describe('date', function() {
 
         this.bv.resetForm();
         this.$date.val('09/15/');
+        this.bv.validate();
+        expect(this.bv.isValid()).toEqual(false);
+    });
+
+    // #1102
+    it('YYYY-MM-DD h:m', function() {
+        this.bv.updateOption('date', 'date', 'format', 'YYYY-MM-DD h:m');
+
+        //this.$date.val('2014-11-1 23:10');
+        //this.bv.validate();
+        //expect(this.bv.isValid()).toBeTruthy();
+
+        this.bv.resetForm();
+        this.$date.val('2014-11-1 23:');
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
     });

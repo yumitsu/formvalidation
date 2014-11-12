@@ -146,6 +146,20 @@ describe('date', function() {
         expect(this.bv.isValid()).toEqual(false);
     });
 
+    // #1102
+    it('YYYY-MM-DD h:m', function() {
+        this.bv.updateOption('date', 'date', 'format', 'YYYY-MM-DD h:m');
+
+        //this.$date.val('2014-11-1 23:10');
+        //this.bv.validate();
+        //expect(this.bv.isValid()).toBeTruthy();
+
+        this.bv.resetForm();
+        this.$date.val('2014-11-1 23:');
+        this.bv.validate();
+        expect(this.bv.isValid()).toEqual(false);
+    });
+
     it('number of days in February', function() {
         this.bv.updateOption('date', 'date', 'format', 'YYYY/MM/DD');
 

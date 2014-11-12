@@ -10,12 +10,14 @@ __Improvements__
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
+* [#1102](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1102): Fix the [date](http://bootstrapvalidator.com/validators/date/) validator issue where accepts ```2014-11-1 23:``` as valid ```YYYY-MM-DD h:m``` date
 * [#1105](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1105): The [color](http://bootstrapvalidator.com/validators/color/) validator doesn't provide ```html5Attributes``` mapping
 
 __Document__
+* [#919](https://github.com/nghuuphuoc/bootstrapvalidator/issues/919), [#1114](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1114): Add [Google reCAPTCHA](http://bootstrapvalidator.com/examples/validating-google-recaptcha/) example
 * [#1104](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1104): Update the [Enabling the submit button all the time](http://bootstrapvalidator.com/examples/enabling-submit-button/) example
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
-* [#1114](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1114): Add [Google reCAPTCHA](http://bootstrapvalidator.com/examples/validating-google-recaptcha/) example
+* [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
 
 ## v0.5.3 (2014-11-05)
 
