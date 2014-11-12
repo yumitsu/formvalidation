@@ -2,6 +2,9 @@
 
 ## v0.6.0 (not released yet)
 
+__New Features__
+* [#708](https://github.com/nghuuphuoc/bootstrapvalidator/issues/708), [#899](https://github.com/nghuuphuoc/bootstrapvalidator/issues/899): Add ```setLocale()``` and ```getLocale()``` methods to support multiple languages
+
 __Improvements__
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
 

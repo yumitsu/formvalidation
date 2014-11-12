@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.step = $.extend($.fn.bootstrapValidator.i18n.step || {}, {
-        'default': 'Please enter a valid step of %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            step: {
+                'default': 'Please enter a valid step of %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.step = {
@@ -54,10 +58,11 @@
                     return round(x - y * Math.floor(x / y), precision);
                 };
 
-            var mod = floatMod(value - options.baseValue, options.step);
+            var locale = validator.getLocale(),
+                mod    = floatMod(value - options.baseValue, options.step);
             return {
                 valid: mod === 0.0 || mod === options.step,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.step['default'], [options.step])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].step['default'], [options.step])
             };
         }
     };

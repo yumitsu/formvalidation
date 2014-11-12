@@ -54,6 +54,10 @@ if (typeof jQuery === 'undefined') {
         // Field elements
         this._cacheFields = {};
 
+        // The default and current locales, defined by countrycode_LANGUAGECODE
+        this.DEFAULT_LOCALE = 'en_US';
+        this._locale        = 'en_US';
+
         this._init();
     };
 
@@ -78,6 +82,7 @@ if (typeof jQuery === 'undefined') {
                         fieldError:       this.$form.attr('data-bv-events-field-error'),
                         fieldSuccess:     this.$form.attr('data-bv-events-field-success'),
                         fieldStatus:      this.$form.attr('data-bv-events-field-status'),
+                        localeChanged:    this.$form.attr('data-bv-events-locale-changed'),
                         validatorError:   this.$form.attr('data-bv-events-validator-error'),
                         validatorSuccess: this.$form.attr('data-bv-events-validator-success')
                     },
@@ -496,14 +501,15 @@ if (typeof jQuery === 'undefined') {
                 return '';
             }
 
-            var options = this.options.fields[field].validators[validatorName];
             switch (true) {
-                case (!!options.message):
-                    return options.message;
-                case (!!this.options.fields[field].message):
+                case !!this.options.fields[field].validators[validatorName].message:
+                    return this.options.fields[field].validators[validatorName].message;
+                case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case (!!$.fn.bootstrapValidator.i18n[validatorName]):
-                    return $.fn.bootstrapValidator.i18n[validatorName]['default'];
+                case !!$.fn.bootstrapValidator.i18n[this._locale][validatorName]['default']:
+                    return $.fn.bootstrapValidator.i18n[this._locale][validatorName]['default'];
+                case !!$.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default']:
+                    return $.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default'];
                 default:
                     return this.options.message;
             }
@@ -1294,6 +1300,15 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Get the current locale
+         *
+         * @return {String}
+         */
+        getLocale: function() {
+            return this._locale;
+        },
+
+        /**
          * Returns the clicked submit button
          *
          * @returns {jQuery}
@@ -1348,6 +1363,36 @@ if (typeof jQuery === 'undefined') {
             });
 
             return messages;
+        },
+
+        /**
+         * Set the locale
+         *
+         * @param {String} locale The locale in format of countrycode_LANGUAGECODE
+         * @returns {BootstrapValidator}
+         */
+        setLocale: function(locale) {
+            if (this._locale !== locale) {
+                this._locale = locale;
+                this.$form.find('[data-bv-field]').each(function() {
+                    var $field   = $(this),
+                        field    = $field.attr('data-bv-field'),
+                        $message = $field.data('bv.messages');
+
+                    // Update the message in new locale
+                    $message.find('.help-block[data-bv-for="' + field + '"][data-bv-validator]').each(function() {
+                        var v = $(this).attr('data-bv-validator');
+                        $(this).html($.fn.bootstrapValidator.i18n[locale][v]['default']);
+                    });
+                });
+            }
+
+            this.$form.trigger($.Event(this.options.events.localeChanged), {
+                locale: locale,
+                bv: this
+            });
+
+            return this;
         },
 
         /**
@@ -1749,6 +1794,7 @@ if (typeof jQuery === 'undefined') {
             fieldError: 'error.field.bv',
             fieldSuccess: 'success.field.bv',
             fieldStatus: 'status.field.bv',
+            localeChanged: 'changed.locale.bv',
             validatorError: 'error.validator.bv',
             validatorSuccess: 'success.validator.bv'
         },

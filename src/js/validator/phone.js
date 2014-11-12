@@ -1,25 +1,29 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.phone = $.extend($.fn.bootstrapValidator.i18n.phone || {}, {
-        'default': 'Please enter a valid phone number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid phone number in %s',
-        countries: {
-            BR: 'Brazil',
-            CN: 'China',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            ES: 'Spain',
-            FR: 'France',
-            GB: 'United Kingdom',
-            MA: 'Morocco',
-            PK: 'Pakistan',
-            RO: 'Romania',
-            RU: 'Russia',
-            SK: 'Slovakia',
-            TH: 'Thailand',
-            US: 'USA',
-            VE: 'Venezuela'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            phone: {
+                'default': 'Please enter a valid phone number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid phone number in %s',
+                countries: {
+                    BR: 'Brazil',
+                    CN: 'China',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    ES: 'Spain',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    MA: 'Morocco',
+                    PK: 'Pakistan',
+                    RO: 'Romania',
+                    RU: 'Russia',
+                    SK: 'Slovakia',
+                    TH: 'Thailand',
+                    US: 'USA',
+                    VE: 'Venezuela'
+                }
+            }
         }
     });
 
@@ -54,7 +58,8 @@
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (typeof country !== 'string' || $.inArray(country, this.COUNTRY_CODES) === -1) {
                 // Try to determine the country
                 country = validator.getDynamicOption($field, country);
@@ -63,7 +68,7 @@
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.phone.countryNotSupported, country)
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].phone.countryNotSupported, country)
                 };
             }
 
@@ -174,7 +179,7 @@
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.phone.country, $.fn.bootstrapValidator.i18n.phone.countries[country])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].phone.country, $.fn.bootstrapValidator.i18n[locale].phone.countries[country])
             };
         }
     };

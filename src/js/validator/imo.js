@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.imo = $.extend($.fn.bootstrapValidator.i18n.imo || {}, {
-        'default': 'Please enter a valid IMO number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            imo: {
+                'default': 'Please enter a valid IMO number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.imo = {

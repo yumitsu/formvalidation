@@ -1,46 +1,50 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.vat = $.extend($.fn.bootstrapValidator.i18n.vat || {}, {
-        'default': 'Please enter a valid VAT number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid VAT number in %s',
-        countries: {
-            AT: 'Austria',
-            BE: 'Belgium',
-            BG: 'Bulgaria',
-            BR: 'Brazil',
-            CH: 'Switzerland',
-            CY: 'Cyprus',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            EE: 'Estonia',
-            ES: 'Spain',
-            FI: 'Finland',
-            FR: 'France',
-            GB: 'United Kingdom',
-            GR: 'Greek',
-            EL: 'Greek',
-            HU: 'Hungary',
-            HR: 'Croatia',
-            IE: 'Ireland',
-            IS: 'Iceland',
-            IT: 'Italy',
-            LT: 'Lithuania',
-            LU: 'Luxembourg',
-            LV: 'Latvia',
-            MT: 'Malta',
-            NL: 'Netherlands',
-            NO: 'Norway',
-            PL: 'Poland',
-            PT: 'Portugal',
-            RO: 'Romania',
-            RU: 'Russia',
-            RS: 'Serbia',
-            SE: 'Sweden',
-            SI: 'Slovenia',
-            SK: 'Slovakia',
-            VE: 'Venezuela',
-            ZA: 'South Africa'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            vat: {
+                'default': 'Please enter a valid VAT number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid VAT number in %s',
+                countries: {
+                    AT: 'Austria',
+                    BE: 'Belgium',
+                    BG: 'Bulgaria',
+                    BR: 'Brazil',
+                    CH: 'Switzerland',
+                    CY: 'Cyprus',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    EE: 'Estonia',
+                    ES: 'Spain',
+                    FI: 'Finland',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    GR: 'Greek',
+                    EL: 'Greek',
+                    HU: 'Hungary',
+                    HR: 'Croatia',
+                    IE: 'Ireland',
+                    IS: 'Iceland',
+                    IT: 'Italy',
+                    LT: 'Lithuania',
+                    LU: 'Luxembourg',
+                    LV: 'Latvia',
+                    MT: 'Malta',
+                    NL: 'Netherlands',
+                    NO: 'Norway',
+                    PL: 'Poland',
+                    PT: 'Portugal',
+                    RO: 'Romania',
+                    RU: 'Russia',
+                    RS: 'Serbia',
+                    SE: 'Sweden',
+                    SI: 'Slovenia',
+                    SK: 'Slovakia',
+                    VE: 'Venezuela',
+                    ZA: 'South Africa'
+                }
+            }
         }
     });
 
@@ -77,7 +81,8 @@
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (!country) {
                 country = value.substr(0, 2);
             } else if (typeof country !== 'string' || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
@@ -88,7 +93,7 @@
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.vat.countryNotSupported, country)
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].vat.countryNotSupported, country)
                 };
             }
 
@@ -97,7 +102,7 @@
                 ? true
                 : {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.vat.country, $.fn.bootstrapValidator.i18n.vat.countries[country.toUpperCase()])
+                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].vat.country, $.fn.bootstrapValidator.i18n[locale].vat.countries[country.toUpperCase()])
                 };
         },
 

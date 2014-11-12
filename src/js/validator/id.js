@@ -1,36 +1,40 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.id = $.extend($.fn.bootstrapValidator.i18n.id || {}, {
-        'default': 'Please enter a valid identification number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid identification number in %s',
-        countries: {
-            BA: 'Bosnia and Herzegovina',
-            BG: 'Bulgaria',
-            BR: 'Brazil',
-            CH: 'Switzerland',
-            CL: 'Chile',
-            CN: 'China',
-            CZ: 'Czech Republic',
-            DK: 'Denmark',
-            EE: 'Estonia',
-            ES: 'Spain',
-            FI: 'Finland',
-            HR: 'Croatia',
-            IE: 'Ireland',
-            IS: 'Iceland',
-            LT: 'Lithuania',
-            LV: 'Latvia',
-            ME: 'Montenegro',
-            MK: 'Macedonia',
-            NL: 'Netherlands',
-            RO: 'Romania',
-            RS: 'Serbia',
-            SE: 'Sweden',
-            SI: 'Slovenia',
-            SK: 'Slovakia',
-            SM: 'San Marino',
-            TH: 'Thailand',
-            ZA: 'South Africa'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            id: {
+                'default': 'Please enter a valid identification number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid identification number in %s',
+                countries: {
+                    BA: 'Bosnia and Herzegovina',
+                    BG: 'Bulgaria',
+                    BR: 'Brazil',
+                    CH: 'Switzerland',
+                    CL: 'Chile',
+                    CN: 'China',
+                    CZ: 'Czech Republic',
+                    DK: 'Denmark',
+                    EE: 'Estonia',
+                    ES: 'Spain',
+                    FI: 'Finland',
+                    HR: 'Croatia',
+                    IE: 'Ireland',
+                    IS: 'Iceland',
+                    LT: 'Lithuania',
+                    LV: 'Latvia',
+                    ME: 'Montenegro',
+                    MK: 'Macedonia',
+                    NL: 'Netherlands',
+                    RO: 'Romania',
+                    RS: 'Serbia',
+                    SE: 'Sweden',
+                    SI: 'Slovenia',
+                    SK: 'Slovakia',
+                    SM: 'San Marino',
+                    TH: 'Thailand',
+                    ZA: 'South Africa'
+                }
+            }
         }
     });
 
@@ -67,7 +71,8 @@
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (!country) {
                 country = value.substr(0, 2);
             } else if (typeof country !== 'string' || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
@@ -76,7 +81,7 @@
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.id.countryNotSupported, country) };
+                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].id.countryNotSupported, country) };
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -84,7 +89,7 @@
                     ? true
                     : {
                         valid: false,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.id.country, $.fn.bootstrapValidator.i18n.id.countries[country.toUpperCase()])
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].id.country, $.fn.bootstrapValidator.i18n[locale].id.countries[country.toUpperCase()])
                     };
         },
 

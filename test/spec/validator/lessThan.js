@@ -80,7 +80,7 @@ describe('lessThan', function() {
         this.$age.val(30);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
     });
 
     // #1048
@@ -96,7 +96,7 @@ describe('lessThan', function() {
         this.$age.val(30);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
     });
 
     it('compare to return value of a function', function() {
@@ -107,7 +107,7 @@ describe('lessThan', function() {
         this.bv.validate();
         expect($('#msg').html()).toEqual('lessThanCompare() called; compare to 50');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
 
         this.bv.resetForm();
         this.$maxAge.val(60);
@@ -125,7 +125,7 @@ describe('lessThan', function() {
         this.bv.validate();
         expect($('#msg').html()).toEqual('TestSuite.lessThan.compareTo() called; compare to 50');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
 
         this.bv.resetForm();
         this.$maxAge.val(60);

@@ -1,9 +1,13 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.date = $.extend($.fn.bootstrapValidator.i18n.date || {}, {
-        'default': 'Please enter a valid date',
-        min: 'Please enter a date after %s',
-        max: 'Please enter a date before %s',
-        range: 'Please enter a date in the range %s - %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            date: {
+                'default': 'Please enter a valid date',
+                min: 'Please enter a date after %s',
+                max: 'Please enter a date before %s',
+                range: 'Please enter a date in the range %s - %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.date = {
@@ -48,7 +52,8 @@
                 options.format = 'YYYY-MM-DD';
             }
 
-            var formats    = options.format.split(' '),
+            var locale     = validator.getLocale(),
+                formats    = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
                 amOrPm     = (formats.length > 2) ? formats[2] : null,
@@ -59,7 +64,7 @@
             if (formats.length !== sections.length) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -71,7 +76,7 @@
             if (separator === null || date.indexOf(separator) === -1) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -81,7 +86,7 @@
             if (date.length !== dateFormat.length) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -92,7 +97,7 @@
             if (!year || !month || !day || year.length !== 4) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -105,7 +110,7 @@
                 if (timeFormat.length !== time.length) {
                     return {
                         valid: false,
-                        message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                        message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                     };
                 }
 
@@ -118,14 +123,14 @@
                     if (isNaN(seconds) || seconds.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                     seconds = parseInt(seconds, 10);
                     if (seconds < 0 || seconds > 60) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                 }
@@ -135,14 +140,14 @@
                     if (isNaN(hours) || hours.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                     hours = parseInt(hours, 10);
                     if (hours < 0 || hours >= 24 || (amOrPm && hours > 12)) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                 }
@@ -152,14 +157,14 @@
                     if (isNaN(minutes) || minutes.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                     minutes = parseInt(minutes, 10);
                     if (minutes < 0 || minutes > 59) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                 }
@@ -167,7 +172,7 @@
 
             // Validate day, month, and year
             var valid   = $.fn.bootstrapValidator.helpers.date(year, month, day),
-                message = options.message || $.fn.bootstrapValidator.i18n.date['default'];
+                message = options.message || $.fn.bootstrapValidator.i18n[locale].date['default'];
 
             // declare the date, min and max objects
             var min       = null,
@@ -194,17 +199,17 @@
             switch (true) {
                 case (minOption && !maxOption && valid):
                     valid   = date.getTime() >= min.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.min, minOption);
+                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.min, minOption);
                     break;
 
                 case (maxOption && !minOption && valid):
                     valid   = date.getTime() <= max.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.max, maxOption);
+                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.max, maxOption);
                     break;
 
                 case (maxOption && minOption && valid):
                     valid   = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.range, [minOption, maxOption]);
+                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.range, [minOption, maxOption]);
                     break;
 
                 default:

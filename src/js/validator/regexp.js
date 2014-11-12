@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.regexp = $.extend($.fn.bootstrapValidator.i18n.regexp || {}, {
-        'default': 'Please enter a value matching the pattern'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            regexp: {
+                'default': 'Please enter a value matching the pattern'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.regexp = {

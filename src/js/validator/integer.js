@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.integer = $.extend($.fn.bootstrapValidator.i18n.integer || {}, {
-        'default': 'Please enter a valid number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            integer: {
+                'default': 'Please enter a valid number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.integer = {

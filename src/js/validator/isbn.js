@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.isbn = $.extend($.fn.bootstrapValidator.i18n.isbn || {}, {
-        'default': 'Please enter a valid ISBN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            isbn: {
+                'default': 'Please enter a valid ISBN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.isbn = {

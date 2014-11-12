@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.isin = $.extend($.fn.bootstrapValidator.i18n.isin || {}, {
-        'default': 'Please enter a valid ISIN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            isin: {
+                'default': 'Please enter a valid ISIN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.isin = {

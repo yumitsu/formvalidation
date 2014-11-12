@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.identical = $.extend($.fn.bootstrapValidator.i18n.identical || {}, {
-        'default': 'Please enter the same value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            identical: {
+                'default': 'Please enter the same value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.identical = {

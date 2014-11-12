@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.base64 = $.extend($.fn.bootstrapValidator.i18n.base64 || {}, {
-        'default': 'Please enter a valid base 64 encoded'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            base64: {
+                'default': 'Please enter a valid base 64 encoded'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.base64 = {

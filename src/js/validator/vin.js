@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.vin = $.extend($.fn.bootstrapValidator.i18n.vin || {}, {
-        'default': 'Please enter a valid VIN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            vin: {
+                'default': 'Please enter a valid VIN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.vin = {

@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.different = $.extend($.fn.bootstrapValidator.i18n.different || {}, {
-        'default': 'Please enter a different value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            different: {
+                'default': 'Please enter a different value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.different = {

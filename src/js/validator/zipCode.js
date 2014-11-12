@@ -1,29 +1,33 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.zipCode = $.extend($.fn.bootstrapValidator.i18n.zipCode || {}, {
-        'default': 'Please enter a valid postal code',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid postal code in %s',
-        countries: {
-            AT: 'Austria',
-            BR: 'Brazil',
-            CA: 'Canada',
-            CH: 'Switzerland',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            FR: 'France',
-            GB: 'United Kingdom',
-            IE: 'Ireland',
-            IT: 'Italy',
-            MA: 'Morocco',
-            NL: 'Netherlands',
-            PT: 'Portugal',
-            RO: 'Romania',
-            RU: 'Russia',
-            SE: 'Sweden',
-            SG: 'Singapore',
-            SK: 'Slovakia',
-            US: 'USA'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            zipCode: {
+                'default': 'Please enter a valid postal code',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid postal code in %s',
+                countries: {
+                    AT: 'Austria',
+                    BR: 'Brazil',
+                    CA: 'Canada',
+                    CH: 'Switzerland',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    IE: 'Ireland',
+                    IT: 'Italy',
+                    MA: 'Morocco',
+                    NL: 'Netherlands',
+                    PT: 'Portugal',
+                    RO: 'Romania',
+                    RU: 'Russia',
+                    SE: 'Sweden',
+                    SG: 'Singapore',
+                    SK: 'Slovakia',
+                    US: 'USA'
+                }
+            }
         }
     });
 
@@ -64,14 +68,15 @@
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (typeof country !== 'string' || $.inArray(country, this.COUNTRY_CODES) === -1) {
                 // Try to determine the country
                 country = validator.getDynamicOption($field, country);
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.zipCode.countryNotSupported, country) };
+                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].zipCode.countryNotSupported, country) };
             }
 
             var isValid = false;
@@ -173,7 +178,7 @@
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.zipCode.country, $.fn.bootstrapValidator.i18n.zipCode.countries[country])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].zipCode.country, $.fn.bootstrapValidator.i18n[locale].zipCode.countries[country])
             };
         },
 

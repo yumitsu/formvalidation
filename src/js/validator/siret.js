@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.siret = $.extend($.fn.bootstrapValidator.i18n.siret || {}, {
-        'default': 'Please enter a valid SIRET number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+		en_US: {
+			siret: {
+				'default': 'Please enter a valid SIRET number'
+			}
+		}
     });
 
 	$.fn.bootstrapValidator.validators.siret = {

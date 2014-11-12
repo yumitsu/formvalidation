@@ -1,88 +1,92 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.iban = $.extend($.fn.bootstrapValidator.i18n.iban || {}, {
-        'default': 'Please enter a valid IBAN number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid IBAN number in %s',
-        countries: {
-            AD: 'Andorra',
-            AE: 'United Arab Emirates',
-            AL: 'Albania',
-            AO: 'Angola',
-            AT: 'Austria',
-            AZ: 'Azerbaijan',
-            BA: 'Bosnia and Herzegovina',
-            BE: 'Belgium',
-            BF: 'Burkina Faso',
-            BG: 'Bulgaria',
-            BH: 'Bahrain',
-            BI: 'Burundi',
-            BJ: 'Benin',
-            BR: 'Brazil',
-            CH: 'Switzerland',
-            CI: 'Ivory Coast',
-            CM: 'Cameroon',
-            CR: 'Costa Rica',
-            CV: 'Cape Verde',
-            CY: 'Cyprus',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            DO: 'Dominican Republic',
-            DZ: 'Algeria',
-            EE: 'Estonia',
-            ES: 'Spain',
-            FI: 'Finland',
-            FO: 'Faroe Islands',
-            FR: 'France',
-            GB: 'United Kingdom',
-            GE: 'Georgia',
-            GI: 'Gibraltar',
-            GL: 'Greenland',
-            GR: 'Greece',
-            GT: 'Guatemala',
-            HR: 'Croatia',
-            HU: 'Hungary',
-            IE: 'Ireland',
-            IL: 'Israel',
-            IR: 'Iran',
-            IS: 'Iceland',
-            IT: 'Italy',
-            JO: 'Jordan',
-            KW: 'Kuwait',
-            KZ: 'Kazakhstan',
-            LB: 'Lebanon',
-            LI: 'Liechtenstein',
-            LT: 'Lithuania',
-            LU: 'Luxembourg',
-            LV: 'Latvia',
-            MC: 'Monaco',
-            MD: 'Moldova',
-            ME: 'Montenegro',
-            MG: 'Madagascar',
-            MK: 'Macedonia',
-            ML: 'Mali',
-            MR: 'Mauritania',
-            MT: 'Malta',
-            MU: 'Mauritius',
-            MZ: 'Mozambique',
-            NL: 'Netherlands',
-            NO: 'Norway',
-            PK: 'Pakistan',
-            PL: 'Poland',
-            PS: 'Palestine',
-            PT: 'Portugal',
-            QA: 'Qatar',
-            RO: 'Romania',
-            RS: 'Serbia',
-            SA: 'Saudi Arabia',
-            SE: 'Sweden',
-            SI: 'Slovenia',
-            SK: 'Slovakia',
-            SM: 'San Marino',
-            SN: 'Senegal',
-            TN: 'Tunisia',
-            TR: 'Turkey',
-            VG: 'Virgin Islands, British'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            iban: {
+                'default': 'Please enter a valid IBAN number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid IBAN number in %s',
+                countries: {
+                    AD: 'Andorra',
+                    AE: 'United Arab Emirates',
+                    AL: 'Albania',
+                    AO: 'Angola',
+                    AT: 'Austria',
+                    AZ: 'Azerbaijan',
+                    BA: 'Bosnia and Herzegovina',
+                    BE: 'Belgium',
+                    BF: 'Burkina Faso',
+                    BG: 'Bulgaria',
+                    BH: 'Bahrain',
+                    BI: 'Burundi',
+                    BJ: 'Benin',
+                    BR: 'Brazil',
+                    CH: 'Switzerland',
+                    CI: 'Ivory Coast',
+                    CM: 'Cameroon',
+                    CR: 'Costa Rica',
+                    CV: 'Cape Verde',
+                    CY: 'Cyprus',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    DO: 'Dominican Republic',
+                    DZ: 'Algeria',
+                    EE: 'Estonia',
+                    ES: 'Spain',
+                    FI: 'Finland',
+                    FO: 'Faroe Islands',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    GE: 'Georgia',
+                    GI: 'Gibraltar',
+                    GL: 'Greenland',
+                    GR: 'Greece',
+                    GT: 'Guatemala',
+                    HR: 'Croatia',
+                    HU: 'Hungary',
+                    IE: 'Ireland',
+                    IL: 'Israel',
+                    IR: 'Iran',
+                    IS: 'Iceland',
+                    IT: 'Italy',
+                    JO: 'Jordan',
+                    KW: 'Kuwait',
+                    KZ: 'Kazakhstan',
+                    LB: 'Lebanon',
+                    LI: 'Liechtenstein',
+                    LT: 'Lithuania',
+                    LU: 'Luxembourg',
+                    LV: 'Latvia',
+                    MC: 'Monaco',
+                    MD: 'Moldova',
+                    ME: 'Montenegro',
+                    MG: 'Madagascar',
+                    MK: 'Macedonia',
+                    ML: 'Mali',
+                    MR: 'Mauritania',
+                    MT: 'Malta',
+                    MU: 'Mauritius',
+                    MZ: 'Mozambique',
+                    NL: 'Netherlands',
+                    NO: 'Norway',
+                    PK: 'Pakistan',
+                    PL: 'Poland',
+                    PS: 'Palestine',
+                    PT: 'Portugal',
+                    QA: 'Qatar',
+                    RO: 'Romania',
+                    RS: 'Serbia',
+                    SA: 'Saudi Arabia',
+                    SE: 'Sweden',
+                    SI: 'Slovenia',
+                    SK: 'Slovakia',
+                    SM: 'San Marino',
+                    SN: 'Senegal',
+                    TN: 'Tunisia',
+                    TR: 'Turkey',
+                    VG: 'Virgin Islands, British'
+                }
+            }
         }
     });
 
@@ -207,17 +211,18 @@
                 country = validator.getDynamicOption($field, country);
             }
 
+            var locale = validator.getLocale();
             if (!this.REGEX[country]) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.iban.countryNotSupported, country)
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].iban.countryNotSupported, country)
                 };
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.iban.country, $.fn.bootstrapValidator.i18n.iban.countries[country])
+                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
                 };
             }
 
@@ -239,7 +244,7 @@
 
             return {
                 valid: (temp === 1),
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.iban.country, $.fn.bootstrapValidator.i18n.iban.countries[country])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
             };
         }
     };

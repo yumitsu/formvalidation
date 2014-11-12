@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.rtn = $.extend($.fn.bootstrapValidator.i18n.rtn || {}, {
-        'default': 'Please enter a valid RTN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            rtn: {
+                'default': 'Please enter a valid RTN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.rtn = {

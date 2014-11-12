@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-11 12:04:20 AM
+ * @version     v0.6.0-dev, built on 2014-11-12 11:58:20 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -54,6 +54,10 @@ if (typeof jQuery === 'undefined') {
         // Field elements
         this._cacheFields = {};
 
+        // The default and current locales, defined by countrycode_LANGUAGECODE
+        this.DEFAULT_LOCALE = 'en_US';
+        this._locale        = 'en_US';
+
         this._init();
     };
 
@@ -78,6 +82,7 @@ if (typeof jQuery === 'undefined') {
                         fieldError:       this.$form.attr('data-bv-events-field-error'),
                         fieldSuccess:     this.$form.attr('data-bv-events-field-success'),
                         fieldStatus:      this.$form.attr('data-bv-events-field-status'),
+                        localeChanged:    this.$form.attr('data-bv-events-locale-changed'),
                         validatorError:   this.$form.attr('data-bv-events-validator-error'),
                         validatorSuccess: this.$form.attr('data-bv-events-validator-success')
                     },
@@ -496,14 +501,15 @@ if (typeof jQuery === 'undefined') {
                 return '';
             }
 
-            var options = this.options.fields[field].validators[validatorName];
             switch (true) {
-                case (!!options.message):
-                    return options.message;
-                case (!!this.options.fields[field].message):
+                case !!this.options.fields[field].validators[validatorName].message:
+                    return this.options.fields[field].validators[validatorName].message;
+                case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case (!!$.fn.bootstrapValidator.i18n[validatorName]):
-                    return $.fn.bootstrapValidator.i18n[validatorName]['default'];
+                case !!$.fn.bootstrapValidator.i18n[this._locale][validatorName]['default']:
+                    return $.fn.bootstrapValidator.i18n[this._locale][validatorName]['default'];
+                case !!$.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default']:
+                    return $.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default'];
                 default:
                     return this.options.message;
             }
@@ -1294,6 +1300,15 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Get the current locale
+         *
+         * @return {String}
+         */
+        getLocale: function() {
+            return this._locale;
+        },
+
+        /**
          * Returns the clicked submit button
          *
          * @returns {jQuery}
@@ -1348,6 +1363,36 @@ if (typeof jQuery === 'undefined') {
             });
 
             return messages;
+        },
+
+        /**
+         * Set the locale
+         *
+         * @param {String} locale The locale in format of countrycode_LANGUAGECODE
+         * @returns {BootstrapValidator}
+         */
+        setLocale: function(locale) {
+            if (this._locale !== locale) {
+                this._locale = locale;
+                this.$form.find('[data-bv-field]').each(function() {
+                    var $field   = $(this),
+                        field    = $field.attr('data-bv-field'),
+                        $message = $field.data('bv.messages');
+
+                    // Update the message in new locale
+                    $message.find('.help-block[data-bv-for="' + field + '"][data-bv-validator]').each(function() {
+                        var v = $(this).attr('data-bv-validator');
+                        $(this).html($.fn.bootstrapValidator.i18n[locale][v]['default']);
+                    });
+                });
+            }
+
+            this.$form.trigger($.Event(this.options.events.localeChanged), {
+                locale: locale,
+                bv: this
+            });
+
+            return this;
         },
 
         /**
@@ -1749,6 +1794,7 @@ if (typeof jQuery === 'undefined') {
             fieldError: 'error.field.bv',
             fieldSuccess: 'success.field.bv',
             fieldStatus: 'status.field.bv',
+            localeChanged: 'changed.locale.bv',
             validatorError: 'error.validator.bv',
             validatorSuccess: 'success.validator.bv'
         },
@@ -2002,8 +2048,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.base64 = $.extend($.fn.bootstrapValidator.i18n.base64 || {}, {
-        'default': 'Please enter a valid base 64 encoded'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            base64: {
+                'default': 'Please enter a valid base 64 encoded'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.base64 = {
@@ -2027,9 +2077,13 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.between = $.extend($.fn.bootstrapValidator.i18n.between || {}, {
-        'default': 'Please enter a value between %s and %s',
-        notInclusive: 'Please enter a value between %s and %s strictly'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            between: {
+                'default': 'Please enter a value between %s and %s',
+                notInclusive: 'Please enter a value between %s and %s strictly'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.between = {
@@ -2081,7 +2135,8 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var min      = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
+            var locale   = validator.getLocale(),
+                min      = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
                 max      = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
                 minValue = this._format(min),
                 maxValue = this._format(max);
@@ -2090,11 +2145,11 @@ if (typeof jQuery === 'undefined') {
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= minValue && value <= maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between['default'], [min, max])
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].between['default'], [min, max])
                     }
                     : {
                         valid: value > minValue  && value <  maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between.notInclusive, [min, max])
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].between.notInclusive, [min, max])
                     };
         },
 
@@ -2133,8 +2188,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.callback = $.extend($.fn.bootstrapValidator.i18n.callback || {}, {
-        'default': 'Please enter a valid value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            callback: {
+                'default': 'Please enter a valid value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.callback = {
@@ -2174,11 +2233,15 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.choice = $.extend($.fn.bootstrapValidator.i18n.choice || {}, {
-        'default': 'Please enter a valid value',
-        less: 'Please choose %s options at minimum',
-        more: 'Please choose %s options at maximum',
-        between: 'Please choose %s - %s options'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            choice: {
+                'default': 'Please enter a valid value',
+                less: 'Please choose %s options at minimum',
+                more: 'Please choose %s options at maximum',
+                between: 'Please choose %s - %s options'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.choice = {
@@ -2208,13 +2271,14 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var numChoices = $field.is('select')
+            var locale     = validator.getLocale(),
+                numChoices = $field.is('select')
                             ? validator.getFieldElements($field.attr('data-bv-field')).find('option').filter(':selected').length
                             : validator.getFieldElements($field.attr('data-bv-field')).filter(':checked').length,
                 min        = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
                 max        = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
                 isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n.choice['default'];
+                message    = options.message || $.fn.bootstrapValidator.i18n[locale].choice['default'];
 
             if ((min && numChoices < parseInt(min, 10)) || (max && numChoices > parseInt(max, 10))) {
                 isValid = false;
@@ -2222,15 +2286,15 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (!!min && !!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.choice.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.choice.less, parseInt(min, 10));
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].choice.less, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.choice.more, parseInt(max, 10));
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].choice.more, parseInt(max, 10));
                     break;
 
                 default:
@@ -2242,8 +2306,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.color = $.extend($.fn.bootstrapValidator.i18n.color || {}, {
-        'default': 'Please enter a valid color'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            color: {
+                'default': 'Please enter a valid color'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.color = {
@@ -2376,8 +2444,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.creditCard = $.extend($.fn.bootstrapValidator.i18n.creditCard || {}, {
-        'default': 'Please enter a valid credit card number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            creditCard: {
+                'default': 'Please enter a valid credit card number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.creditCard = {
@@ -2479,8 +2551,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.cusip = $.extend($.fn.bootstrapValidator.i18n.cusip || {}, {
-        'default': 'Please enter a valid CUSIP number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            cusip: {
+                'default': 'Please enter a valid CUSIP number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.cusip = {
@@ -2534,8 +2610,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.cvv = $.extend($.fn.bootstrapValidator.i18n.cvv || {}, {
-        'default': 'Please enter a valid CVV number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            cvv: {
+                'default': 'Please enter a valid CVV number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.cvv = {
@@ -2650,11 +2730,15 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.date = $.extend($.fn.bootstrapValidator.i18n.date || {}, {
-        'default': 'Please enter a valid date',
-        min: 'Please enter a date after %s',
-        max: 'Please enter a date before %s',
-        range: 'Please enter a date in the range %s - %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            date: {
+                'default': 'Please enter a valid date',
+                min: 'Please enter a date after %s',
+                max: 'Please enter a date before %s',
+                range: 'Please enter a date in the range %s - %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.date = {
@@ -2699,7 +2783,8 @@ if (typeof jQuery === 'undefined') {
                 options.format = 'YYYY-MM-DD';
             }
 
-            var formats    = options.format.split(' '),
+            var locale     = validator.getLocale(),
+                formats    = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
                 amOrPm     = (formats.length > 2) ? formats[2] : null,
@@ -2710,7 +2795,7 @@ if (typeof jQuery === 'undefined') {
             if (formats.length !== sections.length) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -2722,7 +2807,7 @@ if (typeof jQuery === 'undefined') {
             if (separator === null || date.indexOf(separator) === -1) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -2732,7 +2817,7 @@ if (typeof jQuery === 'undefined') {
             if (date.length !== dateFormat.length) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -2743,7 +2828,7 @@ if (typeof jQuery === 'undefined') {
             if (!year || !month || !day || year.length !== 4) {
                 return {
                     valid: false,
-                    message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                    message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                 };
             }
 
@@ -2756,7 +2841,7 @@ if (typeof jQuery === 'undefined') {
                 if (timeFormat.length !== time.length) {
                     return {
                         valid: false,
-                        message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                        message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                     };
                 }
 
@@ -2769,14 +2854,14 @@ if (typeof jQuery === 'undefined') {
                     if (isNaN(seconds) || seconds.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                     seconds = parseInt(seconds, 10);
                     if (seconds < 0 || seconds > 60) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                 }
@@ -2786,14 +2871,14 @@ if (typeof jQuery === 'undefined') {
                     if (isNaN(hours) || hours.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                     hours = parseInt(hours, 10);
                     if (hours < 0 || hours >= 24 || (amOrPm && hours > 12)) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                 }
@@ -2803,14 +2888,14 @@ if (typeof jQuery === 'undefined') {
                     if (isNaN(minutes) || minutes.length > 2) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                     minutes = parseInt(minutes, 10);
                     if (minutes < 0 || minutes > 59) {
                         return {
                             valid: false,
-                            message: options.message || $.fn.bootstrapValidator.i18n.date['default']
+                            message: options.message || $.fn.bootstrapValidator.i18n[locale].date['default']
                         };
                     }
                 }
@@ -2818,7 +2903,7 @@ if (typeof jQuery === 'undefined') {
 
             // Validate day, month, and year
             var valid   = $.fn.bootstrapValidator.helpers.date(year, month, day),
-                message = options.message || $.fn.bootstrapValidator.i18n.date['default'];
+                message = options.message || $.fn.bootstrapValidator.i18n[locale].date['default'];
 
             // declare the date, min and max objects
             var min       = null,
@@ -2845,17 +2930,17 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 case (minOption && !maxOption && valid):
                     valid   = date.getTime() >= min.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.min, minOption);
+                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.min, minOption);
                     break;
 
                 case (maxOption && !minOption && valid):
                     valid   = date.getTime() <= max.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.max, maxOption);
+                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.max, maxOption);
                     break;
 
                 case (maxOption && minOption && valid):
                     valid   = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.date.range, [minOption, maxOption]);
+                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.range, [minOption, maxOption]);
                     break;
 
                 default:
@@ -2902,8 +2987,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.different = $.extend($.fn.bootstrapValidator.i18n.different || {}, {
-        'default': 'Please enter a different value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            different: {
+                'default': 'Please enter a different value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.different = {
@@ -2950,8 +3039,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.digits = $.extend($.fn.bootstrapValidator.i18n.digits || {}, {
-        'default': 'Please enter only digits'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            digits: {
+                'default': 'Please enter only digits'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.digits = {
@@ -2974,8 +3067,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.ean = $.extend($.fn.bootstrapValidator.i18n.ean || {}, {
-        'default': 'Please enter a valid EAN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            ean: {
+                'default': 'Please enter a valid EAN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.ean = {
@@ -3014,8 +3111,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.emailAddress = $.extend($.fn.bootstrapValidator.i18n.emailAddress || {}, {
-        'default': 'Please enter a valid email address'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            emailAddress: {
+                'default': 'Please enter a valid email address'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.emailAddress = {
@@ -3101,8 +3202,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.file = $.extend($.fn.bootstrapValidator.i18n.file || {}, {
-        'default': 'Please choose a valid file'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            file: {
+                'default': 'Please choose a valid file'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.file = {
@@ -3189,9 +3294,13 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.greaterThan = $.extend($.fn.bootstrapValidator.i18n.greaterThan || {}, {
-        'default': 'Please enter a value greater than or equal to %s',
-        notInclusive: 'Please enter a value greater than %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            greaterThan: {
+                'default': 'Please enter a value greater than or equal to %s',
+                notInclusive: 'Please enter a value greater than %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.greaterThan = {
@@ -3240,18 +3349,19 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
+            var locale         = validator.getLocale(),
+                compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
                 compareToValue = this._format(compareTo);
 
             value = parseFloat(value);
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan['default'], compareTo)
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].greaterThan['default'], compareTo)
                     }
                     : {
                         valid: value > compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.greaterThan.notInclusive, compareTo)
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].greaterThan.notInclusive, compareTo)
                     };
         },
 
@@ -3261,8 +3371,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.grid = $.extend($.fn.bootstrapValidator.i18n.grid || {}, {
-        'default': 'Please enter a valid GRId number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            grid: {
+                'default': 'Please enter a valid GRId number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.grid = {
@@ -3298,8 +3412,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.hex = $.extend($.fn.bootstrapValidator.i18n.hex || {}, {
-        'default': 'Please enter a valid hexadecimal number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            hex: {
+                'default': 'Please enter a valid hexadecimal number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.hex = {
@@ -3323,8 +3441,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.hexColor = $.extend($.fn.bootstrapValidator.i18n.hexColor || {}, {
-        'default': 'Please enter a valid hex color'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            hexColor: {
+                'default': 'Please enter a valid hex color'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.hexColor = {
@@ -3356,90 +3478,94 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.iban = $.extend($.fn.bootstrapValidator.i18n.iban || {}, {
-        'default': 'Please enter a valid IBAN number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid IBAN number in %s',
-        countries: {
-            AD: 'Andorra',
-            AE: 'United Arab Emirates',
-            AL: 'Albania',
-            AO: 'Angola',
-            AT: 'Austria',
-            AZ: 'Azerbaijan',
-            BA: 'Bosnia and Herzegovina',
-            BE: 'Belgium',
-            BF: 'Burkina Faso',
-            BG: 'Bulgaria',
-            BH: 'Bahrain',
-            BI: 'Burundi',
-            BJ: 'Benin',
-            BR: 'Brazil',
-            CH: 'Switzerland',
-            CI: 'Ivory Coast',
-            CM: 'Cameroon',
-            CR: 'Costa Rica',
-            CV: 'Cape Verde',
-            CY: 'Cyprus',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            DO: 'Dominican Republic',
-            DZ: 'Algeria',
-            EE: 'Estonia',
-            ES: 'Spain',
-            FI: 'Finland',
-            FO: 'Faroe Islands',
-            FR: 'France',
-            GB: 'United Kingdom',
-            GE: 'Georgia',
-            GI: 'Gibraltar',
-            GL: 'Greenland',
-            GR: 'Greece',
-            GT: 'Guatemala',
-            HR: 'Croatia',
-            HU: 'Hungary',
-            IE: 'Ireland',
-            IL: 'Israel',
-            IR: 'Iran',
-            IS: 'Iceland',
-            IT: 'Italy',
-            JO: 'Jordan',
-            KW: 'Kuwait',
-            KZ: 'Kazakhstan',
-            LB: 'Lebanon',
-            LI: 'Liechtenstein',
-            LT: 'Lithuania',
-            LU: 'Luxembourg',
-            LV: 'Latvia',
-            MC: 'Monaco',
-            MD: 'Moldova',
-            ME: 'Montenegro',
-            MG: 'Madagascar',
-            MK: 'Macedonia',
-            ML: 'Mali',
-            MR: 'Mauritania',
-            MT: 'Malta',
-            MU: 'Mauritius',
-            MZ: 'Mozambique',
-            NL: 'Netherlands',
-            NO: 'Norway',
-            PK: 'Pakistan',
-            PL: 'Poland',
-            PS: 'Palestine',
-            PT: 'Portugal',
-            QA: 'Qatar',
-            RO: 'Romania',
-            RS: 'Serbia',
-            SA: 'Saudi Arabia',
-            SE: 'Sweden',
-            SI: 'Slovenia',
-            SK: 'Slovakia',
-            SM: 'San Marino',
-            SN: 'Senegal',
-            TN: 'Tunisia',
-            TR: 'Turkey',
-            VG: 'Virgin Islands, British'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            iban: {
+                'default': 'Please enter a valid IBAN number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid IBAN number in %s',
+                countries: {
+                    AD: 'Andorra',
+                    AE: 'United Arab Emirates',
+                    AL: 'Albania',
+                    AO: 'Angola',
+                    AT: 'Austria',
+                    AZ: 'Azerbaijan',
+                    BA: 'Bosnia and Herzegovina',
+                    BE: 'Belgium',
+                    BF: 'Burkina Faso',
+                    BG: 'Bulgaria',
+                    BH: 'Bahrain',
+                    BI: 'Burundi',
+                    BJ: 'Benin',
+                    BR: 'Brazil',
+                    CH: 'Switzerland',
+                    CI: 'Ivory Coast',
+                    CM: 'Cameroon',
+                    CR: 'Costa Rica',
+                    CV: 'Cape Verde',
+                    CY: 'Cyprus',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    DO: 'Dominican Republic',
+                    DZ: 'Algeria',
+                    EE: 'Estonia',
+                    ES: 'Spain',
+                    FI: 'Finland',
+                    FO: 'Faroe Islands',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    GE: 'Georgia',
+                    GI: 'Gibraltar',
+                    GL: 'Greenland',
+                    GR: 'Greece',
+                    GT: 'Guatemala',
+                    HR: 'Croatia',
+                    HU: 'Hungary',
+                    IE: 'Ireland',
+                    IL: 'Israel',
+                    IR: 'Iran',
+                    IS: 'Iceland',
+                    IT: 'Italy',
+                    JO: 'Jordan',
+                    KW: 'Kuwait',
+                    KZ: 'Kazakhstan',
+                    LB: 'Lebanon',
+                    LI: 'Liechtenstein',
+                    LT: 'Lithuania',
+                    LU: 'Luxembourg',
+                    LV: 'Latvia',
+                    MC: 'Monaco',
+                    MD: 'Moldova',
+                    ME: 'Montenegro',
+                    MG: 'Madagascar',
+                    MK: 'Macedonia',
+                    ML: 'Mali',
+                    MR: 'Mauritania',
+                    MT: 'Malta',
+                    MU: 'Mauritius',
+                    MZ: 'Mozambique',
+                    NL: 'Netherlands',
+                    NO: 'Norway',
+                    PK: 'Pakistan',
+                    PL: 'Poland',
+                    PS: 'Palestine',
+                    PT: 'Portugal',
+                    QA: 'Qatar',
+                    RO: 'Romania',
+                    RS: 'Serbia',
+                    SA: 'Saudi Arabia',
+                    SE: 'Sweden',
+                    SI: 'Slovenia',
+                    SK: 'Slovakia',
+                    SM: 'San Marino',
+                    SN: 'Senegal',
+                    TN: 'Tunisia',
+                    TR: 'Turkey',
+                    VG: 'Virgin Islands, British'
+                }
+            }
         }
     });
 
@@ -3564,17 +3690,18 @@ if (typeof jQuery === 'undefined') {
                 country = validator.getDynamicOption($field, country);
             }
 
+            var locale = validator.getLocale();
             if (!this.REGEX[country]) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.iban.countryNotSupported, country)
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].iban.countryNotSupported, country)
                 };
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.iban.country, $.fn.bootstrapValidator.i18n.iban.countries[country])
+                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
                 };
             }
 
@@ -3596,44 +3723,48 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: (temp === 1),
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.iban.country, $.fn.bootstrapValidator.i18n.iban.countries[country])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
             };
         }
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.id = $.extend($.fn.bootstrapValidator.i18n.id || {}, {
-        'default': 'Please enter a valid identification number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid identification number in %s',
-        countries: {
-            BA: 'Bosnia and Herzegovina',
-            BG: 'Bulgaria',
-            BR: 'Brazil',
-            CH: 'Switzerland',
-            CL: 'Chile',
-            CN: 'China',
-            CZ: 'Czech Republic',
-            DK: 'Denmark',
-            EE: 'Estonia',
-            ES: 'Spain',
-            FI: 'Finland',
-            HR: 'Croatia',
-            IE: 'Ireland',
-            IS: 'Iceland',
-            LT: 'Lithuania',
-            LV: 'Latvia',
-            ME: 'Montenegro',
-            MK: 'Macedonia',
-            NL: 'Netherlands',
-            RO: 'Romania',
-            RS: 'Serbia',
-            SE: 'Sweden',
-            SI: 'Slovenia',
-            SK: 'Slovakia',
-            SM: 'San Marino',
-            TH: 'Thailand',
-            ZA: 'South Africa'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            id: {
+                'default': 'Please enter a valid identification number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid identification number in %s',
+                countries: {
+                    BA: 'Bosnia and Herzegovina',
+                    BG: 'Bulgaria',
+                    BR: 'Brazil',
+                    CH: 'Switzerland',
+                    CL: 'Chile',
+                    CN: 'China',
+                    CZ: 'Czech Republic',
+                    DK: 'Denmark',
+                    EE: 'Estonia',
+                    ES: 'Spain',
+                    FI: 'Finland',
+                    HR: 'Croatia',
+                    IE: 'Ireland',
+                    IS: 'Iceland',
+                    LT: 'Lithuania',
+                    LV: 'Latvia',
+                    ME: 'Montenegro',
+                    MK: 'Macedonia',
+                    NL: 'Netherlands',
+                    RO: 'Romania',
+                    RS: 'Serbia',
+                    SE: 'Sweden',
+                    SI: 'Slovenia',
+                    SK: 'Slovakia',
+                    SM: 'San Marino',
+                    TH: 'Thailand',
+                    ZA: 'South Africa'
+                }
+            }
         }
     });
 
@@ -3670,7 +3801,8 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (!country) {
                 country = value.substr(0, 2);
             } else if (typeof country !== 'string' || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
@@ -3679,7 +3811,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.id.countryNotSupported, country) };
+                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].id.countryNotSupported, country) };
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -3687,7 +3819,7 @@ if (typeof jQuery === 'undefined') {
                     ? true
                     : {
                         valid: false,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.id.country, $.fn.bootstrapValidator.i18n.id.countries[country.toUpperCase()])
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].id.country, $.fn.bootstrapValidator.i18n[locale].id.countries[country.toUpperCase()])
                     };
         },
 
@@ -4978,8 +5110,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.identical = $.extend($.fn.bootstrapValidator.i18n.identical || {}, {
-        'default': 'Please enter the same value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            identical: {
+                'default': 'Please enter the same value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.identical = {
@@ -5018,8 +5154,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.imei = $.extend($.fn.bootstrapValidator.i18n.imei || {}, {
-        'default': 'Please enter a valid IMEI number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            imei: {
+                'default': 'Please enter a valid IMEI number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.imei = {
@@ -5062,8 +5202,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.imo = $.extend($.fn.bootstrapValidator.i18n.imo || {}, {
-        'default': 'Please enter a valid IMO number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            imo: {
+                'default': 'Please enter a valid IMO number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.imo = {
@@ -5107,8 +5251,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.integer = $.extend($.fn.bootstrapValidator.i18n.integer || {}, {
-        'default': 'Please enter a valid number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            integer: {
+                'default': 'Please enter a valid number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.integer = {
@@ -5139,10 +5287,14 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.ip = $.extend($.fn.bootstrapValidator.i18n.ip || {}, {
-        'default': 'Please enter a valid IP address',
-        ipv4: 'Please enter a valid IPv4 address',
-        ipv6: 'Please enter a valid IPv6 address'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            ip: {
+                'default': 'Please enter a valid IP address',
+                ipv4: 'Please enter a valid IPv4 address',
+                ipv6: 'Please enter a valid IPv6 address'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.ip = {
@@ -5170,7 +5322,8 @@ if (typeof jQuery === 'undefined') {
             }
             options = $.extend({}, { ipv4: true, ipv6: true }, options);
 
-            var ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+            var locale    = validator.getLocale(),
+                ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
                 ipv6Regex = /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/,
                 valid     = false,
                 message;
@@ -5178,19 +5331,19 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 case (options.ipv4 && !options.ipv6):
                     valid   = ipv4Regex.test(value);
-                    message = options.message || $.fn.bootstrapValidator.i18n.ip.ipv4;
+                    message = options.message || $.fn.bootstrapValidator.i18n[locale].ip.ipv4;
                     break;
 
                 case (!options.ipv4 && options.ipv6):
                     valid   = ipv6Regex.test(value);
-                    message = options.message || $.fn.bootstrapValidator.i18n.ip.ipv6;
+                    message = options.message || $.fn.bootstrapValidator.i18n[locale].ip.ipv6;
                     break;
 
                 case (options.ipv4 && options.ipv6):
                 /* falls through */
                 default:
                     valid   = ipv4Regex.test(value) || ipv6Regex.test(value);
-                    message = options.message || $.fn.bootstrapValidator.i18n.ip['default'];
+                    message = options.message || $.fn.bootstrapValidator.i18n[locale].ip['default'];
                     break;
             }
 
@@ -5201,8 +5354,12 @@ if (typeof jQuery === 'undefined') {
         }
     };
 }(window.jQuery));;(function($) {
-    $.fn.bootstrapValidator.i18n.isbn = $.extend($.fn.bootstrapValidator.i18n.isbn || {}, {
-        'default': 'Please enter a valid ISBN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            isbn: {
+                'default': 'Please enter a valid ISBN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.isbn = {
@@ -5287,8 +5444,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.isin = $.extend($.fn.bootstrapValidator.i18n.isin || {}, {
-        'default': 'Please enter a valid ISIN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            isin: {
+                'default': 'Please enter a valid ISIN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.isin = {
@@ -5346,8 +5507,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.ismn = $.extend($.fn.bootstrapValidator.i18n.ismn || {}, {
-        'default': 'Please enter a valid ISMN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            ismn: {
+                'default': 'Please enter a valid ISMN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.ismn = {
@@ -5405,8 +5570,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.issn = $.extend($.fn.bootstrapValidator.i18n.issn || {}, {
-        'default': 'Please enter a valid ISSN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            issn: {
+                'default': 'Please enter a valid ISSN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.issn = {
@@ -5451,9 +5620,13 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.lessThan = $.extend($.fn.bootstrapValidator.i18n.lessThan || {}, {
-        'default': 'Please enter a value less than or equal to %s',
-        notInclusive: 'Please enter a value less than %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            lessThan: {
+                'default': 'Please enter a value less than or equal to %s',
+                notInclusive: 'Please enter a value less than %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.lessThan = {
@@ -5502,18 +5675,19 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
+            var locale         = validator.getLocale(),
+                compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
                 compareToValue = this._format(compareTo);
 
             value = parseFloat(value);
             return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value <= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan['default'], compareTo)
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].lessThan['default'], compareTo)
                     }
                     : {
                         valid: value < compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan.notInclusive, compareTo)
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].lessThan.notInclusive, compareTo)
                     };
         },
 
@@ -5523,8 +5697,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.mac = $.extend($.fn.bootstrapValidator.i18n.mac || {}, {
-        'default': 'Please enter a valid MAC address'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            mac: {
+                'default': 'Please enter a valid MAC address'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.mac = {
@@ -5548,8 +5726,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.meid = $.extend($.fn.bootstrapValidator.i18n.meid || {}, {
-        'default': 'Please enter a valid MEID number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            meid: {
+                'default': 'Please enter a valid MEID number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.meid = {
@@ -5631,8 +5813,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.notEmpty = $.extend($.fn.bootstrapValidator.i18n.notEmpty || {}, {
-        'default': 'Please enter a value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            notEmpty: {
+                'default': 'Please enter a value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.notEmpty = {
@@ -5667,8 +5853,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.numeric = $.extend($.fn.bootstrapValidator.i18n.numeric || {}, {
-        'default': 'Please enter a valid float number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            numeric: {
+                'default': 'Please enter a valid float number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.numeric = {
@@ -5710,27 +5900,31 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.phone = $.extend($.fn.bootstrapValidator.i18n.phone || {}, {
-        'default': 'Please enter a valid phone number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid phone number in %s',
-        countries: {
-            BR: 'Brazil',
-            CN: 'China',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            ES: 'Spain',
-            FR: 'France',
-            GB: 'United Kingdom',
-            MA: 'Morocco',
-            PK: 'Pakistan',
-            RO: 'Romania',
-            RU: 'Russia',
-            SK: 'Slovakia',
-            TH: 'Thailand',
-            US: 'USA',
-            VE: 'Venezuela'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            phone: {
+                'default': 'Please enter a valid phone number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid phone number in %s',
+                countries: {
+                    BR: 'Brazil',
+                    CN: 'China',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    ES: 'Spain',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    MA: 'Morocco',
+                    PK: 'Pakistan',
+                    RO: 'Romania',
+                    RU: 'Russia',
+                    SK: 'Slovakia',
+                    TH: 'Thailand',
+                    US: 'USA',
+                    VE: 'Venezuela'
+                }
+            }
         }
     });
 
@@ -5765,7 +5959,8 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (typeof country !== 'string' || $.inArray(country, this.COUNTRY_CODES) === -1) {
                 // Try to determine the country
                 country = validator.getDynamicOption($field, country);
@@ -5774,7 +5969,7 @@ if (typeof jQuery === 'undefined') {
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.phone.countryNotSupported, country)
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].phone.countryNotSupported, country)
                 };
             }
 
@@ -5885,14 +6080,18 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.phone.country, $.fn.bootstrapValidator.i18n.phone.countries[country])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].phone.country, $.fn.bootstrapValidator.i18n[locale].phone.countries[country])
             };
         }
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.regexp = $.extend($.fn.bootstrapValidator.i18n.regexp || {}, {
-        'default': 'Please enter a value matching the pattern'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            regexp: {
+                'default': 'Please enter a value matching the pattern'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.regexp = {
@@ -5933,8 +6132,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.remote = $.extend($.fn.bootstrapValidator.i18n.remote || {}, {
-        'default': 'Please enter a valid value'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            remote: {
+                'default': 'Please enter a valid value'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.remote = {
@@ -6041,8 +6244,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.rtn = $.extend($.fn.bootstrapValidator.i18n.rtn || {}, {
-        'default': 'Please enter a valid RTN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            rtn: {
+                'default': 'Please enter a valid RTN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.rtn = {
@@ -6079,8 +6286,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.sedol = $.extend($.fn.bootstrapValidator.i18n.sedol || {}, {
-        'default': 'Please enter a valid SEDOL number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            sedol: {
+                'default': 'Please enter a valid SEDOL number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.sedol = {
@@ -6119,8 +6330,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.siren = $.extend($.fn.bootstrapValidator.i18n.siren || {}, {
-        'default': 'Please enter a valid SIREN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+		en_US: {
+			siren: {
+				'default': 'Please enter a valid SIREN number'
+			}
+		}
     });
 
 	$.fn.bootstrapValidator.validators.siren = {
@@ -6147,8 +6362,12 @@ if (typeof jQuery === 'undefined') {
 	};
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.siret = $.extend($.fn.bootstrapValidator.i18n.siret || {}, {
-        'default': 'Please enter a valid SIRET number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+		en_US: {
+			siret: {
+				'default': 'Please enter a valid SIRET number'
+			}
+		}
     });
 
 	$.fn.bootstrapValidator.validators.siret = {
@@ -6185,8 +6404,12 @@ if (typeof jQuery === 'undefined') {
 	};
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.step = $.extend($.fn.bootstrapValidator.i18n.step || {}, {
-        'default': 'Please enter a valid step of %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            step: {
+                'default': 'Please enter a valid step of %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.step = {
@@ -6240,18 +6463,23 @@ if (typeof jQuery === 'undefined') {
                     return round(x - y * Math.floor(x / y), precision);
                 };
 
-            var mod = floatMod(value - options.baseValue, options.step);
+            var locale = validator.getLocale(),
+                mod    = floatMod(value - options.baseValue, options.step);
             return {
                 valid: mod === 0.0 || mod === options.step,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.step['default'], [options.step])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].step['default'], [options.step])
             };
         }
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.stringCase = $.extend($.fn.bootstrapValidator.i18n.stringCase || {}, {
-        'default': 'Please enter only lowercase characters',
-        upper: 'Please enter only uppercase characters'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            stringCase: {
+                'default': 'Please enter only lowercase characters',
+                upper: 'Please enter only uppercase characters'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.stringCase = {
@@ -6276,20 +6504,25 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var stringCase = (options['case'] || 'lower').toLowerCase();
+            var locale     = validator.getLocale(),
+                stringCase = (options['case'] || 'lower').toLowerCase();
             return {
                 valid: ('upper' === stringCase) ? value === value.toUpperCase() : value === value.toLowerCase(),
-                message: options.message || (('upper' === stringCase) ? $.fn.bootstrapValidator.i18n.stringCase.upper : $.fn.bootstrapValidator.i18n.stringCase['default'])
+                message: options.message || (('upper' === stringCase) ? $.fn.bootstrapValidator.i18n[locale].stringCase.upper : $.fn.bootstrapValidator.i18n[locale].stringCase['default'])
             };
         }
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.stringLength = $.extend($.fn.bootstrapValidator.i18n.stringLength || {}, {
-        'default': 'Please enter a value with valid length',
-        less: 'Please enter less than %s characters',
-        more: 'Please enter more than %s characters',
-        between: 'Please enter value between %s and %s characters long'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            stringLength: {
+                'default': 'Please enter a value with valid length',
+                less: 'Please enter less than %s characters',
+                more: 'Please enter more than %s characters',
+                between: 'Please enter value between %s and %s characters long'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.stringLength = {
@@ -6345,7 +6578,8 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var min        = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
+            var locale     = validator.getLocale(),
+                min        = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
                 max        = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
                 // Credit to http://stackoverflow.com/a/23329386 (@lovasoa) for UTF-8 byte length code
                 utf8Length = function(str) {
@@ -6365,7 +6599,7 @@ if (typeof jQuery === 'undefined') {
                              },
                 length     = options.utf8Bytes ? utf8Length(value) : value.length,
                 isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n.stringLength['default'];
+                message    = options.message || $.fn.bootstrapValidator.i18n[locale].stringLength['default'];
 
             if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                 isValid = false;
@@ -6373,28 +6607,35 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (!!min && !!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.stringLength.more, parseInt(min, 10));
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.more, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.stringLength.less, parseInt(max, 10));
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.less, parseInt(max, 10));
                     break;
 
                 default:
                     break;
             }
 
-            return { valid: isValid, message: message };
+            return {
+                valid: isValid,
+                message: message
+            };
         }
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.uri = $.extend($.fn.bootstrapValidator.i18n.uri || {}, {
-        'default': 'Please enter a valid URI'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            uri: {
+                'default': 'Please enter a valid URI'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.uri = {
@@ -6502,9 +6743,13 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.uuid = $.extend($.fn.bootstrapValidator.i18n.uuid || {}, {
-        'default': 'Please enter a valid UUID number',
-        version: 'Please enter a valid UUID version %s number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            uuid: {
+                'default': 'Please enter a valid UUID number',
+                version: 'Please enter a valid UUID version %s number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.uuid = {
@@ -6531,7 +6776,8 @@ if (typeof jQuery === 'undefined') {
             }
 
             // See the format at http://en.wikipedia.org/wiki/Universally_unique_identifier#Variants_and_versions
-            var patterns = {
+            var locale   = validator.getLocale(),
+                patterns = {
                     '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
                     '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
                     '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
@@ -6541,55 +6787,59 @@ if (typeof jQuery === 'undefined') {
             return {
                 valid: (null === patterns[version]) ? true : patterns[version].test(value),
                 message: options.version
-                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.uuid.version, options.version)
-                            : (options.message || $.fn.bootstrapValidator.i18n.uuid['default'])
+                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].uuid.version, options.version)
+                            : (options.message || $.fn.bootstrapValidator.i18n[locale].uuid['default'])
             };
         }
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.vat = $.extend($.fn.bootstrapValidator.i18n.vat || {}, {
-        'default': 'Please enter a valid VAT number',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid VAT number in %s',
-        countries: {
-            AT: 'Austria',
-            BE: 'Belgium',
-            BG: 'Bulgaria',
-            BR: 'Brazil',
-            CH: 'Switzerland',
-            CY: 'Cyprus',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            EE: 'Estonia',
-            ES: 'Spain',
-            FI: 'Finland',
-            FR: 'France',
-            GB: 'United Kingdom',
-            GR: 'Greek',
-            EL: 'Greek',
-            HU: 'Hungary',
-            HR: 'Croatia',
-            IE: 'Ireland',
-            IS: 'Iceland',
-            IT: 'Italy',
-            LT: 'Lithuania',
-            LU: 'Luxembourg',
-            LV: 'Latvia',
-            MT: 'Malta',
-            NL: 'Netherlands',
-            NO: 'Norway',
-            PL: 'Poland',
-            PT: 'Portugal',
-            RO: 'Romania',
-            RU: 'Russia',
-            RS: 'Serbia',
-            SE: 'Sweden',
-            SI: 'Slovenia',
-            SK: 'Slovakia',
-            VE: 'Venezuela',
-            ZA: 'South Africa'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            vat: {
+                'default': 'Please enter a valid VAT number',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid VAT number in %s',
+                countries: {
+                    AT: 'Austria',
+                    BE: 'Belgium',
+                    BG: 'Bulgaria',
+                    BR: 'Brazil',
+                    CH: 'Switzerland',
+                    CY: 'Cyprus',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    EE: 'Estonia',
+                    ES: 'Spain',
+                    FI: 'Finland',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    GR: 'Greek',
+                    EL: 'Greek',
+                    HU: 'Hungary',
+                    HR: 'Croatia',
+                    IE: 'Ireland',
+                    IS: 'Iceland',
+                    IT: 'Italy',
+                    LT: 'Lithuania',
+                    LU: 'Luxembourg',
+                    LV: 'Latvia',
+                    MT: 'Malta',
+                    NL: 'Netherlands',
+                    NO: 'Norway',
+                    PL: 'Poland',
+                    PT: 'Portugal',
+                    RO: 'Romania',
+                    RU: 'Russia',
+                    RS: 'Serbia',
+                    SE: 'Sweden',
+                    SI: 'Slovenia',
+                    SK: 'Slovakia',
+                    VE: 'Venezuela',
+                    ZA: 'South Africa'
+                }
+            }
         }
     });
 
@@ -6626,7 +6876,8 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (!country) {
                 country = value.substr(0, 2);
             } else if (typeof country !== 'string' || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
@@ -6637,7 +6888,7 @@ if (typeof jQuery === 'undefined') {
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.vat.countryNotSupported, country)
+                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].vat.countryNotSupported, country)
                 };
             }
 
@@ -6646,7 +6897,7 @@ if (typeof jQuery === 'undefined') {
                 ? true
                 : {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.vat.country, $.fn.bootstrapValidator.i18n.vat.countries[country.toUpperCase()])
+                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].vat.country, $.fn.bootstrapValidator.i18n[locale].vat.countries[country.toUpperCase()])
                 };
         },
 
@@ -7965,8 +8216,12 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.vin = $.extend($.fn.bootstrapValidator.i18n.vin || {}, {
-        'default': 'Please enter a valid VIN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            vin: {
+                'default': 'Please enter a valid VIN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.vin = {
@@ -8014,31 +8269,35 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n.zipCode = $.extend($.fn.bootstrapValidator.i18n.zipCode || {}, {
-        'default': 'Please enter a valid postal code',
-        countryNotSupported: 'The country code %s is not supported',
-        country: 'Please enter a valid postal code in %s',
-        countries: {
-            AT: 'Austria',
-            BR: 'Brazil',
-            CA: 'Canada',
-            CH: 'Switzerland',
-            CZ: 'Czech Republic',
-            DE: 'Germany',
-            DK: 'Denmark',
-            FR: 'France',
-            GB: 'United Kingdom',
-            IE: 'Ireland',
-            IT: 'Italy',
-            MA: 'Morocco',
-            NL: 'Netherlands',
-            PT: 'Portugal',
-            RO: 'Romania',
-            RU: 'Russia',
-            SE: 'Sweden',
-            SG: 'Singapore',
-            SK: 'Slovakia',
-            US: 'USA'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            zipCode: {
+                'default': 'Please enter a valid postal code',
+                countryNotSupported: 'The country code %s is not supported',
+                country: 'Please enter a valid postal code in %s',
+                countries: {
+                    AT: 'Austria',
+                    BR: 'Brazil',
+                    CA: 'Canada',
+                    CH: 'Switzerland',
+                    CZ: 'Czech Republic',
+                    DE: 'Germany',
+                    DK: 'Denmark',
+                    FR: 'France',
+                    GB: 'United Kingdom',
+                    IE: 'Ireland',
+                    IT: 'Italy',
+                    MA: 'Morocco',
+                    NL: 'Netherlands',
+                    PT: 'Portugal',
+                    RO: 'Romania',
+                    RU: 'Russia',
+                    SE: 'Sweden',
+                    SG: 'Singapore',
+                    SK: 'Slovakia',
+                    US: 'USA'
+                }
+            }
         }
     });
 
@@ -8079,14 +8338,15 @@ if (typeof jQuery === 'undefined') {
                 return true;
             }
 
-            var country = options.country;
+            var locale  = validator.getLocale(),
+                country = options.country;
             if (typeof country !== 'string' || $.inArray(country, this.COUNTRY_CODES) === -1) {
                 // Try to determine the country
                 country = validator.getDynamicOption($field, country);
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n.zipCode.countryNotSupported, country) };
+                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].zipCode.countryNotSupported, country) };
             }
 
             var isValid = false;
@@ -8188,7 +8448,7 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.zipCode.country, $.fn.bootstrapValidator.i18n.zipCode.countries[country])
+                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].zipCode.country, $.fn.bootstrapValidator.i18n[locale].zipCode.countries[country])
             };
         },
 

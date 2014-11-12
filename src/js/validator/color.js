@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.color = $.extend($.fn.bootstrapValidator.i18n.color || {}, {
-        'default': 'Please enter a valid color'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            color: {
+                'default': 'Please enter a valid color'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.color = {

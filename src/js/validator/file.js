@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.file = $.extend($.fn.bootstrapValidator.i18n.file || {}, {
-        'default': 'Please choose a valid file'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            file: {
+                'default': 'Please choose a valid file'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.file = {

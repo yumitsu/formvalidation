@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.creditCard = $.extend($.fn.bootstrapValidator.i18n.creditCard || {}, {
-        'default': 'Please enter a valid credit card number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            creditCard: {
+                'default': 'Please enter a valid credit card number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.creditCard = {

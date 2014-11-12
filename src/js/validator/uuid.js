@@ -1,7 +1,11 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.uuid = $.extend($.fn.bootstrapValidator.i18n.uuid || {}, {
-        'default': 'Please enter a valid UUID number',
-        version: 'Please enter a valid UUID version %s number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            uuid: {
+                'default': 'Please enter a valid UUID number',
+                version: 'Please enter a valid UUID version %s number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.uuid = {
@@ -28,7 +32,8 @@
             }
 
             // See the format at http://en.wikipedia.org/wiki/Universally_unique_identifier#Variants_and_versions
-            var patterns = {
+            var locale   = validator.getLocale(),
+                patterns = {
                     '3': /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
                     '4': /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
                     '5': /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
@@ -38,8 +43,8 @@
             return {
                 valid: (null === patterns[version]) ? true : patterns[version].test(value),
                 message: options.version
-                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.uuid.version, options.version)
-                            : (options.message || $.fn.bootstrapValidator.i18n.uuid['default'])
+                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].uuid.version, options.version)
+                            : (options.message || $.fn.bootstrapValidator.i18n[locale].uuid['default'])
             };
         }
     };

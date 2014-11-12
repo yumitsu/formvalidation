@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.hex = $.extend($.fn.bootstrapValidator.i18n.hex || {}, {
-        'default': 'Please enter a valid hexadecimal number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            hex: {
+                'default': 'Please enter a valid hexadecimal number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.hex = {

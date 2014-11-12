@@ -1,7 +1,11 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.between = $.extend($.fn.bootstrapValidator.i18n.between || {}, {
-        'default': 'Please enter a value between %s and %s',
-        notInclusive: 'Please enter a value between %s and %s strictly'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            between: {
+                'default': 'Please enter a value between %s and %s',
+                notInclusive: 'Please enter a value between %s and %s strictly'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.between = {
@@ -53,7 +57,8 @@
                 return false;
             }
 
-            var min      = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
+            var locale   = validator.getLocale(),
+                min      = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
                 max      = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
                 minValue = this._format(min),
                 maxValue = this._format(max);
@@ -62,11 +67,11 @@
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= minValue && value <= maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between['default'], [min, max])
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].between['default'], [min, max])
                     }
                     : {
                         valid: value > minValue  && value <  maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.between.notInclusive, [min, max])
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].between.notInclusive, [min, max])
                     };
         },
 

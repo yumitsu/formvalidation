@@ -1,9 +1,13 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.stringLength = $.extend($.fn.bootstrapValidator.i18n.stringLength || {}, {
-        'default': 'Please enter a value with valid length',
-        less: 'Please enter less than %s characters',
-        more: 'Please enter more than %s characters',
-        between: 'Please enter value between %s and %s characters long'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            stringLength: {
+                'default': 'Please enter a value with valid length',
+                less: 'Please enter less than %s characters',
+                more: 'Please enter more than %s characters',
+                between: 'Please enter value between %s and %s characters long'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.stringLength = {
@@ -59,7 +63,8 @@
                 return true;
             }
 
-            var min        = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
+            var locale     = validator.getLocale(),
+                min        = $.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min),
                 max        = $.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max),
                 // Credit to http://stackoverflow.com/a/23329386 (@lovasoa) for UTF-8 byte length code
                 utf8Length = function(str) {
@@ -79,7 +84,7 @@
                              },
                 length     = options.utf8Bytes ? utf8Length(value) : value.length,
                 isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n.stringLength['default'];
+                message    = options.message || $.fn.bootstrapValidator.i18n[locale].stringLength['default'];
 
             if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                 isValid = false;
@@ -87,22 +92,25 @@
 
             switch (true) {
                 case (!!min && !!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.stringLength.more, parseInt(min, 10));
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.more, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.stringLength.less, parseInt(max, 10));
+                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.less, parseInt(max, 10));
                     break;
 
                 default:
                     break;
             }
 
-            return { valid: isValid, message: message };
+            return {
+                valid: isValid,
+                message: message
+            };
         }
     };
 }(window.jQuery));

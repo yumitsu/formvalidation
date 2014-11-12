@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.ean = $.extend($.fn.bootstrapValidator.i18n.ean || {}, {
-        'default': 'Please enter a valid EAN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            ean: {
+                'default': 'Please enter a valid EAN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.ean = {

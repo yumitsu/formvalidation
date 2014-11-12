@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.cusip = $.extend($.fn.bootstrapValidator.i18n.cusip || {}, {
-        'default': 'Please enter a valid CUSIP number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            cusip: {
+                'default': 'Please enter a valid CUSIP number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.cusip = {

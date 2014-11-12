@@ -1,7 +1,11 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.lessThan = $.extend($.fn.bootstrapValidator.i18n.lessThan || {}, {
-        'default': 'Please enter a value less than or equal to %s',
-        notInclusive: 'Please enter a value less than %s'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            lessThan: {
+                'default': 'Please enter a value less than or equal to %s',
+                notInclusive: 'Please enter a value less than %s'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.lessThan = {
@@ -50,18 +54,19 @@
                 return false;
             }
 
-            var compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
+            var locale         = validator.getLocale(),
+                compareTo      = $.isNumeric(options.value) ? options.value : validator.getDynamicOption($field, options.value),
                 compareToValue = this._format(compareTo);
 
             value = parseFloat(value);
             return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value <= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan['default'], compareTo)
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].lessThan['default'], compareTo)
                     }
                     : {
                         valid: value < compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n.lessThan.notInclusive, compareTo)
+                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].lessThan.notInclusive, compareTo)
                     };
         },
 

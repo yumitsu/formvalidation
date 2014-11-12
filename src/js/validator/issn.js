@@ -1,6 +1,10 @@
 (function($) {
-    $.fn.bootstrapValidator.i18n.issn = $.extend($.fn.bootstrapValidator.i18n.issn || {}, {
-        'default': 'Please enter a valid ISSN number'
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        en_US: {
+            issn: {
+                'default': 'Please enter a valid ISSN number'
+            }
+        }
     });
 
     $.fn.bootstrapValidator.validators.issn = {
