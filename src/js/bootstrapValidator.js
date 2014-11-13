@@ -168,7 +168,7 @@ if (typeof jQuery === 'undefined') {
             // Init the add-ons
             for (var addOn in this.options.addOns) {
                 if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].init) {
-                    $.fn.bootstrapValidator.addOns[addOn].init(this, that.options.addOns[addOn]);
+                    $.fn.bootstrapValidator.addOns[addOn].init(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -1794,7 +1794,7 @@ if (typeof jQuery === 'undefined') {
             // Destroy the add-ons
             for (var addOn in this.options.addOns) {
                 if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].destroy) {
-                    $.fn.bootstrapValidator.addOns[addOn].destroy(this);
+                    $.fn.bootstrapValidator.addOns[addOn].destroy(this, this.options.addOns[addOn]);
                 }
             }
 
