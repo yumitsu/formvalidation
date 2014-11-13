@@ -50,6 +50,7 @@ I would like to give big thanks to the following contributors:
 * [@jhadenfeldt](https://github.com/jhadenfeldt)
 * [@jjshoe](https://github.com/jjshoe)
 * [@johanronn77](https://github.com/johanronn77)
+* [@jonasesteves](https://github.com/jonasesteves)
 * [@jswale](https://github.com/jswale)
 * [@Jvanderheide](https://github.com/Jvanderheide)
 * [@jzhang6](https://github.com/jzhang6)
