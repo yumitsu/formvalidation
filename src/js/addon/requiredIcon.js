@@ -3,6 +3,10 @@
      * This add-ons shows required icons for mandatory fields
      */
     $.fn.bootstrapValidator.addOns.requiredIcon = {
+        html5Attributes: {
+            icon: 'icon'
+        },
+
         /**
          * @param {BootstrapValidator} validator The BootstrapValidator instance
          * @param {Object} options The add-on options that consists of keys:

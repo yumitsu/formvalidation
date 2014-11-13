@@ -19,7 +19,9 @@
                     <h2>requiredIcon add-on</h2>
                 </div>
 
-                <form id="defaultForm" method="post" class="form-horizontal" action="/demo/target.php">
+                <form id="defaultForm" method="post" class="form-horizontal" action="/demo/target.php"
+                        data-bv-addons="requiredIcon"
+                        data-bv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-5">
@@ -63,6 +65,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+    // You can enable and set add-on options via HTML attributes
+    // <form
+    //      data-bv-addons="requiredIcon, otherAddOn, anotherOne"
+    //      data-bv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
     $('#defaultForm')
         .bootstrapValidator({
             addOns: {
