@@ -48,4 +48,4 @@
             };
         }
     };
-}(window.jQuery));
+}(jQuery));

@@ -96,7 +96,10 @@ module.exports = function(grunt) {
                 onevar: true,
                 sub: true,
                 undef: true,
-                white: true
+                white: true,
+                globals: {
+                    jQuery: false
+                }
             }
         },
 

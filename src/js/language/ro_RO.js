@@ -369,4 +369,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

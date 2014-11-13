@@ -25,4 +25,4 @@
             return /^\d+$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));

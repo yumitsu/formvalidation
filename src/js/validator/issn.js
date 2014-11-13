@@ -47,4 +47,4 @@
             return (sum % 11 === 0);
         }
     };
-}(window.jQuery));
+}(jQuery));

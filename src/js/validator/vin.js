@@ -50,4 +50,4 @@
             return (reminder + '') === value.charAt(8);
         }
     };
-}(window.jQuery));
+}(jQuery));

@@ -42,4 +42,4 @@
             return dfd;
         }
     };
-}(window.jQuery));
+}(jQuery));

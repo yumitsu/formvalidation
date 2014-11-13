@@ -49,4 +49,4 @@
             return isValid;
         }
     };
-}(window.jQuery));
+}(jQuery));

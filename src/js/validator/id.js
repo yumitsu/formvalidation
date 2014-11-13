@@ -1379,4 +1379,4 @@
             return $.fn.bootstrapValidator.helpers.luhn(value);
         }
     };
-}(window.jQuery));
+}(jQuery));

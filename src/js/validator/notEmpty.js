@@ -37,4 +37,4 @@
             return $.trim($field.val()) !== '';
         }
     };
-}(window.jQuery));
+}(jQuery));

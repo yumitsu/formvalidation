@@ -38,4 +38,4 @@
             };
         }
     };
-}(window.jQuery));
+}(jQuery));

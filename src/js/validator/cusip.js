@@ -56,4 +56,4 @@
             return sum === parseInt(converted[length - 1], 10);
         }
     };
-}(window.jQuery));
+}(jQuery));

@@ -109,4 +109,4 @@
             }
         }
     };
-}(window.jQuery));
+}(jQuery));

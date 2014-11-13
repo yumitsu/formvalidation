@@ -65,4 +65,4 @@
             };
         }
     };
-}(window.jQuery));
+}(jQuery));

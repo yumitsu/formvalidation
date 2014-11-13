@@ -81,4 +81,4 @@
             return $.fn.bootstrapValidator.validators.notEmpty.validate(validator, $field);
         }
     };
-}(window.jQuery));
+}(jQuery));

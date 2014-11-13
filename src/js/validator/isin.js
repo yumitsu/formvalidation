@@ -60,4 +60,4 @@
             return sum + '' === value.charAt(length - 1);
         }
     };
-}(window.jQuery));
+}(jQuery));

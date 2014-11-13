@@ -44,4 +44,4 @@
             return !isNaN(parseFloat(value)) && isFinite(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
