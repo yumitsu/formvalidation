@@ -232,14 +232,14 @@
          * @returns {Boolean}
          */
         _br: function(value) {
-            if (/^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(value)) {
-                return false;
-            }
+            
             if (!/^\d{11}$/.test(value) && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(value)) {
                 return false;
             }
             value = value.replace(/\./g, '').replace(/-/g, '');
-
+            if (/^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(value)) {
+                return false;
+            }
             var d1 = 0;
             for (var i = 0; i < 9; i++) {
                 d1 += (10 - i) * parseInt(value.charAt(i), 10);
