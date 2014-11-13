@@ -19,8 +19,7 @@
                     <h2>oneMessage add-on</h2>
                 </div>
 
-                <form id="defaultForm" method="post" class="form-horizontal" action="/demo/target.php"
-                        data-bv-addons="oneMessage">
+                <form id="defaultForm" method="post" class="form-horizontal" action="/demo/target.php">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Username</label>
                         <div class="col-sm-6">
@@ -42,6 +41,9 @@
 $(document).ready(function() {
     $('#defaultForm')
         .bootstrapValidator({
+            addOns: {
+                oneMessage: {}
+            },
             feedbackIcons: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
