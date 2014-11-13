@@ -70,6 +70,7 @@ if (typeof jQuery === 'undefined') {
         _init: function() {
             var that    = this,
                 options = {
+                    addOns:         {},
                     autoFocus:      this.$form.attr('data-bv-autofocus'),
                     container:      this.$form.attr('data-bv-container'),
                     events: {
@@ -132,6 +133,9 @@ if (typeof jQuery === 'undefined') {
 
             this.options = $.extend(true, this.options, options);
 
+            // Parse the add-on options from HTML attributes
+            this.options = $.extend(true, this.options, { addOns: this._parseAddOnOptions() });
+
             // When pressing Enter on any field in the form, the first submit button will do its job.
             // The form then will be submitted.
             // I create a first hidden submit button
@@ -161,6 +165,13 @@ if (typeof jQuery === 'undefined') {
                 this._initField(field);
             }
 
+            // Init the add-ons
+            for (var addOn in this.options.addOns) {
+                if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].init) {
+                    $.fn.bootstrapValidator.addOns[addOn].init(this, that.options.addOns[addOn]);
+                }
+            }
+
             this.$form.trigger($.Event(this.options.events.formInit), {
                 bv: this,
                 options: this.options
@@ -177,6 +188,44 @@ if (typeof jQuery === 'undefined') {
                     $.fn.bootstrapValidator.helpers.call(that.options.onError, [e]);
                 });
             }
+        },
+
+        /**
+         * Parse the add-on options from HTML attributes
+         *
+         * @returns {Object}
+         */
+        _parseAddOnOptions: function() {
+            var names  = this.$form.attr('data-bv-addons'),
+                addOns = this.options.addOns || {};
+
+            if (names) {
+                names = names.replace(/\s/g, '').split(',');
+                for (var i = 0; i < names.length; i++) {
+                    if (!addOns[names[i]]) {
+                        addOns[names[i]] = {};
+                    }
+                }
+            }
+
+            // Try to parse each add-on options
+            var addOn, attrMap, attr;
+            for (addOn in addOns) {
+                if (!$.fn.bootstrapValidator.addOns[addOn]) {
+                    // Add-on is not found
+                    delete addOns[addOn];
+                    continue;
+                }
+
+                attrMap = $.fn.bootstrapValidator.addOns[addOn].html5Attributes;
+                if (attrMap) {
+                    for (attr in attrMap) {
+                        addOns[addOn][attr] = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase()) || null;
+                    }
+                }
+            }
+
+            return addOns;
         },
 
         /**
@@ -1291,6 +1340,15 @@ if (typeof jQuery === 'undefined') {
         // ---
 
         /**
+         * Get the form element
+         *
+         * @returns {jQuery}
+         */
+        getForm: function() {
+            return this.$form;
+        },
+
+        /**
          * Get the list of invalid fields
          *
          * @returns {jQuery[]}
@@ -1733,6 +1791,13 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
+            // Destroy the add-ons
+            for (var addOn in this.options.addOns) {
+                if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].destroy) {
+                    $.fn.bootstrapValidator.addOns[addOn].destroy(this);
+                }
+            }
+
             this.disableSubmitButtons(false);   // Enable submit buttons
             this.$hiddenButton.remove();        // Remove the hidden button
 
@@ -1884,6 +1949,9 @@ if (typeof jQuery === 'undefined') {
 
     // Available validators
     $.fn.bootstrapValidator.validators  = {};
+
+    // Add-ons
+    $.fn.bootstrapValidator.addOns      = {};
 
     // i18n
     $.fn.bootstrapValidator.i18n        = {};

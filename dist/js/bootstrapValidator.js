@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-12 3:08:41 PM
+ * @version     v0.6.0-dev, built on 2014-11-13 11:11:15 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -70,6 +70,7 @@ if (typeof jQuery === 'undefined') {
         _init: function() {
             var that    = this,
                 options = {
+                    addOns:         {},
                     autoFocus:      this.$form.attr('data-bv-autofocus'),
                     container:      this.$form.attr('data-bv-container'),
                     events: {
@@ -132,6 +133,9 @@ if (typeof jQuery === 'undefined') {
 
             this.options = $.extend(true, this.options, options);
 
+            // Parse the add-on options from HTML attributes
+            this.options = $.extend(true, this.options, { addOns: this._parseAddOnOptions() });
+
             // When pressing Enter on any field in the form, the first submit button will do its job.
             // The form then will be submitted.
             // I create a first hidden submit button
@@ -161,6 +165,13 @@ if (typeof jQuery === 'undefined') {
                 this._initField(field);
             }
 
+            // Init the add-ons
+            for (var addOn in this.options.addOns) {
+                if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].init) {
+                    $.fn.bootstrapValidator.addOns[addOn].init(this, that.options.addOns[addOn]);
+                }
+            }
+
             this.$form.trigger($.Event(this.options.events.formInit), {
                 bv: this,
                 options: this.options
@@ -177,6 +188,44 @@ if (typeof jQuery === 'undefined') {
                     $.fn.bootstrapValidator.helpers.call(that.options.onError, [e]);
                 });
             }
+        },
+
+        /**
+         * Parse the add-on options from HTML attributes
+         *
+         * @returns {Object}
+         */
+        _parseAddOnOptions: function() {
+            var names  = this.$form.attr('data-bv-addons'),
+                addOns = this.options.addOns || {};
+
+            if (names) {
+                names = names.replace(/\s/g, '').split(',');
+                for (var i = 0; i < names.length; i++) {
+                    if (!addOns[names[i]]) {
+                        addOns[names[i]] = {};
+                    }
+                }
+            }
+
+            // Try to parse each add-on options
+            var addOn, attrMap, attr;
+            for (addOn in addOns) {
+                if (!$.fn.bootstrapValidator.addOns[addOn]) {
+                    // Add-on is not found
+                    delete addOns[addOn];
+                    continue;
+                }
+
+                attrMap = $.fn.bootstrapValidator.addOns[addOn].html5Attributes;
+                if (attrMap) {
+                    for (attr in attrMap) {
+                        addOns[addOn][attr] = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase()) || null;
+                    }
+                }
+            }
+
+            return addOns;
         },
 
         /**
@@ -1291,6 +1340,15 @@ if (typeof jQuery === 'undefined') {
         // ---
 
         /**
+         * Get the form element
+         *
+         * @returns {jQuery}
+         */
+        getForm: function() {
+            return this.$form;
+        },
+
+        /**
          * Get the list of invalid fields
          *
          * @returns {jQuery[]}
@@ -1733,6 +1791,13 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
+            // Destroy the add-ons
+            for (var addOn in this.options.addOns) {
+                if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].destroy) {
+                    $.fn.bootstrapValidator.addOns[addOn].destroy(this);
+                }
+            }
+
             this.disableSubmitButtons(false);   // Enable submit buttons
             this.$hiddenButton.remove();        // Remove the hidden button
 
@@ -1884,6 +1949,9 @@ if (typeof jQuery === 'undefined') {
 
     // Available validators
     $.fn.bootstrapValidator.validators  = {};
+
+    // Add-ons
+    $.fn.bootstrapValidator.addOns      = {};
 
     // i18n
     $.fn.bootstrapValidator.i18n        = {};
@@ -2049,7 +2117,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             base64: {
                 'default': 'Please enter a valid base 64 encoded'
             }
@@ -2078,7 +2146,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             between: {
                 'default': 'Please enter a value between %s and %s',
                 notInclusive: 'Please enter a value between %s and %s strictly'
@@ -2189,7 +2257,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             callback: {
                 'default': 'Please enter a valid value'
             }
@@ -2234,7 +2302,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             choice: {
                 'default': 'Please enter a valid value',
                 less: 'Please choose %s options at minimum',
@@ -2307,7 +2375,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             color: {
                 'default': 'Please enter a valid color'
             }
@@ -2445,7 +2513,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             creditCard: {
                 'default': 'Please enter a valid credit card number'
             }
@@ -2552,7 +2620,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             cusip: {
                 'default': 'Please enter a valid CUSIP number'
             }
@@ -2611,7 +2679,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             cvv: {
                 'default': 'Please enter a valid CVV number'
             }
@@ -2731,7 +2799,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             date: {
                 'default': 'Please enter a valid date',
                 min: 'Please enter a date after %s',
@@ -2994,7 +3062,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             different: {
                 'default': 'Please enter a different value'
             }
@@ -3046,7 +3114,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             digits: {
                 'default': 'Please enter only digits'
             }
@@ -3074,7 +3142,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             ean: {
                 'default': 'Please enter a valid EAN number'
             }
@@ -3118,7 +3186,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             emailAddress: {
                 'default': 'Please enter a valid email address'
             }
@@ -3209,7 +3277,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             file: {
                 'default': 'Please choose a valid file'
             }
@@ -3301,7 +3369,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             greaterThan: {
                 'default': 'Please enter a value greater than or equal to %s',
                 notInclusive: 'Please enter a value greater than %s'
@@ -3378,7 +3446,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             grid: {
                 'default': 'Please enter a valid GRId number'
             }
@@ -3419,7 +3487,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             hex: {
                 'default': 'Please enter a valid hexadecimal number'
             }
@@ -3448,7 +3516,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             hexColor: {
                 'default': 'Please enter a valid hex color'
             }
@@ -3485,7 +3553,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
                 countryNotSupported: 'The country code %s is not supported',
@@ -3736,7 +3804,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             id: {
                 'default': 'Please enter a valid identification number',
                 countryNotSupported: 'The country code %s is not supported',
@@ -5117,7 +5185,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             identical: {
                 'default': 'Please enter the same value'
             }
@@ -5161,7 +5229,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             imei: {
                 'default': 'Please enter a valid IMEI number'
             }
@@ -5209,7 +5277,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             imo: {
                 'default': 'Please enter a valid IMO number'
             }
@@ -5258,7 +5326,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             integer: {
                 'default': 'Please enter a valid number'
             }
@@ -5294,7 +5362,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             ip: {
                 'default': 'Please enter a valid IP address',
                 ipv4: 'Please enter a valid IPv4 address',
@@ -5361,7 +5429,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(window.jQuery));;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             isbn: {
                 'default': 'Please enter a valid ISBN number'
             }
@@ -5451,7 +5519,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             isin: {
                 'default': 'Please enter a valid ISIN number'
             }
@@ -5514,7 +5582,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             ismn: {
                 'default': 'Please enter a valid ISMN number'
             }
@@ -5577,7 +5645,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             issn: {
                 'default': 'Please enter a valid ISSN number'
             }
@@ -5627,7 +5695,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             lessThan: {
                 'default': 'Please enter a value less than or equal to %s',
                 notInclusive: 'Please enter a value less than %s'
@@ -5704,7 +5772,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             mac: {
                 'default': 'Please enter a valid MAC address'
             }
@@ -5733,7 +5801,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             meid: {
                 'default': 'Please enter a valid MEID number'
             }
@@ -5820,7 +5888,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             notEmpty: {
                 'default': 'Please enter a value'
             }
@@ -5860,7 +5928,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             numeric: {
                 'default': 'Please enter a valid float number'
             }
@@ -5907,7 +5975,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
                 countryNotSupported: 'The country code %s is not supported',
@@ -6093,7 +6161,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             regexp: {
                 'default': 'Please enter a value matching the pattern'
             }
@@ -6139,7 +6207,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             remote: {
                 'default': 'Please enter a valid value'
             }
@@ -6251,7 +6319,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             rtn: {
                 'default': 'Please enter a valid RTN number'
             }
@@ -6293,7 +6361,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             sedol: {
                 'default': 'Please enter a valid SEDOL number'
             }
@@ -6337,7 +6405,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-		en_US: {
+		'en_US': {
 			siren: {
 				'default': 'Please enter a valid SIREN number'
 			}
@@ -6369,7 +6437,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-		en_US: {
+		'en_US': {
 			siret: {
 				'default': 'Please enter a valid SIRET number'
 			}
@@ -6411,7 +6479,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             step: {
                 'default': 'Please enter a valid step of %s'
             }
@@ -6480,7 +6548,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             stringCase: {
                 'default': 'Please enter only lowercase characters',
                 upper: 'Please enter only uppercase characters'
@@ -6521,7 +6589,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             stringLength: {
                 'default': 'Please enter a value with valid length',
                 less: 'Please enter less than %s characters',
@@ -6637,7 +6705,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             uri: {
                 'default': 'Please enter a valid URI'
             }
@@ -6750,7 +6818,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             uuid: {
                 'default': 'Please enter a valid UUID number',
                 version: 'Please enter a valid UUID version %s number'
@@ -6801,7 +6869,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             vat: {
                 'default': 'Please enter a valid VAT number',
                 countryNotSupported: 'The country code %s is not supported',
@@ -8223,7 +8291,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             vin: {
                 'default': 'Please enter a valid VIN number'
             }
@@ -8276,7 +8344,7 @@ if (typeof jQuery === 'undefined') {
 }(window.jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             zipCode: {
                 'default': 'Please enter a valid postal code',
                 countryNotSupported: 'The country code %s is not supported',
