@@ -1,3 +1,4 @@
+/* global Recaptcha: false */
 (function($) {
     /**
      * This add-ons shows and validates a Google reCAPTCHA
@@ -79,7 +80,9 @@
                         }
                     })
                     .on('submit', function(e) {
-                        var captcha = Recaptcha.get_response();
+                        /* jshint camelcase: false */
+                        var captcha   = Recaptcha.get_response(),
+                            challenge = Recaptcha.get_challenge();
                         if (captcha === '') {
                             return false;
                         }
@@ -91,8 +94,8 @@
                             type: 'POST',
                             url: options.url,
                             data: {
-                                recaptcha_challenge_field: Recaptcha.get_challenge(),
-                                recaptcha_response_field: captcha
+                                'recaptcha_challenge_field': challenge,
+                                'recaptcha_response_field': captcha
                             },
                             dataType: 'json',
                             success: function(response) {
@@ -111,7 +114,7 @@
                             return true;
                         }
                     });
-            };
+            }
         }
     };
 }(window.jQuery));
