@@ -1,7 +1,7 @@
 <?php
 // Register the public and private keys at https://www.google.com/recaptcha/admin
-define('PUBLIC_KEY',  '6Ld6bP0SAAAAAJ8Hv9NOf85OulTX0C_1vPKf_7XH');
-define('PRIVATE_KEY', '6Ld6bP0SAAAAAK2ATA80-ffU2NDQoJcDi7NjXPMv');
+define('PUBLIC_KEY',  '6LfiX_0SAAAAAFGN6mRslurxcH4V1zXAfXIp3nv_');
+define('PRIVATE_KEY', '6LfiX_0SAAAAAH8Zu-YE4y3psgc7cZ84qQ7nZQic');
 
 // https://developers.google.com/recaptcha/docs/php
 require_once('recaptchalib.php');
@@ -16,6 +16,6 @@ $resp = recaptcha_check_answer(PRIVATE_KEY,
 
 echo json_encode(array(
     'valid'   => $resp->is_valid,
-    //'message' => $resp->error,
+    'message' => $resp->is_valid ? null : 'Hey, the captcha is wrong!',       // $resp->error,
 ));
 

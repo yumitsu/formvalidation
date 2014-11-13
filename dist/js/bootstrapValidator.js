@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-13 12:07:44 PM
+ * @version     v0.6.0-dev, built on 2014-11-13 3:59:51 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -209,7 +209,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Try to parse each add-on options
-            var addOn, attrMap, attr;
+            var addOn, attrMap, attr, option;
             for (addOn in addOns) {
                 if (!$.fn.bootstrapValidator.addOns[addOn]) {
                     // Add-on is not found
@@ -220,7 +220,10 @@ if (typeof jQuery === 'undefined') {
                 attrMap = $.fn.bootstrapValidator.addOns[addOn].html5Attributes;
                 if (attrMap) {
                     for (attr in attrMap) {
-                        addOns[addOn][attr] = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase()) || null;
+                        option = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
+                        if (option) {
+                            addOns[addOn][attrMap[attr]] = option;
+                        }
                     }
                 }
             }
@@ -557,8 +560,6 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].message;
                 case !!$.fn.bootstrapValidator.i18n[this._locale][validatorName]['default']:
                     return $.fn.bootstrapValidator.i18n[this._locale][validatorName]['default'];
-                case !!$.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default']:
-                    return $.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default'];
                 default:
                     return this.options.message;
             }

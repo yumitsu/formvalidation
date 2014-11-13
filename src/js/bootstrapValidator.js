@@ -209,7 +209,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Try to parse each add-on options
-            var addOn, attrMap, attr;
+            var addOn, attrMap, attr, option;
             for (addOn in addOns) {
                 if (!$.fn.bootstrapValidator.addOns[addOn]) {
                     // Add-on is not found
@@ -220,7 +220,10 @@ if (typeof jQuery === 'undefined') {
                 attrMap = $.fn.bootstrapValidator.addOns[addOn].html5Attributes;
                 if (attrMap) {
                     for (attr in attrMap) {
-                        addOns[addOn][attr] = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase()) || null;
+                        option = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
+                        if (option) {
+                            addOns[addOn][attrMap[attr]] = option;
+                        }
                     }
                 }
             }
@@ -557,8 +560,6 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].message;
                 case !!$.fn.bootstrapValidator.i18n[this._locale][validatorName]['default']:
                     return $.fn.bootstrapValidator.i18n[this._locale][validatorName]['default'];
-                case !!$.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default']:
-                    return $.fn.bootstrapValidator.i18n[this.DEFAULT_LOCALE][validatorName]['default'];
                 default:
                     return this.options.message;
             }

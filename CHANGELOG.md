@@ -9,6 +9,7 @@ __New Features__
 __Add-ons__
 * [#1116](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1116): Showing only one message each time
 * [#1126](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1126): Required icon
+* [#1132](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1132): Google reCAPTCHA add-on
 
 __Improvements__
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
