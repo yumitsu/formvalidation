@@ -28,7 +28,8 @@
          * You don't need to define it if the back-end URL above returns the message
          */
         init: function(validator, options) {
-            var that = this;
+            var that = this,
+                opts = validator.getOptions();
 
             if (typeof Recaptcha === 'undefined') {
                 throw new Error('reCaptcha add-on requires Google Recaptcha. Ensure that you include recaptcha_ajax.js to page');
@@ -47,7 +48,7 @@
 
                 validator
                     .getForm()
-                    .on('added.field.bv', function(e, data) {
+                    .on(opts.events.fieldAdded, function(e, data) {
                         // The field 'recaptcha_response_field' has just been added
                         if (data.field === that.CAPTCHA_FIELD) {
                             // Move icon to other position
@@ -70,7 +71,7 @@
                             }
                         }
                     })
-                    .on('success.validator.bv', function(e, data) {
+                    .on(opts.events.validatorSuccess, function(e, data) {
                         if (data.field === that.CAPTCHA_FIELD) {
                             // User enter a captcha
                             // Hide the feedback icon
