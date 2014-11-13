@@ -20,7 +20,8 @@
                 return;
             }
 
-            var opts = validator.getOptions();
+            var that = this,
+                opts = validator.getOptions();
 
             for (var field in opts.fields) {
                 validator.getFieldElements(field).each(function() {
@@ -28,7 +29,7 @@
                         $icon      = $field.data('bv.icon'),
                         validators = opts.fields[field].validators;    // The field validators
 
-                    if (validators.notEmpty) {
+                    if (validators.notEmpty && !that._isEmpty(validator, $field)) {
                         // The field uses notEmpty validator
                         // Add required icon
                         $icon.addClass(options.icon).show();
@@ -74,6 +75,10 @@
                             : $icon.removeClass(options.icon);
                     }
                 });
+        },
+
+        _isEmpty: function(validator, $field) {
+            return $.fn.bootstrapValidator.validators.notEmpty.validate(validator, $field);
         }
     };
 }(window.jQuery));
