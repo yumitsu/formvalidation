@@ -4,7 +4,7 @@
      * Translated by @figgaro
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        th_TH: {
+        'th_TH': {
             base64: {
                 'default': 'กรุณาระบุ base 64 encoded ให้ถูกต้อง'
             },

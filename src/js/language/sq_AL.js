@@ -4,7 +4,7 @@
      * Translated by @desaretiuss
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        sq_AL: {
+        'sq_AL': {
             base64: {
                 'default': 'Ju lutem përdorni sistemin e kodimit Base64'
             },

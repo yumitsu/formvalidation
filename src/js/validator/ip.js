@@ -1,6 +1,6 @@
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             ip: {
                 'default': 'Please enter a valid IP address',
                 ipv4: 'Please enter a valid IPv4 address',

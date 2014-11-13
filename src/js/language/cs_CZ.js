@@ -4,7 +4,7 @@
      * Translated by @AdwinTrave. Improved by @cuchac
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        cs_CZ: {
+        'cs_CZ': {
             base64: {
                 'default': 'Prosím zadejte správný base64'
             },

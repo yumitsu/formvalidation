@@ -1,6 +1,6 @@
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             uuid: {
                 'default': 'Please enter a valid UUID number',
                 version: 'Please enter a valid UUID version %s number'

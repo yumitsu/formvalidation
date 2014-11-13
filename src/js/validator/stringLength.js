@@ -1,6 +1,6 @@
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             stringLength: {
                 'default': 'Please enter a value with valid length',
                 less: 'Please enter less than %s characters',

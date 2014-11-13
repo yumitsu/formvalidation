@@ -1,6 +1,6 @@
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             meid: {
                 'default': 'Please enter a valid MEID number'
             }

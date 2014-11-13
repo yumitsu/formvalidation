@@ -4,7 +4,7 @@
      * Translated by @mraiur
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        bg_BG: {
+        'bg_BG': {
             base64: {
                 'default': 'Моля, въведете валиден base 64 кодиран'
             },

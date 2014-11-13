@@ -1,6 +1,6 @@
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        en_US: {
+        'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
                 countryNotSupported: 'The country code %s is not supported',

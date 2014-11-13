@@ -4,7 +4,7 @@
      * Translated by @trondulseth
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        no_NO: {
+        'no_NO': {
             base64: {
                 'default': 'Vennligst fyll ut dette feltet med en gyldig base64-kodet verdi'
             },

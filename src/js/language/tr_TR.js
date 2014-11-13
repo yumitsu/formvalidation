@@ -4,7 +4,7 @@
      * Translated By @CeRBeR666
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        tr_TR: {
+        'tr_TR': {
             base64: {
                 'default': 'Lütfen 64 bit tabanına uygun bir giriş yapınız'
             },
