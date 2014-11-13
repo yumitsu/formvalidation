@@ -4,7 +4,7 @@
      * Translated by @tsuyoshifujii
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        ja_JP: {
+        'ja_JP': {
             base64: {
                 'default': '有効なBase64エンコードを入力してください'
             },

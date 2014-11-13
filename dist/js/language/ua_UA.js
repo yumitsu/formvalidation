@@ -4,7 +4,7 @@
      * Translated by @oleg-voloshyn
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        ua_UA: {
+        'ua_UA': {
             base64: {
                 'default': 'Будь ласка, введіть коректний рядок base64'
             },

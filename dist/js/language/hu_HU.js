@@ -4,7 +4,7 @@
      * Translated by @blackfyre
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        hu_HU: {
+        'hu_HU': {
             base64: {
                 'default': 'Kérlek, hogy érvényes base 64 karakter láncot adj meg'
             },

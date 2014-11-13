@@ -4,7 +4,7 @@
      * Translated by @dokterpasta
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        be_NL: {
+        'be_NL': {
             base64: {
                 'default': 'Geef een geldige base 64 encoded tekst in'
             },

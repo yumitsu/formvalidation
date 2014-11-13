@@ -4,7 +4,7 @@
      * Translated by @egig
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        id_ID: {
+        'id_ID': {
             base64: {
                 'default': 'Silahkan isi karakter base 64 tersandi yang valid'
             },

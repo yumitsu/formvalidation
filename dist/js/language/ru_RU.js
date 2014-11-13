@@ -4,7 +4,7 @@
      * Translated by @cylon-v. Improved by @stepin, @oleg-voloshyn
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        ru_RU: {
+        'ru_RU': {
             base64: {
                 'default': 'Пожалуйста, введите корректную строку base64'
             },

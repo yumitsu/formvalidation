@@ -4,7 +4,7 @@
      * Translated by @ulsa
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        sv_SE: {
+        'sv_SE': {
             base64: {
                 'default': 'Vänligen mata in ett giltigt Base64-kodat värde'
             },

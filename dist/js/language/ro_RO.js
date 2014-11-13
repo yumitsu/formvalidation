@@ -4,7 +4,7 @@
      * Translated by @filipac
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        ro_RO: {
+        'ro_RO': {
             base64: {
                 'default': 'Te rog introdu un base64 valid'
             },

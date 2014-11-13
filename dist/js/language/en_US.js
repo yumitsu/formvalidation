@@ -4,7 +4,7 @@
      * The only reason I put it here is that you can clone it, and translate it into your language
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        en_US: {
+        'en_US': {
             base64: {
                 'default': 'Please enter a valid base 64 encoded'
             },

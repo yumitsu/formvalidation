@@ -4,7 +4,7 @@
      * Translated by @nghuuphuoc
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        vi_VN: {
+        'vi_VN': {
             base64: {
                 'default': 'Vui lòng nhập chuỗi mã hoá base64 hợp lệ'
             },

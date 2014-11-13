@@ -4,7 +4,7 @@
      * Translated by @yakidahan
      */
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
-        he_IL: {
+        'he_IL': {
             base64: {
                 'default': 'נא להזין ערך המקודד בבסיס 64'
             },
