@@ -6,6 +6,7 @@
                 countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid phone number in %s',
                 countries: {
+                    AE: 'United Arab Emirates',
                     BR: 'Brazil',
                     CN: 'China',
                     CZ: 'Czech Republic',
@@ -34,7 +35,7 @@
         },
 
         // The supported countries
-        COUNTRY_CODES: ['BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'MA', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
+        COUNTRY_CODES: ['AE', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'MA', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -74,6 +75,12 @@
 
             var isValid = true;
             switch (country.toUpperCase()) {
+                case 'AE':
+                    // Test: http://regexr.com/39tak
+                    value   = $.trim(value);
+                    isValid = (/^(((\+|00)?971[\s\.-]?(\(0\)[\s\.-]?)?|0)(\(5(0|2|5|6)\)|5(0|2|5|6)|2|3|4|6|7|9)|60)([\s\.-]?[0-9]){7}$/).test(value);
+                    break;
+
                 case 'BR':
                     // Test: http://regexr.com/399m1
                     value   = $.trim(value);
