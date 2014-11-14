@@ -237,6 +237,7 @@
                 countryNotSupported: 'Broj %s nije podržan',
                 country: 'Molimo da unesete ispravan broj telefona %s',
                 countries: {
+                    AE: 'Ujedinjenih Arapskih Emirata',
                     BR: 'Brazila',
                     CN: 'Kine',
                     CZ: 'Češke',

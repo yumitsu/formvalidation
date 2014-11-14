@@ -66,7 +66,7 @@ describe('phone', function() {
         expect(this.bv.isValid()).toBeFalsy();
     });
 
-    it('Emirates phone number', function() {
+    it('United Arab Emirates phone number', function() {
         this.bv.updateOption('phone', 'phone', 'country', 'AE');
 
         // Valid samples

@@ -237,6 +237,7 @@
                 countryNotSupported: 'Kodi i shtetit %s nuk është i mundësuar',
                 country: 'Ju lutem vendosni një numër telefoni të vlefshëm në %s',
                 countries: {
+                    AE: 'Emiratet e Bashkuara Arabe',
                     BR: 'Brazil',
                     CN: 'Kinë',
                     CZ: 'Republika Çeke',

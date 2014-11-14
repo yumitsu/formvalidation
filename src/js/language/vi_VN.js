@@ -237,6 +237,7 @@
                 countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',
                 country: 'Vui lòng nhập số điện thoại hợp lệ của %s',
                 countries: {
+                    AE: 'Tiểu vương quốc Ả Rập thống nhất',
                     BR: 'Brazil',
                     CN: 'Trung Quốc',
                     CZ: 'Séc',

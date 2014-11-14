@@ -237,6 +237,7 @@
                 countryNotSupported: 'Telefoní číslo pro %s není podporované',
                 country: 'Prosím zadejte správné telefoní číslo pro %s',
                 countries: {
+                    AE: 'Spojené arabské emiráty',
                     BR: 'Brazílii',
                     CN: 'Čína',
                     CZ: 'Českou Republiku',

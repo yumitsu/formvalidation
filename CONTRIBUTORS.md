@@ -91,6 +91,7 @@ I would like to give big thanks to the following contributors:
 * [@roryprimrose](https://github.com/roryprimrose)
 * [@rtbfreitas](https://github.com/rtbfreitas)
 * [@ryan2049](https://github.com/ryan2049)
+* [@s-a-y](https://github.com/s-a-y)
 * [@shamiao](https://github.com/shamiao)
 * [@shineability](https://github.com/shineability)
 * [@smeagol74](https://github.com/smeagol74)
@@ -112,5 +113,4 @@ I would like to give big thanks to the following contributors:
 * [@vaz](https://github.com/vaz)
 * [@yakidahan](https://github.com/yakidahan)
 * [@zmira](https://github.com/zmira)
-* [@s-a-y](https://github.com/s-a-y)
 * ... might be you! Let's [fork](https://github.com/nghuuphuoc/bootstrapvalidator/fork) and make a pull request.

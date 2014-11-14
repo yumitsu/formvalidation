@@ -237,6 +237,7 @@
                 countryNotSupported: 'Landskoden %s støttes desverre ikke',
                 country: 'Vennligst fyll ut dette feltet med et gyldig telefonnummer i %s',
                 countries: {
+                    AE: 'De Forente Arabiske Emirater',
                     BR: 'Brasil',
                     CN: 'Kina',
                     CZ: 'Tsjekkia',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

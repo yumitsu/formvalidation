@@ -237,6 +237,7 @@
                 countryNotSupported: '不支援 %s 國家',
                 country: '請輸入有效的 %s 國家的電話號碼',
                 countries: {
+                    AE: '阿聯酋',
                     BR: '巴西',
                     CN: '中国',
                     CZ: '捷克共和國',

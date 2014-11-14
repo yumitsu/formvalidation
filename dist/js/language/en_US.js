@@ -237,6 +237,7 @@
                 countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid phone number in %s',
                 countries: {
+                    AE: 'United Arab Emirates',
                     BR: 'Brazil',
                     CN: 'China',
                     CZ: 'Czech Republic',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

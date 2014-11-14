@@ -6500,6 +6500,7 @@ describe('phone', function() {
             '<form class="form-horizontal" id="phoneForm">',
                 '<div class="form-group">',
                     '<select class="form-control" name="country">',
+                        '<option value="AE">United Arab Emirates</option>',
                         '<option value="BR">Brazil</option>',
                         '<option value="CN">China</option>',
                         '<option value="CZ">Czech Republic</option>',
@@ -6559,6 +6560,31 @@ describe('phone', function() {
         this.$phone.val('012345678900');
         this.bv.validate();
         expect(this.bv.isValid()).toBeFalsy();
+    });
+
+    it('United Arab Emirates phone number', function() {
+        this.bv.updateOption('phone', 'phone', 'country', 'AE');
+
+        // Valid samples
+        var validSamples = [
+            '00971501234567',
+            '+971521234567',
+            '971551234567',
+            '971 56 123 4567',
+            '971-50-123-4567',
+            '971.4.123.4567',
+            '+971 (0) 4 1234567',
+            '971 (56) 1234567',
+            '0551234567',
+            '021234567',
+            '600-540-000'
+        ];
+        for (var i in validSamples) {
+            this.bv.resetForm();
+            this.$phone.val(validSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toBeTruthy();
+        }
     });
 
     it('Brazil phone number', function() {

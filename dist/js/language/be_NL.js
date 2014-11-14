@@ -237,6 +237,7 @@
                 countryNotSupported: 'De land code %s is niet ondersteund',
                 country: 'Geef een geldig telefoon nummer van %s',
                 countries: {
+                    AE: 'Verenigde Arabische Emiraten',
                     BR: 'Brazilië',
                     CN: 'China',
                     CZ: 'Tsjechische',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

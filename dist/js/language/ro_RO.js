@@ -237,6 +237,7 @@
                 countryNotSupported: 'Prefixul %s nu este suportat',
                 country: 'Te rog sa introduci un numar de telefon valid din %s',
                 countries: {
+                    AE: 'Emiratele Arabe unite',
                     BR: 'Brazilia',
                     CN: 'China',
                     CZ: 'Republica Cehia',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

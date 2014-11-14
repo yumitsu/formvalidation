@@ -237,6 +237,7 @@
                 countryNotSupported: '不支持 %s 国家或地区',
                 country: '请输入有效的 %s 国家或地区的电话号码',
                 countries: {
+                    AE: '阿联酋',
                     BR: '巴西',
                     CN: '中国',
                     CZ: '捷克共和国',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

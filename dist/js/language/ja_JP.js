@@ -237,6 +237,7 @@
                 countryNotSupported: 'カントリーコード%sはサポートされていません',
                 country: '有効な%sの電話番号を入力してください',
                 countries: {
+                    AE: 'アラブ首長国連邦',
                     BR: 'ブラジル',
                     CN: 'チャイナ',
                     CZ: 'チェコ共和国',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

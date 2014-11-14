@@ -237,6 +237,7 @@
                 countryNotSupported: '%s ülke kodu desteklenmemektedir',
                 country: 'Lütfen geçerli bir telefon numarası giriniz içinde %s',
                 countries: {
+                    AE: 'Birleşik Arap Emirlikleri',
                     BR: 'Brezilya',
                     CN: 'Çin',
                     CZ: 'Çek Cumhuriyeti',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

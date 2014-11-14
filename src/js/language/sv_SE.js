@@ -237,6 +237,7 @@
                 countryNotSupported: 'Landskoden %s stöds inte',
                 country: 'Vänligen mata in ett giltigt telefonnummer i %s',
                 countries: {
+                    AE: 'Förenade Arabemiraten',
                     BR: 'Brasilien',
                     CN: 'Kina',
                     CZ: 'Tjeckien',

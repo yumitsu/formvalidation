@@ -237,6 +237,7 @@
                 countryNotSupported: 'Il codice nazione %s non e supportato',
                 country: 'Si prega di inserire un numero di telefono valido per %s',
                 countries: {
+                    AE: 'Emirati Arabi Uniti',
                     BR: 'Brasile',
                     CN: 'Cina',
                     CZ: 'Republica Ceca',

@@ -237,6 +237,7 @@
                 countryNotSupported: 'Kode negara %s belum didukung',
                 country: 'Silahkan isi nomor telepon yang valid dalam %s',
                 countries: {
+                    AE: 'Uni Emirat Arab',
                     BR: 'Brazil',
                     CN: 'Cina',
                     CZ: 'Czech',
@@ -369,4 +370,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

@@ -237,6 +237,7 @@
                 countryNotSupported: 'De land code %s wordt niet ondersteund',
                 country: 'Voer een geldig telefoonnummer in uit %s',
                 countries: {
+                    AE: 'Verenigde Arabische Emiraten',
                     BR: 'Brazilië',
                     CN: 'China',
                     CZ: 'Tsjechische Republiek',

@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-13 10:27:05 PM
+ * @version     v0.6.0-dev, built on 2014-11-14 8:19:54 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -2144,7 +2144,7 @@ if (typeof jQuery === 'undefined') {
             return /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2226,7 +2226,7 @@ if (typeof jQuery === 'undefined') {
             return (value + '').replace(',', '.');
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.validators.blank = {
         /**
@@ -2255,7 +2255,7 @@ if (typeof jQuery === 'undefined') {
             return true;
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2300,7 +2300,7 @@ if (typeof jQuery === 'undefined') {
             return dfd;
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2373,7 +2373,7 @@ if (typeof jQuery === 'undefined') {
             return { valid: isValid, message: message };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2511,7 +2511,7 @@ if (typeof jQuery === 'undefined') {
             return regexInteger.test(value) || regexPercent.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2618,7 +2618,7 @@ if (typeof jQuery === 'undefined') {
             return false;
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2677,7 +2677,7 @@ if (typeof jQuery === 'undefined') {
             return sum === parseInt(converted[length - 1], 10);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -2797,7 +2797,7 @@ if (typeof jQuery === 'undefined') {
                         : (('AMERICAN_EXPRESS' === creditCardType) ? (value.length === 4) : (value.length === 3));
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3060,7 +3060,7 @@ if (typeof jQuery === 'undefined') {
             return new Date(year, month, day, hours, minutes, seconds);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3112,7 +3112,7 @@ if (typeof jQuery === 'undefined') {
             return isValid;
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3140,7 +3140,7 @@ if (typeof jQuery === 'undefined') {
             return /^\d+$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3184,7 +3184,7 @@ if (typeof jQuery === 'undefined') {
             return (sum + '' === value.charAt(length - 1));
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3275,7 +3275,7 @@ if (typeof jQuery === 'undefined') {
             return emailAddressArray;
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3367,7 +3367,7 @@ if (typeof jQuery === 'undefined') {
             return true;
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3444,7 +3444,7 @@ if (typeof jQuery === 'undefined') {
             return (value + '').replace(',', '.');
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3485,7 +3485,7 @@ if (typeof jQuery === 'undefined') {
             return $.fn.bootstrapValidator.helpers.mod37And36(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3514,7 +3514,7 @@ if (typeof jQuery === 'undefined') {
             return /^[0-9a-fA-F]+$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3551,7 +3551,7 @@ if (typeof jQuery === 'undefined') {
                         : /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -3802,7 +3802,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5184,7 +5184,7 @@ if (typeof jQuery === 'undefined') {
             return $.fn.bootstrapValidator.helpers.luhn(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5228,7 +5228,7 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5276,7 +5276,7 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5325,7 +5325,7 @@ if (typeof jQuery === 'undefined') {
             return sum % 10 === parseInt(digits.charAt(6), 10);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5361,7 +5361,7 @@ if (typeof jQuery === 'undefined') {
             return /^(?:-?(?:0|[1-9][0-9]*))$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5429,7 +5429,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));;(function($) {
+}(jQuery));;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
             isbn: {
@@ -5518,7 +5518,7 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5581,7 +5581,7 @@ if (typeof jQuery === 'undefined') {
             return sum + '' === value.charAt(length - 1);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5644,7 +5644,7 @@ if (typeof jQuery === 'undefined') {
             return (sum + '' === value.charAt(length - 1));
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5694,7 +5694,7 @@ if (typeof jQuery === 'undefined') {
             return (sum % 11 === 0);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5771,7 +5771,7 @@ if (typeof jQuery === 'undefined') {
             return (value + '').replace(',', '.');
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5800,7 +5800,7 @@ if (typeof jQuery === 'undefined') {
             return /^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5887,7 +5887,7 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5927,7 +5927,7 @@ if (typeof jQuery === 'undefined') {
             return $.trim($field.val()) !== '';
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5974,7 +5974,7 @@ if (typeof jQuery === 'undefined') {
             return !isNaN(parseFloat(value)) && isFinite(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -5983,6 +5983,7 @@ if (typeof jQuery === 'undefined') {
                 countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid phone number in %s',
                 countries: {
+                    AE: 'United Arab Emirates',
                     BR: 'Brazil',
                     CN: 'China',
                     CZ: 'Czech Republic',
@@ -6011,7 +6012,7 @@ if (typeof jQuery === 'undefined') {
         },
 
         // The supported countries
-        COUNTRY_CODES: ['BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'MA', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
+        COUNTRY_CODES: ['AE', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'MA', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -6051,6 +6052,12 @@ if (typeof jQuery === 'undefined') {
 
             var isValid = true;
             switch (country.toUpperCase()) {
+                case 'AE':
+                    // Test: http://regexr.com/39tak
+                    value   = $.trim(value);
+                    isValid = (/^(((\+|00)?971[\s\.-]?(\(0\)[\s\.-]?)?|0)(\(5(0|2|5|6)\)|5(0|2|5|6)|2|3|4|6|7|9)|60)([\s\.-]?[0-9]){7}$/).test(value);
+                    break;
+
                 case 'BR':
                     // Test: http://regexr.com/399m1
                     value   = $.trim(value);
@@ -6160,7 +6167,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6206,7 +6213,7 @@ if (typeof jQuery === 'undefined') {
             return regexp.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6318,7 +6325,7 @@ if (typeof jQuery === 'undefined') {
             }
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6360,7 +6367,7 @@ if (typeof jQuery === 'undefined') {
             return (sum !== 0 && sum % 10 === 0);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6404,7 +6411,7 @@ if (typeof jQuery === 'undefined') {
             return sum + '' === value.charAt(length - 1);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
 		'en_US': {
@@ -6436,7 +6443,7 @@ if (typeof jQuery === 'undefined') {
             return $.fn.bootstrapValidator.helpers.luhn(value);
 		}
 	};
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
 		'en_US': {
@@ -6478,7 +6485,7 @@ if (typeof jQuery === 'undefined') {
 			return (sum % 10 === 0);
 		}
 	};
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6547,7 +6554,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6588,7 +6595,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6704,7 +6711,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6817,7 +6824,7 @@ if (typeof jQuery === 'undefined') {
             return urlExp.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -6868,7 +6875,7 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -8290,7 +8297,7 @@ if (typeof jQuery === 'undefined') {
             return /^4[0-9]{9}$/.test(value);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -8343,7 +8350,7 @@ if (typeof jQuery === 'undefined') {
             return (reminder + '') === value.charAt(8);
         }
     };
-}(window.jQuery));
+}(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -8569,4 +8576,4 @@ if (typeof jQuery === 'undefined') {
             return false;
         }
     };
-}(window.jQuery));
+}(jQuery));

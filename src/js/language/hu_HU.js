@@ -237,6 +237,7 @@
                 countryNotSupported: 'A(z) %s országkód nem támogatott',
                 country: 'Kérlek, hogy %s érvényes telefonszámot adj meg',
                 countries: {
+                    AE: 'az Egyesült Arab Emírségekben', /* Special case */
                     BR: 'Brazíliában',
                     CN: 'Kínában',
                     CZ: 'Csehországban',
