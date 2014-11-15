@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-15 11:29:59 AM
+ * @version     v0.6.0-dev, built on 2014-11-15 11:50:17 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -130,7 +130,7 @@ if (typeof jQuery === 'undefined') {
 
             this.options = $.extend(true, this.options, options);
 
-            // Reset the locale is not found, reset it to default one
+            // If the locale is not found, reset it to default one
             if (!$.fn.bootstrapValidator.i18n[this.options.locale]) {
                 this.options.locale = $.fn.bootstrapValidator.DEFAULT_OPTIONS.locale;
             }
@@ -1931,7 +1931,7 @@ if (typeof jQuery === 'undefined') {
         // - submitted: The live validating is enabled after the form is submitted
         live: 'enabled',
 
-        // Locale
+        // Locale in the format of languagecode_COUNTRYCODE
         locale: 'en_US',
 
         // Default invalid message

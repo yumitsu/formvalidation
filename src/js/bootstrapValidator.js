@@ -130,7 +130,7 @@ if (typeof jQuery === 'undefined') {
 
             this.options = $.extend(true, this.options, options);
 
-            // Reset the locale is not found, reset it to default one
+            // If the locale is not found, reset it to default one
             if (!$.fn.bootstrapValidator.i18n[this.options.locale]) {
                 this.options.locale = $.fn.bootstrapValidator.DEFAULT_OPTIONS.locale;
             }
@@ -1931,7 +1931,7 @@ if (typeof jQuery === 'undefined') {
         // - submitted: The live validating is enabled after the form is submitted
         live: 'enabled',
 
-        // Locale
+        // Locale in the format of languagecode_COUNTRYCODE
         locale: 'en_US',
 
         // Default invalid message
