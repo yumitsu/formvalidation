@@ -14,6 +14,7 @@ I would like to give big thanks to the following contributors:
 * [@AlaskanShade](https://github.com/AlaskanShade)
 * [@alavers](https://github.com/alavers)
 * [@Arkni](https://github.com/Arkni)
+* [@ArnauAregall](https://github.com/ArnauAregall)
 * [@Azuka](https://github.com/Azuka)
 * [@bcamarneiro](https://github.com/bcamarneiro)
 * [@beeglebug](https://github.com/beeglebug)

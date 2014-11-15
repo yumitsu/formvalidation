@@ -28,6 +28,9 @@ __Document__
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
 
+__Language Packages__
+* [#1150](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1150): Add Catalan language package, thanks to [@ArnauAregall](https://github.com/ArnauAregall)
+
 ## v0.5.3 (2014-11-05)
 
 __New Features__
