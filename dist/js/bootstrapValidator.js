@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-15 7:41:26 AM
+ * @version     v0.6.0-dev, built on 2014-11-15 11:29:59 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -54,10 +54,6 @@ if (typeof jQuery === 'undefined') {
         // Field elements
         this._cacheFields = {};
 
-        // The default and current locales, defined by countrycode_LANGUAGECODE
-        this.DEFAULT_LOCALE = 'en_US';
-        this._locale        = 'en_US';
-
         this._init();
     };
 
@@ -95,6 +91,7 @@ if (typeof jQuery === 'undefined') {
                     },
                     group:          this.$form.attr('data-bv-group'),
                     live:           this.$form.attr('data-bv-live'),
+                    locale:         this.$form.attr('data-bv-locale'),
                     message:        this.$form.attr('data-bv-message'),
                     onError:        this.$form.attr('data-bv-onerror'),
                     onSuccess:      this.$form.attr('data-bv-onsuccess'),
@@ -132,6 +129,11 @@ if (typeof jQuery === 'undefined') {
                     });
 
             this.options = $.extend(true, this.options, options);
+
+            // Reset the locale is not found, reset it to default one
+            if (!$.fn.bootstrapValidator.i18n[this.options.locale]) {
+                this.options.locale = $.fn.bootstrapValidator.DEFAULT_OPTIONS.locale;
+            }
 
             // Parse the add-on options from HTML attributes
             this.options = $.extend(true, this.options, { addOns: this._parseAddOnOptions() });
@@ -558,8 +560,8 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].validators[validatorName].message;
                 case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case !!$.fn.bootstrapValidator.i18n[this._locale][validatorName]['default']:
-                    return $.fn.bootstrapValidator.i18n[this._locale][validatorName]['default'];
+                case !!$.fn.bootstrapValidator.i18n[this.options.locale][validatorName]['default']:
+                    return $.fn.bootstrapValidator.i18n[this.options.locale][validatorName]['default'];
                 default:
                     return this.options.message;
             }
@@ -1364,7 +1366,7 @@ if (typeof jQuery === 'undefined') {
          * @return {String}
          */
         getLocale: function() {
-            return this._locale;
+            return this.options.locale;
         },
 
         /**
@@ -1431,8 +1433,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {BootstrapValidator}
          */
         setLocale: function(locale) {
-            if (this._locale !== locale) {
-                this._locale = locale;
+            if (this.options.locale !== locale) {
+                this.options.locale = locale;
                 this.$form.find('[data-bv-field]').each(function() {
                     var $field   = $(this),
                         field    = $field.attr('data-bv-field'),
@@ -1928,6 +1930,9 @@ if (typeof jQuery === 'undefined') {
         // - disabled: Disable the live validating. The error messages are only shown after the form is submitted
         // - submitted: The live validating is enabled after the form is submitted
         live: 'enabled',
+
+        // Locale
+        locale: 'en_US',
 
         // Default invalid message
         message: 'This value is not valid',
