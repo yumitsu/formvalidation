@@ -16,7 +16,7 @@
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following key:
          * - message: The invalid message
-         * @returns {Boolean}
+         * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
             var value = $field.val();
@@ -96,7 +96,10 @@
                     if (value.substr(0, cards[type].prefix[i].length) === cards[type].prefix[i]     // Check the prefix
                         && $.inArray(value.length, cards[type].length) !== -1)                      // and length
                     {
-                        return true;
+                        return {
+                            valid: true,
+                            type: type
+                        };
                     }
                 }
             }

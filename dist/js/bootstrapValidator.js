@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-16 11:26:48 AM
+ * @version     v0.6.0-dev, built on 2014-11-16 1:58:58 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -2537,7 +2537,7 @@ if (typeof jQuery === 'undefined') {
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following key:
          * - message: The invalid message
-         * @returns {Boolean}
+         * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
             var value = $field.val();
@@ -2617,7 +2617,10 @@ if (typeof jQuery === 'undefined') {
                     if (value.substr(0, cards[type].prefix[i].length) === cards[type].prefix[i]     // Check the prefix
                         && $.inArray(value.length, cards[type].length) !== -1)                      // and length
                     {
-                        return true;
+                        return {
+                            valid: true,
+                            type: type
+                        };
                     }
                 }
             }

@@ -14,6 +14,7 @@ __Add-ons__
 * [#1132](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1132): Google reCAPTCHA add-on
 
 __Improvements__
+* [#1037](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1037): Show the credit card icon based on its type
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
 * [#1137](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1137): Use ```jQuery``` instead of ```window.jQuery```
 * [#1154](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1154): Allow to reuse data which is returned by the validator
