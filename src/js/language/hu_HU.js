@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Kérlek, hogy érvényes EAN számot ajd meg'
             },
+            ein: {
+                'default': 'Kérlek, hogy érvényes EIN számot ajd meg'
+            },
             emailAddress: {
                 'default': 'Kérlek, hogy érvényes email címet ajd meg'
             },

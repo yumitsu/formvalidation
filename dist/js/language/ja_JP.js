@@ -48,6 +48,9 @@
             ean: {
                 'default': '有効なEANコードを入力してください'
             },
+            ein: {
+                'default': '有効なEINコードを入力してください'
+            },
             emailAddress: {
                 'default': '有効なメールアドレスを入力してください'
             },

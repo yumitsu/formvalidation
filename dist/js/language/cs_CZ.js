@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Prosím zadejte správné EAN číslo'
             },
+            ein: {
+                'default': 'Prosím zadejte správné EIN číslo'
+            },
             emailAddress: {
                 'default': 'Prosím zadejte správnou emailovou adresu'
             },

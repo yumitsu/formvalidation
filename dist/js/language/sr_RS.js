@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Molimo da unesete ispravan EAN broj'
             },
+            ein: {
+                'default': 'Molimo da unesete ispravan EIN broj'
+            },
             emailAddress: {
                 'default': 'Molimo da unesete važeću e-mail adresu'
             },

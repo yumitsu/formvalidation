@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Lütfen geçerli bir EAN numarası giriniz'
             },
+            ein: {
+                'default': 'Lütfen geçerli bir EIN numarası giriniz'
+            },
             emailAddress: {
                 'default': 'Lütfen geçerli bir E-Mail adresi giriniz'
             },

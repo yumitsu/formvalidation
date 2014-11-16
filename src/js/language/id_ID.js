@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Silahkan isi nomor EAN yang valid'
             },
+            ein: {
+                'default': 'Silahkan isi nomor EIN yang valid'
+            },
             emailAddress: {
                 'default': 'Silahkan isi alamat email yang valid'
             },

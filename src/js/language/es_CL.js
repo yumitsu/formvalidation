@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Por favor ingrese un número EAN válido'
             },
+            ein: {
+                'default': 'Por favor ingrese un número EIN válido'
+            },
             emailAddress: {
                 'default': 'Por favor ingrese un email válido'
             },

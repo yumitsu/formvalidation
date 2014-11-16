@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Vänligen mata in ett giltigt EAN-nummer'
             },
+            ein: {
+                'default': 'Vänligen mata in ett giltigt EIN-nummer'
+            },
             emailAddress: {
                 'default': 'Vänligen mata in en giltig emailadress'
             },

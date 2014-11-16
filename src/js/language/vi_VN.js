@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Vui lòng nhập số EAN hợp lệ'
             },
+            ein: {
+                'default': 'Vui lòng nhập số EIN hợp lệ'
+            },
             emailAddress: {
                 'default': 'Vui lòng nhập địa chỉ email hợp lệ'
             },

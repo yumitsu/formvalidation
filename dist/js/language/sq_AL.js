@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Ju lutem vendosni një numër EAN të vlefshëm'
             },
+            ein: {
+                'default': 'Ju lutem vendosni një numër EIN të vlefshëm'
+            },
             emailAddress: {
                 'default': 'Ju lutem vendosni një adresë email të vlefshme'
             },

@@ -6,6 +6,7 @@ __New Features__
 * [#708](https://github.com/nghuuphuoc/bootstrapvalidator/issues/708), [#899](https://github.com/nghuuphuoc/bootstrapvalidator/issues/899): Add ```setLocale()``` and ```getLocale()``` methods to support multiple languages
 * [#1131](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1131): Support add-on
 * [#1140](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1140): Add UAE [phone number](http://bootstrapvalidator.com/validators/phone/) validator, thanks to [@s-a-y](https://github.com/s-a-y)
+* [#1153](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1153): Add EIN validator, thanks to [@joshuachestang](https://github.com/joshuachestang)
 
 __Add-ons__
 * [#1116](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1116): Showing only one message each time

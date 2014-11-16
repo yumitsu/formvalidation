@@ -48,6 +48,9 @@
             ean: {
                 'default': 'נא להזין מספר EAN תקין'
             },
+            ein: {
+                'default': 'נא להזין מספר EIN תקין'
+            },
             emailAddress: {
                 'default': 'נא להזין כתובת דוא"ל תקינה'
             },

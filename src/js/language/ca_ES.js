@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Si us plau introdueix un nombre EAN vàlid'
             },
+            ein: {
+                'default': 'Si us plau introdueix un nombre EIN vàlid'
+            },
             emailAddress: {
                 'default': 'Si us plau introdueix una adreça electrònica vàlida'
             },

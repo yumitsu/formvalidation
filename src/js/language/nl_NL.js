@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Voer een geldige EAN-code in'
             },
+            ein: {
+                'default': 'Voer een geldige EIN-code in'
+            },
             emailAddress: {
                 'default': 'Voer een geldig e-mailadres in'
             },

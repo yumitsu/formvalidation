@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Vennligst fyll ut dette feltet med et gyldig EAN-nummer'
             },
+            ein: {
+                'default': 'Vennligst fyll ut dette feltet med et gyldig EIN-nummer'
+            },
             emailAddress: {
                 'default': 'Vennligst fyll ut dette feltet med en gyldig epostadresse'
             },

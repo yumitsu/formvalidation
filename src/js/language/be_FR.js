@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Veuillez fournir un code-barre EAN valide'
             },
+            ein: {
+                'default': 'Veuillez fournir un code-barre EIN valide'
+            },
             emailAddress: {
                 'default': 'Veuillez fournir une adresse e-mail valide'
             },

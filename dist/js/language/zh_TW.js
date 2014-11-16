@@ -48,6 +48,9 @@
             ean: {
                 'default': '請輸入有效的EAN商品編碼'
             },
+            ein: {
+                'default': '請輸入有效的EIN商品編碼'
+            },
             emailAddress: {
                 'default': '請輸入有效的EMAIL'
             },

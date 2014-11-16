@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Geef een geldig EAN nummer'
             },
+            ein: {
+                'default': 'Geef een geldig EIN nummer'
+            },
             emailAddress: {
                 'default': 'Geef een geldig email adres op'
             },

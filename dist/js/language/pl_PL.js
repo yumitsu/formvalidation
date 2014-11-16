@@ -48,6 +48,9 @@
             ean: {
                 'default': 'Wprowadź poprawny numer EAN'
             },
+            ein: {
+                'default': 'Wprowadź poprawny numer EIN'
+            },
             emailAddress: {
                 'default': 'Wprowadź poprawny adres e-mail'
             },
