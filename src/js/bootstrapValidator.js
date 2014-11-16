@@ -1002,9 +1002,11 @@ if (typeof jQuery === 'undefined') {
                         });
                     }
                     // ... or object { valid: true/false, message: 'dynamic message' }
-                    else if ('object' === typeof validateResult && validateResult.valid !== undefined && validateResult.message !== undefined) {
+                    else if ('object' === typeof validateResult && validateResult.valid !== undefined) {
                         $field.data('bv.response.' + validatorName, validateResult);
-                        this.updateMessage(updateAll ? field : $field, validatorName, validateResult.message);
+                        if (validateResult.message) {
+                            this.updateMessage(updateAll ? field : $field, validatorName, validateResult.message);
+                        }
                         this.updateStatus(updateAll ? field : $field, validateResult.valid ? this.STATUS_VALID : this.STATUS_INVALID, validatorName);
                         if (!validateResult.valid && !verbose) {
                             break;
