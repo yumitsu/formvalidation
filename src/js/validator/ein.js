@@ -52,7 +52,7 @@
                     return {
                         valid: true,
                         campus: key
-                    }
+                    };
                 }
             }
 
