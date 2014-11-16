@@ -11,6 +11,7 @@
         html5Attributes: {
             message: 'message',
             allowlocal: 'allowLocal',
+            allowemptyprotocol: 'allowEmptyProtocol',
             protocol: 'protocol'
         },
 
@@ -72,6 +73,8 @@
                     "^" +
                     // protocol identifier
                     "(?:(?:" + protocol + ")://)" +
+                    // allow empty protocol
+                    (allowEmptyProtocol ? '?' : '') +
                     // user:pass authentication
                     "(?:\\S+(?::\\S*)?@)?" +
                     "(?:" +
