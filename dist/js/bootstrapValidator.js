@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-16 1:58:58 PM
+ * @version     v0.6.0-dev, built on 2014-11-18 4:15:00 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -717,7 +717,7 @@ if (typeof jQuery === 'undefined') {
             // Determined the first invalid field which will be focused on automatically
             for (var i = 0; i < this.$invalidFields.length; i++) {
                 var $field    = this.$invalidFields.eq(i),
-                    autoFocus = this._isOptionEnabled($field.attr('data-bv-field'), 'autoFocus');
+                    autoFocus = this.isOptionEnabled($field.attr('data-bv-field'), 'autoFocus');
                 if (autoFocus) {
                     // Activate the tab containing the field if exists
                     var $tabPane = $field.parents('.tab-pane'), tabId;
@@ -804,29 +804,12 @@ if (typeof jQuery === 'undefined') {
                 $field.trigger($.Event(this.options.events.fieldSuccess), data);
             }
             // If all validators are completed and there is at least one validator which doesn't pass
-            else if ((counter[this.STATUS_NOT_VALIDATED] === 0 || !this._isOptionEnabled(field, 'verbose')) && counter[this.STATUS_VALIDATING] === 0 && counter[this.STATUS_INVALID] > 0) {
+            else if ((counter[this.STATUS_NOT_VALIDATED] === 0 || !this.isOptionEnabled(field, 'verbose')) && counter[this.STATUS_VALIDATING] === 0 && counter[this.STATUS_INVALID] > 0) {
                 // Add to the list of invalid fields
                 this.$invalidFields = this.$invalidFields.add($field);
 
                 $field.trigger($.Event(this.options.events.fieldError), data);
             }
-        },
-
-        /**
-         * Check whether or not a field option is enabled
-         *
-         * @param {String} field The field name
-         * @param {String} option The option name, "verbose", "autoFocus", for example
-         * @returns {Boolean}
-         */
-        _isOptionEnabled: function(field, option) {
-            if (this.options.fields[field] && (this.options.fields[field][option] === 'true' || this.options.fields[field][option] === true)) {
-                return true;
-            }
-            if (this.options.fields[field] && (this.options.fields[field][option] === 'false' || this.options.fields[field][option] === false)) {
-                return false;
-            }
-            return this.options[option] === 'true' || this.options[option] === true;
         },
 
         // ---
@@ -897,6 +880,23 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Check whether or not a field option is enabled
+         *
+         * @param {String} field The field name
+         * @param {String} option The option name, "verbose", "autoFocus", for example
+         * @returns {Boolean}
+         */
+        isOptionEnabled: function(field, option) {
+            if (this.options.fields[field] && (this.options.fields[field][option] === 'true' || this.options.fields[field][option] === true)) {
+                return true;
+            }
+            if (this.options.fields[field] && (this.options.fields[field][option] === 'false' || this.options.fields[field][option] === false)) {
+                return false;
+            }
+            return this.options[option] === 'true' || this.options[option] === true;
+        },
+
+        /**
          * Validate the form
          *
          * @returns {BootstrapValidator}
@@ -947,7 +947,7 @@ if (typeof jQuery === 'undefined') {
                 total      = ('radio' === type || 'checkbox' === type) ? 1 : fields.length,
                 updateAll  = ('radio' === type || 'checkbox' === type),
                 validators = this.options.fields[field].validators,
-                verbose    = this._isOptionEnabled(field, 'verbose'),
+                verbose    = this.isOptionEnabled(field, 'verbose'),
                 validatorName,
                 validateResult;
 
