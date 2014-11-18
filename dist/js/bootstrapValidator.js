@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-18 4:15:00 PM
+ * @version     v0.6.0-dev, built on 2014-11-18 5:16:22 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -1435,21 +1435,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {BootstrapValidator}
          */
         setLocale: function(locale) {
-            if (this.options.locale !== locale) {
-                this.options.locale = locale;
-                this.$form.find('[data-bv-field]').each(function() {
-                    var $field   = $(this),
-                        field    = $field.attr('data-bv-field'),
-                        $message = $field.data('bv.messages');
-
-                    // Update the message in new locale
-                    $message.find('.help-block[data-bv-for="' + field + '"][data-bv-validator]').each(function() {
-                        var v = $(this).attr('data-bv-validator');
-                        $(this).html($.fn.bootstrapValidator.i18n[locale][v]['default']);
-                    });
-                });
-            }
-
+            this.options.locale = locale;
             this.$form.trigger($.Event(this.options.events.localeChanged), {
                 locale: locale,
                 bv: this

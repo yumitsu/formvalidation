@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../dist/js/bootstrapValidator.js"></script>
     <script type="text/javascript" src="../dist/js/language/vi_VN.js"></script>
     <script type="text/javascript" src="../dist/js/language/fr_FR.js"></script>
+    <script type="text/javascript" src="../src/js/addon/multilingual.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,7 +22,7 @@
                 </div>
 
                 <p>
-                    <button type="button" class="btn btn-default setLocaleButton" data-locale="en_US">Use default (English) package</button>
+                    <button type="button" class="btn btn-primary setLocaleButton" data-locale="en_US">Use default (English) package</button>
                     <button type="button" class="btn btn-default setLocaleButton" data-locale="vi_VN">Use Vietnamese package</button>
                     <button type="button" class="btn btn-default setLocaleButton" data-locale="fr_FR">Use French package</button>
                 </p>
@@ -89,6 +90,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#registrationForm').bootstrapValidator({
+        addOns: {
+            multilingual: {}
+        },
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -105,6 +109,13 @@ $(document).ready(function() {
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9]+$/
+                    },
+                    different: {
+                        field: 'password',
+                        message: {
+                            en_US: 'The username and password cannot be the same',
+                            vi_VN: 'Mật khẩu và tên đăng nhập phải khác nhau'
+                        }
                     }
                 }
             },
@@ -122,6 +133,15 @@ $(document).ready(function() {
                     },
                     stringLength: {
                         min: 8
+                    },
+                    different: {
+                        field: 'username',
+                        message: function(validator, $field, validatorName) {
+                            return {
+                                en_US: 'The password can\'t be same as username',
+                                vi_VN: 'Mật khẩu phải khác tên đăng nhập'
+                            };
+                        }
                     }
                 }
             },
@@ -145,7 +165,9 @@ $(document).ready(function() {
 
     // Change the locale
     $('.setLocaleButton').on('click', function() {
-         $('#registrationForm').bootstrapValidator('setLocale', $(this).attr('data-locale'));
+        $('.setLocaleButton').removeClass('btn-primary').addClass('btn-default');
+        $(this).removeClass('btn-default').addClass('btn-primary');
+        $('#registrationForm').bootstrapValidator('setLocale', $(this).attr('data-locale'));
     });
 });
 </script>

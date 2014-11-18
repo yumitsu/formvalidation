@@ -1435,21 +1435,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {BootstrapValidator}
          */
         setLocale: function(locale) {
-            if (this.options.locale !== locale) {
-                this.options.locale = locale;
-                this.$form.find('[data-bv-field]').each(function() {
-                    var $field   = $(this),
-                        field    = $field.attr('data-bv-field'),
-                        $message = $field.data('bv.messages');
-
-                    // Update the message in new locale
-                    $message.find('.help-block[data-bv-for="' + field + '"][data-bv-validator]').each(function() {
-                        var v = $(this).attr('data-bv-validator');
-                        $(this).html($.fn.bootstrapValidator.i18n[locale][v]['default']);
-                    });
-                });
-            }
-
+            this.options.locale = locale;
             this.$form.trigger($.Event(this.options.events.localeChanged), {
                 locale: locale,
                 bv: this
