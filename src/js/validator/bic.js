@@ -3,8 +3,8 @@
         'en_US': {
             bic: {
                 'default': 'Please enter a valid BIC code',
-                'invalidChars' : 'The first 6 characters must be letters',
-                'leadingZero': 'The number "0" was entered, but this should most likely be the letter "O"'
+                invalidChars : 'The first 6 characters must be letters',
+                leadingZero: 'The number "0" was entered, but this should most likely be the letter "O"'
             }
         }
     });
