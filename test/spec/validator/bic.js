@@ -55,7 +55,7 @@ describe('bic', function() {
             expect(this.bv.getMessages()[0]).toEqual(expectedMessage);
         }
 
-        // Errors after the first 6 chars should produce the standard error message
+        // Errors after the first 6 characters should produce the standard error message
         this.bv.resetForm();
         this.$bic.val('ASPKAT2LXXXX');
         this.bv.validate();
@@ -68,7 +68,7 @@ describe('bic', function() {
         // If one or more of the first 6 characters are 0 expect a special error message
         var locale = this.bv.getLocale();
         var invalidSamples = ['0ZOOAT2L303', 'R0OOAT2L303', 'RZ00AT2L303', 'RZOO002L303' ];
-        var expectedMessage = $.fn.bootstrapValidator.i18n[locale].bic.invalidChars + ' ' + $.fn.bootstrapValidator.i18n[locale].bic.leadingZero;
+        var expectedMessage = $.fn.bootstrapValidator.i18n[locale].bic.invalidChars + '. ' + $.fn.bootstrapValidator.i18n[locale].bic.leadingZero;
 
         for (i in invalidSamples) {
             this.bv.resetForm();
@@ -79,7 +79,7 @@ describe('bic', function() {
             expect(this.bv.getMessages()[0]).toEqual(expectedMessage);
         }
 
-        // Errors after the first 6 chars should produce the standard error message
+        // Errors after the first 6 characters should produce the standard error message
         this.bv.resetForm();
         this.$bic.val('ASPKAT2LXXXX');
         this.bv.validate();
