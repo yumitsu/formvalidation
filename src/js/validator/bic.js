@@ -34,6 +34,9 @@
                 return true;
             }
 
+            // For user convenience lower case letter are allowed
+            value = value.toUpperCase();
+
             var locale = validator.getLocale();
             var message = $.fn.bootstrapValidator.i18n[locale].bic.default;
             var valid = false;
