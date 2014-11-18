@@ -35,9 +35,6 @@
             }
 
             var locale = validator.getLocale();
-
-            console.log( locale );
-
             var message = $.fn.bootstrapValidator.i18n[locale].bic.default;
             var valid = false;
 
