@@ -15,6 +15,11 @@
             callback: {
                 'default': 'Bitte einen gültigen Wert eingeben'
             },
+            bic: {
+                'default': 'Bitte einen gültigen BIC Code eingeben',
+                invalidChars : 'Die ersten 6 Zeichen müssen Buchstaben sein',
+                leadingZero: 'Die Zahl "0" wurde eingegeben, diese sollte wahrscheinlich der Buchstabe "O" sein'
+            },
             choice: {
                 'default': 'Bitte einen gültigen Wert eingeben',
                 less: 'Bitte mindestens %s Werte eingeben',
