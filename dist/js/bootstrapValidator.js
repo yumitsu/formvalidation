@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-18 5:16:22 PM
+ * @version     v0.6.0-dev, built on 2014-11-19 10:05:01 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     Commercial: http://bootstrapvalidator.com/license/
@@ -2219,6 +2219,38 @@ if (typeof jQuery === 'undefined') {
             return (value + '').replace(',', '.');
         }
     };
+}(jQuery));
+;(function($) {
+    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+        'en_US': {
+            bic: {
+                'default': 'Please enter a valid BIC number'
+            }
+        }
+    });
+
+    $.fn.bootstrapValidator.validators.bic = {
+        /**
+         * Validate an Business Identifier Code (BIC), also known as ISO 9362, SWIFT-BIC, SWIFT ID or SWIFT code
+         *
+         * For more information see http://en.wikipedia.org/wiki/ISO_9362
+         *
+         * @todo The 5 and 6 characters are an ISO 3166-1 country code, this could also be validated
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Can consist of the following keys:
+         * - message: The invalid message
+         * @returns {Object}
+         */
+        validate: function(validator, $field, options) {
+            var value = $field.val();
+
+            if (value === '') {
+                return true;
+            }
+            return /^[a-zA-Z]{6}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?$/.test(value);
+        }
+    }
 }(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.validators.blank = {
