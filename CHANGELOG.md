@@ -24,6 +24,7 @@ __Improvements__
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
 * [#1137](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1137): Use ```jQuery``` instead of ```window.jQuery```
 * [#1154](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1154): Allow to reuse data which is returned by the validator
+* [#1156](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1156): Add option to set optional protocol in [uri](http://bootstrapvalidator.com/validators/uri/) validator, thanks to [@krecik](https://github.com/krecik)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work

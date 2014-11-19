@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-19 3:27:51 PM
+ * @version     v0.6.0-dev, built on 2014-11-19 11:20:34 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -6823,6 +6823,7 @@ if (typeof jQuery === 'undefined') {
         html5Attributes: {
             message: 'message',
             allowlocal: 'allowLocal',
+            allowemptyprotocol: 'allowEmptyProtocol',
             protocol: 'protocol'
         },
 
@@ -6878,12 +6879,17 @@ if (typeof jQuery === 'undefined') {
             //
             // - Added possibility of choosing a custom protocol
             //
-            var allowLocal = options.allowLocal === true || options.allowLocal === 'true',
-                protocol   = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
-                urlExp     = new RegExp(
+            // - Add option to validate without protocol
+            //
+            var allowLocal         = options.allowLocal === true || options.allowLocal === 'true',
+                allowEmptyProtocol = options.allowEmptyProtocol === true || options.allowEmptyProtocol === 'true',
+                protocol           = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
+                urlExp             = new RegExp(
                     "^" +
                     // protocol identifier
                     "(?:(?:" + protocol + ")://)" +
+                    // allow empty protocol
+                    (allowEmptyProtocol ? '?' : '') +
                     // user:pass authentication
                     "(?:\\S+(?::\\S*)?@)?" +
                     "(?:" +

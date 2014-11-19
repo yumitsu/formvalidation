@@ -90,7 +90,6 @@ describe('uri', function() {
         'j.mp',
         'foo.bar/baz',
         'foo.bar/?q=Test%20URL-encoded%20stuff',
-        'مثال.إختبار',
         '例子.测试',
         'उदाहरण.परीक्षा',
         "-.~_!$&'()*+,;=:%40:80%2f::::::@example.com",
@@ -163,67 +162,66 @@ describe('uri', function() {
     ];
 
     it('Valid URIs (allowLocal=false)', function() {
-        var me = this;
+        var that = this;
         $.each(validGlobalURIs, function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toBeTruthy();
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowLocal=false)', function() {
-        var me = this;
+        var that = this;
         $.each(invalidGlobalURIs.concat(localURIs), function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toEqual(false);
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toEqual(false);
         });
     });
 
     it('Valid URIs (allowLocal=true)', function() {
-        var me = this;
-        me.bv.updateOption('uri', 'uri', 'allowLocal', true);
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowLocal', true);
         $.each(validGlobalURIs.concat(localURIs), function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toBeTruthy();
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowLocal=true)', function() {
-        var me = this;
-        me.bv.updateOption('uri', 'uri', 'allowLocal', true);
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowLocal', true);
         $.each(invalidGlobalURIs, function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toEqual(false);
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toEqual(false);
         });
     });
 
     it('Valid URIs (allowEmptyProtocol=true)', function() {
-        var me = this;
-        me.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
         $.each(validGlobalURIs.concat(validEmptyProtocolURIs), function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toBeTruthy();
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowEmptyProtocol=true)', function() {
-        var me = this;
-        me.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
-        $.each(invalidGlobalURIs.concat(invalidEmptyProtocolURIs), function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toBeFalsy();
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
+        $.each(invalidEmptyProtocolURIs, function(index, uri) {
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeFalsy();
         });
     });
-
 });

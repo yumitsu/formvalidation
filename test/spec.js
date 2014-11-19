@@ -7270,6 +7270,53 @@ describe('uri', function() {
         'http://223.255.255.254'
     ];
 
+    var validEmptyProtocolURIs = [
+        'foo.com/blah_blah',
+        'foo.com/blah_blah',
+        'foo.com/blah_blah/',
+        'foo.com/blah_blah_(wikipedia)',
+        'foo.com/blah_blah_(wikipedia)_(again)',
+        'www.example.com/wpstyle/?p=364',
+        'www.example.com/foo/?bar=baz&inga=42&quux',
+        '✪df.ws/123',
+        'userid:password@example.com:8080',
+        'userid:password@example.com:8080/',
+        'userid@example.com',
+        'userid@example.com/',
+        'userid@example.com:8080',
+        'userid@example.com:8080/',
+        'userid:password@example.com',
+        'userid:password@example.com/',
+        '142.42.1.1/',
+        '142.42.1.1:8080/',
+        '➡.ws/䨹',
+        '⌘.ws',
+        '⌘.ws/',
+        'foo.com/blah_(wikipedia)#cite-1',
+        'foo.com/blah_(wikipedia)_blah#cite-1',
+        'foo.com/unicode_(✪)_in_parens',
+        'foo.com/(something)?after=parens',
+        '☺.damowmow.com/',
+        'code.google.com/events/#&product=browser',
+        'j.mp',
+        'foo.bar/baz',
+        'foo.bar/?q=Test%20URL-encoded%20stuff',
+        '例子.测试',
+        'उदाहरण.परीक्षा',
+        "-.~_!$&'()*+,;=:%40:80%2f::::::@example.com",
+        '1337.net',
+        'a.b-c.de',
+        '223.255.255.254'
+    ];
+
+    var invalidEmptyProtocolURIs = [
+        'gopher://foo.com/blah_blah',
+        'news://foo.com/blah_blah',
+        'http:/foo.com/blah_blah/',
+        '://foo.com/blah_blah_(wikipedia)',
+        'http://http://foo.com/blah_blah_(wikipedia)_(again)'
+    ];
+
     var invalidGlobalURIs = [
         'http://',
         'http://.',
@@ -7326,44 +7373,66 @@ describe('uri', function() {
     ];
 
     it('Valid URIs (allowLocal=false)', function() {
-        var me = this;
+        var that = this;
         $.each(validGlobalURIs, function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toBeTruthy();
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowLocal=false)', function() {
-        var me = this;
+        var that = this;
         $.each(invalidGlobalURIs.concat(localURIs), function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toEqual(false);
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toEqual(false);
         });
     });
 
     it('Valid URIs (allowLocal=true)', function() {
-        var me = this;
-        me.bv.updateOption('uri', 'uri', 'allowLocal', true);
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowLocal', true);
         $.each(validGlobalURIs.concat(localURIs), function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toBeTruthy();
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowLocal=true)', function() {
-        var me = this;
-        me.bv.updateOption('uri', 'uri', 'allowLocal', true);
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowLocal', true);
         $.each(invalidGlobalURIs, function(index, uri) {
-            me.bv.resetForm();
-            me.$uri.val(uri);
-            me.bv.validate();
-            expect(me.bv.isValid()).toEqual(false);
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toEqual(false);
+        });
+    });
+
+    it('Valid URIs (allowEmptyProtocol=true)', function() {
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
+        $.each(validGlobalURIs.concat(validEmptyProtocolURIs), function(index, uri) {
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeTruthy();
+        });
+    });
+
+    it('Invalid URIs (allowEmptyProtocol=true)', function() {
+        var that = this;
+        this.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
+        $.each(invalidEmptyProtocolURIs, function(index, uri) {
+            that.bv.resetForm();
+            that.$uri.val(uri);
+            that.bv.validate();
+            expect(that.bv.isValid()).toBeFalsy();
         });
     });
 });

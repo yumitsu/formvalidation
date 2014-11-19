@@ -77,10 +77,10 @@
             //
             // - Add option to validate without protocol
             //
-            var allowLocal = options.allowLocal === true || options.allowLocal === 'true',
+            var allowLocal         = options.allowLocal === true || options.allowLocal === 'true',
                 allowEmptyProtocol = options.allowEmptyProtocol === true || options.allowEmptyProtocol === 'true',
-                protocol   = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
-                urlExp     = new RegExp(
+                protocol           = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
+                urlExp             = new RegExp(
                     "^" +
                     // protocol identifier
                     "(?:(?:" + protocol + ")://)" +
