@@ -19,6 +19,7 @@
         html5Attributes: {
             message: 'message',
             allowlocal: 'allowLocal',
+            allowemptyprotocol: 'allowEmptyProtocol',
             protocol: 'protocol'
         },
 
@@ -74,12 +75,17 @@
             //
             // - Added possibility of choosing a custom protocol
             //
+            // - Add option to validate without protocol
+            //
             var allowLocal = options.allowLocal === true || options.allowLocal === 'true',
+                allowEmptyProtocol = options.allowEmptyProtocol === true || options.allowEmptyProtocol === 'true',
                 protocol   = (options.protocol || 'http, https, ftp').split(',').join('|').replace(/\s/g, ''),
                 urlExp     = new RegExp(
                     "^" +
                     // protocol identifier
                     "(?:(?:" + protocol + ")://)" +
+                    // allow empty protocol
+                    (allowEmptyProtocol ? '?' : '') +
                     // user:pass authentication
                     "(?:\\S+(?::\\S*)?@)?" +
                     "(?:" +
