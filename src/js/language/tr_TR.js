@@ -12,6 +12,9 @@
                 'default': 'Lütfen %s ile %s arasında bir değer giriniz',
                 notInclusive: 'Lütfen sadece %s ile %s arasında bir değer giriniz'
             },
+            bic: {
+                'default': 'Lütfen geçerli bir BIC numarası giriniz'
+            },
             callback: {
                 'default': 'Lütfen geçerli bir değer giriniz'
             },

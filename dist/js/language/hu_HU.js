@@ -12,6 +12,9 @@
                 'default': 'Kérlek, hogy %s és %s között adj meg értéket',
                 notInclusive: 'Kérlek, hogy %s és %s között adj meg értéket'
             },
+            bic: {
+                'default': 'Kérlek, hogy érvényes BIC számot ajd meg'
+            },
             callback: {
                 'default': 'Kérlek, hogy érvényes értéket adj meg'
             },

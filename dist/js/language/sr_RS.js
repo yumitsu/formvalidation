@@ -12,6 +12,9 @@
                 'default': 'Molimo da unesete vrednost između %s i %s',
                 notInclusive: 'Molimo da unesete vrednost strogo između %s i %s'
             },
+            bic: {
+                'default': 'Molimo da unesete ispravan BIC broj'
+            },
             callback: {
                 'default': 'Molimo da unesete važeću vrednost'
             },

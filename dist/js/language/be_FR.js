@@ -12,6 +12,9 @@
                 'default': 'Veuillez fournir une valeur comprise entre %s et %s',
                 notInclusive: 'Veuillez fournir une valeur strictement comprise entre %s et %s'
             },
+            bic: {
+                'default': 'Veuillez fournir un code-barre BIC valide'
+            },
             callback: {
                 'default': 'Veuillez fournir une valeur valide'
             },

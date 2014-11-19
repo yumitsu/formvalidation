@@ -12,6 +12,9 @@
                 'default': 'Ju lutem vendosni një vlerë midis %s dhe %s',
                 notInclusive: 'Ju lutem vendosni një vlerë rreptësisht midis %s dhe %s'
             },
+            bic: {
+                'default': 'Ju lutem vendosni një numër BIC të vlefshëm'
+            },
             callback: {
                 'default': 'Ju lutem vendosni një vlerë të vlefshme'
             },

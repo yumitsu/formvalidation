@@ -12,6 +12,9 @@
                 'default': 'Geef een waarde tussen %s en %s (incl de waarden)',
                 notInclusive: 'Geef een waarde strikt tussen %s en %s'
             },
+            bic: {
+                'default': 'Geef een geldig BIC nummer'
+            },
             callback: {
                 'default': 'Geef een geldige waarden in'
             },

@@ -12,6 +12,9 @@
                 'default': 'Te rog introdu o valoare intre %s si %s',
                 notInclusive: 'Te rog introdu o valoare doar intre %s si %s'
             },
+            bic: {
+                'default': 'Te rog sa introduci un numar BIC valid'
+            },
             callback: {
                 'default': 'Te rog introdu o valoare valida'
             },

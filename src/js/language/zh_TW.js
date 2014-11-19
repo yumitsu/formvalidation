@@ -12,6 +12,9 @@
                 'default': '請輸入不小於 %s 且不大於 %s 的值',
                 notInclusive: '請輸入不小於等於 %s 且不大於等於 %s 的值'
             },
+            bic: {
+                'default': '請輸入有效的BIC商品編碼'
+            },
             callback: {
                 'default': '請輸入有效的值'
             },

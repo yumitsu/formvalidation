@@ -12,6 +12,9 @@
                 'default': '%sから%sの間で入力してください',
                 notInclusive: '厳密に%sから%sの間で入力してください'
             },
+            bic: {
+                'default': '有効なBICコードを入力してください'
+            },
             callback: {
                 'default': '有効な値を入力してください'
             },

@@ -12,6 +12,9 @@
                 'default': 'נא להזין ערך בין %s ל-%s',
                 notInclusive: 'נא להזין ערך בין %s ל-%s בדיוק'
             },
+            bic: {
+                'default': 'נא להזין מספר BIC תקין'
+            },
             callback: {
                 'default': 'נא להזין ערך תקין'
             },

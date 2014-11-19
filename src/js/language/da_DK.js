@@ -12,6 +12,9 @@
                 'default': 'Udfyld venligst dette felt med en værdi mellem %s og %s',
                 notInclusive: 'Indtast venligst kun en værdi mellem %s og %s'
             },
+            bic: {
+                'default': 'Udfyld venligst dette felt med et gyldigt BIC-nummer'
+            },
             callback: {
                 'default': 'Udfyld venligst dette felt med en gyldig værdi'
             },

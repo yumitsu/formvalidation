@@ -12,6 +12,9 @@
                 'default': 'Silahkan isi nilai antara %s dan %s',
                 notInclusive: 'Silahkan isi nilai antara %s dan %s, strictly'
             },
+            bic: {
+                'default': 'Silahkan isi nomor BIC yang valid'
+            },
             callback: {
                 'default': 'Silahkan isi nilai yang valid'
             },

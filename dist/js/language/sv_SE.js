@@ -12,6 +12,9 @@
                 'default': 'Vänligen mata in ett värde mellan %s och %s',
                 notInclusive: 'Vänligen mata in ett värde strikt mellan %s och %s'
             },
+            bic: {
+                'default': 'Vänligen mata in ett giltigt BIC-nummer'
+            },
             callback: {
                 'default': 'Vänligen mata in ett giltigt värde'
             },

@@ -12,6 +12,9 @@
                 'default': 'Prosím zadejte hodnotu mezi %s a %s',
                 notInclusive: 'Prosím zadejte hodnotu mezi %s a %s (včetně těchto čísel)'
             },
+            bic: {
+                'default': 'Prosím zadejte správné BIC číslo'
+            },
             callback: {
                 'default': 'Prosím zadejte správnou hodnotu'
             },

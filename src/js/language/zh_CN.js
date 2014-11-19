@@ -12,6 +12,9 @@
                 'default': '请输入在 %s 和 %s 之间的数值',
                 notInclusive: '请输入在 %s 和 %s 之间(不含两端)的数值'
             },
+            bic: {
+                'default': '请输入有效的BIC商品编码'
+            },
             callback: {
                 'default': '请输入有效的值'
             },

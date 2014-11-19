@@ -12,6 +12,9 @@
                 'default': 'Wprowadź wartość pomiędzy %s i %s',
                 notInclusive: 'Wprowadź wartość pomiędzy %s i %s (zbiór otwarty)'
             },
+            bic: {
+                'default': 'Wprowadź poprawny numer BIC'
+            },
             callback: {
                 'default': 'Wprowadź poprawną wartość'
             },

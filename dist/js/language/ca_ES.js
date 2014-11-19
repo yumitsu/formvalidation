@@ -12,6 +12,9 @@
                 'default': 'Si us plau introdueix un valor entre %s i %s',
                 notInclusive: 'Si us plau introdueix un valor comprès entre %s i %s'
             },
+            bic: {
+                'default': 'Si us plau introdueix un nombre BIC vàlid'
+            },
             callback: {
                 'default': 'Si us plau introdueix un valor vàlid'
             },

@@ -12,6 +12,9 @@
                 'default': 'Vui lòng nhập giá trị nằm giữa %s và %s',
                 notInclusive: 'Vui lòng nhập giá trị nằm giữa %s và %s'
             },
+            bic: {
+                'default': 'Vui lòng nhập số BIC hợp lệ'
+            },
             callback: {
                 'default': 'Vui lòng nhập giá trị hợp lệ'
             },
