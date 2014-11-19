@@ -1,8 +1,14 @@
+/**
+ * reCaptcha add-on
+ * This add-ons shows and validates a Google reCAPTCHA
+ *
+ * @link        http://bootstrapvalidator.com/addons/reCaptcha/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 /* global Recaptcha: false */
 (function($) {
-    /**
-     * This add-ons shows and validates a Google reCAPTCHA
-     */
     $.fn.bootstrapValidator.addOns.reCaptcha = {
         html5Attributes: {
             element: 'element',

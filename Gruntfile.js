@@ -20,8 +20,7 @@ module.exports = function(grunt) {
             ' * @version     v<%= pkg.version %>, built on <%= grunt.template.today("yyyy-mm-dd h:MM:ss TT") %>',
             ' * @author      <%= pkg.author.url %>',
             ' * @copyright   (c) 2013 - <%= grunt.template.today("yyyy") %> Nguyen Huu Phuoc',
-            ' * @license     Commercial: <%= pkg.homepage %>/license/',
-            ' *              Non-commercial: http://creativecommons.org/licenses/by-nc-nd/3.0/',
+            ' * @license     <%= pkg.homepage %>/license/',
             ' */\n'
         ].join('\n'),
 

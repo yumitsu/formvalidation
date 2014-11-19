@@ -4,8 +4,7 @@
  *
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
- * @license     Commercial: http://bootstrapvalidator.com/license/
- *              Non-commercial: http://creativecommons.org/licenses/by-nc-nd/3.0/
+ * @license     http://bootstrapvalidator.com/license/
  */
 
 if (typeof jQuery === 'undefined') {

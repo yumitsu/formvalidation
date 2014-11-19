@@ -1,7 +1,13 @@
+/**
+ * oneMessage add-on
+ * This add-ons shows only one message if the field is not valid
+ *
+ * @link        http://bootstrapvalidator.com/addons/oneMessage/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
-    /**
-     * This add-ons shows only one message if the field is not valid
-     */
     $.fn.bootstrapValidator.addOns.oneMessage = {
         /**
          * @param {BootstrapValidator} validator The BootstrapValidator instance

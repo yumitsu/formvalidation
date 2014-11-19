@@ -2,11 +2,10 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-19 1:47:25 PM
+ * @version     v0.6.0-dev, built on 2014-11-19 2:30:10 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
- * @license     Commercial: http://bootstrapvalidator.com/license/
- *              Non-commercial: http://creativecommons.org/licenses/by-nc-nd/3.0/
+ * @license     http://bootstrapvalidator.com/license/
  */
 if (typeof jQuery === 'undefined') {
     throw new Error('BootstrapValidator requires jQuery');
@@ -2282,7 +2281,7 @@ if (typeof jQuery === 'undefined') {
             }
             return /^[a-zA-Z]{6}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?$/.test(value);
         }
-    }
+    };
 }(jQuery));
 ;(function($) {
     $.fn.bootstrapValidator.validators.blank = {
@@ -2350,7 +2349,7 @@ if (typeof jQuery === 'undefined') {
 
             if (options.callback) {
                 var response = $.fn.bootstrapValidator.helpers.call(options.callback, [value, validator, $field]);
-                result = ('boolean' === typeof response) ? { valid: response } :  response;
+                result = ('boolean' === typeof response) ? { valid: response } : response;
             }
 
             dfd.resolve($field, 'callback', result);
@@ -2690,7 +2689,7 @@ if (typeof jQuery === 'undefined') {
 
     $.fn.bootstrapValidator.validators.cusip = {
         /**
-         * Validate a CUSIP
+         * Validate a CUSIP number
          * Examples:
          * - Valid: 037833100, 931142103, 14149YAR8, 126650BG6
          * - Invalid: 31430F200, 022615AC2
@@ -8512,7 +8511,7 @@ if (typeof jQuery === 'undefined') {
             country: 'country'
         },
 
-        COUNTRY_CODES: [ 'AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -8529,11 +8528,11 @@ if (typeof jQuery === 'undefined') {
          * - Name of callback function that returns the country code
          * - A callback function that returns the country code
          *
-         * callback: function(value, validator, $field) {
+         *  callback: function(value, validator, $field) {
          *      // value is the value of field
          *      // validator is the BootstrapValidator instance
          *      // $field is jQuery element representing the field
-         * }
+         *  }
          *
          * @returns {Boolean|Object}
          */

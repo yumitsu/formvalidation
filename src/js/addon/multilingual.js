@@ -1,6 +1,14 @@
+/**
+ * multilingual add-on
+ * This add-on allow to define message in multiple languages
+ *
+ * @link        http://bootstrapvalidator.com/addons/multilingual/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
     /**
-     * This add-on allow to define message in multiple languages.
      * The 'message' option of each validator can be
      * - a literal object mapping the locale with message
      *  $(form).bootstrapValidator({

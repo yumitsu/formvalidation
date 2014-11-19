@@ -1,3 +1,11 @@
+/**
+ * zipCode validator
+ *
+ * @link        http://bootstrapvalidator.com/validators/zipCode/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -37,7 +45,7 @@
             country: 'country'
         },
 
-        COUNTRY_CODES: [ 'AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -54,11 +62,11 @@
          * - Name of callback function that returns the country code
          * - A callback function that returns the country code
          *
-         * callback: function(value, validator, $field) {
+         *  callback: function(value, validator, $field) {
          *      // value is the value of field
          *      // validator is the BootstrapValidator instance
          *      // $field is jQuery element representing the field
-         * }
+         *  }
          *
          * @returns {Boolean|Object}
          */

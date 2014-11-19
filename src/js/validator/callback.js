@@ -1,3 +1,11 @@
+/**
+ * callback validator
+ *
+ * @link        http://bootstrapvalidator.com/validators/callback/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -35,7 +43,7 @@
 
             if (options.callback) {
                 var response = $.fn.bootstrapValidator.helpers.call(options.callback, [value, validator, $field]);
-                result = ('boolean' === typeof response) ? { valid: response } :  response;
+                result = ('boolean' === typeof response) ? { valid: response } : response;
             }
 
             dfd.resolve($field, 'callback', result);

@@ -1,3 +1,11 @@
+/**
+ * cusip validator
+ *
+ * @link        http://bootstrapvalidator.com/validators/cusip/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
         'en_US': {
@@ -9,7 +17,7 @@
 
     $.fn.bootstrapValidator.validators.cusip = {
         /**
-         * Validate a CUSIP
+         * Validate a CUSIP number
          * Examples:
          * - Valid: 037833100, 931142103, 14149YAR8, 126650BG6
          * - Invalid: 31430F200, 022615AC2

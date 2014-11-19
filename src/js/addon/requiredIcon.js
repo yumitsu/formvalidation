@@ -1,7 +1,13 @@
+/**
+ * requiredIcon add-on
+ * This add-ons shows required icons for mandatory fields
+ *
+ * @link        http://bootstrapvalidator.com/addons/requiredIcon/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
-    /**
-     * This add-ons shows required icons for mandatory fields
-     */
     $.fn.bootstrapValidator.addOns.requiredIcon = {
         html5Attributes: {
             icon: 'icon'

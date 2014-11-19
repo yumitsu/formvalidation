@@ -1,3 +1,11 @@
+/**
+ * siret validator
+ *
+ * @link        http://bootstrapvalidator.com/validators/siret/
+ * @author      https://twitter.com/nghuuphuoc
+ * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
+ * @license     http://bootstrapvalidator.com/license/
+ */
 (function($) {
     $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
 		'en_US': {
