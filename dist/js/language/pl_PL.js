@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Wprowadź poprawną liczbę w formacie heksadecymalnym'
             },
-            hexColor: {
-                'default': 'Wprowadź poprawny kolor w formacie hex'
-            },
             iban: {
                 'default': 'Wprowadź poprawny numer IBAN',
                 countryNotSupported: 'Kod kraju %s nie jest obsługiwany',

@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Vänligen mata in ett giltigt hexadecimalt tal'
             },
-            hexColor: {
-                'default': 'Vänligen mata in en giltig hexadecimal färg'
-            },
             iban: {
                 'default': 'Vänligen mata in ett giltigt IBAN-nummer',
                 countryNotSupported: 'Landskoden %s stöds inte',

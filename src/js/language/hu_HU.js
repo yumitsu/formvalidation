@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Kérlek, hogy érvényes hexadecimális számot ajd meg'
             },
-            hexColor: {
-                'default': 'Kérlek, hogy érvényes hexadecimális színt ajd meg'
-            },
             iban: {
                 'default': 'Kérlek, hogy érvényes IBAN számot ajd meg',
                 countryNotSupported: 'A(z) %s országkód nem támogatott',

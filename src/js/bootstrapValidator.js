@@ -288,9 +288,11 @@ if (typeof jQuery === 'undefined') {
                         $('<small/>')
                             .css('display', 'none')
                             .addClass('help-block')
-                            .attr('data-bv-validator', validatorName)
-                            .attr('data-bv-for', field)
-                            .attr('data-bv-result', this.STATUS_NOT_VALIDATED)
+                            .attr({
+                                'data-bv-validator': validatorName,
+                                'data-bv-for': field,
+                                'data-bv-result': this.STATUS_NOT_VALIDATED
+                            })
                             .html(this._getMessage(field, validatorName))
                             .appendTo($message);
                     }
@@ -1086,7 +1088,9 @@ if (typeof jQuery === 'undefined') {
                     $allErrors   = $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
-                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
+                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container))
+                                    ? (this.options.fields[field].container || this.options.container).call(this, $field, this)
+                                    : (this.options.fields[field].container || this.options.container),
                     isValidField = null;
 
                 // Update status

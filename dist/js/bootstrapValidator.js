@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-19 3:06:37 PM
+ * @version     v0.6.0-dev, built on 2014-11-19 3:27:51 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -288,9 +288,11 @@ if (typeof jQuery === 'undefined') {
                         $('<small/>')
                             .css('display', 'none')
                             .addClass('help-block')
-                            .attr('data-bv-validator', validatorName)
-                            .attr('data-bv-for', field)
-                            .attr('data-bv-result', this.STATUS_NOT_VALIDATED)
+                            .attr({
+                                'data-bv-validator': validatorName,
+                                'data-bv-for': field,
+                                'data-bv-result': this.STATUS_NOT_VALIDATED
+                            })
                             .html(this._getMessage(field, validatorName))
                             .appendTo($message);
                     }
@@ -1086,7 +1088,9 @@ if (typeof jQuery === 'undefined') {
                     $allErrors   = $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
-                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container),
+                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container))
+                                    ? (this.options.fields[field].container || this.options.container).call(this, $field, this)
+                                    : (this.options.fields[field].container || this.options.container),
                     isValidField = null;
 
                 // Update status
@@ -2445,6 +2449,10 @@ if (typeof jQuery === 'undefined') {
             type: 'type'
         },
 
+        enableByHtml5: function($field) {
+            return ('color' === $field.attr('type'));
+        },
+
         SUPPORTED_TYPES: [
             'hex', 'rgb', 'rgba', 'hsl', 'hsla', 'keyword'
         ],
@@ -2516,6 +2524,12 @@ if (typeof jQuery === 'undefined') {
             var value = $field.val();
             if (value === '') {
                 return true;
+            }
+
+            // Only accept 6 hex character values due to the HTML 5 spec
+            // See http://www.w3.org/TR/html-markup/input.color.html#input.color.attrs.value
+            if (this.enableByHtml5($field)) {
+                return /^#[0-9A-F]{6}$/i.test(value);
             }
 
             var types = options.type || this.SUPPORTED_TYPES;
@@ -3633,43 +3647,6 @@ if (typeof jQuery === 'undefined') {
             }
 
             return /^[0-9a-fA-F]+$/.test(value);
-        }
-    };
-}(jQuery));
-;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
-        'en_US': {
-            hexColor: {
-                'default': 'Please enter a valid hex color'
-            }
-        }
-    });
-
-    $.fn.bootstrapValidator.validators.hexColor = {
-        enableByHtml5: function($field) {
-            return ('color' === $field.attr('type'));
-        },
-
-        /**
-         * Return true if the input value is a valid hex color
-         *
-         * @param {BootstrapValidator} validator The validator plugin instance
-         * @param {jQuery} $field Field element
-         * @param {Object} options Can consist of the following keys:
-         * - message: The invalid message
-         * @returns {Boolean}
-         */
-        validate: function(validator, $field, options) {
-            var value = $field.val();
-            if (value === '') {
-                return true;
-            }
-
-            return ('color' === $field.attr('type'))
-                        // Only accept 6 hex character values due to the HTML 5 spec
-                        // See http://www.w3.org/TR/html-markup/input.color.html#input.color.attrs.value
-                        ? /^#[0-9A-F]{6}$/i.test(value)
-                        : /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value);
         }
     };
 }(jQuery));

@@ -70,9 +70,6 @@
             hex: {
                 'default': '请输入有效的16进制数'
             },
-            hexColor: {
-                'default': '请输入有效的16进制颜色值'
-            },
             iban: {
                 'default': '请输入有效的IBAN(国际银行账户)号码',
                 countryNotSupported: '不支持 %s 国家或地区',

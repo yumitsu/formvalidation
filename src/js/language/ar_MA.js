@@ -70,9 +70,6 @@
             hex: {
                 'default': 'الرجاء إدخال رقم ست عشري صالح.'
             },
-            hexColor: {
-                'default': 'الرجاء إدخال رمز لون صالح.'
-            },
             iban: {
                 'default': 'الرجاء إدخال رقم IBAN صالح.',
                 countryNotSupported: 'البلد ذو الرمز %s غير معتمد.',

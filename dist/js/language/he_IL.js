@@ -70,9 +70,6 @@
             hex: {
                 'default': 'נא להזין מספר הקסדצימלי תקין'
             },
-            hexColor: {
-                'default': 'נא להזין קוד צבע הקסדצימלי תקין'
-            },
             iban: {
                 'default': 'נא להזין מספר IBAN תקין',
                 countryNotSupported: 'קוד המדינה של %s אינו נתמך',

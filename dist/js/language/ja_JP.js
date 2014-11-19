@@ -70,9 +70,6 @@
             hex: {
                 'default': '有効な16進数を入力してください。'
             },
-            hexColor: {
-                'default': '有効なカラーコード(RGB 16進数)を入力してください'
-            },
             iban: {
                 'default': '有効なIBANコードを入力してください',
                 countryNotSupported: 'カントリーコード%sはサポートされていません',

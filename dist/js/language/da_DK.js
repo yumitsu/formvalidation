@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Udfyld venligst dette felt med et gyldigt hexadecimal-nummer'
             },
-            hexColor: {
-                'default': 'Udfyld venligst dette felt med en gyldig hex-farve'
-            },
             iban: {
                 'default': 'Udfyld venligst dette felt med et gyldigt IBAN-nummer',
                 countryNotSupported: 'Landekoden %s understøttes desværre ikke',

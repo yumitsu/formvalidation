@@ -70,9 +70,6 @@
             hex: {
                 'default': '請輸入有效的16位元碼'
             },
-            hexColor: {
-                'default': '請輸入有效的16位元色碼'
-            },
             iban: {
                 'default': '請輸入有效的IBAN(國際銀行賬戶)號碼',
                 countryNotSupported: '不支援 %s 國家',

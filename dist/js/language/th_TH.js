@@ -70,9 +70,6 @@
             hex: {
                 'default': 'กรุณาระบุเลขฐานสิบหกให้ถูกต้อง'
             },
-            hexColor: {
-                'default': 'กรุณาระบุค่าสี hex color ให้ถูกต้อง'
-            },
             iban: {
                 'default': 'กรุณาระบุหมายเลข IBAN ให้ถูกต้อง',
                 countryNotSupported: 'ประเทศ %s ไม่รองรับ',

@@ -10,6 +10,9 @@ __New Features__
 * [#1153](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1153): Add EIN validator, thanks to [@joshuachestang](https://github.com/joshuachestang)
 * [#1165](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1165): Add BIC (ISO 9362) validator, thanks to [@thomaslhotta](https://github.com/thomaslhotta)
 
+__Changes__
+* [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead
+
 __Add-ons__
 * [#1116](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1116): Showing only one message each time
 * [#1126](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1126): Required icon
@@ -54,7 +57,7 @@ __New Features__
 * [#1072](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1072): Add Austria and Switzerland [postal code](http://bootstrapvalidator.com/validators/zipCode/) validators, thanks to [@thomaslhotta](https://github.com/thomaslhotta)
 
 __Improvements__
-* [#823](https://github.com/nghuuphuoc/bootstrapvalidator/issues/823): The [hexColor](http://bootstrapvalidator.com/validators/hexColor/) validator only accepts 6 hex character values when using HTML 5 ```type='color'``` attribute
+* [#823](https://github.com/nghuuphuoc/bootstrapvalidator/issues/823): The [hexColor](http://bootstrapvalidator.com/validators/color/) validator only accepts 6 hex character values when using HTML 5 ```type='color'``` attribute
 * [#864](https://github.com/nghuuphuoc/bootstrapvalidator/pull/864): Comma separator handling in [greaterThan](http://bootstrapvalidator.com/validators/greaterThan/), [lessThan](http://bootstrapvalidator.com/validators/lessThan/) validators, thanks to [@mgibas](https://github.com/mgibas)
 * [#999](https://github.com/nghuuphuoc/bootstrapvalidator/pull/999), [#1048](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1048): Replace ',' with '.' to validate decimal numbers correct, thanks to [@johanronn77](https://github.com/johanronn77)
 * [#1002](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1002): Put tooltip/popover on bottom if there is not enough space on top, thanks to [@jazzzz](https://github.com/jazzzz)
@@ -465,7 +468,7 @@ HTML 5 attribute      | Validator
 ```maxlength="..."``` | [stringLength validator](http://bootstrapvalidator.com/validators/stringLength/)
 ```pattern="..."```   | [regexp validator](http://bootstrapvalidator.com/validators/regexp/)
 ```required```        | [notEmpty validator](http://bootstrapvalidator.com/validators/notEmpty/)
-```type="color"```    | [hexColor validator](http://bootstrapvalidator.com/validators/hexColor/)
+```type="color"```    | [hexColor validator](http://bootstrapvalidator.com/validators/color/)
 ```type="email"```    | [emailAddress validator](http://bootstrapvalidator.com/validators/emailAddress/)
 ```type="range"```    | [between validator](http://bootstrapvalidator.com/validators/between/)
 ```type="url"```      | [uri validator](http://bootstrapvalidator.com/validators/uri/)
@@ -629,7 +632,7 @@ $(form).bootstrapValidator({
     - [digits validator](http://bootstrapvalidator.com/validators/digits/)
     - [emailAddress validator](http://bootstrapvalidator.com/validators/emailAddress/)
     - [greaterThan validator](http://bootstrapvalidator.com/validators/greaterThan/)
-    - [hexColor validator](http://bootstrapvalidator.com/validators/hexColor/)
+    - [hexColor validator](http://bootstrapvalidator.com/validators/color/)
     - [identical validator](http://bootstrapvalidator.com/validators/identical/)
     - [lessThan validator](http://bootstrapvalidator.com/validators/lessThan/)
     - [notEmpty validator](http://bootstrapvalidator.com/validators/notEmpty/)

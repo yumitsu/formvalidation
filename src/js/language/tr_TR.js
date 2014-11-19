@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Lütfen geçerli bir Hexadecimal sayı giriniz'
             },
-            hexColor: {
-                'default': 'Lütfen geçerli bir HEX codu giriniz'
-            },
             iban: {
                 'default': 'Lütfen geçerli bir IBAN numarası giriniz',
                 countryNotSupported: '%s ülke kodu desteklenmemektedir',

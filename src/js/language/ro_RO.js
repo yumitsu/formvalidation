@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Te rog sa introduci un numar hexadecimal valid'
             },
-            hexColor: {
-                'default': 'Te rog sa introduci o culoare hex valida'
-            },
             iban: {
                 'default': 'Te rog sa introduci un IBAN valid',
                 countryNotSupported: 'Tara %s nu este acceptata',

@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Molimo da unesete ispravan heksadecimalan broj'
             },
-            hexColor: {
-                'default': 'Molimo da unesete ispravnu heksa boju'
-            },
             iban: {
                 'default': 'Molimo da unesete ispravan IBAN broj',
                 countryNotSupported: 'Kod %s nije podržan',

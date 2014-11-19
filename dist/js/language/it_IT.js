@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Si prega di inserire un numero esadecimale valido'
             },
-            hexColor: {
-                'default': 'Si prega di inserire un hex colore valido'
-            },
             iban: {
                 'default': 'Si prega di inserire un numero IBAN valido',
                 countryNotSupported: 'Il codice del paese %s non e supportato',

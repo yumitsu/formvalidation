@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Voer een geldig hexadecimaal nummer in'
             },
-            hexColor: {
-                'default': 'Voer een geldige hexadecimale kleurcode in'
-            },
             iban: {
                 'default': 'Voer een geldig IBAN nummer in',
                 countryNotSupported: 'De land code %s wordt niet ondersteund',

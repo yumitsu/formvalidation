@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Vui lòng nhập số hexa hợp lệ'
             },
-            hexColor: {
-                'default': 'Vui lòng nhập mã màu hợp lệ'
-            },
             iban: {
                 'default': 'Vui lòng nhập số IBAN hợp lệ',
                 countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',

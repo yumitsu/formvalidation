@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Prosím zadejte správné hexadecimální číslo'
             },
-            hexColor: {
-                'default': 'Prosím zadejte správnou hex barvu'
-            },
             iban: {
                 'default': 'Prosím zadejte správné IBAN číslo',
                 countryNotSupported: 'IBAN pro %s není podporován',

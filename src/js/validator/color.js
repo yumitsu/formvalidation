@@ -21,6 +21,10 @@
             type: 'type'
         },
 
+        enableByHtml5: function($field) {
+            return ('color' === $field.attr('type'));
+        },
+
         SUPPORTED_TYPES: [
             'hex', 'rgb', 'rgba', 'hsl', 'hsla', 'keyword'
         ],
@@ -92,6 +96,12 @@
             var value = $field.val();
             if (value === '') {
                 return true;
+            }
+
+            // Only accept 6 hex character values due to the HTML 5 spec
+            // See http://www.w3.org/TR/html-markup/input.color.html#input.color.attrs.value
+            if (this.enableByHtml5($field)) {
+                return /^#[0-9A-F]{6}$/i.test(value);
             }
 
             var types = options.type || this.SUPPORTED_TYPES;

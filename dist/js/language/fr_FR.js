@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Veuillez fournir un nombre hexadécimal valide'
             },
-            hexColor: {
-                'default': 'Veuillez fournir une couleur hexadécimale valide'
-            },
             iban: {
                 'default': 'Veuillez fournir un code IBAN valide',
                 countryNotSupported: 'Le code de pays %s n\'est pas accepté',

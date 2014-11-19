@@ -70,9 +70,6 @@
             hex: {
                 'default': 'Silahkan isi karakter hexadecimal yang valid'
             },
-            hexColor: {
-                'default': 'Silahkan isi karakter warna hex yang valid'
-            },
             iban: {
                 'default': 'silahkan isi nomor IBAN yang valid',
                 countryNotSupported: 'Kode negara %s belum didukung',
