@@ -9,6 +9,9 @@
  */
 (function($) {
     $.fn.bootstrapValidator.addOns.oneMessage = {
+        // Map the field name
+        _map: {},
+
         /**
          * @param {BootstrapValidator} validator The BootstrapValidator instance
          * @param {Object} options The add-on options
@@ -18,6 +21,10 @@
             validator
                 .getForm()
                 .on(opts.events.validatorError, function(e, data) {
+                    if (options && options[data.field] === false) {
+                        return;
+                    }
+
                     data.element
                         .data('bv.messages')
                         // Hide all the messages
