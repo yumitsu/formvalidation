@@ -38,6 +38,7 @@ __Document__
 * [#1104](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1104): Update the [Enabling the submit button all the time](http://bootstrapvalidator.com/examples/enabling-submit-button/) example
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
+* [#1172](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1172): Add [Requiring at least one field](http://bootstrapvalidator.com/examples/requiring-at-least-one-field/) example
 
 __Language Packages__
 * [#1150](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1150): Add Catalan language package, thanks to [@ArnauAregall](https://github.com/ArnauAregall)
