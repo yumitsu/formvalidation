@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-19 11:20:34 PM
+ * @version     v0.6.0-dev, built on 2014-11-21 11:25:12 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -250,8 +250,7 @@ if (typeof jQuery === 'undefined') {
                 total     = fields.length,
                 type      = fields.attr('type'),
                 updateAll = (total === 1) || ('radio' === type) || ('checkbox' === type),
-                event     = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === fields.eq(0).get(0).tagName) ? 'change' : this._changeEvent,
-                trigger   = (this.options.fields[field].trigger || this.options.trigger || event).split(' '),
+                trigger   = this._getFieldTrigger(fields.eq(0)),
                 events    = $.map(trigger, function(item) {
                     return item + '.update.bv';
                 }).join(' ');
@@ -417,25 +416,11 @@ if (typeof jQuery === 'undefined') {
                 });
 
             // Set live mode
-            events = $.map(trigger, function(item) {
-                return item + '.live.bv';
-            }).join(' ');
-            switch (this.options.live) {
-                case 'submitted':
-                    break;
-                case 'disabled':
-                    fields.off(events);
-                    break;
-                case 'enabled':
-                /* falls through */
-                default:
-                    fields.off(events).on(events, function() {
-                        if (that._exceedThreshold($(this))) {
-                            that.validateField($(this));
-                        }
-                    });
-                    break;
-            }
+            this.onLiveChange(fields, 'live', function() {
+                if (that._exceedThreshold($(this))) {
+                    that.validateField($(this));
+                }
+            });
 
             fields.trigger($.Event(this.options.events.fieldInit), {
                 bv: this,
@@ -487,6 +472,20 @@ if (typeof jQuery === 'undefined') {
                     }
                     return false;
             }
+        },
+
+        /**
+         * Get a field changed trigger event
+         *
+         * @param {jQuery} $field The field element
+         * @returns {String[]} The event names triggered on field change
+         */
+        _getFieldTrigger: function($field) {
+            var type  = $field.attr('type'),
+                name  = $field.attr('data-bv-field'),
+                event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $field.get(0).tagName) ? 'change' : this._changeEvent;
+
+            return (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
         },
 
         /**
@@ -695,19 +694,13 @@ if (typeof jQuery === 'undefined') {
             if ('submitted' === this.options.live) {
                 // Enable live mode
                 this.options.live = 'enabled';
+
                 var that = this;
                 for (var field in this.options.fields) {
                     (function(f) {
                         var fields  = that.getFieldElements(f);
                         if (fields.length) {
-                            var type    = $(fields[0]).attr('type'),
-                                event   = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $(fields[0]).get(0).tagName) ? 'change' : that._changeEvent,
-                                trigger = that.options.fields[field].trigger || that.options.trigger || event,
-                                events  = $.map(trigger.split(' '), function(item) {
-                                    return item + '.live.bv';
-                                }).join(' ');
-
-                            fields.off(events).on(events, function() {
+                            that.onLiveChange(fields, 'live', function() {
                                 if (that._exceedThreshold($(this))) {
                                     that.validateField($(this));
                                 }
@@ -723,6 +716,7 @@ if (typeof jQuery === 'undefined') {
                     autoFocus = this.isOptionEnabled($field.attr('data-bv-field'), 'autoFocus');
                 if (autoFocus) {
                     // Activate the tab containing the field if exists
+                    // TODO: Move this behavior to add-on
                     var $tabPane = $field.parents('.tab-pane'), tabId;
                     if ($tabPane && (tabId = $tabPane.attr('id'))) {
                         $('a[href="#' + tabId + '"][data-toggle="tab"]').tab('show');
@@ -902,6 +896,24 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Get the validating result of field
+         *
+         * @param {String|jQuery} field The field name or field element
+         * @param {String} validatorName The validator name
+         * @returns {String} The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
+         */
+        getStatus: function(field, validatorName) {
+            switch (typeof field) {
+                case 'object':
+                    return field.data('bv.result.' + validatorName);
+                case 'string':
+                /* falls through */
+                default:
+                    return this.getFieldElements(field).eq(0).data('bv.result.' + validatorName);
+            }
+        },
+
+        /**
          * Check whether or not a field option is enabled
          *
          * @param {String} field The field name
@@ -1015,6 +1027,60 @@ if (typeof jQuery === 'undefined') {
             }
 
             return true;
+        },
+
+        /**
+         * Detach a handler function for a field live change event
+         *
+         * @param {jQuery[]} $fields The field elements
+         * @param {String} namespace The event namespace
+         * @returns {BootstrapValidator}
+         */
+        offLiveChange: function($fields, namespace) {
+            var trigger = this._getFieldTrigger($fields.eq(0)),
+                events  = $.map(trigger, function(item) {
+                    return item + '.' + namespace + '.bv';
+                }).join(' ');
+
+            $fields.off(events);
+            return this;
+        },
+
+        /**
+         * Attach a handler function for a field live change event
+         *
+         * @param {jQuery[]} $fields The field elements
+         * @param {String} namespace The event namespace
+         * @param {Function} handler The handler function
+         * @returns {BootstrapValidator}
+         */
+        onLiveChange: function($fields, namespace, handler) {
+            var trigger = this._getFieldTrigger($fields.eq(0)),
+                events  = $.map(trigger, function(item) {
+                    return item + '.' + namespace + '.bv';
+                }).join(' ');
+
+            switch (this.options.live) {
+                case 'submitted':
+                    break;
+                case 'disabled':
+                    $fields.off(events);
+                    break;
+                case 'enabled':
+                /* falls through */
+                default:
+                    $fields.off(events).on(events, function(e) {
+                        // #1040: The input with placeholder is auto validated on IE 10, 11
+                        if ('input' === e.type && document.activeElement !== this) {
+                            return;
+                        } else {
+                            handler.apply(this, arguments);
+                        }
+                    });
+                    break;
+            }
+
+            return this;
         },
 
         /**
@@ -5299,6 +5365,43 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Bind the validator on the live change of the field to compare with current one
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - field: The name of field that will be used to compare with current one
+         */
+        init: function(validator, $field, options) {
+            var compareWith = validator.getFieldElements(options.field);
+            if (compareWith === null || compareWith.length === 0) {
+                return;
+            }
+            validator.onLiveChange(compareWith, 'live_identical', function() {
+                var status = validator.getStatus($field, 'identical');
+                if (status !== validator.STATUS_NOT_VALIDATED) {
+                    validator.revalidateField($field);
+                }
+            });
+        },
+
+        /**
+         * Unbind the validator on the live change of the field to compare with current one
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - field: The name of field that will be used to compare with current one
+         */
+        destroy: function(validator, $field, options) {
+            var compareWith = validator.getFieldElements(options.field);
+            if (compareWith === null || compareWith.length === 0) {
+                return;
+            }
+            validator.offLiveChange(compareWith, 'live_identical');
+        },
+
+        /**
          * Check if input value equals to value of particular one
          *
          * @param {BootstrapValidator} validator The validator plugin instance
@@ -5309,21 +5412,18 @@ if (typeof jQuery === 'undefined') {
          */
         validate: function(validator, $field, options) {
             var value = $field.val();
-            if (value === '') {
-                return true;
-            }
-
             var compareWith = validator.getFieldElements(options.field);
             if (compareWith === null || compareWith.length === 0) {
                 return true;
             }
 
-            if (value === compareWith.val()) {
-                validator.updateStatus(options.field, validator.STATUS_VALID, 'identical');
+            var compareValue = compareWith.val();
+            if (value === compareValue) {
+                validator.updateStatus(compareWith, validator.STATUS_VALID, 'identical');
                 return true;
-            } else {
-                return false;
             }
+
+            return false;
         }
     };
 }(jQuery));

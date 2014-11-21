@@ -481,11 +481,11 @@ if (typeof jQuery === 'undefined') {
          * @returns {String[]} The event names triggered on field change
          */
         _getFieldTrigger: function($field) {
-            var type      = $field.attr('type'),
-                name      = $field.attr('data-bv-field'),
-                event     = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $field.get(0).tagName) ? 'change' : this._changeEvent,
-                trigger   = (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
-            return trigger;
+            var type  = $field.attr('type'),
+                name  = $field.attr('data-bv-field'),
+                event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $field.get(0).tagName) ? 'change' : this._changeEvent;
+
+            return (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
         },
 
         /**
@@ -694,19 +694,13 @@ if (typeof jQuery === 'undefined') {
             if ('submitted' === this.options.live) {
                 // Enable live mode
                 this.options.live = 'enabled';
+
                 var that = this;
                 for (var field in this.options.fields) {
                     (function(f) {
                         var fields  = that.getFieldElements(f);
                         if (fields.length) {
-                            var type    = $(fields[0]).attr('type'),
-                                event   = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $(fields[0]).get(0).tagName) ? 'change' : that._changeEvent,
-                                trigger = that.options.fields[field].trigger || that.options.trigger || event,
-                                events  = $.map(trigger.split(' '), function(item) {
-                                    return item + '.live.bv';
-                                }).join(' ');
-
-                            fields.off(events).on(events, function() {
+                            that.onLiveChange(fields, 'live', function() {
                                 if (that._exceedThreshold($(this))) {
                                     that.validateField($(this));
                                 }
@@ -722,6 +716,7 @@ if (typeof jQuery === 'undefined') {
                     autoFocus = this.isOptionEnabled($field.attr('data-bv-field'), 'autoFocus');
                 if (autoFocus) {
                     // Activate the tab containing the field if exists
+                    // TODO: Move this behavior to add-on
                     var $tabPane = $field.parents('.tab-pane'), tabId;
                     if ($tabPane && (tabId = $tabPane.attr('id'))) {
                         $('a[href="#' + tabId + '"][data-toggle="tab"]').tab('show');
@@ -815,32 +810,6 @@ if (typeof jQuery === 'undefined') {
         },
 
         // ------------------------------------------------------------------------------------------------------------
-        /**
-         * Get the jQuery fields and name from the field name or element
-         *
-         * @param {String|jQuery} field The field name or field element
-         * @returns {Object} an object with field containing the field name and $fields the field elements
-         */
-        _getFields: function(field) {
-            var $fields = $([]);
-            switch (typeof field) {
-                case 'object':
-                    $fields = field;
-                    field   = field.attr('data-bv-field');
-                    break;
-                case 'string':
-                    $fields = this.getFieldElements(field);
-                    break;
-                default:
-                    break;
-            }
-            return {
-                field: field,
-                $fields: $fields
-            };
-        },
-
-        // ---
         // Public methods
         // ------------------------------------------------------------------------------------------------------------
 
@@ -924,6 +893,24 @@ if (typeof jQuery === 'undefined') {
             }
 
             return option ? options.validators[validator][option] : options.validators[validator];
+        },
+
+        /**
+         * Get the validating result of field
+         *
+         * @param {String|jQuery} field The field name or field element
+         * @param {String} validatorName The validator name
+         * @returns {String} The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
+         */
+        getStatus: function(field, validatorName) {
+            switch (typeof field) {
+                case 'object':
+                    return field.data('bv.result.' + validatorName);
+                case 'string':
+                /* falls through */
+                default:
+                    return this.getFieldElements(field).eq(0).data('bv.result.' + validatorName);
+            }
         },
 
         /**
@@ -1043,6 +1030,60 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Detach a handler function for a field live change event
+         *
+         * @param {jQuery[]} $fields The field elements
+         * @param {String} namespace The event namespace
+         * @returns {BootstrapValidator}
+         */
+        offLiveChange: function($fields, namespace) {
+            var trigger = this._getFieldTrigger($fields.eq(0)),
+                events  = $.map(trigger, function(item) {
+                    return item + '.' + namespace + '.bv';
+                }).join(' ');
+
+            $fields.off(events);
+            return this;
+        },
+
+        /**
+         * Attach a handler function for a field live change event
+         *
+         * @param {jQuery[]} $fields The field elements
+         * @param {String} namespace The event namespace
+         * @param {Function} handler The handler function
+         * @returns {BootstrapValidator}
+         */
+        onLiveChange: function($fields, namespace, handler) {
+            var trigger = this._getFieldTrigger($fields.eq(0)),
+                events  = $.map(trigger, function(item) {
+                    return item + '.' + namespace + '.bv';
+                }).join(' ');
+
+            switch (this.options.live) {
+                case 'submitted':
+                    break;
+                case 'disabled':
+                    $fields.off(events);
+                    break;
+                case 'enabled':
+                /* falls through */
+                default:
+                    $fields.off(events).on(events, function(e) {
+                        // #1040: The input with placeholder is auto validated on IE 10, 11
+                        if ('input' === e.type && document.activeElement !== this) {
+                            return;
+                        } else {
+                            handler.apply(this, arguments);
+                        }
+                    });
+                    break;
+            }
+
+            return this;
+        },
+
+        /**
          * Update the error message
          *
          * @param {String|jQuery} field The field name or field element
@@ -1069,20 +1110,6 @@ if (typeof jQuery === 'undefined') {
             });
         },
 
-
-        /**
-         * Get the validating result of field
-         *
-         * @param {String|jQuery} field The field name or field element
-         * @param {String} validatorName The validator name
-         * @returns {String} The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
-         */
-        getStatus: function(field, validatorName) {
-            var fields = this._getFields(field),
-                $field = fields.$fields.eq(0);
-            return $field.data('bv.result.' + validatorName);
-        },
-        
         /**
          * Update all validating results of field
          *
@@ -1851,104 +1878,6 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} container The container selector or element
          * @returns {BootstrapValidator}
-         * Attach a handler function for a field live change event
-         *
-         * @param {jQuery[]} $fields The field elements
-         * @param {String} namespace The event namespace
-         * @param {Function} handler The handler function
-         */
-        onLiveChange: function($fields, namespace, handler) {
-            var that    = this,
-                trigger = this._getFieldTrigger($fields.eq(0)),
-                events  = $.map(trigger, function(item) {
-                    return item + '.' + namespace + '.bv';
-                }).join(' ');
-            switch (this.options.live) {
-                case 'submitted':
-                    break;
-                case 'disabled':
-                    $fields.off(events);
-                    break;
-                case 'enabled':
-                /* falls through */
-                default:
-                    $fields.off(events).on(events, function(e) {
-                        // #1040: The input with placeholder is auto validated on IE 10, 11
-                        if ('input' === e.type && document.activeElement !== this) {
-                            return;
-                        } else {
-                            handler.apply(this, arguments);
-                        }
-                    });
-                    break;
-            }
-        },
-
-        /**
-         * Detach a handler function for a field live change event
-         *
-         * @param {jQuery[]} $fields The field elements
-         * @param {String} namespace The event namespace
-         */
-        offLiveChange: function($fields, namespace) {
-            var trigger = this._getFieldTrigger($fields.eq(0)),
-                events  = $.map(trigger, function(item) {
-                    return item + '.' + namespace + '.bv';
-                }).join(' ');
-            $fields.off(events);
-        },
-
-        /**
-         * Attach a handler function for a field live change event
-         *
-         * @param {jQuery[]} $fields The field elements
-         * @param {String} namespace The event namespace
-         * @param {Function} handler The handler function
-         */
-        onLiveChange: function($fields, namespace, handler) {
-            var that    = this,
-                trigger = this._getFieldTrigger($fields.eq(0)),
-                events  = $.map(trigger, function(item) {
-                    return item + '.' + namespace + '.bv';
-                }).join(' ');
-            switch (this.options.live) {
-                case 'submitted':
-                    break;
-                case 'disabled':
-                    $fields.off(events);
-                    break;
-                case 'enabled':
-                /* falls through */
-                default:
-                    $fields.off(events).on(events, function(e) {
-                        // #1040: The input with placeholder is auto validated on IE 10, 11
-                        if ('input' === e.type && document.activeElement !== this) {
-                            return;
-                        } else {
-                            handler.apply(this, arguments);
-                        }
-                    });
-                    break;
-            }
-        },
-
-        /**
-         * Detach a handler function for a field live change event
-         *
-         * @param {jQuery[]} $fields The field elements
-         * @param {String} namespace The event namespace
-         */
-        offLiveChange: function($fields, namespace) {
-            var trigger = this._getFieldTrigger($fields.eq(0)),
-                events  = $.map(trigger, function(item) {
-                    return item + '.' + namespace + '.bv';
-                }).join(' ');
-            $fields.off(events);
-        },
-
-        /**
-         * Destroy the plugin
-         * It will remove all error messages, feedback icons and turn off the events
          */
         validateContainer: function(container) {
             var that       = this,
