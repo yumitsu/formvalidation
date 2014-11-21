@@ -1899,6 +1899,54 @@ if (typeof jQuery === 'undefined') {
         },
 
         /**
+         * Attach a handler function for a field live change event
+         *
+         * @param {jQuery[]} $fields The field elements
+         * @param {String} namespace The event namespace
+         * @param {Function} handler The handler function
+         */
+        onLiveChange: function($fields, namespace, handler) {
+            var that    = this,
+                trigger = this._getFieldTrigger($fields.eq(0)),
+                events  = $.map(trigger, function(item) {
+                    return item + '.' + namespace + '.bv';
+                }).join(' ');
+            switch (this.options.live) {
+                case 'submitted':
+                    break;
+                case 'disabled':
+                    $fields.off(events);
+                    break;
+                case 'enabled':
+                /* falls through */
+                default:
+                    $fields.off(events).on(events, function(e) {
+                        // #1040: The input with placeholder is auto validated on IE 10, 11
+                        if ('input' === e.type && document.activeElement !== this) {
+                            return;
+                        } else {
+                            handler.apply(this, arguments);
+                        }
+                    });
+                    break;
+            }
+        },
+
+        /**
+         * Detach a handler function for a field live change event
+         *
+         * @param {jQuery[]} $fields The field elements
+         * @param {String} namespace The event namespace
+         */
+        offLiveChange: function($fields, namespace) {
+            var trigger = this._getFieldTrigger($fields.eq(0)),
+                events  = $.map(trigger, function(item) {
+                    return item + '.' + namespace + '.bv';
+                }).join(' ');
+            $fields.off(events);
+        },
+
+        /**
          * Destroy the plugin
          * It will remove all error messages, feedback icons and turn off the events
          */
