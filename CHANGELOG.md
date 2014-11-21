@@ -34,7 +34,7 @@ __Bug Fixes__
 
 __Document__
 * [#919](https://github.com/nghuuphuoc/bootstrapvalidator/issues/919), [#1114](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1114): Add [Google reCAPTCHA](http://bootstrapvalidator.com/examples/validating-google-recaptcha/) example
-* [#978](https://github.com/nghuuphuoc/bootstrapvalidator/issues/978), [#1032](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1032), [#1146](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1146): Add the [Is a@b valid email address](http://bootstrapvalidator.com/validators/emailAddress/#is-ab-valid-email-address) section
+* [#978](https://github.com/nghuuphuoc/bootstrapvalidator/issues/978), [#1032](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1032), [#1146](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1146), [#1162](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1162): Add the [Is a@b valid email address](http://bootstrapvalidator.com/validators/emailAddress/#is-ab-valid-email-address) section
 * [#1104](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1104): Update the [Enabling the submit button all the time](http://bootstrapvalidator.com/examples/enabling-submit-button/) example
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
