@@ -22,6 +22,43 @@
         },
 
         /**
+         * Bind the validator on the live change of the field to compare with current one
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - field: The name of field that will be used to compare with current one
+         */
+        init: function(validator, $field, options) {
+            var fields = options.field.split(',');
+            for (var i = 0; i < fields.length; i++) {
+                var compareWith = validator.getFieldElements(fields[i]);
+                validator.onLiveChange(compareWith, 'live_different', function() {
+                    var status = validator.getStatus($field, 'different');
+                    if (status !== validator.STATUS_NOT_VALIDATED) {
+                        validator.revalidateField($field);
+                    }
+                });
+            }
+        },
+
+        /**
+         * Unbind the validator on the live change of the field to compare with current one
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - field: The name of field that will be used to compare with current one
+         */
+        destroy: function(validator, $field, options) {
+            var fields = options.field.split(',');
+            for (var i = 0; i < fields.length; i++) {
+                var compareWith = validator.getFieldElements(fields[i]);
+                validator.offLiveChange(compareWith, 'live_different');
+            }
+        },
+
+        /**
          * Return true if the input value is different with given field's value
          *
          * @param {BootstrapValidator} validator The validator plugin instance

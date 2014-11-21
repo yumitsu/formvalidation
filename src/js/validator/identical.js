@@ -31,9 +31,6 @@
          */
         init: function(validator, $field, options) {
             var compareWith = validator.getFieldElements(options.field);
-            if (compareWith === null || compareWith.length === 0) {
-                return;
-            }
             validator.onLiveChange(compareWith, 'live_identical', function() {
                 var status = validator.getStatus($field, 'identical');
                 if (status !== validator.STATUS_NOT_VALIDATED) {
@@ -52,9 +49,6 @@
          */
         destroy: function(validator, $field, options) {
             var compareWith = validator.getFieldElements(options.field);
-            if (compareWith === null || compareWith.length === 0) {
-                return;
-            }
             validator.offLiveChange(compareWith, 'live_identical');
         },
 

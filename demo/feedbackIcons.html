@@ -96,21 +96,21 @@ $(document).ready(function() {
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                'firstName': {
+                firstName: {
                     validators: {
                         notEmpty: {
                             message: 'The first name is required and cannot be empty'
                         }
                     }
                 },
-                'lastName': {
+                lastName: {
                     validators: {
                         notEmpty: {
                             message: 'The last name is required and cannot be empty'
                         }
                     }
                 },
-                'username': {
+                username: {
                     message: 'The username is not valid',
                     validators: {
                         notEmpty: {
@@ -124,21 +124,17 @@ $(document).ready(function() {
                         regexp: {
                             regexp: /^[a-zA-Z0-9_\.]+$/,
                             message: 'The username can only consist of alphabetical, number, dot and underscore'
-                        },
-                        different: {
-                            field: 'password',
-                            message: 'The username and password cannot be the same as each other'
                         }
                     }
                 },
-                'email': {
+                email: {
                     validators: {
                         emailAddress: {
                             message: 'The input is not a valid email address'
                         }
                     }
                 },
-                'password': {
+                password: {
                     feedbackIcons: 'false',
                     validators: {
                         notEmpty: {
@@ -150,7 +146,7 @@ $(document).ready(function() {
                         }
                     }
                 },
-                'gender': {
+                gender: {
                     feedbackIcons: false,
                     validators: {
                         notEmpty: {

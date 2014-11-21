@@ -43,9 +43,7 @@
                                    required data-bv-notempty-message="The username is required and cannot be empty"
                                    pattern="^[a-zA-Z0-9]+$" data-bv-regexp-message="The username can only consist of alphabetical and digits"
                                    data-bv-stringlength="true" data-bv-stringlength-min="6" data-bv-stringlength-max="30" data-bv-stringlength-message="The username must be more than 6 and less than 30 characters long"
-                                   data-bv-different="true" data-bv-different-field="password" data-bv-different-message="The username and password cannot be the same as each other"
-                                   data-bv-remote="true" data-bv-remote-url="remote.php" data-bv-remote-message="The username is not available"
-                                    />
+                                   data-bv-remote="true" data-bv-remote-url="remote.php" data-bv-remote-message="The username is not available" />
                         </div>
                     </div>
 
@@ -61,7 +59,7 @@
                         <div class="col-lg-5">
                             <input type="password" class="form-control" name="password"
                                    required data-bv-notempty-message="The password is required and cannot be empty"
-                                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"/>
+                                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username" />
                         </div>
                     </div>
 
@@ -70,8 +68,7 @@
                         <div class="col-lg-5">
                             <input type="password" class="form-control" name="confirmPassword"
                                    required data-bv-notempty-message="The confirm password is required and cannot be empty"
-                                   data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="The password and its confirm are not the same"
-                                   data-bv-different="true" data-bv-different-field="username" data-bv-different-message="The password cannot be the same as username"/>
+                                   data-bv-identical="true" data-bv-identical-field="password" data-bv-identical-message="The password and its confirm are not the same" />
                         </div>
                     </div>
 

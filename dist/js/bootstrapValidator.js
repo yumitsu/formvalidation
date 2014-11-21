@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-21 11:49:33 AM
+ * @version     v0.6.0-dev, built on 2014-11-21 2:31:22 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -128,8 +128,8 @@ if (typeof jQuery === 'undefined') {
                 })
                 .on('click.bv', this.options.submitButtons, function() {
                     that.$submitButton  = $(this);
-					// The user just click the submit button
-					that._submitIfValid = true;
+                    // The user just click the submit button
+                    that._submitIfValid = true;
                 })
                 // Find all fields which have either "name" or "data-bv-field" attribute
                 .find('[name], [data-bv-field]')
@@ -481,11 +481,20 @@ if (typeof jQuery === 'undefined') {
          * @returns {String[]} The event names triggered on field change
          */
         _getFieldTrigger: function($field) {
+            var trigger = $field.data('bv.trigger');
+            if (trigger) {
+                return trigger;
+            }
+
             var type  = $field.attr('type'),
                 name  = $field.attr('data-bv-field'),
                 event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $field.get(0).tagName) ? 'change' : this._changeEvent;
+            trigger   = (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
 
-            return (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
+            // Since the trigger data is used many times, I need to cache it to use later
+            $field.data('bv.trigger', trigger);
+
+            return trigger;
         },
 
         /**
@@ -821,9 +830,11 @@ if (typeof jQuery === 'undefined') {
             if (this.$submitButton) {
                 // Create hidden input to send the submit buttons
                 $('<input/>')
-                    .attr('type', 'hidden')
-                    .attr('data-bv-submit-hidden', '')
-                    .attr('name', this.$submitButton.attr('name'))
+                    .attr({
+                        'type': 'hidden',
+                        'data-bv-submit-hidden': '',
+                        name: this.$submitButton.attr('name')
+                    })
                     .val(this.$submitButton.val())
                     .appendTo(this.$form);
             }
@@ -1037,6 +1048,10 @@ if (typeof jQuery === 'undefined') {
          * @returns {BootstrapValidator}
          */
         offLiveChange: function($fields, namespace) {
+            if ($fields === null || $fields.length === 0) {
+                return this;
+            }
+
             var trigger = this._getFieldTrigger($fields.eq(0)),
                 events  = $.map(trigger, function(item) {
                     return item + '.' + namespace + '.bv';
@@ -1055,6 +1070,10 @@ if (typeof jQuery === 'undefined') {
          * @returns {BootstrapValidator}
          */
         onLiveChange: function($fields, namespace, handler) {
+            if ($fields === null || $fields.length === 0) {
+                return this;
+            }
+
             var trigger = this._getFieldTrigger($fields.eq(0)),
                 events  = $.map(trigger, function(item) {
                     return item + '.' + namespace + '.bv';
@@ -1172,6 +1191,7 @@ if (typeof jQuery === 'undefined') {
                 $errors.attr('data-bv-result', status);
 
                 // Determine the tab containing the element
+                // TODO: Move this behavior to add-on
                 var $tabPane = $field.parents('.tab-pane'),
                     tabId, $tab;
                 if ($tabPane && (tabId = $tabPane.attr('id'))) {
@@ -1501,7 +1521,7 @@ if (typeof jQuery === 'undefined') {
             for (field in this.options.fields) {
                 fields = this.getFieldElements(field);
                 group  = this.options.fields[field].group || this.options.group;
-                for (var i = 0; i < fields.length; i++) {
+                for (i = 0; i < fields.length; i++) {
                     $field = fields.eq(i);
                     $field
                         // Remove all error messages
@@ -1533,7 +1553,9 @@ if (typeof jQuery === 'undefined') {
                                 break;
                         }
                     }
-                    $field.removeData('bv.icon');
+                    $field.removeData('bv.icon')
+                          // It's safe to remove trigger data here, because it might be used when destroying the validator
+                          .removeData('bv.trigger');
                 }
             }
 
@@ -3222,6 +3244,43 @@ if (typeof jQuery === 'undefined') {
         html5Attributes: {
             message: 'message',
             field: 'field'
+        },
+
+        /**
+         * Bind the validator on the live change of the field to compare with current one
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - field: The name of field that will be used to compare with current one
+         */
+        init: function(validator, $field, options) {
+            var fields = options.field.split(',');
+            for (var i = 0; i < fields.length; i++) {
+                var compareWith = validator.getFieldElements(fields[i]);
+                validator.onLiveChange(compareWith, 'live_different', function() {
+                    var status = validator.getStatus($field, 'different');
+                    if (status !== validator.STATUS_NOT_VALIDATED) {
+                        validator.revalidateField($field);
+                    }
+                });
+            }
+        },
+
+        /**
+         * Unbind the validator on the live change of the field to compare with current one
+         *
+         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - field: The name of field that will be used to compare with current one
+         */
+        destroy: function(validator, $field, options) {
+            var fields = options.field.split(',');
+            for (var i = 0; i < fields.length; i++) {
+                var compareWith = validator.getFieldElements(fields[i]);
+                validator.offLiveChange(compareWith, 'live_different');
+            }
         },
 
         /**
@@ -5383,9 +5442,6 @@ if (typeof jQuery === 'undefined') {
          */
         init: function(validator, $field, options) {
             var compareWith = validator.getFieldElements(options.field);
-            if (compareWith === null || compareWith.length === 0) {
-                return;
-            }
             validator.onLiveChange(compareWith, 'live_identical', function() {
                 var status = validator.getStatus($field, 'identical');
                 if (status !== validator.STATUS_NOT_VALIDATED) {
@@ -5404,9 +5460,6 @@ if (typeof jQuery === 'undefined') {
          */
         destroy: function(validator, $field, options) {
             var compareWith = validator.getFieldElements(options.field);
-            if (compareWith === null || compareWith.length === 0) {
-                return;
-            }
             validator.offLiveChange(compareWith, 'live_identical');
         },
 

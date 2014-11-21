@@ -26,6 +26,7 @@ __Improvements__
 * [#1137](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1137): Use ```jQuery``` instead of ```window.jQuery```
 * [#1154](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1154): Allow to reuse data which is returned by the validator
 * [#1156](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1156): Add option to set optional protocol in [uri](http://bootstrapvalidator.com/validators/uri/) validator, thanks to [@krecik](https://github.com/krecik)
+* [#1177](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1177): Don't need to set the [different](http://bootstrapvalidator.com/validators/different/) validator for both fields
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
@@ -83,7 +84,7 @@ __Document__
 * [#912](https://github.com/nghuuphuoc/bootstrapvalidator/issues/912): Add [Using language package](http://bootstrapvalidator.com/examples/using-language-package/) example
 * [#920](https://github.com/nghuuphuoc/bootstrapvalidator/issues/920), [#929](https://github.com/nghuuphuoc/bootstrapvalidator/pull/929), [#936](https://github.com/nghuuphuoc/bootstrapvalidator/pull/936): Update the [Changing the tooltip, popover's position](http://bootstrapvalidator.com/examples/tooltip-popover-position/) example, thanks to [@Arkni](https://github.com/Arkni)
 * [#938](https://github.com/nghuuphuoc/bootstrapvalidator/issues/938): Add [time](http://bootstrapvalidator.com/validators/regexp/#html-5-example) validator example
-* [#979](https://github.com/nghuuphuoc/bootstrapvalidator/issues/979): Add [Rails usage](http://bootstrapvalidator.com/validators/stringLength/#using-with-rails-form) for stringLength validator
+* [#979](https://github.com/nghuuphuoc/bootstrapvalidator/issues/979): Add [Rails usage](http://bootstrapvalidator.com/validators/stringLength/#using-with-rails-form) for [stringLength](http://bootstrapvalidator.com/validators/stringLength/) validator
 * [#1006](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1006): Fix the order of [parameters](http://bootstrapvalidator.com/settings/#validator-enabled) for [enableFieldValidators()](http://bootstrapvalidator.com/api/#enable-field-validators) method, thanks to [@mchrapka](https://github.com/mchrapka)
 * [#1009](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1009): Fix mixed data/delay in [remote](http://bootstrapvalidator.com/validators/remote/) doc, thanks to [@jazzzz](https://github.com/jazzzz)
 * [#1019](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1019): Updated docs for added German [postal code](http://bootstrapvalidator.com/validators/zipCode/) and [phone number](http://bootstrapvalidator.com/validators/phone/) validators, thanks to [@jhadenfeldt](https://github.com/jhadenfeldt)
