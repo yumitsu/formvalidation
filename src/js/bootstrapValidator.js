@@ -1474,10 +1474,33 @@ if (typeof jQuery === 'undefined') {
          * It will remove all error messages, feedback icons and turn off the events
          */
         destroy: function() {
-            var field, fields, $field, validator, $icon, group;
+            var i, field, fields, $field, validator, $icon, group;
+
+            // Destroy the validators first
             for (field in this.options.fields) {
-                fields    = this.getFieldElements(field);
-                group     = this.options.fields[field].group || this.options.group;
+                fields = this.getFieldElements(field);
+                for (i = 0; i < fields.length; i++) {
+                    $field = fields.eq(i);
+                    for (validator in this.options.fields[field].validators) {
+                        if ($field.data('bv.dfs.' + validator)) {
+                            $field.data('bv.dfs.' + validator).reject();
+                        }
+                        $field.removeData('bv.result.' + validator)
+                              .removeData('bv.response.' + validator)
+                              .removeData('bv.dfs.' + validator);
+
+                        // Destroy the validator
+                        if ('function' === typeof $.fn.bootstrapValidator.validators[validator].destroy) {
+                            $.fn.bootstrapValidator.validators[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
+                        }
+                    }
+                }
+            }
+
+            // Remove messages and icons
+            for (field in this.options.fields) {
+                fields = this.getFieldElements(field);
+                group  = this.options.fields[field].group || this.options.group;
                 for (var i = 0; i < fields.length; i++) {
                     $field = fields.eq(i);
                     $field
@@ -1511,20 +1534,6 @@ if (typeof jQuery === 'undefined') {
                         }
                     }
                     $field.removeData('bv.icon');
-
-                    for (validator in this.options.fields[field].validators) {
-                        if ($field.data('bv.dfs.' + validator)) {
-                            $field.data('bv.dfs.' + validator).reject();
-                        }
-                        $field.removeData('bv.result.' + validator)
-                              .removeData('bv.response.' + validator)
-                              .removeData('bv.dfs.' + validator);
-
-                        // Destroy the validator
-                        if ('function' === typeof $.fn.bootstrapValidator.validators[validator].destroy) {
-                            $.fn.bootstrapValidator.validators[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
-                        }
-                    }
                 }
             }
 
