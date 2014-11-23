@@ -622,7 +622,12 @@ if (typeof jQuery === 'undefined') {
                     || (html5AttrMap !== true && ('' === enabled || 'true' === enabled || attrName === enabled.toLowerCase())))
                 {
                     // Try to parse the options via attributes
-                    validator.html5Attributes = $.extend({}, { message: 'message', onerror: 'onError', onsuccess: 'onSuccess' }, validator.html5Attributes);
+                    validator.html5Attributes = $.extend({}, {
+                                                    message: 'message',
+                                                    onerror: 'onError',
+                                                    onsuccess: 'onSuccess',
+                                                    transformer: 'transformer'
+                                                }, validator.html5Attributes);
                     validators[v] = $.extend({}, html5AttrMap === true ? {} : html5AttrMap, validators[v]);
 
                     for (html5AttrName in validator.html5Attributes) {
@@ -653,6 +658,7 @@ if (typeof jQuery === 'undefined') {
                     onSuccess:     $field.attr('data-bv-onsuccess'),
                     selector:      $field.attr('data-bv-selector'),
                     threshold:     $field.attr('data-bv-threshold'),
+                    transformer:   $field.attr('data-bv-transformer'),
                     trigger:       $field.attr('data-bv-trigger'),
                     verbose:       $field.attr('data-bv-verbose'),
                     validators:    validators
@@ -874,6 +880,31 @@ if (typeof jQuery === 'undefined') {
             }
 
             return this._cacheFields[field];
+        },
+
+        /**
+         * Get the field value after applying transformer
+         *
+         * @param {String|jQuery} field The field name or field element
+         * @param {String} validatorName The validator name
+         * @returns {String}
+         */
+        getFieldValue: function(field, validatorName) {
+            var $field;
+            if ('string' === typeof field) {
+                $field = this.getFieldElements(field);
+                if ($field.length === 0) {
+                    return null;
+                }
+            } else {
+                $field = field;
+                field  = $field.attr('data-bv-field');
+            }
+
+            var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
+                                ? this.options.fields[field].validators[validatorName].transformer : null)
+                                || this.options.fields[field].transformer;
+            return transformer ? $.fn.bootstrapValidator.helpers.call(transformer, [$field, validatorName]) : $field.val();
         },
 
         /**
