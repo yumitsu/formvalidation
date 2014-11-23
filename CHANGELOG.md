@@ -20,12 +20,12 @@ __Add-ons__
 * multilingual add-on
 
 __Improvements__
+* [#908](https://github.com/nghuuphuoc/bootstrapvalidator/issues/908), [#1156](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1156): Add option to set optional protocol in [uri](http://bootstrapvalidator.com/validators/uri/) validator, thanks to [@krecik](https://github.com/krecik)
 * [#914](https://github.com/nghuuphuoc/bootstrapvalidator/issues/914), [#1035](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1035), [#1163](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1163): Improve [identical](http://bootstrapvalidator.com/validators/identical/) validator, thanks to [@jazzzz](https://github.com/jazzzz)
 * [#1037](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1037): Show the credit card icon based on its type
 * [#1083](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1083), [#1092](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1092/): Showing tooltip/popover when moving over or clicking the feedback icon (Bootstrap 3.3.0), thanks to [@Arkni](https://github.com/Arkni)
 * [#1137](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1137): Use ```jQuery``` instead of ```window.jQuery```
 * [#1154](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1154): Allow to reuse data which is returned by the validator
-* [#1156](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1156): Add option to set optional protocol in [uri](http://bootstrapvalidator.com/validators/uri/) validator, thanks to [@krecik](https://github.com/krecik)
 * [#1177](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1177): Don't need to set the [different](http://bootstrapvalidator.com/validators/different/) validator for both fields
 
 __Bug Fixes__

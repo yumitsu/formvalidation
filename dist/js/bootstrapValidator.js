@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-21 4:38:51 PM
+ * @version     v0.6.0-dev, built on 2014-11-23 2:19:10 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -7001,6 +7001,7 @@ if (typeof jQuery === 'undefined') {
          * @param {Object} options
          * - message: The error message
          * - allowLocal: Allow the private and local network IP. Default to false
+         * - allowEmptyProtocol: Allow the URI without protocol. Default to false
          * - protocol: The protocols, separated by a comma. Default to "http, https, ftp"
          * @returns {Boolean}
          */

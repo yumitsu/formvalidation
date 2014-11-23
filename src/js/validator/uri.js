@@ -35,6 +35,7 @@
          * @param {Object} options
          * - message: The error message
          * - allowLocal: Allow the private and local network IP. Default to false
+         * - allowEmptyProtocol: Allow the URI without protocol. Default to false
          * - protocol: The protocols, separated by a comma. Default to "http, https, ftp"
          * @returns {Boolean}
          */
