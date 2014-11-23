@@ -29,8 +29,7 @@
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
-
+            var value = validator.getFieldValue($field, 'bic');
             if (value === '') {
                 return true;
             }

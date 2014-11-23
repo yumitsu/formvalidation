@@ -37,7 +37,7 @@
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {
-            var value  = $field.val(),
+            var value  = validator.getFieldValue($field, 'callback'),
                 dfd    = new $.Deferred(),
                 result = { valid: true };
 

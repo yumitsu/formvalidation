@@ -62,13 +62,13 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
-            var compareWith = validator.getFieldElements(options.field);
+            var value       = validator.getFieldValue($field, 'identical'),
+                compareWith = validator.getFieldElements(options.field);
             if (compareWith === null || compareWith.length === 0) {
                 return true;
             }
 
-            var compareValue = compareWith.val();
+            var compareValue = validator.getFieldValue(compareWith, 'identical');
             if (value === compareValue) {
                 validator.updateStatus(compareWith, validator.STATUS_VALID, 'identical');
                 return true;

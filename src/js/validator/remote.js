@@ -54,7 +54,7 @@
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val(),
+            var value = validator.getFieldValue($field, 'remote'),
                 dfd   = new $.Deferred();
             if (value === '') {
                 dfd.resolve($field, 'remote', { valid: true });

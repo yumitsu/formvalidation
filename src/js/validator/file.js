@@ -46,7 +46,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'file');
             if (value === '') {
                 return true;
             }

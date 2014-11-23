@@ -52,7 +52,7 @@
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'greaterThan');
             if (value === '') {
                 return true;
             }

@@ -62,7 +62,7 @@
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'stringLength');
             if (options.trim === true || options.trim === 'true') {
                 value = $.trim(value);
             }

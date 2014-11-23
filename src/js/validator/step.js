@@ -34,7 +34,7 @@
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'step');
             if (value === '') {
                 return true;
             }

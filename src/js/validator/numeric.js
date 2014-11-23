@@ -40,7 +40,7 @@
                 return false;
             }
 
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'numeric');
             if (value === '') {
                 return true;
             }

@@ -29,7 +29,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'rtn');
             if (value === '') {
                 return true;
             }

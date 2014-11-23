@@ -25,7 +25,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'digits');
             if (value === '') {
                 return true;
             }

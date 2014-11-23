@@ -30,7 +30,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'imei');
             if (value === '') {
                 return true;
             }

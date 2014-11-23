@@ -34,7 +34,7 @@
                 return false;
             }
 
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'integer');
             if (value === '') {
                 return true;
             }

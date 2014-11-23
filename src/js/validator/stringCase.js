@@ -33,7 +33,7 @@
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'stringCase');
             if (value === '') {
                 return true;
             }

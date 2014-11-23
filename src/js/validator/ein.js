@@ -45,7 +45,7 @@
          * @returns {Object|Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'ein');
             if (value === '') {
                 return true;
             }

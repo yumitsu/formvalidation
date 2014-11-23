@@ -40,7 +40,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'uri');
             if (value === '') {
                 return true;
             }

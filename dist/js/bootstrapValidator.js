@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-23 2:19:10 PM
+ * @version     v0.6.0-dev, built on 2014-11-23 4:50:20 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -622,7 +622,12 @@ if (typeof jQuery === 'undefined') {
                     || (html5AttrMap !== true && ('' === enabled || 'true' === enabled || attrName === enabled.toLowerCase())))
                 {
                     // Try to parse the options via attributes
-                    validator.html5Attributes = $.extend({}, { message: 'message', onerror: 'onError', onsuccess: 'onSuccess' }, validator.html5Attributes);
+                    validator.html5Attributes = $.extend({}, {
+                                                    message: 'message',
+                                                    onerror: 'onError',
+                                                    onsuccess: 'onSuccess',
+                                                    transformer: 'transformer'
+                                                }, validator.html5Attributes);
                     validators[v] = $.extend({}, html5AttrMap === true ? {} : html5AttrMap, validators[v]);
 
                     for (html5AttrName in validator.html5Attributes) {
@@ -653,6 +658,7 @@ if (typeof jQuery === 'undefined') {
                     onSuccess:     $field.attr('data-bv-onsuccess'),
                     selector:      $field.attr('data-bv-selector'),
                     threshold:     $field.attr('data-bv-threshold'),
+                    transformer:   $field.attr('data-bv-transformer'),
                     trigger:       $field.attr('data-bv-trigger'),
                     verbose:       $field.attr('data-bv-verbose'),
                     validators:    validators
@@ -874,6 +880,31 @@ if (typeof jQuery === 'undefined') {
             }
 
             return this._cacheFields[field];
+        },
+
+        /**
+         * Get the field value after applying transformer
+         *
+         * @param {String|jQuery} field The field name or field element
+         * @param {String} validatorName The validator name
+         * @returns {String}
+         */
+        getFieldValue: function(field, validatorName) {
+            var $field;
+            if ('string' === typeof field) {
+                $field = this.getFieldElements(field);
+                if ($field.length === 0) {
+                    return null;
+                }
+            } else {
+                $field = field;
+                field  = $field.attr('data-bv-field');
+            }
+
+            var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
+                                ? this.options.fields[field].validators[validatorName].transformer : null)
+                                || this.options.fields[field].transformer;
+            return transformer ? $.fn.bootstrapValidator.helpers.call(transformer, [$field, validatorName]) : $field.val();
         },
 
         /**
@@ -2261,7 +2292,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'base64');
             if (value === '') {
                 return true;
             }
@@ -2319,7 +2350,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'between');
             if (value === '') {
                 return true;
             }
@@ -2375,8 +2406,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
-
+            var value = validator.getFieldValue($field, 'bic');
             if (value === '') {
                 return true;
             }
@@ -2444,7 +2474,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {
-            var value  = $field.val(),
+            var value  = validator.getFieldValue($field, 'callback'),
                 dfd    = new $.Deferred(),
                 result = { valid: true };
 
@@ -2618,7 +2648,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'color');
             if (value === '') {
                 return true;
             }
@@ -2700,7 +2730,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'creditCard');
             if (value === '') {
                 return true;
             }
@@ -2813,7 +2843,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'cusip');
             if (value === '') {
                 return true;
             }
@@ -2874,7 +2904,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'cvv');
             if (value === '') {
                 return true;
             }
@@ -3010,7 +3040,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'date');
             if (value === '') {
                 return true;
             }
@@ -3294,7 +3324,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'different');
             if (value === '') {
                 return true;
             }
@@ -3308,7 +3338,7 @@ if (typeof jQuery === 'undefined') {
                     continue;
                 }
 
-                var compareValue = compareWith.val();
+                var compareValue = validator.getFieldValue(compareWith, 'different');
                 if (value === compareValue) {
                     isValid = false;
                 } else if (compareValue !== '') {
@@ -3339,7 +3369,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'digits');
             if (value === '') {
                 return true;
             }
@@ -3372,7 +3402,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'ean');
             if (value === '') {
                 return true;
             }
@@ -3431,7 +3461,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object|Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'ein');
             if (value === '') {
                 return true;
             }
@@ -3485,7 +3515,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'emailAddress');
             if (value === '') {
                 return true;
             }
@@ -3585,7 +3615,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'file');
             if (value === '') {
                 return true;
             }
@@ -3683,7 +3713,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'greaterThan');
             if (value === '') {
                 return true;
             }
@@ -3738,7 +3768,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'grid');
             if (value === '') {
                 return true;
             }
@@ -3775,7 +3805,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'hex');
             if (value === '') {
                 return true;
             }
@@ -3983,7 +4013,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'iban');
             if (value === '') {
                 return true;
             }
@@ -4103,7 +4133,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'id');
             if (value === '') {
                 return true;
             }
@@ -5473,13 +5503,13 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
-            var compareWith = validator.getFieldElements(options.field);
+            var value       = validator.getFieldValue($field, 'identical'),
+                compareWith = validator.getFieldElements(options.field);
             if (compareWith === null || compareWith.length === 0) {
                 return true;
             }
 
-            var compareValue = compareWith.val();
+            var compareValue = validator.getFieldValue(compareWith, 'identical');
             if (value === compareValue) {
                 validator.updateStatus(compareWith, validator.STATUS_VALID, 'identical');
                 return true;
@@ -5513,7 +5543,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'imei');
             if (value === '') {
                 return true;
             }
@@ -5561,7 +5591,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'imo');
             if (value === '') {
                 return true;
             }
@@ -5614,7 +5644,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'integer');
             if (value === '') {
                 return true;
             }
@@ -5652,7 +5682,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'ip');
             if (value === '') {
                 return true;
             }
@@ -5717,7 +5747,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'isbn');
             if (value === '') {
                 return true;
             }
@@ -5807,7 +5837,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'isin');
             if (value === '') {
                 return true;
             }
@@ -5866,7 +5896,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'ismn');
             if (value === '') {
                 return true;
             }
@@ -5929,7 +5959,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'issn');
             if (value === '') {
                 return true;
             }
@@ -6001,7 +6031,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'lessThan');
             if (value === '') {
                 return true;
             }
@@ -6052,7 +6082,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'mac');
             if (value === '') {
                 return true;
             }
@@ -6085,7 +6115,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'meid');
             if (value === '') {
                 return true;
             }
@@ -6222,7 +6252,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'numeric');
             if (value === '') {
                 return true;
             }
@@ -6291,7 +6321,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'phone');
             if (value === '') {
                 return true;
             }
@@ -6464,7 +6494,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'regexp');
             if (value === '') {
                 return true;
             }
@@ -6522,7 +6552,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val(),
+            var value = validator.getFieldValue($field, 'remote'),
                 dfd   = new $.Deferred();
             if (value === '') {
                 dfd.resolve($field, 'remote', { valid: true });
@@ -6609,7 +6639,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'rtn');
             if (value === '') {
                 return true;
             }
@@ -6651,7 +6681,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'sedol');
             if (value === '') {
                 return true;
             }
@@ -6692,7 +6722,7 @@ if (typeof jQuery === 'undefined') {
 		 * @returns {Boolean}
 		 */
 		validate: function(validator, $field, options) {
-			var value = $field.val();
+			var value = validator.getFieldValue($field, 'siren');
 			if (value === '') {
 				return true;
 			}
@@ -6724,7 +6754,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
 		validate: function(validator, $field, options) {
-			var value = $field.val();
+			var value = validator.getFieldValue($field, 'siret');
 			if (value === '') {
 				return true;
 			}
@@ -6774,7 +6804,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'step');
             if (value === '') {
                 return true;
             }
@@ -6842,7 +6872,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'stringCase');
             if (value === '') {
                 return true;
             }
@@ -6912,7 +6942,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'stringLength');
             if (options.trim === true || options.trim === 'true') {
                 value = $.trim(value);
             }
@@ -7006,7 +7036,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'uri');
             if (value === '') {
                 return true;
             }
@@ -7120,7 +7150,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'uuid');
             if (value === '') {
                 return true;
             }
@@ -7221,7 +7251,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'vat');
             if (value === '') {
                 return true;
             }
@@ -8585,7 +8615,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'vin');
             if (value === '') {
                 return true;
             }
@@ -8683,7 +8713,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'zipCode');
             if (value === '' || !options.country) {
                 return true;
             }

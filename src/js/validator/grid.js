@@ -30,7 +30,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'grid');
             if (value === '') {
                 return true;
             }

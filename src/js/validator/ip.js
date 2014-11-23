@@ -36,7 +36,7 @@
          * @returns {Boolean|Object}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'ip');
             if (value === '') {
                 return true;
             }

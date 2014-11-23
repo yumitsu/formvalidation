@@ -69,7 +69,7 @@
          * @returns {Boolean}
          */
         validate: function(validator, $field, options) {
-            var value = $field.val();
+            var value = validator.getFieldValue($field, 'different');
             if (value === '') {
                 return true;
             }
@@ -83,7 +83,7 @@
                     continue;
                 }
 
-                var compareValue = compareWith.val();
+                var compareValue = validator.getFieldValue(compareWith, 'different');
                 if (value === compareValue) {
                     isValid = false;
                 } else if (compareValue !== '') {
