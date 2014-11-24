@@ -4,6 +4,7 @@
   "keywords": ["jQuery", "plugin", "validate", "validator", "form", "Bootstrap"],
   "homepage": "http://bootstrapvalidator.com",
   "license": "http://bootstrapvalidator.com/license/",
+  "type": "library",
   "authors": [
   {
     "name": "Nguyen Huu Phuoc",
