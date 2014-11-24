@@ -38,11 +38,13 @@ __Bug Fixes__
 __Document__
 * [#825](https://github.com/nghuuphuoc/bootstrapvalidator/issues/825): Add [Bootstrap Datepicker](http://bootstrapvalidator.com/examples/bootstrap-datepicker/) example
 * [#919](https://github.com/nghuuphuoc/bootstrapvalidator/issues/919), [#1114](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1114): Add [Google reCAPTCHA](http://bootstrapvalidator.com/examples/validating-google-recaptcha/) example
+* [#941](https://github.com/nghuuphuoc/bootstrapvalidator/issues/941): Add [Clearing field when clicking the icon](http://bootstrapvalidator.com/examples/clearing-field-when-clicking-icon/) example
 * [#948](https://github.com/nghuuphuoc/bootstrapvalidator/issues/948), [#978](https://github.com/nghuuphuoc/bootstrapvalidator/issues/978), [#1032](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1032), [#1146](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1146), [#1162](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1162): Add the [Is a@b valid email address](http://bootstrapvalidator.com/validators/emailAddress/#is-ab-valid-email-address) section
 * [#1034](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1034): Add [Only enable the submit button if all fields are valid](http://bootstrapvalidator.com/examples/enabling-submit-button/) example
 * [#1078](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1078), [#1104](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1104): Update the [Enabling the submit button all the time](http://bootstrapvalidator.com/examples/enabling-submit-button/) example
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
+* [#1128](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1128): Added link to the [Examples](http://bootstrapvalidator.com/examples/) from the [homepage](http://bootstrapvalidator.com/#2)
 * [#1172](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1172): Add [Requiring at least one field](http://bootstrapvalidator.com/examples/requiring-at-least-one-field/) example
 * [#1174](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1174): Add [Pickadate](http://bootstrapvalidator.com/examples/pickadate/) example
 * [#1176](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1176): Add [Form is submitted twice](http://bootstrapvalidator.com/examples/form-submit-twice/) example
