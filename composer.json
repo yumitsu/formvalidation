@@ -1,0 +1,15 @@
+{
+  "name": "bootstrapvalidator",
+  "version": "0.6.0-dev",
+  "description": "The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3",
+  "keywords": ["jQuery", "plugin", "validate", "validator", "form", "Bootstrap"],
+  "homepage": "http://bootstrapvalidator.com",
+  "license": "http://bootstrapvalidator.com/license/",
+  "authors": [
+  {
+    "name": "Nguyen Huu Phuoc",
+    "email": "phuoc@huuphuoc.me",
+    "homepage": "https://twitter.com/nghuuphuoc",
+  }
+  ]
+}
