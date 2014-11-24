@@ -44,6 +44,7 @@ __Document__
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
 * [#1172](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1172): Add [Requiring at least one field](http://bootstrapvalidator.com/examples/requiring-at-least-one-field/) example
+* [#1174](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1174): Add [Pickadate](http://bootstrapvalidator.com/examples/pickadate/) example
 * [#1176](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1176): Add [Form is submitted twice](http://bootstrapvalidator.com/examples/form-submit-twice/) example
 
 __Language Packages__
