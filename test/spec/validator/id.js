@@ -105,7 +105,7 @@ describe('id', function() {
         }
 
         // Invalid samples
-        var invalidSamples = ['231.002.999-00'];
+        var invalidSamples = ['231.002.999-00', '000.000.000-00', '111.111.111-11'];
         for (i in invalidSamples) {
             this.bv.resetForm();
             this.$id.val(invalidSamples[i]);
