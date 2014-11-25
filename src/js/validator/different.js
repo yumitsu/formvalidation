@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             different: {
                 'default': 'Please enter a different value'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.different = {
+    FormValidator.Validator.different = {
         html5Attributes: {
             message: 'message',
             field: 'field'
@@ -24,7 +24,7 @@
         /**
          * Bind the validator on the live change of the field to compare with current one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -45,7 +45,7 @@
         /**
          * Unbind the validator on the live change of the field to compare with current one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -61,7 +61,7 @@
         /**
          * Return true if the input value is different with given field's value
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             zipCode: {
                 'default': 'Please enter a valid postal code',
@@ -39,7 +39,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.zipCode = {
+    FormValidator.Validator.zipCode = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -50,7 +50,7 @@
         /**
          * Return true if and only if the input value is a valid country zip code
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -84,7 +84,7 @@
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].zipCode.countryNotSupported, country) };
+                return { valid: false, message: FormValidator.Helper.format(FormValidator.I18n[locale].zipCode.countryNotSupported, country) };
             }
 
             var isValid = false;
@@ -186,7 +186,7 @@
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].zipCode.country, $.fn.bootstrapValidator.i18n[locale].zipCode.countries[country])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].zipCode.country, FormValidator.I18n[locale].zipCode.countries[country])
             };
         },
 

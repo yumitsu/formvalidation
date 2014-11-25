@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             callback: {
                 'default': 'Please enter a valid value'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.callback = {
+    FormValidator.Validator.callback = {
         html5Attributes: {
             message: 'message',
             callback: 'callback'
@@ -24,7 +24,7 @@
         /**
          * Return result from the callback method
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - callback: The callback method that passes 2 parameters:
@@ -42,7 +42,7 @@
                 result = { valid: true };
 
             if (options.callback) {
-                var response = $.fn.bootstrapValidator.helpers.call(options.callback, [value, validator, $field]);
+                var response = FormValidator.Helper.call(options.callback, [value, validator, $field]);
                 result = ('boolean' === typeof response) ? { valid: response } : response;
             }
 

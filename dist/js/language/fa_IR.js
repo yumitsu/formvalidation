@@ -3,7 +3,7 @@
      * Persian (Farsi) Language package.
      * Translated by @i0
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'fa_IR': {
             base64: {
                 'default': 'لطفا متن کد گذاری شده base 64 صحیح وارد فرمایید'

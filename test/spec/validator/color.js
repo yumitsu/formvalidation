@@ -649,6 +649,6 @@ describe('color', function() {
         this.$color.val('notacolor');
         this.bv.validate();
         expect(this.bv.isValidField('color')).toEqual(false);
-        expect(this.bv.getMessages(this.$color, 'color')[0]).toEqual($.fn.bootstrapValidator.i18n[this.bv.getLocale()].color.default);
+        expect(this.bv.getMessages(this.$color, 'color')[0]).toEqual(FormValidator.I18n[this.bv.getLocale()].color.default);
     });
 });

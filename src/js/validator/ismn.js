@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ismn: {
                 'default': 'Please enter a valid ISMN number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.ismn = {
+    FormValidator.Validator.ismn = {
         /**
          * Validate ISMN (International Standard Music Number)
          * Examples:
@@ -23,7 +23,7 @@
          * - Invalid: 9790060115614
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Music_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

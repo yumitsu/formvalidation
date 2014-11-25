@@ -1,6 +1,6 @@
 describe('api', function() {
     // Override the options
-    $.extend($.fn.bootstrapValidator.DEFAULT_OPTIONS, {
+    $.extend(FormValidator.DEFAULT_OPTIONS, {
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
@@ -1115,10 +1115,10 @@ describe('event field trigger with default events', function() {
 });
 
 describe('event form trigger with events changed', function() {
-    var defaultOptions = $.fn.bootstrapValidator.DEFAULT_OPTIONS;
+    var defaultOptions = FormValidator.DEFAULT_OPTIONS;
 
     beforeEach(function() {
-        $.fn.bootstrapValidator.DEFAULT_OPTIONS = $.extend({}, $.fn.bootstrapValidator.DEFAULT_OPTIONS, {
+        FormValidator.DEFAULT_OPTIONS = $.extend({}, FormValidator.DEFAULT_OPTIONS, {
             events: {
                 formInit: 'init.form.bv',
                 formError: 'bv.form.error',
@@ -1164,7 +1164,7 @@ describe('event form trigger with events changed', function() {
 
     afterEach(function() {
         $('#eventForm2').bootstrapValidator('destroy').remove();
-        $.fn.bootstrapValidator.DEFAULT_OPTIONS = defaultOptions;
+        FormValidator.DEFAULT_OPTIONS = defaultOptions;
     });
 
     it('triggers bv.form.success', function() {
@@ -1191,10 +1191,10 @@ describe('event form trigger with events changed', function() {
 });
 
 describe('event field trigger with events changed', function() {
-    var defaultOptions = $.fn.bootstrapValidator.DEFAULT_OPTIONS;
+    var defaultOptions = FormValidator.DEFAULT_OPTIONS;
 
     beforeEach(function() {
-        $.fn.bootstrapValidator.DEFAULT_OPTIONS = $.extend({}, $.fn.bootstrapValidator.DEFAULT_OPTIONS, {
+        FormValidator.DEFAULT_OPTIONS = $.extend({}, FormValidator.DEFAULT_OPTIONS, {
             events: {
                 formInit: 'init.form.bv',
                 formError: 'bv.form.error',
@@ -1240,7 +1240,7 @@ describe('event field trigger with events changed', function() {
 
     afterEach(function() {
         $('#eventForm4').bootstrapValidator('destroy').remove();
-        $.fn.bootstrapValidator.DEFAULT_OPTIONS = defaultOptions;
+        FormValidator.DEFAULT_OPTIONS = defaultOptions;
     });
 
     it('triggers success.field.bv', function() {
@@ -1874,8 +1874,8 @@ describe('i18n', function() {
     });
 
     it('default message', function() {
-        var format = $.fn.bootstrapValidator.helpers.format,
-            i18n   = $.fn.bootstrapValidator.i18n[this.bv.getLocale()];
+        var format = FormValidator.Helper.format,
+            i18n   = FormValidator.I18n[this.bv.getLocale()];
 
         this.bv.validate();
         expect(this.bv.getMessages(this.$fullName, 'notEmpty')[0]).toEqual(i18n.notEmpty['default']);
@@ -2049,7 +2049,7 @@ describe('message', function() {
 describe('submit', function() {
     var submitted, originalTimeout;
 
-    $.fn.bootstrapValidator.validators.fake_remote = {
+    FormValidator.Validator.fake_remote = {
         validate: function(validator, $field, options) {
             var dfd = new $.Deferred();
             setTimeout(function() {
@@ -2615,7 +2615,7 @@ describe('between', function() {
         this.$age.val(50);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
     });
 
     // #1048
@@ -2635,7 +2635,7 @@ describe('between', function() {
         this.$age.val(50);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
     });
 
     it('compare to return value of a function', function() {
@@ -2649,7 +2649,7 @@ describe('between', function() {
         expect($('#msgMin').html()).toEqual('betweenCompareMin() called; compare to 20');
         expect($('#msgMax').html()).toEqual('betweenCompareMax() called; compare to 30');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
 
         this.bv.resetForm();
         this.$minAge.val(2);
@@ -2672,7 +2672,7 @@ describe('between', function() {
         expect($('#msgMin').html()).toEqual('TestSuite.between.compareToMin() called; compare to 20');
         expect($('#msgMax').html()).toEqual('TestSuite.between.compareToMax() called; compare to 30');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
 
         this.bv.resetForm();
         this.$minAge.val(2);
@@ -3457,7 +3457,7 @@ describe('color', function() {
         this.$color.val('notacolor');
         this.bv.validate();
         expect(this.bv.isValidField('color')).toEqual(false);
-        expect(this.bv.getMessages(this.$color, 'color')[0]).toEqual($.fn.bootstrapValidator.i18n[this.bv.getLocale()].color.default);
+        expect(this.bv.getMessages(this.$color, 'color')[0]).toEqual(FormValidator.I18n[this.bv.getLocale()].color.default);
     });
 });
 
@@ -4855,7 +4855,7 @@ describe('greaterThan', function() {
         this.$age.val(10);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
+        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
     });
 
     // #1048
@@ -4871,7 +4871,7 @@ describe('greaterThan', function() {
         this.$age.val(10);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
+        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
     });
 
     it('compare to return value of a function', function() {
@@ -4882,7 +4882,7 @@ describe('greaterThan', function() {
         this.bv.validate();
         expect($('#msg').html()).toEqual('greaterThanCompare() called; compare to 20');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
+        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
 
         this.bv.resetForm();
         this.$minAge.val(18);
@@ -4900,7 +4900,7 @@ describe('greaterThan', function() {
         this.bv.validate();
         expect($('#msg').html()).toEqual('TestSuite.greaterThan.compareTo() called; compare to 20');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
+        expect(this.bv.getMessages('age', 'greaterThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].greaterThan['default'], this.$minAge.val()));
 
         this.bv.resetForm();
         this.$minAge.val(18);
@@ -6535,7 +6535,7 @@ describe('lessThan', function() {
         this.$age.val(30);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
     });
 
     // #1048
@@ -6551,7 +6551,7 @@ describe('lessThan', function() {
         this.$age.val(30);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
     });
 
     it('compare to return value of a function', function() {
@@ -6562,7 +6562,7 @@ describe('lessThan', function() {
         this.bv.validate();
         expect($('#msg').html()).toEqual('lessThanCompare() called; compare to 50');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
 
         this.bv.resetForm();
         this.$maxAge.val(60);
@@ -6580,7 +6580,7 @@ describe('lessThan', function() {
         this.bv.validate();
         expect($('#msg').html()).toEqual('TestSuite.lessThan.compareTo() called; compare to 50');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
 
         this.bv.resetForm();
         this.$maxAge.val(60);
@@ -8536,7 +8536,7 @@ describe('zipCode', function() {
         this.$zipCode.val('1234');
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages(this.$zipCode, 'zipCode')[0]).toEqual($.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[this.bv.getLocale()].zipCode.countryNotSupported, 'NOT_SUPPORTED'));
+        expect(this.bv.getMessages(this.$zipCode, 'zipCode')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].zipCode.countryNotSupported, 'NOT_SUPPORTED'));
     });
 
     it('US zipcode', function() {

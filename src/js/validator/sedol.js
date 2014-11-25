@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             sedol: {
                 'default': 'Please enter a valid SEDOL number'
@@ -15,14 +15,14 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.sedol = {
+    FormValidator.Validator.sedol = {
         /**
          * Validate a SEDOL (Stock Exchange Daily Official List)
          * Examples:
          * - Valid: 0263494, B0WNLY7
          *
          * @see http://en.wikipedia.org/wiki/SEDOL
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

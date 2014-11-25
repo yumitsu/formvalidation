@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             numeric: {
                 'default': 'Please enter a valid float number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.numeric = {
+    FormValidator.Validator.numeric = {
         html5Attributes: {
             message: 'message',
             separator: 'separator'
@@ -28,7 +28,7 @@
         /**
          * Validate decimal number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ein: {
                 'default': 'Please enter a valid EIN number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.ein = {
+    FormValidator.Validator.ein = {
         // The first two digits are called campus
         // See http://en.wikipedia.org/wiki/Employer_Identification_Number
         // http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes
@@ -38,7 +38,7 @@
          * Validate EIN (Employer Identification Number) which is also known as
          * Federal Employer Identification Number (FEIN) or Federal Tax Identification Number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

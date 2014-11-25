@@ -3,7 +3,7 @@
      * The Dutch language package
      * Translated by @jvanderheide
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'nl_NL': {
             base64: {
                 'default': 'Voer een geldige Base64 geëncodeerde tekst in'

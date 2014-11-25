@@ -3,7 +3,7 @@
      * Simplified Chinese language package
      * Translated by @shamiao
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'zh_CN': {
             base64: {
                 'default': '请输入有效的Base64编码'

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             meid: {
                 'default': 'Please enter a valid MEID number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.meid = {
+    FormValidator.Validator.meid = {
         /**
          * Validate MEID (Mobile Equipment Identifier)
          * Examples:
@@ -23,7 +23,7 @@
          * - Invalid: 2936087365007037101
          *
          * @see http://en.wikipedia.org/wiki/Mobile_equipment_identifier
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -52,7 +52,7 @@
 
                     // If it's all digits, luhn base 10 is used
                     if (value.match(/^\d*$/i)) {
-                        return $.fn.bootstrapValidator.helpers.luhn(value);
+                        return FormValidator.Helper.luhn(value);
                     }
 
                     // Strip the check digit

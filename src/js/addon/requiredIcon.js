@@ -8,13 +8,13 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.addOns.requiredIcon = {
+    FormValidator.AddOn.requiredIcon = {
         html5Attributes: {
             icon: 'icon'
         },
 
         /**
-         * @param {BootstrapValidator} validator The BootstrapValidator instance
+         * @param {FormValidator.Base} validator The validator instance
          * @param {Object} options The add-on options that consists of keys:
          * - icon {String}: The required icon classes
          * For example
@@ -84,7 +84,7 @@
         },
 
         _isEmpty: function(validator, $field) {
-            return $.fn.bootstrapValidator.validators.notEmpty.validate(validator, $field);
+            return FormValidator.Validator.notEmpty.validate(validator, $field);
         }
     };
 }(jQuery));

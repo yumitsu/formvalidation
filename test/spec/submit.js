@@ -1,7 +1,7 @@
 describe('submit', function() {
     var submitted, originalTimeout;
 
-    $.fn.bootstrapValidator.validators.fake_remote = {
+    FormValidator.Validator.fake_remote = {
         validate: function(validator, $field, options) {
             var dfd = new $.Deferred();
             setTimeout(function() {

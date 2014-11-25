@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             file: {
                 'default': 'Please choose a valid file'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.file = {
+    FormValidator.Validator.file = {
         html5Attributes: {
             extension: 'extension',
             maxfiles: 'maxFiles',
@@ -31,7 +31,7 @@
         /**
          * Validate upload file. Use HTML 5 API if the browser supports
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - extension: The allowed extensions, separated by a comma

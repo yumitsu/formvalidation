@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             vin: {
                 'default': 'Please enter a valid VIN number'
@@ -15,11 +15,11 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.vin = {
+    FormValidator.Validator.vin = {
         /**
          * Validate an US VIN (Vehicle Identification Number)
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message

@@ -245,8 +245,8 @@ describe('i18n', function() {
     });
 
     it('default message', function() {
-        var format = $.fn.bootstrapValidator.helpers.format,
-            i18n   = $.fn.bootstrapValidator.i18n[this.bv.getLocale()];
+        var format = FormValidator.Helper.format,
+            i18n   = FormValidator.I18n[this.bv.getLocale()];
 
         this.bv.validate();
         expect(this.bv.getMessages(this.$fullName, 'notEmpty')[0]).toEqual(i18n.notEmpty['default']);

@@ -3,7 +3,7 @@
      * Spanish language package
      * Translated by @vadail
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'es_ES': {
             base64: {
                 'default': 'Por favor introduce un valor válido en base 64'

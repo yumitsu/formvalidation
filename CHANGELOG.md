@@ -283,7 +283,7 @@ __New Features__
 __Changes__
 * [#42](https://github.com/nghuuphuoc/bootstrapvalidator/issues/42): Remove the submit button from ```submitHandler()```. You can use new ```getSubmitButton()``` method to get the clicked submit button
 * [#109](https://github.com/nghuuphuoc/bootstrapvalidator/issues/109): Remove the ```setLiveMode()``` method
-* ```$.fn.bootstrapValidator.helpers``` renames ```mod_11_10``` to ```mod11And10```, ```mod_37_36``` to ```mod37And36```
+* ```FormValidator.Helper``` renames ```mod_11_10``` to ```mod11And10```, ```mod_37_36``` to ```mod37And36```
 * Remove ```submitHandler()``` option. Use ```success.form.bv``` event instead:
 
 _v0.4.5 and earlier versions_
@@ -378,7 +378,7 @@ __Language Packages__
 
 ## v0.4.5 (2014-05-15)
 
-* Add ```$.fn.bootstrapValidator.helpers.date``` for validating a date, re-used in [date](http://bootstrapvalidator.com/validators/date/), [id](http://bootstrapvalidator.com/validators/id/), [vat](http://bootstrapvalidator.com/validators/vat/) validators
+* Add ```FormValidator.Helper.date``` for validating a date, re-used in [date](http://bootstrapvalidator.com/validators/date/), [id](http://bootstrapvalidator.com/validators/id/), [vat](http://bootstrapvalidator.com/validators/vat/) validators
 * [#233](https://github.com/nghuuphuoc/bootstrapvalidator/issues/233): Add ```threshold``` option
 * [#232](https://github.com/nghuuphuoc/bootstrapvalidator/issues/232): Add [id validator](http://bootstrapvalidator.com/validators/id/)
 * [#242](https://github.com/nghuuphuoc/bootstrapvalidator/issues/242): Add ```separator``` option to the [numeric validator](http://bootstrapvalidator.com/validators/numeric/)
@@ -398,8 +398,8 @@ __Language Packages__
 
 ## v0.4.4 (2014-05-05)
 
-* Add ```$.fn.bootstrapValidator.helpers.mod_11_10``` method that implements modulus 11, 10 (ISO 7064) algorithm. The helper is then reused in validating [German and Croatian VAT](http://bootstrapvalidator.com/validators/vat/) numbers
-* Add ```$.fn.bootstrapValidator.helpers.mod_37_36``` method that implements modulus 37, 36 (ISO 7064) algorithm, used in [GRid validator](http://bootstrapvalidator.com/validators/grid/)
+* Add ```FormValidator.Helper.mod_11_10``` method that implements modulus 11, 10 (ISO 7064) algorithm. The helper is then reused in validating [German and Croatian VAT](http://bootstrapvalidator.com/validators/vat/) numbers
+* Add ```FormValidator.Helper.mod_37_36``` method that implements modulus 37, 36 (ISO 7064) algorithm, used in [GRid validator](http://bootstrapvalidator.com/validators/grid/)
 * [#213](https://github.com/nghuuphuoc/bootstrapvalidator/issues/213): Add [EAN (International Article Number) validator](http://bootstrapvalidator.com/validators/ean/)
 * [#214](https://github.com/nghuuphuoc/bootstrapvalidator/issues/214): Add [GRId (Global Release Identifier) validator](http://bootstrapvalidator.com/validators/grid/)
 * [#215](https://github.com/nghuuphuoc/bootstrapvalidator/issues/215): Add [IMEI (International Mobile Station Equipment Identity) validator](http://bootstrapvalidator.com/validators/imei/)
@@ -413,7 +413,7 @@ __Language Packages__
 
 ## v0.4.3 (2014-04-26)
 
-* Add ```$.fn.bootstrapValidator.helpers.luhn``` method that implements the Luhn algorithm
+* Add ```FormValidator.Helper.luhn``` method that implements the Luhn algorithm
 * [#77](https://github.com/nghuuphuoc/bootstrapvalidator/issues/77): Add [file validator](http://bootstrapvalidator.com/validators/file/)
 * [#179](https://github.com/nghuuphuoc/bootstrapvalidator/issues/179): Add [vat validator](http://bootstrapvalidator.com/validators/vat/), support 32 countries
 * [#198](https://github.com/nghuuphuoc/bootstrapvalidator/pull/198), [#199](https://github.com/nghuuphuoc/bootstrapvalidator/pull/199): Add Canadian Postal Code support for the [zipCode validator](http://bootstrapvalidator.com/validators/zipCode/), thanks to [@Francismori7](https://github.com/Francismori7)

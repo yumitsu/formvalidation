@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             id: {
                 'default': 'Please enter a valid identification number',
@@ -46,7 +46,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.id = {
+    FormValidator.Validator.id = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -62,7 +62,7 @@
          * Validate identification number in different countries
          *
          * @see http://en.wikipedia.org/wiki/National_identification_number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -89,7 +89,7 @@
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].id.countryNotSupported, country) };
+                return { valid: false, message: FormValidator.Helper.format(FormValidator.I18n[locale].id.countryNotSupported, country) };
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -97,7 +97,7 @@
                     ? true
                     : {
                         valid: false,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].id.country, $.fn.bootstrapValidator.i18n[locale].id.countries[country.toUpperCase()])
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].id.country, FormValidator.I18n[locale].id.countries[country.toUpperCase()])
                     };
         },
 
@@ -216,7 +216,7 @@
                 month -= 20;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -844,7 +844,7 @@
             var year  = parseInt(dob.substr(0, 4), 10),
                 month = parseInt(dob.substr(4, 2), 10),
                 day   = parseInt(dob.substr(6, 2), 10);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
             
@@ -890,7 +890,7 @@
                 year += 100;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -938,7 +938,7 @@
                     break;
             }
 
-            return $.fn.bootstrapValidator.helpers.date(year, month, day);
+            return FormValidator.Helper.date(year, month, day);
         },
 
         /**
@@ -1008,7 +1008,7 @@
                 };
             year = centuries[value.charAt(6)] + year;
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -1034,7 +1034,7 @@
             if (!/^[0-9]{11}$/.test(value)) {
                 return false;
             }
-            return $.fn.bootstrapValidator.helpers.mod11And10(value);
+            return FormValidator.Helper.mod11And10(value);
         },
 
         /**
@@ -1095,7 +1095,7 @@
                 century = parseInt(value.charAt(9), 10);
 
             year = (century === 9) ? (1900 + year) : ((20 + century) * 100 + year);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!FormValidator.Helper.date(year, month, day, true)) {
                 return false;
             }
             // Validate the check digit
@@ -1129,7 +1129,7 @@
                 day     = parseInt(value.substr(5, 2), 10),
                 century = (gender % 2 === 0) ? (17 + gender / 2) : (17 + (gender + 1) / 2);
             year = century * 100 + year;
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!FormValidator.Helper.date(year, month, day, true)) {
                 return false;
             }
 
@@ -1178,7 +1178,7 @@
                 year  = parseInt(value.substr(4, 2), 10);
             year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!FormValidator.Helper.date(year, month, day, true)) {
                 return false;
             }
 
@@ -1262,7 +1262,7 @@
             }
             if (gender !== 9) {
                 year = centuries[gender + ''] + year;
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!FormValidator.Helper.date(year, month, day)) {
                     return false;
                 }
             }
@@ -1300,12 +1300,12 @@
             var year  = parseInt(value.substr(0, 2), 10) + 1900,
                 month = parseInt(value.substr(2, 2), 10),
                 day   = parseInt(value.substr(4, 2), 10);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
             // Validate the last check digit
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
         },
 
         /**
@@ -1376,12 +1376,12 @@
                 day         = parseInt(value.substr(4, 2), 10);
             year = (year >= currentYear) ? (year + 1900) : (year + 2000);
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
             // Validate the last check digit
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
         }
     };
 }(jQuery));

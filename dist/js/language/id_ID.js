@@ -3,7 +3,7 @@
      * Indonesian language package
      * Translated by @egig
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'id_ID': {
             base64: {
                 'default': 'Silahkan isi karakter base 64 tersandi yang valid'

@@ -3,7 +3,7 @@
      * Hungarian language package
      * Translated by @blackfyre
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'hu_HU': {
             base64: {
                 'default': 'Kérlek, hogy érvényes base 64 karakter láncot adj meg'

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             uuid: {
                 'default': 'Please enter a valid UUID number',
@@ -16,7 +16,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.uuid = {
+    FormValidator.Validator.uuid = {
         html5Attributes: {
             message: 'message',
             version: 'version'
@@ -26,7 +26,7 @@
          * Return true if and only if the input value is a valid UUID string
          *
          * @see http://en.wikipedia.org/wiki/Universally_unique_identifier
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -51,8 +51,8 @@
             return {
                 valid: (null === patterns[version]) ? true : patterns[version].test(value),
                 message: options.version
-                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].uuid.version, options.version)
-                            : (options.message || $.fn.bootstrapValidator.i18n[locale].uuid['default'])
+                            ? FormValidator.Helper.format(options.message || FormValidator.I18n[locale].uuid.version, options.version)
+                            : (options.message || FormValidator.I18n[locale].uuid['default'])
             };
         }
     };

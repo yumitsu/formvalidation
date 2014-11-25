@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             mac: {
                 'default': 'Please enter a valid MAC address'
@@ -15,11 +15,11 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.mac = {
+    FormValidator.Validator.mac = {
         /**
          * Return true if the input value is a MAC address.
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

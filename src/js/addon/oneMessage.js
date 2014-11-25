@@ -8,9 +8,9 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.addOns.oneMessage = {
+    FormValidator.AddOn.oneMessage = {
         /**
-         * @param {BootstrapValidator} validator The BootstrapValidator instance
+         * @param {FormValidator.Base} validator The validator instance
          * @param {Object} options The add-on options
          */
         init: function(validator, options) {

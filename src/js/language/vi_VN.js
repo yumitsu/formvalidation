@@ -3,7 +3,7 @@
      * Vietnamese language package
      * Translated by @nghuuphuoc
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'vi_VN': {
             base64: {
                 'default': 'Vui lòng nhập chuỗi mã hoá base64 hợp lệ'

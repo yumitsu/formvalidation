@@ -3,7 +3,7 @@
      * Japanese language package
      * Translated by @tsuyoshifujii
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'ja_JP': {
             base64: {
                 'default': '有効なBase64エンコードを入力してください'

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
 		'en_US': {
 			siren: {
 				'default': 'Please enter a valid SIREN number'
@@ -15,11 +15,11 @@
 		}
     });
 
-	$.fn.bootstrapValidator.validators.siren = {
+	FormValidator.Validator.siren = {
 		/**
 		 * Check if a string is a siren number
 		 *
-		 * @param {BootstrapValidator} validator The validator plugin instance
+		 * @param {FormValidator.Base} validator The validator plugin instance
 		 * @param {jQuery} $field Field element
 		 * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -34,7 +34,7 @@
             if (!/^\d{9}$/.test(value)) {
                 return false;
             }
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
 		}
 	};
 }(jQuery));

@@ -3,7 +3,7 @@
      * Default English package. It's included in the dist, so you do NOT need to include it to your head tag
      * The only reason I put it here is that you can clone it, and translate it into your language
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'en_US': {
             base64: {
                 'default': 'Please enter a valid base 64 encoded'

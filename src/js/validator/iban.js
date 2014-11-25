@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
@@ -98,7 +98,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.iban = {
+    FormValidator.Validator.iban = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -193,7 +193,7 @@
          * To test it, take the sample IBAN from
          * http://www.nordea.com/Our+services/International+products+and+services/Cash+Management/IBAN+countries/908462.html
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -223,14 +223,14 @@
             if (!this.REGEX[country]) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].iban.countryNotSupported, country)
+                    message: FormValidator.Helper.format(FormValidator.I18n[locale].iban.countryNotSupported, country)
                 };
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
+                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
                 };
             }
 
@@ -252,7 +252,7 @@
 
             return {
                 valid: (temp === 1),
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
             };
         }
     };

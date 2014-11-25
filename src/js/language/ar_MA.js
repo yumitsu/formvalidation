@@ -3,7 +3,7 @@
      * Arabic language package
      * Translated by @Arkni
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'ar_MA': {
             base64: {
                 'default': 'الرجاء إدخال قيمة مشفرة طبقا للقاعدة 64.'

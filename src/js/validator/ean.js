@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ean: {
                 'default': 'Please enter a valid EAN number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.ean = {
+    FormValidator.Validator.ean = {
         /**
          * Validate EAN (International Article Number)
          * Examples:
@@ -23,7 +23,7 @@
          * - Invalid: 73513536
          *
          * @see http://en.wikipedia.org/wiki/European_Article_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

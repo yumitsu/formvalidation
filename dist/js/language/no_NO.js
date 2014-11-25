@@ -3,7 +3,7 @@
      * Norwegian language package
      * Translated by @trondulseth
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'no_NO': {
             base64: {
                 'default': 'Vennligst fyll ut dette feltet med en gyldig base64-kodet verdi'

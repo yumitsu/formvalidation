@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             isbn: {
                 'default': 'Please enter a valid ISBN number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.isbn = {
+    FormValidator.Validator.isbn = {
         /**
          * Return true if the input value is a valid ISBN 10 or ISBN 13 number
          * Examples:
@@ -27,7 +27,7 @@
          * ISBN 13: 978-0-306-40615-6
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Book_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following keys:
          * - message: The invalid message

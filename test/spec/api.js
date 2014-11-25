@@ -1,6 +1,6 @@
 describe('api', function() {
     // Override the options
-    $.extend($.fn.bootstrapValidator.DEFAULT_OPTIONS, {
+    $.extend(FormValidator.DEFAULT_OPTIONS, {
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',

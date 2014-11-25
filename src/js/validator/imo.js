@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             imo: {
                 'default': 'Please enter a valid IMO number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.imo = {
+    FormValidator.Validator.imo = {
         /**
          * Validate IMO (International Maritime Organization)
          * Examples:
@@ -23,7 +23,7 @@
          * - Invalid: IMO 8814274
          *
          * @see http://en.wikipedia.org/wiki/IMO_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

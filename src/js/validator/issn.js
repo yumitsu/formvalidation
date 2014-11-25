@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             issn: {
                 'default': 'Please enter a valid ISSN number'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.issn = {
+    FormValidator.Validator.issn = {
         /**
          * Validate ISSN (International Standard Serial Number)
          * Examples:
@@ -23,7 +23,7 @@
          * - Invalid: 0032-147X
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Serial_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

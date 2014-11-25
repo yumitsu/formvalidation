@@ -2,26 +2,158 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-25 8:39:18 AM
+ * @version     v0.6.0-dev, built on 2014-11-25 11:35:04 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
+// Register the namespace
+window.FormValidator = {};
+
+// Add-ons
+window.FormValidator.AddOn = {};
+
+// Available validators
+window.FormValidator.Validator = {};
+
+// i18n
+window.FormValidator.I18n = {};
+
 if (typeof jQuery === 'undefined') {
-    throw new Error('BootstrapValidator requires jQuery');
+    throw new Error('The plugin requires jQuery');
 }
 
 (function($) {
     var version = $.fn.jquery.split(' ')[0].split('.');
     if ((+version[0] < 2 && +version[1] < 9) || (+version[0] === 1 && +version[1] === 9 && +version[2] < 1)) {
-        throw new Error('BootstrapValidator requires jQuery version 1.9.1 or higher');
+        throw new Error('The plugin requires jQuery version 1.9.1 or higher');
     }
 }(jQuery));
 
 (function($) {
-    var BootstrapValidator = function(form, options) {
+    // The default options
+    // Sorted in alphabetical order
+    FormValidator.DEFAULT_OPTIONS = {
+        // The first invalid field will be focused automatically
+        autoFocus: true,
+
+        //The error messages container. It can be:
+        // - 'tooltip' if you want to use Bootstrap tooltip to show error messages
+        // - 'popover' if you want to use Bootstrap popover to show error messages
+        // - a CSS selector indicating the container
+        // In the first two cases, since the tooltip/popover should be small enough, the plugin only shows only one error message
+        // You also can define the message container for particular field
+        container: null,
+
+        // The form CSS class
+        elementClass: 'bv-form',
+
+        // Use custom event name to avoid window.onerror being invoked by jQuery
+        // See https://github.com/nghuuphuoc/bootstrapvalidator/issues/630
+        events: {
+            formInit: 'init.form.bv',
+            formError: 'error.form.bv',
+            formSuccess: 'success.form.bv',
+            fieldAdded: 'added.field.bv',
+            fieldRemoved: 'removed.field.bv',
+            fieldInit: 'init.field.bv',
+            fieldError: 'error.field.bv',
+            fieldSuccess: 'success.field.bv',
+            fieldStatus: 'status.field.bv',
+            localeChanged: 'changed.locale.bv',
+            validatorError: 'error.validator.bv',
+            validatorSuccess: 'success.validator.bv'
+        },
+
+        // Indicate fields which won't be validated
+        // By default, the plugin will not validate the following kind of fields:
+        // - disabled
+        // - hidden
+        // - invisible
+        //
+        // The setting consists of jQuery filters. Accept 3 formats:
+        // - A string. Use a comma to separate filter
+        // - An array. Each element is a filter
+        // - An array. Each element can be a callback function
+        //      function($field, validator) {
+        //          $field is jQuery object representing the field element
+        //          validator is the BootstrapValidator instance
+        //          return true or false;
+        //      }
+        //
+        // The 3 following settings are equivalent:
+        //
+        // 1) ':disabled, :hidden, :not(:visible)'
+        // 2) [':disabled', ':hidden', ':not(:visible)']
+        // 3) [':disabled', ':hidden', function($field) {
+        //        return !$field.is(':visible');
+        //    }]
+        excluded: [':disabled', ':hidden', ':not(:visible)'],
+
+        // Shows ok/error/loading icons based on the field validity.
+        // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
+        // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
+        // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
+        //
+        // Examples:
+        // - Use Glyphicons icons:
+        //  feedbackIcons: {
+        //      valid: 'glyphicon glyphicon-ok',
+        //      invalid: 'glyphicon glyphicon-remove',
+        //      validating: 'glyphicon glyphicon-refresh'
+        //  }
+        // - Use FontAwesome icons:
+        //  feedbackIcons: {
+        //      valid: 'fa fa-check',
+        //      invalid: 'fa fa-times',
+        //      validating: 'fa fa-refresh'
+        //  }
+        feedbackIcons: {
+            valid:      null,
+            invalid:    null,
+            validating: null
+        },
+
+        // Map the field name with validator rules
+        fields: null,
+
+        // The CSS selector for indicating the element consists the field
+        // By default, each field is placed inside the <div class="form-group"></div>
+        // You should adjust this option if your form group consists of many fields which not all of them need to be validated
+        group: '.form-group',
+
+        // Live validating option
+        // Can be one of 3 values:
+        // - enabled: The plugin validates fields as soon as they are changed
+        // - disabled: Disable the live validating. The error messages are only shown after the form is submitted
+        // - submitted: The live validating is enabled after the form is submitted
+        live: 'enabled',
+
+        // Locale in the format of languagecode_COUNTRYCODE
+        locale: 'en_US',
+
+        // Default invalid message
+        message: 'This value is not valid',
+
+        // The submit buttons selector
+        // These buttons will be disabled to prevent the valid form from multiple submissions
+        submitButtons: '[type="submit"]',
+
+        // The field will not be live validated if its length is less than this number of characters
+        threshold: null,
+
+        // Whether to be verbose when validating a field or not.
+        // Possible values:
+        // - true:  when a field has multiple validators, all of them will be checked, and respectively - if errors occur in
+        //          multiple validators, all of them will be displayed to the user
+        // - false: when a field has multiple validators, validation for this field will be terminated upon the first encountered error.
+        //          Thus, only the very first error message related to this field will be displayed to the user
+        verbose: true
+    };
+
+    FormValidator.Base = function(form, options) {
         this.$form   = $(form);
-        this.options = $.extend({}, $.fn.bootstrapValidator.DEFAULT_OPTIONS, options);
+        this.options = $.extend({}, FormValidator.DEFAULT_OPTIONS, options);
 
         this.$invalidFields = $([]);    // Array of invalid fields
         this.$submitButton  = null;     // The submit button which is clicked to submit form
@@ -56,8 +188,8 @@ if (typeof jQuery === 'undefined') {
         this._init();
     };
 
-    BootstrapValidator.prototype = {
-        constructor: BootstrapValidator,
+    FormValidator.Base.prototype = {
+        constructor: FormValidator.Base,
 
         /**
          * Check if the number of characters of field value exceed the threshold or not
@@ -146,8 +278,8 @@ if (typeof jQuery === 'undefined') {
             this.options = $.extend(true, this.options, options);
 
             // If the locale is not found, reset it to default one
-            if (!$.fn.bootstrapValidator.i18n[this.options.locale]) {
-                this.options.locale = $.fn.bootstrapValidator.DEFAULT_OPTIONS.locale;
+            if (!FormValidator.I18n[this.options.locale]) {
+                this.options.locale = FormValidator.DEFAULT_OPTIONS.locale;
             }
 
             // Parse the add-on options from HTML attributes
@@ -184,8 +316,8 @@ if (typeof jQuery === 'undefined') {
 
             // Init the add-ons
             for (var addOn in this.options.addOns) {
-                if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].init) {
-                    $.fn.bootstrapValidator.addOns[addOn].init(this, this.options.addOns[addOn]);
+                if ('function' === typeof FormValidator.AddOn[addOn].init) {
+                    FormValidator.AddOn[addOn].init(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -197,12 +329,12 @@ if (typeof jQuery === 'undefined') {
             // Prepare the events
             if (this.options.onSuccess) {
                 this.$form.on(this.options.events.formSuccess, function(e) {
-                    $.fn.bootstrapValidator.helpers.call(that.options.onSuccess, [e]);
+                    FormValidator.Helper.call(that.options.onSuccess, [e]);
                 });
             }
             if (this.options.onError) {
                 this.$form.on(this.options.events.formError, function(e) {
-                    $.fn.bootstrapValidator.helpers.call(that.options.onError, [e]);
+                    FormValidator.Helper.call(that.options.onError, [e]);
                 });
             }
         },
@@ -238,7 +370,7 @@ if (typeof jQuery === 'undefined') {
 
             var validatorName;
             for (validatorName in this.options.fields[field].validators) {
-                if (!$.fn.bootstrapValidator.validators[validatorName]) {
+                if (!FormValidator.Validator[validatorName]) {
                     delete this.options.fields[field].validators[validatorName];
                 }
             }
@@ -297,8 +429,8 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     // Init the validator
-                    if ('function' === typeof $.fn.bootstrapValidator.validators[validatorName].init) {
-                        $.fn.bootstrapValidator.validators[validatorName].init(this, $field, this.options.fields[field].validators[validatorName]);
+                    if ('function' === typeof FormValidator.Validator[validatorName].init) {
+                        FormValidator.Validator[validatorName].init(this, $field, this.options.fields[field].validators[validatorName]);
                     }
                 }
 
@@ -387,31 +519,31 @@ if (typeof jQuery === 'undefined') {
                 .on(this.options.events.fieldSuccess, function(e, data) {
                     var onSuccess = that.getOptions(data.field, null, 'onSuccess');
                     if (onSuccess) {
-                        $.fn.bootstrapValidator.helpers.call(onSuccess, [e, data]);
+                        FormValidator.Helper.call(onSuccess, [e, data]);
                     }
                 })
                 .on(this.options.events.fieldError, function(e, data) {
                     var onError = that.getOptions(data.field, null, 'onError');
                     if (onError) {
-                        $.fn.bootstrapValidator.helpers.call(onError, [e, data]);
+                        FormValidator.Helper.call(onError, [e, data]);
                     }
                 })
                 .on(this.options.events.fieldStatus, function(e, data) {
                     var onStatus = that.getOptions(data.field, null, 'onStatus');
                     if (onStatus) {
-                        $.fn.bootstrapValidator.helpers.call(onStatus, [e, data]);
+                        FormValidator.Helper.call(onStatus, [e, data]);
                     }
                 })
                 .on(this.options.events.validatorError, function(e, data) {
                     var onError = that.getOptions(data.field, data.validator, 'onError');
                     if (onError) {
-                        $.fn.bootstrapValidator.helpers.call(onError, [e, data]);
+                        FormValidator.Helper.call(onError, [e, data]);
                     }
                 })
                 .on(this.options.events.validatorSuccess, function(e, data) {
                     var onSuccess = that.getOptions(data.field, data.validator, 'onSuccess');
                     if (onSuccess) {
-                        $.fn.bootstrapValidator.helpers.call(onSuccess, [e, data]);
+                        FormValidator.Helper.call(onSuccess, [e, data]);
                     }
                 });
 
@@ -505,7 +637,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {String}
          */
         _getMessage: function(field, validatorName) {
-            if (!this.options.fields[field] || !$.fn.bootstrapValidator.validators[validatorName]
+            if (!this.options.fields[field] || !FormValidator.Validator[validatorName]
                 || !this.options.fields[field].validators || !this.options.fields[field].validators[validatorName])
             {
                 return '';
@@ -516,8 +648,8 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].validators[validatorName].message;
                 case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case !!$.fn.bootstrapValidator.i18n[this.options.locale][validatorName]['default']:
-                    return $.fn.bootstrapValidator.i18n[this.options.locale][validatorName]['default'];
+                case !!FormValidator.I18n[this.options.locale][validatorName]['default']:
+                    return FormValidator.I18n[this.options.locale][validatorName]['default'];
                 default:
                     return this.options.message;
             }
@@ -573,13 +705,13 @@ if (typeof jQuery === 'undefined') {
             // Try to parse each add-on options
             var addOn, attrMap, attr, option;
             for (addOn in addOns) {
-                if (!$.fn.bootstrapValidator.addOns[addOn]) {
+                if (!FormValidator.AddOn[addOn]) {
                     // Add-on is not found
                     delete addOns[addOn];
                     continue;
                 }
 
-                attrMap = $.fn.bootstrapValidator.addOns[addOn].html5Attributes;
+                attrMap = FormValidator.AddOn[addOn].html5Attributes;
                 if (attrMap) {
                     for (attr in attrMap) {
                         option = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
@@ -612,8 +744,8 @@ if (typeof jQuery === 'undefined') {
                 html5AttrName,
                 html5AttrMap;
 
-            for (v in $.fn.bootstrapValidator.validators) {
-                validator    = $.fn.bootstrapValidator.validators[v];
+            for (v in FormValidator.Validator) {
+                validator    = FormValidator.Validator[v];
                 attrName     = 'data-bv-' + v.toLowerCase(),
                 enabled      = $field.attr(attrName) + '';
                 html5AttrMap = ('function' === typeof validator.enableByHtml5) ? validator.enableByHtml5($field) : null;
@@ -904,7 +1036,7 @@ if (typeof jQuery === 'undefined') {
             var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
                                 ? this.options.fields[field].validators[validatorName].transformer : null)
                                 || this.options.fields[field].transformer;
-            return transformer ? $.fn.bootstrapValidator.helpers.call(transformer, [$field, validatorName]) : $field.val();
+            return transformer ? FormValidator.Helper.call(transformer, [$field, validatorName]) : $field.val();
         },
 
         /**
@@ -1413,7 +1545,7 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     $field.data('bv.result.' + validatorName, this.STATUS_VALIDATING);
-                    validateResult = $.fn.bootstrapValidator.validators[validatorName].validate(this, $field, validators[validatorName]);
+                    validateResult = FormValidator.Validator[validatorName].validate(this, $field, validators[validatorName]);
 
                     // validateResult can be a $.Deferred object ...
                     if ('object' === typeof validateResult && validateResult.resolve) {
@@ -1541,8 +1673,8 @@ if (typeof jQuery === 'undefined') {
                               .removeData('bv.dfs.' + validator);
 
                         // Destroy the validator
-                        if ('function' === typeof $.fn.bootstrapValidator.validators[validator].destroy) {
-                            $.fn.bootstrapValidator.validators[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
+                        if ('function' === typeof FormValidator.Validator[validator].destroy) {
+                            FormValidator.Validator[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
                         }
                     }
                 }
@@ -1592,8 +1724,8 @@ if (typeof jQuery === 'undefined') {
 
             // Destroy the add-ons
             for (var addOn in this.options.addOns) {
-                if ('function' === typeof $.fn.bootstrapValidator.addOns[addOn].destroy) {
-                    $.fn.bootstrapValidator.addOns[addOn].destroy(this, this.options.addOns[addOn]);
+                if ('function' === typeof FormValidator.AddOn[addOn].destroy) {
+                    FormValidator.AddOn[addOn].destroy(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -1666,7 +1798,7 @@ if (typeof jQuery === 'undefined') {
             // Option can be determined by
             // ... a function
             if ('function' === typeof option) {
-                return $.fn.bootstrapValidator.helpers.call(option, [value, this, $field]);
+                return FormValidator.Helper.call(option, [value, this, $field]);
             }
             // ... value of other field
             else if ('string' === typeof option) {
@@ -1676,7 +1808,7 @@ if (typeof jQuery === 'undefined') {
                 }
                 // ... return value of callback
                 else {
-                    return $.fn.bootstrapValidator.helpers.call(option, [value, this, $field]) || option;
+                    return FormValidator.Helper.call(option, [value, this, $field]) || option;
                 }
             }
 
@@ -1964,159 +2096,10 @@ if (typeof jQuery === 'undefined') {
             return this;
         }
     };
-
-    // Plugin definition
-    $.fn.bootstrapValidator = function(option) {
-        var params = arguments;
-        return this.each(function() {
-            var $this   = $(this),
-                data    = $this.data('bootstrapValidator'),
-                options = 'object' === typeof option && option;
-            if (!data) {
-                data = new BootstrapValidator(this, options);
-                $this.data('bootstrapValidator', data);
-            }
-
-            // Allow to call plugin method
-            if ('string' === typeof option) {
-                data[option].apply(data, Array.prototype.slice.call(params, 1));
-            }
-        });
-    };
-
-    // The default options
-    // Sorted in alphabetical order
-    $.fn.bootstrapValidator.DEFAULT_OPTIONS = {
-        // The first invalid field will be focused automatically
-        autoFocus: true,
-
-        //The error messages container. It can be:
-        // - 'tooltip' if you want to use Bootstrap tooltip to show error messages
-        // - 'popover' if you want to use Bootstrap popover to show error messages
-        // - a CSS selector indicating the container
-        // In the first two cases, since the tooltip/popover should be small enough, the plugin only shows only one error message
-        // You also can define the message container for particular field
-        container: null,
-
-        // The form CSS class
-        elementClass: 'bv-form',
-
-        // Use custom event name to avoid window.onerror being invoked by jQuery
-        // See https://github.com/nghuuphuoc/bootstrapvalidator/issues/630
-        events: {
-            formInit: 'init.form.bv',
-            formError: 'error.form.bv',
-            formSuccess: 'success.form.bv',
-            fieldAdded: 'added.field.bv',
-            fieldRemoved: 'removed.field.bv',
-            fieldInit: 'init.field.bv',
-            fieldError: 'error.field.bv',
-            fieldSuccess: 'success.field.bv',
-            fieldStatus: 'status.field.bv',
-            localeChanged: 'changed.locale.bv',
-            validatorError: 'error.validator.bv',
-            validatorSuccess: 'success.validator.bv'
-        },
-
-        // Indicate fields which won't be validated
-        // By default, the plugin will not validate the following kind of fields:
-        // - disabled
-        // - hidden
-        // - invisible
-        //
-        // The setting consists of jQuery filters. Accept 3 formats:
-        // - A string. Use a comma to separate filter
-        // - An array. Each element is a filter
-        // - An array. Each element can be a callback function
-        //      function($field, validator) {
-        //          $field is jQuery object representing the field element
-        //          validator is the BootstrapValidator instance
-        //          return true or false;
-        //      }
-        //
-        // The 3 following settings are equivalent:
-        //
-        // 1) ':disabled, :hidden, :not(:visible)'
-        // 2) [':disabled', ':hidden', ':not(:visible)']
-        // 3) [':disabled', ':hidden', function($field) {
-        //        return !$field.is(':visible');
-        //    }]
-        excluded: [':disabled', ':hidden', ':not(:visible)'],
-
-        // Shows ok/error/loading icons based on the field validity.
-        // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
-        // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
-        // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
-        //
-        // Examples:
-        // - Use Glyphicons icons:
-        //  feedbackIcons: {
-        //      valid: 'glyphicon glyphicon-ok',
-        //      invalid: 'glyphicon glyphicon-remove',
-        //      validating: 'glyphicon glyphicon-refresh'
-        //  }
-        // - Use FontAwesome icons:
-        //  feedbackIcons: {
-        //      valid: 'fa fa-check',
-        //      invalid: 'fa fa-times',
-        //      validating: 'fa fa-refresh'
-        //  }
-        feedbackIcons: {
-            valid:      null,
-            invalid:    null,
-            validating: null
-        },
-
-        // Map the field name with validator rules
-        fields: null,
-
-        // The CSS selector for indicating the element consists the field
-        // By default, each field is placed inside the <div class="form-group"></div>
-        // You should adjust this option if your form group consists of many fields which not all of them need to be validated
-        group: '.form-group',
-
-        // Live validating option
-        // Can be one of 3 values:
-        // - enabled: The plugin validates fields as soon as they are changed
-        // - disabled: Disable the live validating. The error messages are only shown after the form is submitted
-        // - submitted: The live validating is enabled after the form is submitted
-        live: 'enabled',
-
-        // Locale in the format of languagecode_COUNTRYCODE
-        locale: 'en_US',
-
-        // Default invalid message
-        message: 'This value is not valid',
-
-        // The submit buttons selector
-        // These buttons will be disabled to prevent the valid form from multiple submissions
-        submitButtons: '[type="submit"]',
-
-        // The field will not be live validated if its length is less than this number of characters
-        threshold: null,
-
-        // Whether to be verbose when validating a field or not.
-        // Possible values:
-        // - true:  when a field has multiple validators, all of them will be checked, and respectively - if errors occur in
-        //          multiple validators, all of them will be displayed to the user
-        // - false: when a field has multiple validators, validation for this field will be terminated upon the first encountered error.
-        //          Thus, only the very first error message related to this field will be displayed to the user
-        verbose: true
-    };
-
-    // Available validators
-    $.fn.bootstrapValidator.validators  = {};
-
-    // Add-ons
-    $.fn.bootstrapValidator.addOns      = {};
-
-    // i18n
-    $.fn.bootstrapValidator.i18n        = {};
-
-    $.fn.bootstrapValidator.Constructor = BootstrapValidator;
-
+}(jQuery));
+;(function($) {
     // Helper methods, which can be used in validator class
-    $.fn.bootstrapValidator.helpers = {
+    FormValidator.Helper = {
         /**
          * Execute a callback function
          *
@@ -2185,8 +2168,8 @@ if (typeof jQuery === 'undefined') {
                     currentMonth = currentDate.getMonth(),
                     currentDay   = currentDate.getDate();
                 return (year < currentYear
-                        || (year === currentYear && month - 1 < currentMonth)
-                        || (year === currentYear && month - 1 === currentMonth && day < currentDay));
+                || (year === currentYear && month - 1 < currentMonth)
+                || (year === currentYear && month - 1 === currentMonth && day < currentDay));
             }
 
             return true;
@@ -2273,7 +2256,29 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    // Plugin definition
+    $.fn.bootstrapValidator = function(option) {
+        var params = arguments;
+        return this.each(function() {
+            var $this   = $(this),
+                data    = $this.data('bootstrapValidator'),
+                options = 'object' === typeof option && option;
+            if (!data) {
+                data = new FormValidator.Base(this, options);
+                $this.data('bootstrapValidator', data);
+            }
+
+            // Allow to call plugin method
+            if ('string' === typeof option) {
+                data[option].apply(data, Array.prototype.slice.call(params, 1));
+            }
+        });
+    };
+
+    $.fn.bootstrapValidator.Constructor = FormValidator.Base;
+}(jQuery));
+;(function($) {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             base64: {
                 'default': 'Please enter a valid base 64 encoded'
@@ -2281,11 +2286,11 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.base64 = {
+    FormValidator.Validator.base64 = {
         /**
          * Return true if the input value is a base 64 encoded string.
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2302,7 +2307,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             between: {
                 'default': 'Please enter a value between %s and %s',
@@ -2311,7 +2316,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.between = {
+    FormValidator.Validator.between = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -2370,11 +2375,11 @@ if (typeof jQuery === 'undefined') {
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= minValue && value <= maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].between['default'], [min, max])
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].between['default'], [min, max])
                     }
                     : {
                         valid: value > minValue  && value <  maxValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].between.notInclusive, [min, max])
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].between.notInclusive, [min, max])
                     };
         },
 
@@ -2384,7 +2389,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             bic: {
                 'default': 'Please enter a valid BIC number'
@@ -2392,7 +2397,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.bic = {
+    FormValidator.Validator.bic = {
         /**
          * Validate an Business Identifier Code (BIC), also known as ISO 9362, SWIFT-BIC, SWIFT ID or SWIFT code
          *
@@ -2415,7 +2420,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.validators.blank = {
+    FormValidator.Validator.blank = {
         /**
          * Placeholder validator that can be used to display a custom validation message
          * returned from the server
@@ -2444,7 +2449,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             callback: {
                 'default': 'Please enter a valid value'
@@ -2452,7 +2457,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.callback = {
+    FormValidator.Validator.callback = {
         html5Attributes: {
             message: 'message',
             callback: 'callback'
@@ -2479,7 +2484,7 @@ if (typeof jQuery === 'undefined') {
                 result = { valid: true };
 
             if (options.callback) {
-                var response = $.fn.bootstrapValidator.helpers.call(options.callback, [value, validator, $field]);
+                var response = FormValidator.Helper.call(options.callback, [value, validator, $field]);
                 result = ('boolean' === typeof response) ? { valid: response } : response;
             }
 
@@ -2489,7 +2494,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             choice: {
                 'default': 'Please enter a valid value',
@@ -2500,7 +2505,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.choice = {
+    FormValidator.Validator.choice = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -2534,7 +2539,7 @@ if (typeof jQuery === 'undefined') {
                 min        = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
                 max        = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
                 isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n[locale].choice['default'];
+                message    = options.message || FormValidator.I18n[locale].choice['default'];
 
             if ((min && numChoices < parseInt(min, 10)) || (max && numChoices > parseInt(max, 10))) {
                 isValid = false;
@@ -2542,15 +2547,15 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (!!min && !!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].choice.less, parseInt(min, 10));
+                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.less, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].choice.more, parseInt(max, 10));
+                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.more, parseInt(max, 10));
                     break;
 
                 default:
@@ -2562,7 +2567,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             color: {
                 'default': 'Please enter a valid color'
@@ -2570,7 +2575,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.color = {
+    FormValidator.Validator.color = {
         html5Attributes: {
             message: 'message',
             type: 'type'
@@ -2710,7 +2715,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             creditCard: {
                 'default': 'Please enter a valid credit card number'
@@ -2718,7 +2723,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.creditCard = {
+    FormValidator.Validator.creditCard = {
         /**
          * Return true if the input value is valid credit card number
          * Based on https://gist.github.com/DiegoSalazar/4075533
@@ -2741,7 +2746,7 @@ if (typeof jQuery === 'undefined') {
             }
             value = value.replace(/\D/g, '');
 
-            if (!$.fn.bootstrapValidator.helpers.luhn(value)) {
+            if (!FormValidator.Helper.luhn(value)) {
                 return false;
             }
 
@@ -2820,7 +2825,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             cusip: {
                 'default': 'Please enter a valid CUSIP number'
@@ -2828,7 +2833,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.cusip = {
+    FormValidator.Validator.cusip = {
         /**
          * Validate a CUSIP number
          * Examples:
@@ -2879,7 +2884,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             cvv: {
                 'default': 'Please enter a valid CVV number'
@@ -2887,7 +2892,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.cvv = {
+    FormValidator.Validator.cvv = {
         html5Attributes: {
             message: 'message',
             ccfield: 'creditCardField'
@@ -2999,7 +3004,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             date: {
                 'default': 'Please enter a valid date',
@@ -3010,7 +3015,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.date = {
+    FormValidator.Validator.date = {
         html5Attributes: {
             message: 'message',
             format: 'format',
@@ -3053,7 +3058,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var locale     = validator.getLocale(),
-                message    = options.message || $.fn.bootstrapValidator.i18n[locale].date['default'],
+                message    = options.message || FormValidator.I18n[locale].date['default'],
                 formats    = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
@@ -3179,7 +3184,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Validate day, month, and year
-            var valid     = $.fn.bootstrapValidator.helpers.date(year, month, day),
+            var valid     = FormValidator.Helper.date(year, month, day),
                 // declare the date, min and max objects
                 min       = null,
                 max       = null,
@@ -3205,17 +3210,17 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 case (minOption && !maxOption && valid):
                     valid   = date.getTime() >= min.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.min, minOption);
+                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.min, minOption);
                     break;
 
                 case (maxOption && !minOption && valid):
                     valid   = date.getTime() <= max.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.max, maxOption);
+                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.max, maxOption);
                     break;
 
                 case (maxOption && minOption && valid):
                     valid   = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
-                    message = options.message || $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].date.range, [minOption, maxOption]);
+                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.range, [minOption, maxOption]);
                     break;
 
                 default:
@@ -3262,7 +3267,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             different: {
                 'default': 'Please enter a different value'
@@ -3270,7 +3275,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.different = {
+    FormValidator.Validator.different = {
         html5Attributes: {
             message: 'message',
             field: 'field'
@@ -3351,7 +3356,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             digits: {
                 'default': 'Please enter only digits'
@@ -3359,7 +3364,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.digits = {
+    FormValidator.Validator.digits = {
         /**
          * Return true if the input value contains digits only
          *
@@ -3379,7 +3384,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ean: {
                 'default': 'Please enter a valid EAN number'
@@ -3387,7 +3392,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.ean = {
+    FormValidator.Validator.ean = {
         /**
          * Validate EAN (International Article Number)
          * Examples:
@@ -3423,7 +3428,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ein: {
                 'default': 'Please enter a valid EIN number'
@@ -3431,7 +3436,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.ein = {
+    FormValidator.Validator.ein = {
         // The first two digits are called campus
         // See http://en.wikipedia.org/wiki/Employer_Identification_Number
         // http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes
@@ -3485,7 +3490,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             emailAddress: {
                 'default': 'Please enter a valid email address'
@@ -3493,7 +3498,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.emailAddress = {
+    FormValidator.Validator.emailAddress = {
         html5Attributes: {
             message: 'message',
             multiple: 'multiple',
@@ -3576,7 +3581,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             file: {
                 'default': 'Please choose a valid file'
@@ -3584,7 +3589,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.file = {
+    FormValidator.Validator.file = {
         html5Attributes: {
             extension: 'extension',
             maxfiles: 'maxFiles',
@@ -3668,7 +3673,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             greaterThan: {
                 'default': 'Please enter a value greater than or equal to %s',
@@ -3677,7 +3682,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.greaterThan = {
+    FormValidator.Validator.greaterThan = {
         html5Attributes: {
             message: 'message',
             value: 'value',
@@ -3731,11 +3736,11 @@ if (typeof jQuery === 'undefined') {
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].greaterThan['default'], compareTo)
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].greaterThan['default'], compareTo)
                     }
                     : {
                         valid: value > compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].greaterThan.notInclusive, compareTo)
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].greaterThan.notInclusive, compareTo)
                     };
         },
 
@@ -3745,7 +3750,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             grid: {
                 'default': 'Please enter a valid GRId number'
@@ -3753,7 +3758,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.grid = {
+    FormValidator.Validator.grid = {
         /**
          * Validate GRId (Global Release Identifier)
          * Examples:
@@ -3781,12 +3786,12 @@ if (typeof jQuery === 'undefined') {
             if ('GRID:' === value.substr(0, 5)) {
                 value = value.substr(5);
             }
-            return $.fn.bootstrapValidator.helpers.mod37And36(value);
+            return FormValidator.Helper.mod37And36(value);
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             hex: {
                 'default': 'Please enter a valid hexadecimal number'
@@ -3794,7 +3799,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.hex = {
+    FormValidator.Validator.hex = {
         /**
          * Return true if and only if the input value is a valid hexadecimal number
          *
@@ -3815,7 +3820,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
@@ -3906,7 +3911,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.iban = {
+    FormValidator.Validator.iban = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -4031,14 +4036,14 @@ if (typeof jQuery === 'undefined') {
             if (!this.REGEX[country]) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].iban.countryNotSupported, country)
+                    message: FormValidator.Helper.format(FormValidator.I18n[locale].iban.countryNotSupported, country)
                 };
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
+                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
                 };
             }
 
@@ -4060,13 +4065,13 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: (temp === 1),
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].iban.country, $.fn.bootstrapValidator.i18n[locale].iban.countries[country])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             id: {
                 'default': 'Please enter a valid identification number',
@@ -4105,7 +4110,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.id = {
+    FormValidator.Validator.id = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -4148,7 +4153,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].id.countryNotSupported, country) };
+                return { valid: false, message: FormValidator.Helper.format(FormValidator.I18n[locale].id.countryNotSupported, country) };
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -4156,7 +4161,7 @@ if (typeof jQuery === 'undefined') {
                     ? true
                     : {
                         valid: false,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].id.country, $.fn.bootstrapValidator.i18n[locale].id.countries[country.toUpperCase()])
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].id.country, FormValidator.I18n[locale].id.countries[country.toUpperCase()])
                     };
         },
 
@@ -4275,7 +4280,7 @@ if (typeof jQuery === 'undefined') {
                 month -= 20;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -4903,7 +4908,7 @@ if (typeof jQuery === 'undefined') {
             var year  = parseInt(dob.substr(0, 4), 10),
                 month = parseInt(dob.substr(4, 2), 10),
                 day   = parseInt(dob.substr(6, 2), 10);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
             
@@ -4949,7 +4954,7 @@ if (typeof jQuery === 'undefined') {
                 year += 100;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -4997,7 +5002,7 @@ if (typeof jQuery === 'undefined') {
                     break;
             }
 
-            return $.fn.bootstrapValidator.helpers.date(year, month, day);
+            return FormValidator.Helper.date(year, month, day);
         },
 
         /**
@@ -5067,7 +5072,7 @@ if (typeof jQuery === 'undefined') {
                 };
             year = centuries[value.charAt(6)] + year;
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -5093,7 +5098,7 @@ if (typeof jQuery === 'undefined') {
             if (!/^[0-9]{11}$/.test(value)) {
                 return false;
             }
-            return $.fn.bootstrapValidator.helpers.mod11And10(value);
+            return FormValidator.Helper.mod11And10(value);
         },
 
         /**
@@ -5154,7 +5159,7 @@ if (typeof jQuery === 'undefined') {
                 century = parseInt(value.charAt(9), 10);
 
             year = (century === 9) ? (1900 + year) : ((20 + century) * 100 + year);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!FormValidator.Helper.date(year, month, day, true)) {
                 return false;
             }
             // Validate the check digit
@@ -5188,7 +5193,7 @@ if (typeof jQuery === 'undefined') {
                 day     = parseInt(value.substr(5, 2), 10),
                 century = (gender % 2 === 0) ? (17 + gender / 2) : (17 + (gender + 1) / 2);
             year = century * 100 + year;
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!FormValidator.Helper.date(year, month, day, true)) {
                 return false;
             }
 
@@ -5237,7 +5242,7 @@ if (typeof jQuery === 'undefined') {
                 year  = parseInt(value.substr(4, 2), 10);
             year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day, true)) {
+            if (!FormValidator.Helper.date(year, month, day, true)) {
                 return false;
             }
 
@@ -5321,7 +5326,7 @@ if (typeof jQuery === 'undefined') {
             }
             if (gender !== 9) {
                 year = centuries[gender + ''] + year;
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!FormValidator.Helper.date(year, month, day)) {
                     return false;
                 }
             }
@@ -5359,12 +5364,12 @@ if (typeof jQuery === 'undefined') {
             var year  = parseInt(value.substr(0, 2), 10) + 1900,
                 month = parseInt(value.substr(2, 2), 10),
                 day   = parseInt(value.substr(4, 2), 10);
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
             // Validate the last check digit
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
         },
 
         /**
@@ -5435,17 +5440,17 @@ if (typeof jQuery === 'undefined') {
                 day         = parseInt(value.substr(4, 2), 10);
             year = (year >= currentYear) ? (year + 1900) : (year + 2000);
 
-            if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+            if (!FormValidator.Helper.date(year, month, day)) {
                 return false;
             }
 
             // Validate the last check digit
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             identical: {
                 'default': 'Please enter the same value'
@@ -5453,7 +5458,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.identical = {
+    FormValidator.Validator.identical = {
         html5Attributes: {
             message: 'message',
             field: 'field'
@@ -5517,7 +5522,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             imei: {
                 'default': 'Please enter a valid IMEI number'
@@ -5525,7 +5530,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.imei = {
+    FormValidator.Validator.imei = {
         /**
          * Validate IMEI (International Mobile Station Equipment Identity)
          * Examples:
@@ -5550,7 +5555,7 @@ if (typeof jQuery === 'undefined') {
                 case /^\d{2}-\d{6}-\d{6}-\d{1}$/.test(value):
                 case /^\d{2}\s\d{6}\s\d{6}\s\d{1}$/.test(value):
                     value = value.replace(/[^0-9]/g, '');
-                    return $.fn.bootstrapValidator.helpers.luhn(value);
+                    return FormValidator.Helper.luhn(value);
 
                 case /^\d{14}$/.test(value):
                 case /^\d{16}$/.test(value):
@@ -5565,7 +5570,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             imo: {
                 'default': 'Please enter a valid IMO number'
@@ -5573,7 +5578,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.imo = {
+    FormValidator.Validator.imo = {
         /**
          * Validate IMO (International Maritime Organization)
          * Examples:
@@ -5614,7 +5619,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             integer: {
                 'default': 'Please enter a valid number'
@@ -5622,7 +5627,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.integer = {
+    FormValidator.Validator.integer = {
         enableByHtml5: function($field) {
             return ('number' === $field.attr('type')) && ($field.attr('step') === undefined || $field.attr('step') % 1 === 0);
         },
@@ -5650,7 +5655,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ip: {
                 'default': 'Please enter a valid IP address',
@@ -5660,7 +5665,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.ip = {
+    FormValidator.Validator.ip = {
         html5Attributes: {
             message: 'message',
             ipv4: 'ipv4',
@@ -5694,19 +5699,19 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 case (options.ipv4 && !options.ipv6):
                     valid   = ipv4Regex.test(value);
-                    message = options.message || $.fn.bootstrapValidator.i18n[locale].ip.ipv4;
+                    message = options.message || FormValidator.I18n[locale].ip.ipv4;
                     break;
 
                 case (!options.ipv4 && options.ipv6):
                     valid   = ipv6Regex.test(value);
-                    message = options.message || $.fn.bootstrapValidator.i18n[locale].ip.ipv6;
+                    message = options.message || FormValidator.I18n[locale].ip.ipv6;
                     break;
 
                 case (options.ipv4 && options.ipv6):
                 /* falls through */
                 default:
                     valid   = ipv4Regex.test(value) || ipv6Regex.test(value);
-                    message = options.message || $.fn.bootstrapValidator.i18n[locale].ip['default'];
+                    message = options.message || FormValidator.I18n[locale].ip['default'];
                     break;
             }
 
@@ -5716,8 +5721,9 @@ if (typeof jQuery === 'undefined') {
             };
         }
     };
-}(jQuery));;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+}(jQuery));
+;(function($) {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             isbn: {
                 'default': 'Please enter a valid ISBN number'
@@ -5725,7 +5731,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.isbn = {
+    FormValidator.Validator.isbn = {
         /**
          * Return true if the input value is a valid ISBN 10 or ISBN 13 number
          * Examples:
@@ -5807,7 +5813,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             isin: {
                 'default': 'Please enter a valid ISIN number'
@@ -5815,7 +5821,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.isin = {
+    FormValidator.Validator.isin = {
         // Available country codes
         // See http://isin.net/country-codes/
         COUNTRY_CODES: 'AF|AX|AL|DZ|AS|AD|AO|AI|AQ|AG|AR|AM|AW|AU|AT|AZ|BS|BH|BD|BB|BY|BE|BZ|BJ|BM|BT|BO|BQ|BA|BW|BV|BR|IO|BN|BG|BF|BI|KH|CM|CA|CV|KY|CF|TD|CL|CN|CX|CC|CO|KM|CG|CD|CK|CR|CI|HR|CU|CW|CY|CZ|DK|DJ|DM|DO|EC|EG|SV|GQ|ER|EE|ET|FK|FO|FJ|FI|FR|GF|PF|TF|GA|GM|GE|DE|GH|GI|GR|GL|GD|GP|GU|GT|GG|GN|GW|GY|HT|HM|VA|HN|HK|HU|IS|IN|ID|IR|IQ|IE|IM|IL|IT|JM|JP|JE|JO|KZ|KE|KI|KP|KR|KW|KG|LA|LV|LB|LS|LR|LY|LI|LT|LU|MO|MK|MG|MW|MY|MV|ML|MT|MH|MQ|MR|MU|YT|MX|FM|MD|MC|MN|ME|MS|MA|MZ|MM|NA|NR|NP|NL|NC|NZ|NI|NE|NG|NU|NF|MP|NO|OM|PK|PW|PS|PA|PG|PY|PE|PH|PN|PL|PT|PR|QA|RE|RO|RU|RW|BL|SH|KN|LC|MF|PM|VC|WS|SM|ST|SA|SN|RS|SC|SL|SG|SX|SK|SI|SB|SO|ZA|GS|SS|ES|LK|SD|SR|SJ|SZ|SE|CH|SY|TW|TJ|TZ|TH|TL|TG|TK|TO|TT|TN|TR|TM|TC|TV|UG|UA|AE|GB|US|UM|UY|UZ|VU|VE|VN|VG|VI|WF|EH|YE|ZM|ZW',
@@ -5870,7 +5876,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             ismn: {
                 'default': 'Please enter a valid ISMN number'
@@ -5878,7 +5884,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.ismn = {
+    FormValidator.Validator.ismn = {
         /**
          * Validate ISMN (International Standard Music Number)
          * Examples:
@@ -5933,7 +5939,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             issn: {
                 'default': 'Please enter a valid ISSN number'
@@ -5941,7 +5947,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.issn = {
+    FormValidator.Validator.issn = {
         /**
          * Validate ISSN (International Standard Serial Number)
          * Examples:
@@ -5983,7 +5989,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             lessThan: {
                 'default': 'Please enter a value less than or equal to %s',
@@ -5992,7 +5998,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.lessThan = {
+    FormValidator.Validator.lessThan = {
         html5Attributes: {
             message: 'message',
             value: 'value',
@@ -6046,11 +6052,11 @@ if (typeof jQuery === 'undefined') {
             return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value <= compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].lessThan['default'], compareTo)
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].lessThan['default'], compareTo)
                     }
                     : {
                         valid: value < compareToValue,
-                        message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].lessThan.notInclusive, compareTo)
+                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].lessThan.notInclusive, compareTo)
                     };
         },
 
@@ -6060,7 +6066,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             mac: {
                 'default': 'Please enter a valid MAC address'
@@ -6068,7 +6074,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.mac = {
+    FormValidator.Validator.mac = {
         /**
          * Return true if the input value is a MAC address.
          *
@@ -6089,7 +6095,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             meid: {
                 'default': 'Please enter a valid MEID number'
@@ -6097,7 +6103,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.meid = {
+    FormValidator.Validator.meid = {
         /**
          * Validate MEID (Mobile Equipment Identifier)
          * Examples:
@@ -6134,7 +6140,7 @@ if (typeof jQuery === 'undefined') {
 
                     // If it's all digits, luhn base 10 is used
                     if (value.match(/^\d*$/i)) {
-                        return $.fn.bootstrapValidator.helpers.luhn(value);
+                        return FormValidator.Helper.luhn(value);
                     }
 
                     // Strip the check digit
@@ -6176,7 +6182,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             notEmpty: {
                 'default': 'Please enter a value'
@@ -6184,7 +6190,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.notEmpty = {
+    FormValidator.Validator.notEmpty = {
         enableByHtml5: function($field) {
             var required = $field.attr('required') + '';
             return ('required' === required || 'true' === required);
@@ -6216,7 +6222,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             numeric: {
                 'default': 'Please enter a valid float number'
@@ -6224,7 +6230,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.numeric = {
+    FormValidator.Validator.numeric = {
         html5Attributes: {
             message: 'message',
             separator: 'separator'
@@ -6263,7 +6269,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
@@ -6292,7 +6298,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.phone = {
+    FormValidator.Validator.phone = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -6333,7 +6339,7 @@ if (typeof jQuery === 'undefined') {
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].phone.countryNotSupported, country)
+                    message: FormValidator.Helper.format(FormValidator.I18n[locale].phone.countryNotSupported, country)
                 };
             }
 
@@ -6450,13 +6456,13 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].phone.country, $.fn.bootstrapValidator.i18n[locale].phone.countries[country])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].phone.country, FormValidator.I18n[locale].phone.countries[country])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             regexp: {
                 'default': 'Please enter a value matching the pattern'
@@ -6464,7 +6470,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.regexp = {
+    FormValidator.Validator.regexp = {
         html5Attributes: {
             message: 'message',
             regexp: 'regexp'
@@ -6502,7 +6508,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             remote: {
                 'default': 'Please enter a valid value'
@@ -6510,7 +6516,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.remote = {
+    FormValidator.Validator.remote = {
         html5Attributes: {
             message: 'message',
             name: 'name',
@@ -6614,7 +6620,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             rtn: {
                 'default': 'Please enter a valid RTN number'
@@ -6622,7 +6628,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.rtn = {
+    FormValidator.Validator.rtn = {
         /**
          * Validate a RTN (Routing transit number)
          * Examples:
@@ -6656,7 +6662,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             sedol: {
                 'default': 'Please enter a valid SEDOL number'
@@ -6664,7 +6670,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.sedol = {
+    FormValidator.Validator.sedol = {
         /**
          * Validate a SEDOL (Stock Exchange Daily Official List)
          * Examples:
@@ -6700,7 +6706,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
 		'en_US': {
 			siren: {
 				'default': 'Please enter a valid SIREN number'
@@ -6708,7 +6714,7 @@ if (typeof jQuery === 'undefined') {
 		}
     });
 
-	$.fn.bootstrapValidator.validators.siren = {
+	FormValidator.Validator.siren = {
 		/**
 		 * Check if a string is a siren number
 		 *
@@ -6727,12 +6733,12 @@ if (typeof jQuery === 'undefined') {
             if (!/^\d{9}$/.test(value)) {
                 return false;
             }
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
 		}
 	};
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
 		'en_US': {
 			siret: {
 				'default': 'Please enter a valid SIRET number'
@@ -6740,7 +6746,7 @@ if (typeof jQuery === 'undefined') {
 		}
     });
 
-	$.fn.bootstrapValidator.validators.siret = {
+	FormValidator.Validator.siret = {
         /**
          * Check if a string is a siret number
          *
@@ -6774,7 +6780,7 @@ if (typeof jQuery === 'undefined') {
 	};
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             step: {
                 'default': 'Please enter a valid step of %s'
@@ -6782,7 +6788,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.step = {
+    FormValidator.Validator.step = {
         html5Attributes: {
             message: 'message',
             base: 'baseValue',
@@ -6837,13 +6843,13 @@ if (typeof jQuery === 'undefined') {
                 mod    = floatMod(value - options.baseValue, options.step);
             return {
                 valid: mod === 0.0 || mod === options.step,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].step['default'], [options.step])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].step['default'], [options.step])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             stringCase: {
                 'default': 'Please enter only lowercase characters',
@@ -6852,7 +6858,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.stringCase = {
+    FormValidator.Validator.stringCase = {
         html5Attributes: {
             message: 'message',
             'case': 'case'
@@ -6878,13 +6884,13 @@ if (typeof jQuery === 'undefined') {
                 stringCase = (options['case'] || 'lower').toLowerCase();
             return {
                 valid: ('upper' === stringCase) ? value === value.toUpperCase() : value === value.toLowerCase(),
-                message: options.message || (('upper' === stringCase) ? $.fn.bootstrapValidator.i18n[locale].stringCase.upper : $.fn.bootstrapValidator.i18n[locale].stringCase['default'])
+                message: options.message || (('upper' === stringCase) ? FormValidator.I18n[locale].stringCase.upper : FormValidator.I18n[locale].stringCase['default'])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             stringLength: {
                 'default': 'Please enter a value with valid length',
@@ -6895,7 +6901,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.stringLength = {
+    FormValidator.Validator.stringLength = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -6969,7 +6975,7 @@ if (typeof jQuery === 'undefined') {
                              },
                 length     = options.utf8Bytes ? utf8Length(value) : value.length,
                 isValid    = true,
-                message    = options.message || $.fn.bootstrapValidator.i18n[locale].stringLength['default'];
+                message    = options.message || FormValidator.I18n[locale].stringLength['default'];
 
             if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                 isValid = false;
@@ -6977,15 +6983,15 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (!!min && !!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.more, parseInt(min, 10));
+                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.more, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].stringLength.less, parseInt(max, 10));
+                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.less, parseInt(max, 10));
                     break;
 
                 default:
@@ -7000,7 +7006,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             uri: {
                 'default': 'Please enter a valid URI'
@@ -7008,7 +7014,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.uri = {
+    FormValidator.Validator.uri = {
         html5Attributes: {
             message: 'message',
             allowlocal: 'allowLocal',
@@ -7120,7 +7126,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             uuid: {
                 'default': 'Please enter a valid UUID number',
@@ -7129,7 +7135,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.uuid = {
+    FormValidator.Validator.uuid = {
         html5Attributes: {
             message: 'message',
             version: 'version'
@@ -7164,14 +7170,14 @@ if (typeof jQuery === 'undefined') {
             return {
                 valid: (null === patterns[version]) ? true : patterns[version].test(value),
                 message: options.version
-                            ? $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].uuid.version, options.version)
-                            : (options.message || $.fn.bootstrapValidator.i18n[locale].uuid['default'])
+                            ? FormValidator.Helper.format(options.message || FormValidator.I18n[locale].uuid.version, options.version)
+                            : (options.message || FormValidator.I18n[locale].uuid['default'])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             vat: {
                 'default': 'Please enter a valid VAT number',
@@ -7220,7 +7226,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.vat = {
+    FormValidator.Validator.vat = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -7265,7 +7271,7 @@ if (typeof jQuery === 'undefined') {
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].vat.countryNotSupported, country)
+                    message: FormValidator.Helper.format(FormValidator.I18n[locale].vat.countryNotSupported, country)
                 };
             }
 
@@ -7274,7 +7280,7 @@ if (typeof jQuery === 'undefined') {
                 ? true
                 : {
                     valid: false,
-                    message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].vat.country, $.fn.bootstrapValidator.i18n[locale].vat.countries[country.toUpperCase()])
+                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].vat.country, FormValidator.I18n[locale].vat.countries[country.toUpperCase()])
                 };
         },
 
@@ -7398,7 +7404,7 @@ if (typeof jQuery === 'undefined') {
                             month -= 20;
                         }
 
-                        if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                        if (!FormValidator.Helper.date(year, month, day)) {
                             return false;
                         }
 
@@ -7646,7 +7652,7 @@ if (typeof jQuery === 'undefined') {
                     year += 100;
                 }
 
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!FormValidator.Helper.date(year, month, day)) {
                     return false;
                 }
 
@@ -7682,7 +7688,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            return $.fn.bootstrapValidator.helpers.mod11And10(value);
+            return FormValidator.Helper.mod11And10(value);
         },
 
         /**
@@ -7853,7 +7859,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            if (!$.fn.bootstrapValidator.helpers.luhn(value.substr(2))) {
+            if (!FormValidator.Helper.luhn(value.substr(2))) {
                 return false;
             }
 
@@ -8011,7 +8017,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            return $.fn.bootstrapValidator.helpers.mod11And10(value);
+            return FormValidator.Helper.mod11And10(value);
         },
 
         /**
@@ -8102,7 +8108,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
         },
 
         /**
@@ -8201,7 +8207,7 @@ if (typeof jQuery === 'undefined') {
                     year  = parseInt(value.substr(4, 2), 10);
                 year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
-                if (!$.fn.bootstrapValidator.helpers.date(year, month, day)) {
+                if (!FormValidator.Helper.date(year, month, day)) {
                     return false;
                 }
 
@@ -8483,7 +8489,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             value = value.substr(0, 10);
-            return $.fn.bootstrapValidator.helpers.luhn(value);
+            return FormValidator.Helper.luhn(value);
         },
 
         /**
@@ -8593,7 +8599,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             vin: {
                 'default': 'Please enter a valid VIN number'
@@ -8601,7 +8607,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.vin = {
+    FormValidator.Validator.vin = {
         /**
          * Validate an US VIN (Vehicle Identification Number)
          *
@@ -8646,7 +8652,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             zipCode: {
                 'default': 'Please enter a valid postal code',
@@ -8678,7 +8684,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    $.fn.bootstrapValidator.validators.zipCode = {
+    FormValidator.Validator.zipCode = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -8723,7 +8729,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: $.fn.bootstrapValidator.helpers.format($.fn.bootstrapValidator.i18n[locale].zipCode.countryNotSupported, country) };
+                return { valid: false, message: FormValidator.Helper.format(FormValidator.I18n[locale].zipCode.countryNotSupported, country) };
             }
 
             var isValid = false;
@@ -8825,7 +8831,7 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: isValid,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].zipCode.country, $.fn.bootstrapValidator.i18n[locale].zipCode.countries[country])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].zipCode.country, FormValidator.I18n[locale].zipCode.countries[country])
             };
         },
 

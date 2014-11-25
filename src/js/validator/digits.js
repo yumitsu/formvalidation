@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             digits: {
                 'default': 'Please enter only digits'
@@ -15,11 +15,11 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.digits = {
+    FormValidator.Validator.digits = {
         /**
          * Return true if the input value contains digits only
          *
-         * @param {BootstrapValidator} validator Validate plugin instance
+         * @param {FormValidator.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options]
          * @returns {Boolean}

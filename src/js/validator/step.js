@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n || {}, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
         'en_US': {
             step: {
                 'default': 'Please enter a valid step of %s'
@@ -15,7 +15,7 @@
         }
     });
 
-    $.fn.bootstrapValidator.validators.step = {
+    FormValidator.Validator.step = {
         html5Attributes: {
             message: 'message',
             base: 'baseValue',
@@ -25,7 +25,7 @@
         /**
          * Return true if the input value is valid step one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - baseValue: The base value
@@ -70,7 +70,7 @@
                 mod    = floatMod(value - options.baseValue, options.step);
             return {
                 valid: mod === 0.0 || mod === options.step,
-                message: $.fn.bootstrapValidator.helpers.format(options.message || $.fn.bootstrapValidator.i18n[locale].step['default'], [options.step])
+                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].step['default'], [options.step])
             };
         }
     };

@@ -3,7 +3,7 @@
      * Hebrew language package
      * Translated by @yakidahan
      */
-    $.fn.bootstrapValidator.i18n = $.extend(true, $.fn.bootstrapValidator.i18n, {
+    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
         'he_IL': {
             base64: {
                 'default': 'נא להזין ערך המקודד בבסיס 64'

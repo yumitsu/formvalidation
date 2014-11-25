@@ -9,7 +9,7 @@
  */
 /* global Recaptcha: false */
 (function($) {
-    $.fn.bootstrapValidator.addOns.reCaptcha = {
+    FormValidator.AddOn.reCaptcha = {
         html5Attributes: {
             element: 'element',
             message: 'message',
@@ -22,7 +22,7 @@
         CAPTCHA_FIELD: 'recaptcha_response_field',
 
         /**
-         * @param {BootstrapValidator} validator The BootstrapValidator instance
+         * @param {FormValidator.Base} validator The validator instance
          * @param {Object} options The add-on options. Consists of the following keys:
          * - element: The ID of element showing the captcha
          * - theme: The theme name provided by Google.
