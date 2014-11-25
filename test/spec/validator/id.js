@@ -96,7 +96,7 @@ describe('id', function() {
         this.bv.updateOption('id', 'id', 'country', 'BR');
 
         // Valid samples
-        var validSamples = ['39053344705', '390.533.447-05', '111.444.777-35'];
+        var validSamples = ['39053344705', '39053344705', '11144477735', '39053344705', '390.533.447-05', '111.444.777-35'];
         for (var i in validSamples) {
             this.bv.resetForm();
             this.$id.val(validSamples[i]);
