@@ -91,6 +91,7 @@ I would like to give big thanks to the following contributors:
 * [@phillprice](https://github.com/phillprice)
 * [@pRieStaKos](https://github.com/pRieStaKos)
 * [@q-state](https://github.com/q-state)
+* [@rbnvrw](https://github.com/rbnvrw)
 * [@Relequestual](https://github.com/Relequestual)
 * [@roryprimrose](https://github.com/roryprimrose)
 * [@rtbfreitas](https://github.com/rtbfreitas)

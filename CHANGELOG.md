@@ -10,6 +10,7 @@ __New Features__
 * [#1140](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1140): Add UAE [phone number](http://bootstrapvalidator.com/validators/phone/) validator, thanks to [@s-a-y](https://github.com/s-a-y)
 * [#1153](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1153): Add EIN validator, thanks to [@joshuachestang](https://github.com/joshuachestang)
 * [#1165](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1165): Add BIC (ISO 9362) validator, thanks to [@thomaslhotta](https://github.com/thomaslhotta)
+* [#1185](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1185): Add ```composer.json``` file, thanks to [@rbnvrw](https://github.com/rbnvrw)
 
 __Changes__
 * [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead
