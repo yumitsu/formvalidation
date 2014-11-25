@@ -44,6 +44,7 @@ I would like to give big thanks to the following contributors:
 * [@grzesiek](https://github.com/grzesiek)
 * [@henningda](https://github.com/henningda)
 * [@i0](https://github.com/i0)
+* [@igorescobar](https://github.com/igorescobar)
 * [@ikanedo](https://github.com/ikanedo)
 * [@iplus](https://github.com/iplus)
 * [@jazzzz](https://github.com/jazzzz)

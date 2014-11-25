@@ -240,7 +240,6 @@
          * @returns {Boolean}
          */
         _br: function(value) {
-
             value = value.replace(/\D/g, '');
 
             if (/^1{11}|2{11}|3{11}|4{11}|5{11}|6{11}|7{11}|8{11}|9{11}|0{11}$/.test(value)) {

@@ -28,6 +28,7 @@ __Improvements__
 * [#1137](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1137): Use ```jQuery``` instead of ```window.jQuery```
 * [#1154](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1154): Allow to reuse data which is returned by the validator
 * [#1177](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1177): Don't need to set the [different](http://bootstrapvalidator.com/validators/different/) validator for both fields
+* [#1186](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1186), [#1188](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1188): Improve the [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@igorescobar](https://github.com/igorescobar)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
@@ -46,9 +47,9 @@ __Document__
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
 * [#1128](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1128): Add link to the [Examples](http://bootstrapvalidator.com/examples/) from the [homepage](http://bootstrapvalidator.com/#2)
+* [#1143](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1143), [#1176](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1176): Add [Form is submitted twice](http://bootstrapvalidator.com/examples/form-submit-twice/) example
 * [#1172](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1172): Add [Requiring at least one field](http://bootstrapvalidator.com/examples/requiring-at-least-one-field/) example
 * [#1174](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1174): Add [Pickadate](http://bootstrapvalidator.com/examples/pickadate/) example
-* [#1176](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1176): Add [Form is submitted twice](http://bootstrapvalidator.com/examples/form-submit-twice/) example
 
 __Language Packages__
 * [#1150](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1150): Add Catalan language package, thanks to [@ArnauAregall](https://github.com/ArnauAregall)
