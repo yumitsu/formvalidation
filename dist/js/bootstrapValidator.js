@@ -2,22 +2,15 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-25 11:35:04 PM
+ * @version     v0.6.0-dev, built on 2014-11-26 1:34:19 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
-// Register the namespace
-window.FormValidator = {};
-
-// Add-ons
-window.FormValidator.AddOn = {};
-
-// Available validators
-window.FormValidator.Validator = {};
-
-// i18n
-window.FormValidator.I18n = {};
+window.FormValidator           = {};    // Register the namespace
+window.FormValidator.AddOn     = {};    // Add-ons
+window.FormValidator.Validator = {};    // Available validators
+window.FormValidator.I18n      = {};    // i18n
 
 if (typeof jQuery === 'undefined') {
     throw new Error('The plugin requires jQuery');
@@ -37,6 +30,48 @@ if (typeof jQuery === 'undefined') {
         // The first invalid field will be focused automatically
         autoFocus: true,
 
+        clazz: {
+            row: {
+                // The CSS selector for indicating the element consists the field
+                // By default, each field is placed inside the <div class="form-group"></div>
+                // You should adjust this option if your form group consists of many fields which not all of them need to be validated
+                selector: '.form-group',
+                valid: 'has-success',
+                invalid: 'has-error',
+                feedback: 'has-feedback'
+            },
+            message: {
+                clazz: 'help-block',
+                parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
+            },
+            // Shows ok/error/loading icons based on the field validity.
+            // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
+            // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
+            // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
+            //
+            // Examples:
+            // - Use Glyphicons icons:
+            //  icon: {
+            //      valid: 'glyphicon glyphicon-ok',
+            //      invalid: 'glyphicon glyphicon-remove',
+            //      validating: 'glyphicon glyphicon-refresh',
+            //      feedback: 'form-control-feedback'
+            //  }
+            // - Use FontAwesome icons:
+            //  icon: {
+            //      valid: 'fa fa-check',
+            //      invalid: 'fa fa-times',
+            //      validating: 'fa fa-refresh'
+            //      feedback: 'form-control-feedback'
+            //  }
+            icon: {
+                valid: null,
+                invalid: null,
+                validating: null,
+                feedback: 'form-control-feedback'
+            }
+        },
+
         //The error messages container. It can be:
         // - 'tooltip' if you want to use Bootstrap tooltip to show error messages
         // - 'popover' if you want to use Bootstrap popover to show error messages
@@ -49,7 +84,7 @@ if (typeof jQuery === 'undefined') {
         elementClass: 'bv-form',
 
         // Use custom event name to avoid window.onerror being invoked by jQuery
-        // See https://github.com/nghuuphuoc/bootstrapvalidator/issues/630
+        // See #630
         events: {
             formInit: 'init.form.bv',
             formError: 'error.form.bv',
@@ -90,37 +125,8 @@ if (typeof jQuery === 'undefined') {
         //    }]
         excluded: [':disabled', ':hidden', ':not(:visible)'],
 
-        // Shows ok/error/loading icons based on the field validity.
-        // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
-        // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
-        // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
-        //
-        // Examples:
-        // - Use Glyphicons icons:
-        //  feedbackIcons: {
-        //      valid: 'glyphicon glyphicon-ok',
-        //      invalid: 'glyphicon glyphicon-remove',
-        //      validating: 'glyphicon glyphicon-refresh'
-        //  }
-        // - Use FontAwesome icons:
-        //  feedbackIcons: {
-        //      valid: 'fa fa-check',
-        //      invalid: 'fa fa-times',
-        //      validating: 'fa fa-refresh'
-        //  }
-        feedbackIcons: {
-            valid:      null,
-            invalid:    null,
-            validating: null
-        },
-
         // Map the field name with validator rules
         fields: null,
-
-        // The CSS selector for indicating the element consists the field
-        // By default, each field is placed inside the <div class="form-group"></div>
-        // You should adjust this option if your form group consists of many fields which not all of them need to be validated
-        group: '.form-group',
 
         // Live validating option
         // Can be one of 3 values:
@@ -153,7 +159,8 @@ if (typeof jQuery === 'undefined') {
 
     FormValidator.Base = function(form, options) {
         this.$form   = $(form);
-        this.options = $.extend({}, FormValidator.DEFAULT_OPTIONS, options);
+        this.options = $.extend({}, FormValidator.DEFAULT_OPTIONS);
+        this.options = $.extend(true, this.options, options);
 
         this.$invalidFields = $([]);    // Array of invalid fields
         this.$submitButton  = null;     // The submit button which is clicked to submit form
@@ -215,6 +222,25 @@ if (typeof jQuery === 'undefined') {
                 options = {
                     addOns:         {},
                     autoFocus:      this.$form.attr('data-bv-autofocus'),
+                    // TODO: Remove backward compatibility in v0.7.0
+                    clazz: {
+                        row: {
+                            selector: this.$form.attr('data-bv-clazz-row-selector') || this.$form.attr('data-bv-group'),    // Support backward
+                            valid:    this.$form.attr('data-bv-clazz-row-valid'),
+                            invalid:  this.$form.attr('data-bv-clazz-row-invalid'),
+                            feedback: this.$form.attr('data-bv-clazz-row-feedback')
+                        },
+                        message: {
+                            clazz:  this.$form.attr('data-bv-clazz-message-clazz'),
+                            parent: this.$form.attr('data-bv-clazz-message-parent')
+                        },
+                        icon: {
+                            valid:      this.$form.attr('data-bv-clazz-icon-valid')      || this.$form.attr('data-bv-feedbackicons-valid'),      // Support backward
+                            invalid:    this.$form.attr('data-bv-clazz-icon-invalid')    || this.$form.attr('data-bv-feedbackicons-invalid'),    // Support backward
+                            validating: this.$form.attr('data-bv-clazz-icon-validating') || this.$form.attr('data-bv-feedbackicons-validating'), // Support backward
+                            feedback:   this.$form.attr('data-bv-clazz-icon-feedback')
+                        }
+                    },
                     container:      this.$form.attr('data-bv-container'),
                     events: {
                         formInit:         this.$form.attr('data-bv-events-form-init'),
@@ -230,23 +256,17 @@ if (typeof jQuery === 'undefined') {
                         validatorError:   this.$form.attr('data-bv-events-validator-error'),
                         validatorSuccess: this.$form.attr('data-bv-events-validator-success')
                     },
-                    excluded:       this.$form.attr('data-bv-excluded'),
-                    feedbackIcons: {
-                        valid:      this.$form.attr('data-bv-feedbackicons-valid'),
-                        invalid:    this.$form.attr('data-bv-feedbackicons-invalid'),
-                        validating: this.$form.attr('data-bv-feedbackicons-validating')
-                    },
-                    group:          this.$form.attr('data-bv-group'),
-                    live:           this.$form.attr('data-bv-live'),
-                    locale:         this.$form.attr('data-bv-locale'),
-                    message:        this.$form.attr('data-bv-message'),
-                    onError:        this.$form.attr('data-bv-onerror'),
-                    onSuccess:      this.$form.attr('data-bv-onsuccess'),
-                    submitButtons:  this.$form.attr('data-bv-submitbuttons'),
-                    threshold:      this.$form.attr('data-bv-threshold'),
-                    trigger:        this.$form.attr('data-bv-trigger'),
-                    verbose:        this.$form.attr('data-bv-verbose'),
-                    fields:         {}
+                    excluded:      this.$form.attr('data-bv-excluded'),
+                    live:          this.$form.attr('data-bv-live'),
+                    locale:        this.$form.attr('data-bv-locale'),
+                    message:       this.$form.attr('data-bv-message'),
+                    onError:       this.$form.attr('data-bv-onerror'),
+                    onSuccess:     this.$form.attr('data-bv-onsuccess'),
+                    submitButtons: this.$form.attr('data-bv-submitbuttons'),
+                    threshold:     this.$form.attr('data-bv-threshold'),
+                    trigger:       this.$form.attr('data-bv-trigger'),
+                    verbose:       this.$form.attr('data-bv-verbose'),
+                    fields:        {}
                 };
 
             this.$form
@@ -276,6 +296,21 @@ if (typeof jQuery === 'undefined') {
                     });
 
             this.options = $.extend(true, this.options, options);
+
+            // Normalize the clazz.message.parent option
+            if ('string' === typeof this.options.clazz.message.parent) {
+                this.options.clazz.message.parent = new RegExp(this.options.clazz.message.parent);
+            }
+
+            // TODO: Remove backward compatibility in v0.7.0
+            if (this.options.feedbackIcons) {
+                this.options.clazz.icon = $.extend(true, this.options.clazz.icon, this.options.feedbackIcons);
+                delete this.options.feedbackIcons;
+            }
+            if (this.options.group) {
+                this.options.clazz.row.selector = this.options.group;
+                delete this.options.group;
+            }
 
             // If the locale is not found, reset it to default one
             if (!FormValidator.I18n[this.options.locale]) {
@@ -389,20 +424,20 @@ if (typeof jQuery === 'undefined') {
 
             for (var i = 0; i < total; i++) {
                 var $field    = fields.eq(i),
-                    group     = this.options.fields[field].group || this.options.group,
-                    $parent   = $field.parents(group),
+                    row       = this.options.fields[field].clazz.row || this.options.clazz.row.selector,
+                    $parent   = $field.parents(row),
                     // Allow user to indicate where the error messages are shown
                     container = ('function' === typeof (this.options.fields[field].container || this.options.container))
                                 ? (this.options.fields[field].container || this.options.container).call(this, $field, this)
                                 : (this.options.fields[field].container || this.options.container),
-                    $message  = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, group);
+                    $message  = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, row);
 
                 if (container && container !== 'tooltip' && container !== 'popover') {
-                    $message.addClass('has-error');
+                    $message.addClass(this.options.clazz.message.clazz);
                 }
 
                 // Remove all error messages and feedback icons
-                $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]').remove();
+                $message.find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove();
                 $parent.find('i[data-bv-icon-for="' + field + '"]').remove();
 
                 // Whenever the user change the field value, mark it as not validated yet
@@ -418,7 +453,7 @@ if (typeof jQuery === 'undefined') {
                     if (!updateAll || i === total - 1) {
                         $('<small/>')
                             .css('display', 'none')
-                            .addClass('help-block')
+                            .addClass(this.options.clazz.message.clazz)
                             .attr({
                                 'data-bv-validator': validatorName,
                                 'data-bv-for': field,
@@ -436,17 +471,17 @@ if (typeof jQuery === 'undefined') {
 
                 // Prepare the feedback icons
                 // Available from Bootstrap 3.1 (http://getbootstrap.com/css/#forms-control-validation)
-                if (this.options.fields[field].feedbackIcons !== false && this.options.fields[field].feedbackIcons !== 'false'
-                    && this.options.feedbackIcons
-                    && this.options.feedbackIcons.validating && this.options.feedbackIcons.invalid && this.options.feedbackIcons.valid
+                if ((!this.options.fields[field].clazz || (this.options.fields[field].clazz.icon !== false && this.options.fields[field].clazz.icon !== 'false'))
+                    && this.options.clazz.icon
+                    && this.options.clazz.icon.valid && this.options.clazz.icon.invalid && this.options.clazz.icon.validating
                     && (!updateAll || i === total - 1))
                 {
-                    // $parent.removeClass('has-success').removeClass('has-error').addClass('has-feedback');
+                    // $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid).addClass(this.options.clazz.row.feedback);
                     // Keep error messages which are populated from back-end
-                    $parent.addClass('has-feedback');
+                    $parent.addClass(this.options.clazz.row.feedback);
                     var $icon = $('<i/>')
                                     .css('display', 'none')
-                                    .addClass('form-control-feedback')
+                                    .addClass(this.options.clazz.icon.feedback)
                                     .attr('data-bv-icon-for', field)
                                     .insertAfter($field);
 
@@ -659,29 +694,29 @@ if (typeof jQuery === 'undefined') {
          * Get the element to place the error messages
          *
          * @param {jQuery} $field The field element
-         * @param {String} group
+         * @param {String} row
          * @returns {jQuery}
          */
-        _getMessageContainer: function($field, group) {
+        _getMessageContainer: function($field, row) {
+            if (!this.options.clazz.message.parent) {
+                throw new Error('The clazz.message.parent option is not defined');
+            }
+
             var $parent = $field.parent();
-            if ($parent.is(group)) {
+            if ($parent.is(row)) {
                 return $parent;
             }
 
             var cssClasses = $parent.attr('class');
             if (!cssClasses) {
-                return this._getMessageContainer($parent, group);
+                return this._getMessageContainer($parent, row);
             }
 
-            cssClasses = cssClasses.split(' ');
-            var n = cssClasses.length;
-            for (var i = 0; i < n; i++) {
-                if (/^col-(xs|sm|md|lg)-\d+$/.test(cssClasses[i]) || /^col-(xs|sm|md|lg)-offset-\d+$/.test(cssClasses[i])) {
-                    return $parent;
-                }
+            if (this.options.clazz.message.parent.test(cssClasses)) {
+                return $parent;
             }
 
-            return this._getMessageContainer($parent, group);
+            return this._getMessageContainer($parent, row);
         },
 
         /**
@@ -778,22 +813,26 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
-            var opts = {
-                    autoFocus:     $field.attr('data-bv-autofocus'),
-                    container:     $field.attr('data-bv-container'),
-                    excluded:      $field.attr('data-bv-excluded'),
-                    feedbackIcons: $field.attr('data-bv-feedbackicons'),
-                    group:         $field.attr('data-bv-group'),
-                    message:       $field.attr('data-bv-message'),
-                    onError:       $field.attr('data-bv-onerror'),
-                    onStatus:      $field.attr('data-bv-onstatus'),
-                    onSuccess:     $field.attr('data-bv-onsuccess'),
-                    selector:      $field.attr('data-bv-selector'),
-                    threshold:     $field.attr('data-bv-threshold'),
-                    transformer:   $field.attr('data-bv-transformer'),
-                    trigger:       $field.attr('data-bv-trigger'),
-                    verbose:       $field.attr('data-bv-verbose'),
-                    validators:    validators
+            // TODO: Remove backward compatibility in v0.7.0
+            var clazz = {
+                    row:  $field.attr('data-bv-clazz-row')  || $field.attr('data-bv-group')         || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group         : null),
+                    icon: $field.attr('data-bv-clazz-icon') || $field.attr('data-bv-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null)
+                },
+                opts = {
+                    autoFocus:   $field.attr('data-bv-autofocus'),
+                    clazz:       clazz,
+                    container:   $field.attr('data-bv-container'),
+                    excluded:    $field.attr('data-bv-excluded'),
+                    message:     $field.attr('data-bv-message'),
+                    onError:     $field.attr('data-bv-onerror'),
+                    onStatus:    $field.attr('data-bv-onstatus'),
+                    onSuccess:   $field.attr('data-bv-onsuccess'),
+                    selector:    $field.attr('data-bv-selector'),
+                    threshold:   $field.attr('data-bv-threshold'),
+                    transformer: $field.attr('data-bv-transformer'),
+                    trigger:     $field.attr('data-bv-trigger'),
+                    verbose:     $field.attr('data-bv-verbose'),
+                    validators:  validators
                 },
                 emptyOptions    = $.isEmptyObject(opts),        // Check if the field options are set using HTML attributes
                 emptyValidators = $.isEmptyObject(validators);  // Check if the field validators are set using HTML attributes
@@ -823,9 +862,9 @@ if (typeof jQuery === 'undefined') {
             }
         },
 
-        // ------------------------------------------------------------------------------------------------------------
+        // ~~~~~~
         // Events
-        // ------------------------------------------------------------------------------------------------------------
+        // ~~~~~~
 
         /**
          * The default handler of error.form.bv event.
@@ -956,9 +995,9 @@ if (typeof jQuery === 'undefined') {
             this.disableSubmitButtons(true).defaultSubmit();
         },
 
-        // ------------------------------------------------------------------------------------------------------------
+        // ~~~~~~~~~~~~~~
         // Public methods
-        // ------------------------------------------------------------------------------------------------------------
+        // ~~~~~~~~~~~~~~
 
         /**
          * Submit the form using default submission.
@@ -985,7 +1024,7 @@ if (typeof jQuery === 'undefined') {
          * Disable/enable submit buttons
          *
          * @param {Boolean} disabled Can be true or false
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         disableSubmitButtons: function(disabled) {
             if (!disabled) {
@@ -1145,7 +1184,7 @@ if (typeof jQuery === 'undefined') {
             for (var field in map) {
                 var $f = map[field];
                 if ($f.data('bv.messages')
-                      .find('.help-block[data-bv-validator][data-bv-for="' + field + '"]')
+                      .find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]')
                       .filter('[data-bv-result="' + this.STATUS_INVALID +'"]')
                       .length > 0)
                 {
@@ -1208,7 +1247,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {jQuery[]} $fields The field elements
          * @param {String} namespace The event namespace
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         offLiveChange: function($fields, namespace) {
             if ($fields === null || $fields.length === 0) {
@@ -1230,7 +1269,7 @@ if (typeof jQuery === 'undefined') {
          * @param {jQuery[]} $fields The field elements
          * @param {String} namespace The event namespace
          * @param {Function} handler The handler function
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         onLiveChange: function($fields, namespace, handler) {
             if ($fields === null || $fields.length === 0) {
@@ -1252,12 +1291,7 @@ if (typeof jQuery === 'undefined') {
                 /* falls through */
                 default:
                     $fields.off(events).on(events, function(e) {
-                        // #1040: The input with placeholder is auto validated on IE 10, 11
-                        if ('input' === e.type && document.activeElement !== this) {
-                            return;
-                        } else {
-                            handler.apply(this, arguments);
-                        }
+                        handler.apply(this, arguments);
                     });
                     break;
             }
@@ -1271,10 +1305,11 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          * @param {String} validator The validator name
          * @param {String} message The message
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         updateMessage: function(field, validator, message) {
-            var $fields = $([]);
+            var that    = this,
+                $fields = $([]);
             switch (typeof field) {
                 case 'object':
                     $fields = field;
@@ -1288,7 +1323,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             $fields.each(function() {
-                $(this).data('bv.messages').find('.help-block[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
+                $(this).data('bv.messages').find('.' + that.options.clazz.message.clazz + '[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
             });
         },
 
@@ -1298,7 +1333,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          * @param {String} status The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
          * @param {String} [validatorName] The validator name. If null, the method updates validity result for all validators
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         updateStatus: function(field, status, validatorName) {
             var fields = $([]);
@@ -1322,7 +1357,7 @@ if (typeof jQuery === 'undefined') {
 
             var that  = this,
                 type  = fields.attr('type'),
-                group = this.options.fields[field].group || this.options.group,
+                row   = this.options.fields[field].clazz.row || this.options.clazz.row.selector,
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length;
 
             for (var i = 0; i < total; i++) {
@@ -1331,9 +1366,9 @@ if (typeof jQuery === 'undefined') {
                     continue;
                 }
 
-                var $parent      = $field.parents(group),
+                var $parent      = $field.parents(row),
                     $message     = $field.data('bv.messages'),
-                    $allErrors   = $message.find('.help-block[data-bv-validator][data-bv-for="' + field + '"]'),
+                    $allErrors   = $message.find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
                     container    = ('function' === typeof (this.options.fields[field].container || this.options.container))
@@ -1365,9 +1400,9 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_VALIDATING:
                         isValidField = null;
                         this.disableSubmitButtons(true);
-                        $parent.removeClass('has-success').removeClass('has-error');
+                        $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid);
                         if ($icon) {
-                            $icon.removeClass(this.options.feedbackIcons.valid).removeClass(this.options.feedbackIcons.invalid).addClass(this.options.feedbackIcons.validating).show();
+                            $icon.removeClass(this.options.clazz.icon.valid).removeClass(this.options.clazz.icon.invalid).addClass(this.options.clazz.icon.validating).show();
                         }
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').removeClass('bv-tab-error');
@@ -1377,9 +1412,9 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_INVALID:
                         isValidField = false;
                         this.disableSubmitButtons(true);
-                        $parent.removeClass('has-success').addClass('has-error');
+                        $parent.removeClass(this.options.clazz.row.valid).addClass(this.options.clazz.row.invalid);
                         if ($icon) {
-                            $icon.removeClass(this.options.feedbackIcons.valid).removeClass(this.options.feedbackIcons.validating).addClass(this.options.feedbackIcons.invalid).show();
+                            $icon.removeClass(this.options.clazz.icon.valid).removeClass(this.options.clazz.icon.validating).addClass(this.options.clazz.icon.invalid).show();
                         }
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').addClass('bv-tab-error');
@@ -1395,13 +1430,13 @@ if (typeof jQuery === 'undefined') {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
                             if ($icon) {
                                 $icon
-                                    .removeClass(this.options.feedbackIcons.invalid).removeClass(this.options.feedbackIcons.validating).removeClass(this.options.feedbackIcons.valid)
-                                    .addClass(isValidField ? this.options.feedbackIcons.valid : this.options.feedbackIcons.invalid)
+                                    .removeClass(this.options.clazz.icon.invalid).removeClass(this.options.clazz.icon.validating).removeClass(this.options.clazz.icon.valid)
+                                    .addClass(isValidField ? this.options.clazz.icon.valid : this.options.clazz.icon.invalid)
                                     .show();
                             }
                         }
 
-                        $parent.removeClass('has-error has-success').addClass(this.isValidContainer($parent) ? 'has-success' : 'has-error');
+                        $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid).addClass(this.isValidContainer($parent) ? this.options.clazz.row.valid : this.options.clazz.row.invalid);
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').removeClass('bv-tab-error').addClass(this.isValidContainer($tabPane) ? 'bv-tab-success' : 'bv-tab-error');
                         }
@@ -1412,9 +1447,9 @@ if (typeof jQuery === 'undefined') {
                     default:
                         isValidField = null;
                         this.disableSubmitButtons(false);
-                        $parent.removeClass('has-success').removeClass('has-error');
+                        $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid);
                         if ($icon) {
-                            $icon.removeClass(this.options.feedbackIcons.valid).removeClass(this.options.feedbackIcons.invalid).removeClass(this.options.feedbackIcons.validating).hide();
+                            $icon.removeClass(this.options.clazz.icon.valid).removeClass(this.options.clazz.icon.invalid).removeClass(this.options.clazz.icon.validating).hide();
                         }
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').removeClass('bv-tab-error');
@@ -1467,7 +1502,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate the form
          *
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         validate: function() {
             if (!this.options.fields) {
@@ -1490,7 +1525,7 @@ if (typeof jQuery === 'undefined') {
          * Validate given field
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         validateField: function(field) {
             var fields = $([]);
@@ -1594,16 +1629,16 @@ if (typeof jQuery === 'undefined') {
             return this;
         },
 
-        // ------------------------------------------------------------------------------------------------------------
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Useful APIs which aren't used internally
-        // ------------------------------------------------------------------------------------------------------------
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         /**
          * Add a new field
          *
          * @param {String|jQuery} field The field name or field element
          * @param {Object} [options] The validator rules
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         addField: function(field, options) {
             var fields = $([]);
@@ -1657,7 +1692,7 @@ if (typeof jQuery === 'undefined') {
          * It will remove all error messages, feedback icons and turn off the events
          */
         destroy: function() {
-            var i, field, fields, $field, validator, $icon, group;
+            var i, field, fields, $field, validator, $icon, row;
 
             // Destroy the validators first
             for (field in this.options.fields) {
@@ -1683,18 +1718,20 @@ if (typeof jQuery === 'undefined') {
             // Remove messages and icons
             for (field in this.options.fields) {
                 fields = this.getFieldElements(field);
-                group  = this.options.fields[field].group || this.options.group;
+                row    = this.options.fields[field].clazz.row || this.options.clazz.row.selector;
                 for (i = 0; i < fields.length; i++) {
                     $field = fields.eq(i);
                     $field
                         // Remove all error messages
                         .data('bv.messages')
-                            .find('.help-block[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
+                            .find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
                             .end()
                         .removeData('bv.messages')
                         // Remove feedback classes
-                        .parents(group)
-                            .removeClass('has-feedback has-error has-success')
+                        .parents(row)
+                            .removeClass(this.options.clazz.row.valid)
+                            .removeClass(this.options.clazz.row.invalid)
+                            .removeClass(this.options.clazz.row.feedback)
                             .end()
                         // Turn off events
                         .off('.bv')
@@ -1747,7 +1784,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} field The field name
          * @param {Boolean} enabled Enable/Disable field validators
          * @param {String} [validatorName] The validator name. If null, all validators will be enabled/disabled
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         enableFieldValidators: function(field, enabled, validatorName) {
             var validators = this.options.fields[field].validators;
@@ -1877,7 +1914,7 @@ if (typeof jQuery === 'undefined') {
                 messages = messages.concat(
                     $(this)
                         .data('bv.messages')
-                        .find('.help-block[data-bv-for="' + $(this).attr('data-bv-field') + '"][data-bv-result="' + that.STATUS_INVALID + '"]' + filter)
+                        .find('.' + that.options.clazz.message.clazz + '[data-bv-for="' + $(this).attr('data-bv-field') + '"][data-bv-result="' + that.STATUS_INVALID + '"]' + filter)
                         .map(function() {
                             var v = $(this).attr('data-bv-validator'),
                                 f = $(this).attr('data-bv-for');
@@ -1903,7 +1940,7 @@ if (typeof jQuery === 'undefined') {
          * Remove a given field
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         removeField: function(field) {
             var fields = $([]);
@@ -1959,7 +1996,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} field The field name or field element
          * @param {Boolean} [resetValue] If true, the method resets field value to empty or remove checked/selected attribute (for radio/checkbox)
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         resetField: function(field, resetValue) {
             var $fields = $([]);
@@ -1999,7 +2036,7 @@ if (typeof jQuery === 'undefined') {
          * Reset the form
          *
          * @param {Boolean} [resetValue] If true, the method resets field value to empty or remove checked/selected attribute (for radio/checkbox)
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         resetForm: function(resetValue) {
             for (var field in this.options.fields) {
@@ -2020,7 +2057,7 @@ if (typeof jQuery === 'undefined') {
          * It's used when you need to revalidate the field which its value is updated by other plugin
          *
          * @param {String|jQuery} field The field name of field element
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         revalidateField: function(field) {
             this.updateStatus(field, this.STATUS_NOT_VALIDATED)
@@ -2033,7 +2070,7 @@ if (typeof jQuery === 'undefined') {
          * Set the locale
          *
          * @param {String} locale The locale in format of countrycode_LANGUAGECODE
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         setLocale: function(locale) {
             this.options.locale = locale;
@@ -2052,7 +2089,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} validator The validator name
          * @param {String} option The option name
          * @param {String} value The value to set
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         updateOption: function(field, validator, option, value) {
             if ('object' === typeof field) {
@@ -2071,7 +2108,7 @@ if (typeof jQuery === 'undefined') {
          * It can be used with isValidContainer() when you want to work with wizard form
          *
          * @param {String|jQuery} container The container selector or element
-         * @returns {BootstrapValidator}
+         * @returns {FormValidator.Base}
          */
         validateContainer: function(container) {
             var that       = this,
@@ -2338,7 +2375,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is between (strictly or not) two given numbers
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - min
@@ -2404,7 +2441,7 @@ if (typeof jQuery === 'undefined') {
          * For more information see http://en.wikipedia.org/wiki/ISO_9362
          *
          * @todo The 5 and 6 characters are an ISO 3166-1 country code, this could also be validated
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2437,7 +2474,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @see https://github.com/nghuuphuoc/bootstrapvalidator/issues/542
          * @see https://github.com/nghuuphuoc/bootstrapvalidator/pull/666
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2466,7 +2503,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return result from the callback method
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - callback: The callback method that passes 2 parameters:
@@ -2515,7 +2552,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if the number of checked boxes are less or more than a given number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of following keys:
          * - min
@@ -2645,7 +2682,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a valid color
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2728,7 +2765,7 @@ if (typeof jQuery === 'undefined') {
          * Return true if the input value is valid credit card number
          * Based on https://gist.github.com/DiegoSalazar/4075533
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following key:
          * - message: The invalid message
@@ -2841,7 +2878,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 31430F200, 022615AC2
          *
          * @see http://en.wikipedia.org/wiki/CUSIP
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following keys:
          * - message: The invalid message
@@ -2901,7 +2938,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a valid CVV number.
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - creditCardField: The credit card number field. It can be null
@@ -3027,7 +3064,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is valid date
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3284,7 +3321,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Bind the validator on the live change of the field to compare with current one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -3305,7 +3342,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Unbind the validator on the live change of the field to compare with current one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -3321,7 +3358,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is different with given field's value
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -3368,7 +3405,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value contains digits only
          *
-         * @param {BootstrapValidator} validator Validate plugin instance
+         * @param {FormValidator.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options]
          * @returns {Boolean}
@@ -3400,7 +3437,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 73513536
          *
          * @see http://en.wikipedia.org/wiki/European_Article_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3459,7 +3496,7 @@ if (typeof jQuery === 'undefined') {
          * Validate EIN (Employer Identification Number) which is also known as
          * Federal Employer Identification Number (FEIN) or Federal Tax Identification Number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3512,7 +3549,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if and only if the input value is a valid email address
          *
-         * @param {BootstrapValidator} validator Validate plugin instance
+         * @param {FormValidator.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options]
          * - multiple: Allow multiple email addresses, separated by a comma or semicolon; default is false.
@@ -3605,7 +3642,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate upload file. Use HTML 5 API if the browser supports
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - extension: The allowed extensions, separated by a comma
@@ -3704,7 +3741,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is greater than or equals to given number
          *
-         * @param {BootstrapValidator} validator Validate plugin instance
+         * @param {FormValidator.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - value: Define the number to compare with. It can be
@@ -3766,7 +3803,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: A1-2425G-ABC1234002-Q
          *
          * @see http://en.wikipedia.org/wiki/Global_Release_Identifier
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3803,7 +3840,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if and only if the input value is a valid hexadecimal number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -4006,7 +4043,7 @@ if (typeof jQuery === 'undefined') {
          * To test it, take the sample IBAN from
          * http://www.nordea.com/Our+services/International+products+and+services/Cash+Management/IBAN+countries/908462.html
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -4126,7 +4163,7 @@ if (typeof jQuery === 'undefined') {
          * Validate identification number in different countries
          *
          * @see http://en.wikipedia.org/wiki/National_identification_number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -5467,7 +5504,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Bind the validator on the live change of the field to compare with current one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -5485,7 +5522,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Unbind the validator on the live change of the field to compare with current one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -5498,7 +5535,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if input value equals to value of particular one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -5538,7 +5575,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 490154203237517
          *
          * @see http://en.wikipedia.org/wiki/International_Mobile_Station_Equipment_Identity
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5586,7 +5623,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: IMO 8814274
          *
          * @see http://en.wikipedia.org/wiki/IMO_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5635,7 +5672,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is an integer
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following key:
          * - message: The invalid message
@@ -5675,7 +5712,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a IP address.
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - ipv4: Enable IPv4 validator, default to true
@@ -5743,7 +5780,7 @@ if (typeof jQuery === 'undefined') {
          * ISBN 13: 978-0-306-40615-6
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Book_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following keys:
          * - message: The invalid message
@@ -5833,7 +5870,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: US0378331004, AA0000XVGZA3
          *
          * @see http://en.wikipedia.org/wiki/International_Securities_Identifying_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5892,7 +5929,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 9790060115614
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Music_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5955,7 +5992,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 0032-147X
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Serial_Number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6020,7 +6057,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is less than or equal to given number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - value: The number used to compare to. It can be
@@ -6078,7 +6115,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a MAC address.
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6111,7 +6148,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 2936087365007037101
          *
          * @see http://en.wikipedia.org/wiki/Mobile_equipment_identifier
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6199,7 +6236,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if input value is empty or not
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
          * @returns {Boolean}
@@ -6243,7 +6280,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate decimal number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6311,7 +6348,7 @@ if (typeof jQuery === 'undefined') {
          * Return true if the input value contains a valid phone number for the country
          * selected in the options
          *
-         * @param {BootstrapValidator} validator Validate plugin instance
+         * @param {FormValidator.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6490,7 +6527,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if the element value matches given regular expression
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - regexp: The regular expression you need to check
@@ -6539,7 +6576,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Request a remote server to check the input value
          *
-         * @param {BootstrapValidator} validator Plugin instance
+         * @param {FormValidator.Base} validator Plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - url {String|Function}
@@ -6635,7 +6672,7 @@ if (typeof jQuery === 'undefined') {
          * - Valid: 021200025, 789456124
          *
          * @see http://en.wikipedia.org/wiki/Routing_transit_number
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6677,7 +6714,7 @@ if (typeof jQuery === 'undefined') {
          * - Valid: 0263494, B0WNLY7
          *
          * @see http://en.wikipedia.org/wiki/SEDOL
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6718,7 +6755,7 @@ if (typeof jQuery === 'undefined') {
 		/**
 		 * Check if a string is a siren number
 		 *
-		 * @param {BootstrapValidator} validator The validator plugin instance
+		 * @param {FormValidator.Base} validator The validator plugin instance
 		 * @param {jQuery} $field Field element
 		 * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6750,7 +6787,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if a string is a siret number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6798,7 +6835,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is valid step one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - baseValue: The base value
@@ -6867,7 +6904,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if a string is a lower or upper case one
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6927,7 +6964,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if the length of element value is less or more than given number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of following keys:
          * - min
@@ -7029,7 +7066,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a valid URL
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
          * - message: The error message
@@ -7145,7 +7182,7 @@ if (typeof jQuery === 'undefined') {
          * Return true if and only if the input value is a valid UUID string
          *
          * @see http://en.wikipedia.org/wiki/Universally_unique_identifier
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -7242,7 +7279,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate an European VAT number
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -8611,7 +8648,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate an US VIN (Vehicle Identification Number)
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -8695,7 +8732,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if and only if the input value is a valid country zip code
          *
-         * @param {BootstrapValidator} validator The validator plugin instance
+         * @param {FormValidator.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message

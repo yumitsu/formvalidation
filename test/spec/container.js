@@ -82,11 +82,6 @@ describe('container field option', function() {
         ].join('')).appendTo('body');
 
         $('#containerForm').bootstrapValidator({
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
             fields: {
                 lastName: {
                     container: '.lastNameMessage'
@@ -152,7 +147,15 @@ describe('container tooltip/popover', function() {
             .find('[name="lastName"]')
                 .attr('data-bv-container', 'popover')
                 .end()
-            .bootstrapValidator();
+            .bootstrapValidator({
+                clazz: {
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    }
+                }
+            });
 
         this.bv         = $('#containerForm').data('bootstrapValidator');
         this.$firstName = this.bv.getFieldElements('firstName');
@@ -174,6 +177,13 @@ describe('container tooltip/popover', function() {
 
     it('container programmatically', function() {
         $('#containerForm').bootstrapValidator({
+            clazz: {
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                }
+            },
             container: 'tooltip',
             fields: {
                 lastName: {
@@ -203,6 +213,13 @@ describe('container tooltip/popover', function() {
     // #991: Validate once when setting trigger: blur, container: tooltip
     it('trigger: blur, container: tooltip', function() {
         $('#containerForm').bootstrapValidator({
+            clazz: {
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                }
+            },
             container: 'tooltip',
             trigger: 'blur',
             fields: {

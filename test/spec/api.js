@@ -1,13 +1,4 @@
 describe('api', function() {
-    // Override the options
-    $.extend(FormValidator.DEFAULT_OPTIONS, {
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        }
-    });
-
     beforeEach(function() {
         $([
             '<form class="form-horizontal" id="apiForm">',
@@ -23,7 +14,15 @@ describe('api', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#apiForm').bootstrapValidator();
+        $('#apiForm').bootstrapValidator({
+            clazz: {
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                }
+            }
+        });
 
         this.bv     = $('#apiForm').data('bootstrapValidator');
         this.$email = this.bv.getFieldElements('email');
@@ -57,7 +56,7 @@ describe('api', function() {
 
     it('getOptions()', function() {
         // Form options
-        expect(this.bv.getOptions().feedbackIcons.valid).toEqual('glyphicon glyphicon-ok');
+        expect(this.bv.getOptions().clazz.icon.valid).toEqual('glyphicon glyphicon-ok');
 
         // Field options
         expect(this.bv.getOptions('username', 'stringlength')).toBeNull();
