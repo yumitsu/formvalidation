@@ -9,7 +9,7 @@
 
 (function($) {
     FormValidator.Bootstrap = function(element, options) {
-        options = $.extend(true, options, {
+        options = $.extend(true, {
             clazz: {
                 row: {
                     selector: '.form-group',
@@ -47,7 +47,7 @@
                     feedback: 'form-control-feedback'
                 }
             }
-        });
+        }, options);
 
         FormValidator.Base.apply(this, [element, options]);
     };
