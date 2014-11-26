@@ -1,7 +1,7 @@
 {
     "name": "bootstrapValidator",
     "version": "0.6.0-dev",
-    "description": "The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3",
+    "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks",
     "keywords": [
         "jQuery",
         "plugin",

@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         },
 
         concat: {
-            source: {
+            bootstrap: {
                 options: {
                     separator: ';',
                     stripBanners: true,
@@ -59,6 +59,15 @@ module.exports = function(grunt) {
                 },
                 src: ['<%= dirs.src %>/js/core.js', '<%= dirs.src %>/js/helper.js', '<%= dirs.src %>/js/bootstrap.js', '<%= dirs.src %>/js/validator/*.js'],
                 dest: '<%= dirs.dist %>/js/bootstrapValidator.js'
+            },
+            foundation: {
+                options: {
+                    separator: ';',
+                    stripBanners: true,
+                    banner: '<%= banner %>'
+                },
+                src: ['<%= dirs.src %>/js/core.js', '<%= dirs.src %>/js/helper.js', '<%= dirs.src %>/js/foundation.js', '<%= dirs.src %>/js/validator/*.js'],
+                dest: '<%= dirs.dist %>/js/foundationValidator.js'
             },
             test: {
                 src: ['<%= dirs.test %>/spec/*.js', '<%= dirs.test %>/spec/validator/*.js'],
@@ -70,9 +79,13 @@ module.exports = function(grunt) {
             options: {
                 banner: '<%= banner %>'
             },
-            build: {
+            bootstrap: {
                 src: ['<%= dirs.dist %>/js/bootstrapValidator.js'],
                 dest: '<%= dirs.dist %>/js/bootstrapValidator.min.js'
+            },
+            foundation: {
+                src: ['<%= dirs.dist %>/js/foundationValidator.js'],
+                dest: '<%= dirs.dist %>/js/foundationValidator.min.js'
             }
         },
 

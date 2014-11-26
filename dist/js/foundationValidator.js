@@ -2272,44 +2272,28 @@ if (typeof jQuery === 'undefined') {
         }
     };
 }(jQuery));
-;(function($) {
-    FormValidator.Bootstrap = function(element, options) {
+;// Support Zurb Foundation framework
+(function($) {
+    FormValidator.Foundation = function(element, options) {
         options = $.extend(true, {
             clazz: {
                 row: {
-                    selector: '.form-group',
-                    valid: 'has-success',
-                    invalid: 'has-error',
-                    feedback: 'has-feedback'
+                    selector: '.row',
+                    valid: '',
+                    invalid: 'error',
+                    feedback: 'fv-has-feedback'
                 },
                 message: {
-                    clazz: 'help-block',
-                    parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
+                    clazz: 'error',
+                    parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
                 },
-                // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
-                // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
-                // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
-                //
-                // Examples:
-                // - Use Glyphicons icons:
-                //  icon: {
-                //      valid: 'glyphicon glyphicon-ok',
-                //      invalid: 'glyphicon glyphicon-remove',
-                //      validating: 'glyphicon glyphicon-refresh',
-                //      feedback: 'form-control-feedback'
-                //  }
-                // - Use FontAwesome icons:
-                //  icon: {
-                //      valid: 'fa fa-check',
-                //      invalid: 'fa fa-times',
-                //      validating: 'fa fa-refresh',
-                //      feedback: 'form-control-feedback'
-                //  }
+                // Foundation doesn't support feedback icon as Bootstrap
+                // Might be we have to adjust the CSS manually
                 icon: {
                     valid: null,
                     invalid: null,
                     validating: null,
-                    feedback: 'form-control-feedback'
+                    feedback: 'fv-control-feedback'
                 }
             }
         }, options);
@@ -2317,7 +2301,7 @@ if (typeof jQuery === 'undefined') {
         FormValidator.Base.apply(this, [element, options]);
     };
 
-    FormValidator.Bootstrap.prototype = $.extend({}, FormValidator.Base.prototype, {
+    FormValidator.Foundation.prototype = $.extend({}, FormValidator.Base.prototype, {
         /**
          * Create a tooltip or popover
          * It will be shown when focusing on the field
@@ -2327,43 +2311,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                switch (type) {
-                    case 'popover':
-                        $icon
-                            .css({
-                                'cursor': 'pointer',
-                                'pointer-events': 'auto'
-                            })
-                            .popover('destroy')
-                            .popover({
-                                container: 'body',
-                                content: message,
-                                html: true,
-                                placement: 'auto top',
-                                trigger: 'hover click'
-                            });
-                        break;
-
-                    case 'tooltip':
-                    /* falls through */
-                    default:
-                        $icon
-                            .css({
-                                'cursor': 'pointer',
-                                'pointer-events': 'auto'
-                            })
-                            .tooltip('destroy')
-                            .tooltip({
-                                container: 'body',
-                                html: true,
-                                placement: 'auto top',
-                                title: message
-                            });
-                        break;
-                }
-            }
+            // TODO
         },
 
         /**
@@ -2373,30 +2321,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                switch (type) {
-                    case 'popover':
-                        $icon
-                            .css({
-                                'cursor': '',
-                                'pointer-events': 'none'
-                            })
-                            .popover('destroy');
-                        break;
-
-                    case 'tooltip':
-                    /* falls through */
-                    default:
-                        $icon
-                            .css({
-                                'cursor': '',
-                                'pointer-events': 'none'
-                            })
-                            .tooltip('destroy');
-                        break;
-                }
-            }
+            // TODO
         },
 
         /**
@@ -2406,20 +2331,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                switch (type) {
-                    case 'popover':
-                        $icon.popover('hide');
-                        break;
-
-                    case 'tooltip':
-                    /* falls through */
-                    default:
-                        $icon.tooltip('hide');
-                        break;
-                }
-            }
+            // TODO
         },
 
         /**
@@ -2429,33 +2341,20 @@ if (typeof jQuery === 'undefined') {
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                switch (type) {
-                    case 'popover':
-                        $icon.popover('show');
-                        break;
-
-                    case 'tooltip':
-                    /* falls through */
-                    default:
-                        $icon.tooltip('show');
-                        break;
-                }
-            }
+            // TODO
         }
     });
 
     // Plugin definition
-    $.fn.bootstrapValidator = function(option) {
+    $.fn.foundationValidator = function(option) {
         var params = arguments;
         return this.each(function() {
             var $this   = $(this),
-                data    = $this.data('bootstrapValidator'),
+                data    = $this.data('foundationValidator'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                data = new FormValidator.Bootstrap(this, options);
-                $this.data('bootstrapValidator', data);
+                data = new FormValidator.Foundation(this, options);
+                $this.data('foundationValidator', data);
             }
 
             // Allow to call plugin method
@@ -2465,7 +2364,7 @@ if (typeof jQuery === 'undefined') {
         });
     };
 
-    $.fn.bootstrapValidator.Constructor = FormValidator.Bootstrap;
+    $.fn.foundationValidator.Constructor = FormValidator.Foundation;
 }(jQuery));
 ;(function($) {
     FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {

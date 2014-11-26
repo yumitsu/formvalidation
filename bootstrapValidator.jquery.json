@@ -16,7 +16,7 @@
         "jquery": ">= 1.9.1",
         "bootstrap": ">= 3.0.0"
     },
-    "description": "The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3",
+    "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks",
     "keywords": [
         "jQuery",
         "plugin",
