@@ -2,7 +2,7 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Designed to use with Bootstrap 3
  *
- * @version     v0.6.0-dev, built on 2014-11-26 1:34:19 PM
+ * @version     v0.6.0-dev, built on 2014-11-26 2:41:22 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -35,40 +35,21 @@ if (typeof jQuery === 'undefined') {
                 // The CSS selector for indicating the element consists the field
                 // By default, each field is placed inside the <div class="form-group"></div>
                 // You should adjust this option if your form group consists of many fields which not all of them need to be validated
-                selector: '.form-group',
-                valid: 'has-success',
-                invalid: 'has-error',
-                feedback: 'has-feedback'
+                selector: null,
+                valid: '',
+                invalid: '',
+                feedback: ''
             },
             message: {
-                clazz: 'help-block',
-                parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
+                clazz: '',
+                parent: null
             },
             // Shows ok/error/loading icons based on the field validity.
-            // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
-            // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
-            // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
-            //
-            // Examples:
-            // - Use Glyphicons icons:
-            //  icon: {
-            //      valid: 'glyphicon glyphicon-ok',
-            //      invalid: 'glyphicon glyphicon-remove',
-            //      validating: 'glyphicon glyphicon-refresh',
-            //      feedback: 'form-control-feedback'
-            //  }
-            // - Use FontAwesome icons:
-            //  icon: {
-            //      valid: 'fa fa-check',
-            //      invalid: 'fa fa-times',
-            //      validating: 'fa fa-refresh'
-            //      feedback: 'form-control-feedback'
-            //  }
             icon: {
                 valid: null,
                 invalid: null,
                 validating: null,
-                feedback: 'form-control-feedback'
+                feedback: ''
             }
         },
 
@@ -515,35 +496,17 @@ if (typeof jQuery === 'undefined') {
                         fields.data('bv.icon', $icon);
                     }
 
-                    if (container) {
+                    if ('tooltip' === container || 'popover' === container) {
                         $field
                             // Show tooltip/popover message when field gets focus
                             .off('focus.container.bv')
                             .on('focus.container.bv', function() {
-                                switch (container) {
-                                    case 'tooltip':
-                                        $(this).data('bv.icon').tooltip('show');
-                                        break;
-                                    case 'popover':
-                                        $(this).data('bv.icon').popover('show');
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                that._showTooltip($field, container);
                             })
                             // and hide them when losing focus
                             .off('blur.container.bv')
                             .on('blur.container.bv', function() {
-                                switch (container) {
-                                    case 'tooltip':
-                                        $(this).data('bv.icon').tooltip('hide');
-                                        break;
-                                    case 'popover':
-                                        $(this).data('bv.icon').popover('hide');
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                that._hideTooltip($field, container);
                             });
                     }
                 }
@@ -993,6 +956,49 @@ if (typeof jQuery === 'undefined') {
 
             // Submit the form
             this.disableSubmitButtons(true).defaultSubmit();
+        },
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // Abstract methods
+        // Need to be implemented by sub-class that supports specific framework
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /**
+         * Create a tooltip or popover
+         * It will be shown when focusing on the field
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} message The message
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _createTooltip: function($field, message, type) {
+        },
+
+        /**
+         * Destroy the tooltip or popover
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _destroyTooltip: function($field, type) {
+        },
+
+        /**
+         * Hide a tooltip or popover
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _hideTooltip: function($field, type) {
+        },
+
+        /**
+         * Show a tooltip or popover
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _showTooltip: function($field, type) {
         },
 
         // ~~~~~~~~~~~~~~
@@ -1457,33 +1463,13 @@ if (typeof jQuery === 'undefined') {
                         break;
                 }
 
-                switch (true) {
-                    // Only show the first error message if it is placed inside a tooltip ...
-                    case ($icon && 'tooltip' === container):
-                        (isValidField === false)
-                                ? $icon.css({ 'cursor': 'pointer', 'pointer-events': 'auto' }).tooltip('destroy').tooltip({
-                                    container: 'body',
-                                    html: true,
-                                    placement: 'auto top',
-                                    title: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html()
-                                })
-                                : $icon.css({ 'cursor': '', 'pointer-events': 'none' }).tooltip('destroy');
-                        break;
-                    // ... or popover
-                    case ($icon && 'popover' === container):
-                        (isValidField === false)
-                                ? $icon.css({ 'cursor': 'pointer', 'pointer-events': 'auto' }).popover('destroy').popover({
-                                    container: 'body',
-                                    content: $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html(),
-                                    html: true,
-                                    placement: 'auto top',
-                                    trigger: 'hover click'
-                                })
-                                : $icon.css({ 'cursor': '', 'pointer-events': 'none' }).popover('destroy');
-                        break;
-                    default:
-                        (status === this.STATUS_INVALID) ? $errors.show() : $errors.hide();
-                        break;
+                if ($icon && ('tooltip' === container || 'popover' === container)) {
+                    (isValidField === false)
+                        // Only show the first error message
+                        ? this._createTooltip($field, $allErrors.filter('[data-bv-result="' + that.STATUS_INVALID + '"]').eq(0).html(), container)
+                        : this._destroyTooltip($field, container);
+                } else {
+                    (status === this.STATUS_INVALID) ? $errors.show() : $errors.hide();
                 }
 
                 // Trigger an event
@@ -1738,20 +1724,14 @@ if (typeof jQuery === 'undefined') {
                         .removeAttr('data-bv-field');
 
                     // Remove feedback icons, tooltip/popover container
+                    var container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container);
+                    if ('tooltip' === container || 'popover' === container) {
+                        this._destroyTooltip($field, container);
+                    }
+
                     $icon = $field.data('bv.icon');
                     if ($icon) {
-                        var container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container);
-                        switch (container) {
-                            case 'tooltip':
-                                $icon.tooltip('destroy').remove();
-                                break;
-                            case 'popover':
-                                $icon.popover('destroy').remove();
-                                break;
-                            default:
-                                $icon.remove();
-                                break;
-                        }
+                        $icon.remove();
                     }
                     $field.removeData('bv.icon')
                           // It's safe to remove trigger data here, because it might be used when destroying the validator
@@ -2293,6 +2273,179 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
+    FormValidator.Bootstrap = function(element, options) {
+        options = $.extend(true, options, {
+            clazz: {
+                row: {
+                    selector: '.form-group',
+                    valid: 'has-success',
+                    invalid: 'has-error',
+                    feedback: 'has-feedback'
+                },
+                message: {
+                    clazz: 'help-block',
+                    parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
+                },
+                // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
+                // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
+                // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
+                //
+                // Examples:
+                // - Use Glyphicons icons:
+                //  icon: {
+                //      valid: 'glyphicon glyphicon-ok',
+                //      invalid: 'glyphicon glyphicon-remove',
+                //      validating: 'glyphicon glyphicon-refresh',
+                //      feedback: 'form-control-feedback'
+                //  }
+                // - Use FontAwesome icons:
+                //  icon: {
+                //      valid: 'fa fa-check',
+                //      invalid: 'fa fa-times',
+                //      validating: 'fa fa-refresh'
+                //      feedback: 'form-control-feedback'
+                //  }
+                icon: {
+                    valid: null,
+                    invalid: null,
+                    validating: null,
+                    feedback: 'form-control-feedback'
+                }
+            }
+        });
+
+        FormValidator.Base.apply(this, [element, options]);
+    };
+
+    FormValidator.Bootstrap.prototype = $.extend({}, FormValidator.Base.prototype, {
+        /**
+         * Create a tooltip or popover
+         * It will be shown when focusing on the field
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} message The message
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _createTooltip: function($field, message, type) {
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                switch (type) {
+                    case 'popover':
+                        $icon
+                            .css({
+                                'cursor': 'pointer',
+                                'pointer-events': 'auto'
+                            })
+                            .popover('destroy')
+                            .popover({
+                                container: 'body',
+                                content: message,
+                                html: true,
+                                placement: 'auto top',
+                                trigger: 'hover click'
+                            });
+                        break;
+
+                    case 'tooltip':
+                    /* falls through */
+                    default:
+                        $icon
+                            .css({
+                                'cursor': 'pointer',
+                                'pointer-events': 'auto'
+                            })
+                            .tooltip('destroy')
+                            .tooltip({
+                                container: 'body',
+                                html: true,
+                                placement: 'auto top',
+                                title: message
+                            });
+                        break;
+                }
+            }
+        },
+
+        /**
+         * Destroy the tooltip or popover
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _destroyTooltip: function($field, type) {
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                switch (type) {
+                    case 'popover':
+                        $icon
+                            .css({
+                                'cursor': '',
+                                'pointer-events': 'none'
+                            })
+                            .popover('destroy');
+                        break;
+
+                    case 'tooltip':
+                    /* falls through */
+                    default:
+                        $icon
+                            .css({
+                                'cursor': '',
+                                'pointer-events': 'none'
+                            })
+                            .tooltip('destroy');
+                        break;
+                }
+            }
+        },
+
+        /**
+         * Hide a tooltip or popover
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _hideTooltip: function($field, type) {
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                switch (type) {
+                    case 'popover':
+                        $icon.popover('hide');
+                        break;
+
+                    case 'tooltip':
+                    /* falls through */
+                    default:
+                        $icon.tooltip('hide');
+                        break;
+                }
+            }
+        },
+
+        /**
+         * Show a tooltip or popover
+         *
+         * @param {jQuery} $field The field element
+         * @param {String} type Can be 'tooltip' or 'popover'
+         */
+        _showTooltip: function($field, type) {
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                switch (type) {
+                    case 'popover':
+                        $icon.popover('show');
+                        break;
+
+                    case 'tooltip':
+                    /* falls through */
+                    default:
+                        $icon.tooltip('show');
+                        break;
+                }
+            }
+        }
+    });
+
     // Plugin definition
     $.fn.bootstrapValidator = function(option) {
         var params = arguments;
@@ -2301,7 +2454,7 @@ if (typeof jQuery === 'undefined') {
                 data    = $this.data('bootstrapValidator'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                data = new FormValidator.Base(this, options);
+                data = new FormValidator.Bootstrap(this, options);
                 $this.data('bootstrapValidator', data);
             }
 
@@ -2312,7 +2465,7 @@ if (typeof jQuery === 'undefined') {
         });
     };
 
-    $.fn.bootstrapValidator.Constructor = FormValidator.Base;
+    $.fn.bootstrapValidator.Constructor = FormValidator.Bootstrap;
 }(jQuery));
 ;(function($) {
     FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
