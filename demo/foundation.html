@@ -20,16 +20,21 @@
             <h2>Sign up</h2>
             <hr/>
 
-            <form id="defaultForm" method="post" class="form-horizontal" action="target.php">
+            <form id="defaultForm" method="post" action="target.php">
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Full name</label>
                     </div>
-                    <div class="small-4 columns">
-                        <input type="text" name="firstName" placeholder="First name" />
-                    </div>
-                    <div class="small-4 columns">
-                        <input type="text" name="lastName" placeholder="Last name" />
+                    <div class="small-9 columns">
+                        <div class="row">
+                            <div class="small-6 columns">
+                                <input type="text" name="firstName" placeholder="First name" />
+                            </div>
+
+                            <div class="small-6 columns">
+                                <input type="text" name="lastName" placeholder="Last name" />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -74,8 +79,8 @@
                         <label class="right">Gender</label>
                     </div>
                     <div class="small-9 columns">
-                        <input type="radio" name="gender" value="male" /><label>Male</label><br/>
-                        <input type="radio" name="gender" value="female" /><label>Female</label><br/>
+                        <input type="radio" name="gender" value="male" /><label>Male</label>
+                        <input type="radio" name="gender" value="female" /><label>Female</label>
                         <input type="radio" name="gender" value="other" /><label>Other</label>
                     </div>
                 </div>
@@ -160,7 +165,9 @@ $(document).ready(function() {
         // container: 'tooltip',
         fields: {
             firstName: {
-                group: '.col-lg-4',
+                clazz: {
+                    row: '.small-6'
+                },
                 validators: {
                     notEmpty: {
                         message: 'The first name is required and cannot be empty'
@@ -168,7 +175,9 @@ $(document).ready(function() {
                 }
             },
             lastName: {
-                group: '.col-lg-4',
+                clazz: {
+                    row: '.small-6'
+                },
                 validators: {
                     notEmpty: {
                         message: 'The last name is required and cannot be empty'

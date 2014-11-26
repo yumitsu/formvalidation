@@ -406,7 +406,7 @@ if (typeof jQuery === 'undefined') {
             for (var i = 0; i < total; i++) {
                 var $field    = fields.eq(i),
                     row       = this.options.fields[field].clazz.row || this.options.clazz.row.selector,
-                    $parent   = $field.parents(row),
+                    $parent   = $field.closest(row),
                     // Allow user to indicate where the error messages are shown
                     container = ('function' === typeof (this.options.fields[field].container || this.options.container))
                                 ? (this.options.fields[field].container || this.options.container).call(this, $field, this)
@@ -1372,7 +1372,7 @@ if (typeof jQuery === 'undefined') {
                     continue;
                 }
 
-                var $parent      = $field.parents(row),
+                var $parent      = $field.closest(row),
                     $message     = $field.data('bv.messages'),
                     $allErrors   = $message.find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
