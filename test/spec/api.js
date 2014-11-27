@@ -15,12 +15,10 @@ describe('api', function() {
         ].join('\n')).appendTo('body');
 
         $('#apiForm').bootstrapValidator({
-            clazz: {
-                icon: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                }
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
             }
         });
 
@@ -56,7 +54,7 @@ describe('api', function() {
 
     it('getOptions()', function() {
         // Form options
-        expect(this.bv.getOptions().clazz.icon.valid).toEqual('glyphicon glyphicon-ok');
+        expect(this.bv.getOptions().icon.valid).toEqual('glyphicon glyphicon-ok');
 
         // Field options
         expect(this.bv.getOptions('username', 'stringlength')).toBeNull();

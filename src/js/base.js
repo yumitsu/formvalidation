@@ -33,30 +33,7 @@ if (typeof jQuery === 'undefined') {
         // The first invalid field will be focused automatically
         autoFocus: true,
 
-        clazz: {
-            row: {
-                // The CSS selector for indicating the element consists the field
-                // By default, each field is placed inside the <div class="form-group"></div>
-                // You should adjust this option if your form group consists of many fields which not all of them need to be validated
-                selector: null,
-                valid: '',
-                invalid: '',
-                feedback: ''
-            },
-            message: {
-                clazz: '',
-                parent: null
-            },
-            // Shows ok/error/loading icons based on the field validity.
-            icon: {
-                valid: null,
-                invalid: null,
-                validating: null,
-                feedback: ''
-            }
-        },
-
-        //The error messages container. It can be:
+        // The error messages container. It can be:
         // - 'tooltip' if you want to use Bootstrap tooltip to show error messages
         // - 'popover' if you want to use Bootstrap popover to show error messages
         // - a CSS selector indicating the container
@@ -138,9 +115,38 @@ if (typeof jQuery === 'undefined') {
         //          multiple validators, all of them will be displayed to the user
         // - false: when a field has multiple validators, validation for this field will be terminated upon the first encountered error.
         //          Thus, only the very first error message related to this field will be displayed to the user
-        verbose: true
+        verbose: true,
+
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        // These options mostly are overridden by specific framework
+        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        err: {
+            // The CSS class of each message element
+            clazz: '',
+            // Used to determine where the messages are placed
+            parent: null
+        },
+
+        // Shows ok/error/loading icons based on the field validity.
+        icon: {
+            valid: null,
+            invalid: null,
+            validating: null,
+            feedback: ''
+        },
+
+        row: {
+            // The CSS selector for indicating the element consists of the field
+            // You should adjust this option if your form group consists of many fields which not all of them need to be validated
+            container: null,
+            valid: '',
+            invalid: '',
+            feedback: ''
+        }
     };
 
+    // TODO: Remove backward compatibility in v0.7.0
     FormValidation.Base = function(form, options) {
         this.$form   = $(form);
         this.options = $.extend({}, FormValidation.DEFAULT_OPTIONS);
@@ -206,26 +212,11 @@ if (typeof jQuery === 'undefined') {
                 options = {
                     addOns:         {},
                     autoFocus:      this.$form.attr('data-bv-autofocus'),
-                    // TODO: Remove backward compatibility in v0.7.0
-                    clazz: {
-                        row: {
-                            selector: this.$form.attr('data-bv-clazz-row-selector') || this.$form.attr('data-bv-group'),    // Support backward
-                            valid:    this.$form.attr('data-bv-clazz-row-valid'),
-                            invalid:  this.$form.attr('data-bv-clazz-row-invalid'),
-                            feedback: this.$form.attr('data-bv-clazz-row-feedback')
-                        },
-                        message: {
-                            clazz:  this.$form.attr('data-bv-clazz-message-clazz'),
-                            parent: this.$form.attr('data-bv-clazz-message-parent')
-                        },
-                        icon: {
-                            valid:      this.$form.attr('data-bv-clazz-icon-valid')      || this.$form.attr('data-bv-feedbackicons-valid'),      // Support backward
-                            invalid:    this.$form.attr('data-bv-clazz-icon-invalid')    || this.$form.attr('data-bv-feedbackicons-invalid'),    // Support backward
-                            validating: this.$form.attr('data-bv-clazz-icon-validating') || this.$form.attr('data-bv-feedbackicons-validating'), // Support backward
-                            feedback:   this.$form.attr('data-bv-clazz-icon-feedback')
-                        }
-                    },
                     container:      this.$form.attr('data-bv-container'),
+                    err: {
+                        clazz:  this.$form.attr('data-bv-err-clazz'),
+                        parent: this.$form.attr('data-bv-err-parent')
+                    },
                     events: {
                         formInit:         this.$form.attr('data-bv-events-form-init'),
                         formError:        this.$form.attr('data-bv-events-form-error'),
@@ -241,11 +232,23 @@ if (typeof jQuery === 'undefined') {
                         validatorSuccess: this.$form.attr('data-bv-events-validator-success')
                     },
                     excluded:      this.$form.attr('data-bv-excluded'),
+                    icon: {
+                        valid:      this.$form.attr('data-bv-icon-valid')      || this.$form.attr('data-bv-feedbackicons-valid'),      // Support backward
+                        invalid:    this.$form.attr('data-bv-icon-invalid')    || this.$form.attr('data-bv-feedbackicons-invalid'),    // Support backward
+                        validating: this.$form.attr('data-bv-icon-validating') || this.$form.attr('data-bv-feedbackicons-validating'), // Support backward
+                        feedback:   this.$form.attr('data-bv-icon-feedback')
+                    },
                     live:          this.$form.attr('data-bv-live'),
                     locale:        this.$form.attr('data-bv-locale'),
                     message:       this.$form.attr('data-bv-message'),
                     onError:       this.$form.attr('data-bv-onerror'),
                     onSuccess:     this.$form.attr('data-bv-onsuccess'),
+                    row: {
+                        selector: this.$form.attr('data-bv-row-selector') || this.$form.attr('data-bv-group'), // Support backward
+                        valid:    this.$form.attr('data-bv-row-valid'),
+                        invalid:  this.$form.attr('data-bv-row-invalid'),
+                        feedback: this.$form.attr('data-bv-row-feedback')
+                    },
                     submitButtons: this.$form.attr('data-bv-submitbuttons'),
                     threshold:     this.$form.attr('data-bv-threshold'),
                     trigger:       this.$form.attr('data-bv-trigger'),
@@ -281,18 +284,18 @@ if (typeof jQuery === 'undefined') {
 
             this.options = $.extend(true, this.options, options);
 
-            // Normalize the clazz.message.parent option
-            if ('string' === typeof this.options.clazz.message.parent) {
-                this.options.clazz.message.parent = new RegExp(this.options.clazz.message.parent);
+            // Normalize the err.parent option
+            if ('string' === typeof this.options.err.parent) {
+                this.options.err.parent = new RegExp(this.options.err.parent);
             }
 
-            // TODO: Remove backward compatibility in v0.7.0
+            // Support backward
             if (this.options.feedbackIcons) {
-                this.options.clazz.icon = $.extend(true, this.options.clazz.icon, this.options.feedbackIcons);
+                this.options.icon = $.extend(true, this.options.icon, this.options.feedbackIcons);
                 delete this.options.feedbackIcons;
             }
             if (this.options.group) {
-                this.options.clazz.row.selector = this.options.group;
+                this.options.row.selector = this.options.group;
                 delete this.options.group;
             }
 
@@ -408,7 +411,7 @@ if (typeof jQuery === 'undefined') {
 
             for (var i = 0; i < total; i++) {
                 var $field    = fields.eq(i),
-                    row       = this.options.fields[field].clazz.row || this.options.clazz.row.selector,
+                    row       = this.options.fields[field].row || this.options.row.selector,
                     $parent   = $field.closest(row),
                     // Allow user to indicate where the error messages are shown
                     container = ('function' === typeof (this.options.fields[field].container || this.options.container))
@@ -417,11 +420,11 @@ if (typeof jQuery === 'undefined') {
                     $message  = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, row);
 
                 if (container && container !== 'tooltip' && container !== 'popover') {
-                    $message.addClass(this.options.clazz.message.clazz);
+                    $message.addClass(this.options.err.clazz);
                 }
 
                 // Remove all error messages and feedback icons
-                $message.find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove();
+                $message.find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove();
                 $parent.find('i[data-bv-icon-for="' + field + '"]').remove();
 
                 // Whenever the user change the field value, mark it as not validated yet
@@ -437,7 +440,7 @@ if (typeof jQuery === 'undefined') {
                     if (!updateAll || i === total - 1) {
                         $('<small/>')
                             .css('display', 'none')
-                            .addClass(this.options.clazz.message.clazz)
+                            .addClass(this.options.err.clazz)
                             .attr({
                                 'data-bv-validator': validatorName,
                                 'data-bv-for': field,
@@ -455,17 +458,17 @@ if (typeof jQuery === 'undefined') {
 
                 // Prepare the feedback icons
                 // Available from Bootstrap 3.1 (http://getbootstrap.com/css/#forms-control-validation)
-                if ((!this.options.fields[field].clazz || (this.options.fields[field].clazz.icon !== false && this.options.fields[field].clazz.icon !== 'false'))
-                    && this.options.clazz.icon
-                    && this.options.clazz.icon.valid && this.options.clazz.icon.invalid && this.options.clazz.icon.validating
+                if (this.options.fields[field].icon !== false && this.options.fields[field].icon !== 'false'
+                    && this.options.icon
+                    && this.options.icon.valid && this.options.icon.invalid && this.options.icon.validating
                     && (!updateAll || i === total - 1))
                 {
-                    // $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid).addClass(this.options.clazz.row.feedback);
+                    // $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid).addClass(this.options.row.feedback);
                     // Keep error messages which are populated from back-end
-                    $parent.addClass(this.options.clazz.row.feedback);
+                    $parent.addClass(this.options.row.feedback);
                     var $icon = $('<i/>')
                                     .css('display', 'none')
-                                    .addClass(this.options.clazz.icon.feedback)
+                                    .addClass(this.options.icon.feedback)
                                     .attr('data-bv-icon-for', field)
                                     .insertAfter($field);
 
@@ -664,8 +667,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {jQuery}
          */
         _getMessageContainer: function($field, row) {
-            if (!this.options.clazz.message.parent) {
-                throw new Error('The clazz.message.parent option is not defined');
+            if (!this.options.err.parent) {
+                throw new Error('The err.parent option is not defined');
             }
 
             var $parent = $field.parent();
@@ -678,7 +681,7 @@ if (typeof jQuery === 'undefined') {
                 return this._getMessageContainer($parent, row);
             }
 
-            if (this.options.clazz.message.parent.test(cssClasses)) {
+            if (this.options.err.parent.test(cssClasses)) {
                 return $parent;
             }
 
@@ -779,20 +782,16 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
-            // TODO: Remove backward compatibility in v0.7.0
-            var clazz = {
-                    row:  $field.attr('data-bv-clazz-row')  || $field.attr('data-bv-group')         || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group         : null),
-                    icon: $field.attr('data-bv-clazz-icon') || $field.attr('data-bv-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null)
-                },
-                opts = {
+            var opts = {
                     autoFocus:   $field.attr('data-bv-autofocus'),
-                    clazz:       clazz,
                     container:   $field.attr('data-bv-container'),
                     excluded:    $field.attr('data-bv-excluded'),
+                    icon:        $field.attr('data-bv-icon') || $field.attr('data-bv-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null),  // Support backward
                     message:     $field.attr('data-bv-message'),
                     onError:     $field.attr('data-bv-onerror'),
                     onStatus:    $field.attr('data-bv-onstatus'),
                     onSuccess:   $field.attr('data-bv-onsuccess'),
+                    row:         $field.attr('data-bv-row') || $field.attr('data-bv-group') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group : null),   // Support backward
                     selector:    $field.attr('data-bv-selector'),
                     threshold:   $field.attr('data-bv-threshold'),
                     transformer: $field.attr('data-bv-transformer'),
@@ -1193,7 +1192,7 @@ if (typeof jQuery === 'undefined') {
             for (var field in map) {
                 var $f = map[field];
                 if ($f.data('bv.messages')
-                      .find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]')
+                      .find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]')
                       .filter('[data-bv-result="' + this.STATUS_INVALID +'"]')
                       .length > 0)
                 {
@@ -1332,7 +1331,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             $fields.each(function() {
-                $(this).data('bv.messages').find('.' + that.options.clazz.message.clazz + '[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
+                $(this).data('bv.messages').find('.' + that.options.err.clazz + '[data-bv-validator="' + validator + '"][data-bv-for="' + field + '"]').html(message);
             });
         },
 
@@ -1366,7 +1365,7 @@ if (typeof jQuery === 'undefined') {
 
             var that  = this,
                 type  = fields.attr('type'),
-                row   = this.options.fields[field].clazz.row || this.options.clazz.row.selector,
+                row   = this.options.fields[field].row || this.options.row.selector,
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length;
 
             for (var i = 0; i < total; i++) {
@@ -1377,7 +1376,7 @@ if (typeof jQuery === 'undefined') {
 
                 var $parent      = $field.closest(row),
                     $message     = $field.data('bv.messages'),
-                    $allErrors   = $message.find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]'),
+                    $allErrors   = $message.find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
                     container    = ('function' === typeof (this.options.fields[field].container || this.options.container))
@@ -1409,9 +1408,9 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_VALIDATING:
                         isValidField = null;
                         this.disableSubmitButtons(true);
-                        $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid);
+                        $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
                         if ($icon) {
-                            $icon.removeClass(this.options.clazz.icon.valid).removeClass(this.options.clazz.icon.invalid).addClass(this.options.clazz.icon.validating).show();
+                            $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.invalid).addClass(this.options.icon.validating).show();
                         }
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').removeClass('bv-tab-error');
@@ -1421,9 +1420,9 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_INVALID:
                         isValidField = false;
                         this.disableSubmitButtons(true);
-                        $parent.removeClass(this.options.clazz.row.valid).addClass(this.options.clazz.row.invalid);
+                        $parent.removeClass(this.options.row.valid).addClass(this.options.row.invalid);
                         if ($icon) {
-                            $icon.removeClass(this.options.clazz.icon.valid).removeClass(this.options.clazz.icon.validating).addClass(this.options.clazz.icon.invalid).show();
+                            $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.validating).addClass(this.options.icon.invalid).show();
                         }
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').addClass('bv-tab-error');
@@ -1439,13 +1438,13 @@ if (typeof jQuery === 'undefined') {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
                             if ($icon) {
                                 $icon
-                                    .removeClass(this.options.clazz.icon.invalid).removeClass(this.options.clazz.icon.validating).removeClass(this.options.clazz.icon.valid)
-                                    .addClass(isValidField ? this.options.clazz.icon.valid : this.options.clazz.icon.invalid)
+                                    .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
+                                    .addClass(isValidField ? this.options.icon.valid : this.options.icon.invalid)
                                     .show();
                             }
                         }
 
-                        $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid).addClass(this.isValidContainer($parent) ? this.options.clazz.row.valid : this.options.clazz.row.invalid);
+                        $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid).addClass(this.isValidContainer($parent) ? this.options.row.valid : this.options.row.invalid);
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').removeClass('bv-tab-error').addClass(this.isValidContainer($tabPane) ? 'bv-tab-success' : 'bv-tab-error');
                         }
@@ -1456,9 +1455,9 @@ if (typeof jQuery === 'undefined') {
                     default:
                         isValidField = null;
                         this.disableSubmitButtons(false);
-                        $parent.removeClass(this.options.clazz.row.valid).removeClass(this.options.clazz.row.invalid);
+                        $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
                         if ($icon) {
-                            $icon.removeClass(this.options.clazz.icon.valid).removeClass(this.options.clazz.icon.invalid).removeClass(this.options.clazz.icon.validating).hide();
+                            $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).hide();
                         }
                         if ($tab) {
                             $tab.removeClass('bv-tab-success').removeClass('bv-tab-error');
@@ -1707,20 +1706,20 @@ if (typeof jQuery === 'undefined') {
             // Remove messages and icons
             for (field in this.options.fields) {
                 fields = this.getFieldElements(field);
-                row    = this.options.fields[field].clazz.row || this.options.clazz.row.selector;
+                row    = this.options.fields[field].row || this.options.row.selector;
                 for (i = 0; i < fields.length; i++) {
                     $field = fields.eq(i);
                     $field
                         // Remove all error messages
                         .data('bv.messages')
-                            .find('.' + this.options.clazz.message.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
+                            .find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
                             .end()
                         .removeData('bv.messages')
                         // Remove feedback classes
-                        .parents(row)
-                            .removeClass(this.options.clazz.row.valid)
-                            .removeClass(this.options.clazz.row.invalid)
-                            .removeClass(this.options.clazz.row.feedback)
+                        .closest(row)
+                            .removeClass(this.options.row.valid)
+                            .removeClass(this.options.row.invalid)
+                            .removeClass(this.options.row.feedback)
                             .end()
                         // Turn off events
                         .off('.bv')
@@ -1755,7 +1754,7 @@ if (typeof jQuery === 'undefined') {
             this.$form
                 .removeClass(this.options.elementClass)
                 .off('.bv')
-                .removeData('bootstrapValidator')   // TODO: Remove backward compatibility in v0.7.0
+                .removeData('bootstrapValidator')   // Support backward
                 .removeData('formValidation')
                 // Remove generated hidden elements
                 .find('[data-bv-submit-hidden]').remove().end()
@@ -1898,7 +1897,7 @@ if (typeof jQuery === 'undefined') {
                 messages = messages.concat(
                     $(this)
                         .data('bv.messages')
-                        .find('.' + that.options.clazz.message.clazz + '[data-bv-for="' + $(this).attr('data-bv-field') + '"][data-bv-result="' + that.STATUS_INVALID + '"]' + filter)
+                        .find('.' + that.options.err.clazz + '[data-bv-for="' + $(this).attr('data-bv-field') + '"][data-bv-result="' + that.STATUS_INVALID + '"]' + filter)
                         .map(function() {
                             var v = $(this).attr('data-bv-validator'),
                                 f = $(this).attr('data-bv-for');

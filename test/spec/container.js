@@ -148,12 +148,10 @@ describe('container tooltip/popover', function() {
                 .attr('data-bv-container', 'popover')
                 .end()
             .bootstrapValidator({
-                clazz: {
-                    icon: {
-                        valid: 'glyphicon glyphicon-ok',
-                        invalid: 'glyphicon glyphicon-remove',
-                        validating: 'glyphicon glyphicon-refresh'
-                    }
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
                 }
             });
 
@@ -177,12 +175,10 @@ describe('container tooltip/popover', function() {
 
     it('container programmatically', function() {
         $('#containerForm').bootstrapValidator({
-            clazz: {
-                icon: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                }
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
             },
             container: 'tooltip',
             fields: {
@@ -213,12 +209,10 @@ describe('container tooltip/popover', function() {
     // #991: Validate once when setting trigger: blur, container: tooltip
     it('trigger: blur, container: tooltip', function() {
         $('#containerForm').bootstrapValidator({
-            clazz: {
-                icon: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                }
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
             },
             container: 'tooltip',
             trigger: 'blur',

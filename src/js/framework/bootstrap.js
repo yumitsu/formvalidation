@@ -10,42 +10,41 @@
 (function($) {
     FormValidation.Framework.Bootstrap = function(element, options) {
         options = $.extend(true, {
-            clazz: {
-                row: {
-                    selector: '.form-group',
-                    valid: 'has-success',
-                    invalid: 'has-error',
-                    feedback: 'has-feedback'
-                },
-                message: {
-                    clazz: 'help-block',
-                    parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
-                },
-                // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
-                // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
-                // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
-                //
-                // Examples:
-                // - Use Glyphicons icons:
-                //  icon: {
-                //      valid: 'glyphicon glyphicon-ok',
-                //      invalid: 'glyphicon glyphicon-remove',
-                //      validating: 'glyphicon glyphicon-refresh',
-                //      feedback: 'form-control-feedback'
-                //  }
-                // - Use FontAwesome icons:
-                //  icon: {
-                //      valid: 'fa fa-check',
-                //      invalid: 'fa fa-times',
-                //      validating: 'fa fa-refresh',
-                //      feedback: 'form-control-feedback'
-                //  }
-                icon: {
-                    valid: null,
-                    invalid: null,
-                    validating: null,
-                    feedback: 'form-control-feedback'
-                }
+            err: {
+                clazz: 'help-block',
+                parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
+            },
+            // This feature requires Bootstrap v3.1.0 or later (http://getbootstrap.com/css/#forms-control-validation).
+            // Since Bootstrap doesn't provide any methods to know its version, this option cannot be on/off automatically.
+            // In other word, to use this feature you have to upgrade your Bootstrap to v3.1.0 or later.
+            //
+            // Examples:
+            // - Use Glyphicons icons:
+            //  icon: {
+            //      valid: 'glyphicon glyphicon-ok',
+            //      invalid: 'glyphicon glyphicon-remove',
+            //      validating: 'glyphicon glyphicon-refresh',
+            //      feedback: 'form-control-feedback'
+            //  }
+            // - Use FontAwesome icons:
+            //  icon: {
+            //      valid: 'fa fa-check',
+            //      invalid: 'fa fa-times',
+            //      validating: 'fa fa-refresh',
+            //      feedback: 'form-control-feedback'
+            //  }
+            icon: {
+                valid: null,
+                invalid: null,
+                validating: null,
+                feedback: 'form-control-feedback'
+            },
+            // By default, each field is placed inside the <div class="form-group"></div>
+            row: {
+                selector: '.form-group',
+                valid: 'has-success',
+                invalid: 'has-error',
+                feedback: 'has-feedback'
             }
         }, options);
 

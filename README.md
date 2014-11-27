@@ -12,16 +12,14 @@ __Required__: [jQuery 1.9.1+](http://jquery.com/) and [Bootstrap 3+](http://getb
 
 Next version will be a big release with the following new features and improvements:
 
-* Support many frameworks:
-
-- [x] [Bootstrap](http://getbootstrap.com/)
-- [ ] [Zurb Foundation](http://foundation.zurb.com/)
-- [ ] [Semantic UI](http://semantic-ui.com/)
-- [ ] [Pure](http://purecss.io/) ([Github](https://github.com/yahoo/pure/))
-
-* [x] Support add-ons
-* [x] Support multiple languages
-* [x] Allow to reuse data returned by the validator
+- [ ] Support many frameworks:
+    - [x] [Bootstrap](http://getbootstrap.com/)
+    - [ ] [Zurb Foundation](http://foundation.zurb.com/)
+    - [ ] [Semantic UI](http://semantic-ui.com/)
+    - [ ] [Pure](http://purecss.io/)
+- [x] Support add-ons
+- [x] Support multiple languages
+- [x] Allow to reuse data returned by the validator
 
 Follow [@nghuuphuoc](https://twitter.com/nghuuphuoc) and [@bsvalidator](https://twitter.com/bsvalidator) to be up-to-date.
 
@@ -53,7 +51,7 @@ http://localhost:8000/demo/the_demo_file_here.html
 
 ## Features
 
-See [official website](http://bootstrapvalidator.com) for the full list of features
+See the [official website](http://bootstrapvalidator.com) for the full list of features
 
 ## Download
 

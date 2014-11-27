@@ -11,25 +11,23 @@
 (function($) {
     FormValidation.Framework.Foundation = function(element, options) {
         options = $.extend(true, {
-            clazz: {
-                row: {
-                    selector: '.row',
-                    valid: '',
-                    invalid: 'error',
-                    feedback: 'fv-has-feedback'
-                },
-                message: {
-                    clazz: 'error',
-                    parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
-                },
-                // Foundation doesn't support feedback icon as Bootstrap
-                // Might be we have to adjust the CSS manually
-                icon: {
-                    valid: null,
-                    invalid: null,
-                    validating: null,
-                    feedback: 'fv-control-feedback'
-                }
+            err: {
+                clazz: 'error',
+                parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
+            },
+            // Foundation doesn't support feedback icon as Bootstrap
+            // Might be we have to adjust the CSS manually
+            icon: {
+                valid: null,
+                invalid: null,
+                validating: null,
+                feedback: 'fv-control-feedback'
+            },
+            row: {
+                selector: '.row',
+                valid: '',
+                invalid: 'error',
+                feedback: 'fv-has-feedback'
             }
         }, options);
 

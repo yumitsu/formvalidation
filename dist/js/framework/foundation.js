@@ -1,8 +1,8 @@
 /*!
- * BootstrapValidator (http://bootstrapvalidator.com)
+ * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-27 1:17:41 PM
+ * @version     v0.6.0-dev, built on 2014-11-27 3:51:52 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -11,25 +11,23 @@
 (function($) {
     FormValidation.Framework.Foundation = function(element, options) {
         options = $.extend(true, {
-            clazz: {
-                row: {
-                    selector: '.row',
-                    valid: '',
-                    invalid: 'error',
-                    feedback: 'fv-has-feedback'
-                },
-                message: {
-                    clazz: 'error',
-                    parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
-                },
-                // Foundation doesn't support feedback icon as Bootstrap
-                // Might be we have to adjust the CSS manually
-                icon: {
-                    valid: null,
-                    invalid: null,
-                    validating: null,
-                    feedback: 'fv-control-feedback'
-                }
+            err: {
+                clazz: 'error',
+                parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
+            },
+            // Foundation doesn't support feedback icon as Bootstrap
+            // Might be we have to adjust the CSS manually
+            icon: {
+                valid: null,
+                invalid: null,
+                validating: null,
+                feedback: 'fv-control-feedback'
+            },
+            row: {
+                selector: '.row',
+                valid: '',
+                invalid: 'error',
+                feedback: 'fv-has-feedback'
             }
         }, options);
 

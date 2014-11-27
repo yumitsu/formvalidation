@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.min.css"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css"/>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
-    <link rel="stylesheet" href="../dist/css/formValidation.css"/>
+    <link rel="stylesheet" href="../../dist/css/formValidation.css"/>
 
-    <script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../../vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/vendor/modernizr.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/foundation/foundation.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/js/foundation/foundation.tooltip.js"></script>
 
-    <script type="text/javascript" src="../dist/js/formValidation.js"></script>
-    <script type="text/javascript" src="../dist/js/framework/foundation.js"></script>
+    <script type="text/javascript" src="../../dist/js/formValidation.js"></script>
+    <script type="text/javascript" src="../../dist/js/framework/foundation.js"></script>
 </head>
 <body>
     <div class="row">
@@ -22,7 +22,7 @@
             <h2>Sign up</h2>
             <hr/>
 
-            <form id="defaultForm" method="post" action="target.php">
+            <form id="defaultForm" method="post" action="../target.php">
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Full name</label>
@@ -157,20 +157,16 @@ $(document).ready(function() {
 
     $('#defaultForm').formValidation({
         framework: 'foundation',
-        clazz: {
-            icon: {
-                valid: 'fa fa-check',
-                invalid: 'fa fa-times',
-                validating: 'fa fa-refresh',
-                feedback: 'fv-control-feedback'
-            }
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'fa fa-refresh',
+            feedback: 'fv-control-feedback'
         },
         // container: 'tooltip',
         fields: {
             firstName: {
-                clazz: {
-                    row: '.small-6'
-                },
+                row: '.small-6',
                 validators: {
                     notEmpty: {
                         message: 'The first name is required and cannot be empty'
@@ -178,9 +174,7 @@ $(document).ready(function() {
                 }
             },
             lastName: {
-                clazz: {
-                    row: '.small-6'
-                },
+                row: '.small-6',
                 validators: {
                     notEmpty: {
                         message: 'The last name is required and cannot be empty'
