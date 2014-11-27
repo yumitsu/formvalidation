@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-27 3:51:52 PM
+ * @version     v0.6.0-dev, built on 2014-11-27 4:12:29 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -32,14 +32,6 @@ if (typeof jQuery === 'undefined') {
     FormValidation.DEFAULT_OPTIONS = {
         // The first invalid field will be focused automatically
         autoFocus: true,
-
-        // The error messages container. It can be:
-        // - 'tooltip' if you want to use Bootstrap tooltip to show error messages
-        // - 'popover' if you want to use Bootstrap popover to show error messages
-        // - a CSS selector indicating the container
-        // In the first two cases, since the tooltip/popover should be small enough, the plugin only shows only one error message
-        // You also can define the message container for particular field
-        container: null,
 
         // The form CSS class
         elementClass: 'bv-form',
@@ -124,6 +116,15 @@ if (typeof jQuery === 'undefined') {
         err: {
             // The CSS class of each message element
             clazz: '',
+
+            // The error messages container. It can be:
+            // - 'tooltip' if you want to use Bootstrap tooltip to show error messages
+            // - 'popover' if you want to use Bootstrap popover to show error messages
+            // - a CSS selector indicating the container
+            // In the first two cases, since the tooltip/popover should be small enough, the plugin only shows only one error message
+            // You also can define the message container for particular field
+            container: null,
+
             // Used to determine where the messages are placed
             parent: null
         },
@@ -212,10 +213,10 @@ if (typeof jQuery === 'undefined') {
                 options = {
                     addOns:         {},
                     autoFocus:      this.$form.attr('data-bv-autofocus'),
-                    container:      this.$form.attr('data-bv-container'),
                     err: {
-                        clazz:  this.$form.attr('data-bv-err-clazz'),
-                        parent: this.$form.attr('data-bv-err-parent')
+                        clazz:     this.$form.attr('data-bv-err-clazz'),
+                        container: this.$form.attr('data-bv-err-container') || this.$form.attr('data-bv-container'), // Support backward
+                        parent:    this.$form.attr('data-bv-err-parent')
                     },
                     events: {
                         formInit:         this.$form.attr('data-bv-events-form-init'),
@@ -290,6 +291,10 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Support backward
+            if (this.options.container) {
+                this.options.err.container = this.options.container;
+                delete this.options.container;
+            }
             if (this.options.feedbackIcons) {
                 this.options.icon = $.extend(true, this.options.icon, this.options.feedbackIcons);
                 delete this.options.feedbackIcons;
@@ -414,9 +419,10 @@ if (typeof jQuery === 'undefined') {
                     row       = this.options.fields[field].row || this.options.row.selector,
                     $parent   = $field.closest(row),
                     // Allow user to indicate where the error messages are shown
-                    container = ('function' === typeof (this.options.fields[field].container || this.options.container))
-                                ? (this.options.fields[field].container || this.options.container).call(this, $field, this)
-                                : (this.options.fields[field].container || this.options.container),
+                    // Support backward
+                    container = ('function' === typeof (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container))
+                                ? (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container).call(this, $field, this)
+                                : (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container),
                     $message  = (container && container !== 'tooltip' && container !== 'popover') ? $(container) : this._getMessageContainer($field, row);
 
                 if (container && container !== 'tooltip' && container !== 'popover') {
@@ -784,14 +790,14 @@ if (typeof jQuery === 'undefined') {
 
             var opts = {
                     autoFocus:   $field.attr('data-bv-autofocus'),
-                    container:   $field.attr('data-bv-container'),
+                    err:         $field.attr('data-bv-err-container') || $field.attr('data-bv-container'), // Support backward
                     excluded:    $field.attr('data-bv-excluded'),
-                    icon:        $field.attr('data-bv-icon') || $field.attr('data-bv-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null),  // Support backward
+                    icon:        $field.attr('data-bv-icon') || $field.attr('data-bv-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null), // Support backward
                     message:     $field.attr('data-bv-message'),
                     onError:     $field.attr('data-bv-onerror'),
                     onStatus:    $field.attr('data-bv-onstatus'),
                     onSuccess:   $field.attr('data-bv-onsuccess'),
-                    row:         $field.attr('data-bv-row') || $field.attr('data-bv-group') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group : null),   // Support backward
+                    row:         $field.attr('data-bv-row') || $field.attr('data-bv-group') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group : null), // Support backward
                     selector:    $field.attr('data-bv-selector'),
                     threshold:   $field.attr('data-bv-threshold'),
                     transformer: $field.attr('data-bv-transformer'),
@@ -1379,9 +1385,10 @@ if (typeof jQuery === 'undefined') {
                     $allErrors   = $message.find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
-                    container    = ('function' === typeof (this.options.fields[field].container || this.options.container))
-                                    ? (this.options.fields[field].container || this.options.container).call(this, $field, this)
-                                    : (this.options.fields[field].container || this.options.container),
+                    // Support backward
+                    container    = ('function' === typeof (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container))
+                                    ? (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container).call(this, $field, this)
+                                    : (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container),
                     isValidField = null;
 
                 // Update status
@@ -1726,7 +1733,10 @@ if (typeof jQuery === 'undefined') {
                         .removeAttr('data-bv-field');
 
                     // Remove feedback icons, tooltip/popover container
-                    var container = ('function' === typeof (this.options.fields[field].container || this.options.container)) ? (this.options.fields[field].container || this.options.container).call(this, $field, this) : (this.options.fields[field].container || this.options.container);
+                    // Support backward
+                    var container = ('function' === typeof (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container))
+                                    ? (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container).call(this, $field, this)
+                                    : (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container);
                     if ('tooltip' === container || 'popover' === container) {
                         this._destroyTooltip($field, container);
                     }
