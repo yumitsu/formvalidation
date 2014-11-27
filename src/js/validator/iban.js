@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
@@ -98,7 +98,7 @@
         }
     });
 
-    FormValidator.Validator.iban = {
+    FormValidation.Validator.iban = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -193,7 +193,7 @@
          * To test it, take the sample IBAN from
          * http://www.nordea.com/Our+services/International+products+and+services/Cash+Management/IBAN+countries/908462.html
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -223,14 +223,14 @@
             if (!this.REGEX[country]) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(FormValidator.I18n[locale].iban.countryNotSupported, country)
+                    message: FormValidation.Helper.format(FormValidation.I18n[locale].iban.countryNotSupported, country)
                 };
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
+                    message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].iban.country, FormValidation.I18n[locale].iban.countries[country])
                 };
             }
 
@@ -252,7 +252,7 @@
 
             return {
                 valid: (temp === 1),
-                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
+                message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].iban.country, FormValidation.I18n[locale].iban.countries[country])
             };
         }
     };

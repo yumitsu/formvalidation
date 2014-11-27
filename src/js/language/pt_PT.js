@@ -3,7 +3,7 @@
      * Portuguese (Portugal) language package
      * Translated by @rtbfreitas
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'pt_PT': {
             base64: {
                 'default': 'Por favor insira um código base 64 válido'

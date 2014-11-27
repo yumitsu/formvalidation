@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             rtn: {
                 'default': 'Please enter a valid RTN number'
@@ -15,14 +15,14 @@
         }
     });
 
-    FormValidator.Validator.rtn = {
+    FormValidation.Validator.rtn = {
         /**
          * Validate a RTN (Routing transit number)
          * Examples:
          * - Valid: 021200025, 789456124
          *
          * @see http://en.wikipedia.org/wiki/Routing_transit_number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

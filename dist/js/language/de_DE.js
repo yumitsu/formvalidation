@@ -3,7 +3,7 @@
      * German language package
      * Translated by @logemann
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'de_DE': {
             base64: {
                 'default': 'Bitte eine Base64 Kodierung eingeben'

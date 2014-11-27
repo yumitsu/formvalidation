@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             integer: {
                 'default': 'Please enter a valid number'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.integer = {
+    FormValidation.Validator.integer = {
         enableByHtml5: function($field) {
             return ('number' === $field.attr('type')) && ($field.attr('step') === undefined || $field.attr('step') % 1 === 0);
         },
@@ -23,7 +23,7 @@
         /**
          * Return true if the input value is an integer
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following key:
          * - message: The invalid message

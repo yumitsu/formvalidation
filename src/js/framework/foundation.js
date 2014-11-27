@@ -1,5 +1,5 @@
 /**
- * BootstrapValidator (http://bootstrapvalidator.com)
+ * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
  * @author      https://twitter.com/nghuuphuoc
@@ -9,7 +9,7 @@
 
 // Support Zurb Foundation framework
 (function($) {
-    FormValidator.Foundation = function(element, options) {
+    FormValidation.Framework.Foundation = function(element, options) {
         options = $.extend(true, {
             clazz: {
                 row: {
@@ -33,10 +33,10 @@
             }
         }, options);
 
-        FormValidator.Base.apply(this, [element, options]);
+        FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidator.Foundation.prototype = $.extend({}, FormValidator.Base.prototype, {
+    FormValidation.Framework.Foundation.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
          * Create a tooltip or popover
          * It will be shown when focusing on the field
@@ -79,25 +79,4 @@
             // TODO
         }
     });
-
-    // Plugin definition
-    $.fn.foundationValidator = function(option) {
-        var params = arguments;
-        return this.each(function() {
-            var $this   = $(this),
-                data    = $this.data('foundationValidator'),
-                options = 'object' === typeof option && option;
-            if (!data) {
-                data = new FormValidator.Foundation(this, options);
-                $this.data('foundationValidator', data);
-            }
-
-            // Allow to call plugin method
-            if ('string' === typeof option) {
-                data[option].apply(data, Array.prototype.slice.call(params, 1));
-            }
-        });
-    };
-
-    $.fn.foundationValidator.Constructor = FormValidator.Foundation;
 }(jQuery));

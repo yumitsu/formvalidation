@@ -6,7 +6,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.Validator.blank = {
+    FormValidation.Validator.blank = {
         /**
          * Placeholder validator that can be used to display a custom validation message
          * returned from the server
@@ -23,7 +23,7 @@
          *
          * @see https://github.com/nghuuphuoc/bootstrapvalidator/issues/542
          * @see https://github.com/nghuuphuoc/bootstrapvalidator/pull/666
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

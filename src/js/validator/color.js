@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             color: {
                 'default': 'Please enter a valid color'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.color = {
+    FormValidation.Validator.color = {
         html5Attributes: {
             message: 'message',
             type: 'type'
@@ -85,7 +85,7 @@
         /**
          * Return true if the input value is a valid color
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

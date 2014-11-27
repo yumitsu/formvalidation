@@ -3,7 +3,7 @@
      * Czech language package
      * Translated by @AdwinTrave. Improved by @cuchac
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'cs_CZ': {
             base64: {
                 'default': 'Prosím zadejte správný base64'

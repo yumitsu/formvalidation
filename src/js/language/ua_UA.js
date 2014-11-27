@@ -3,7 +3,7 @@
      * Ukrainian language package
      * Translated by @oleg-voloshyn
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'ua_UA': {
             base64: {
                 'default': 'Будь ласка, введіть коректний рядок base64'

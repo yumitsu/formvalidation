@@ -1,14 +1,14 @@
-/**
+/*!
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
+ * @version     v0.6.0-dev, built on 2014-11-27 1:17:41 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
-
 (function($) {
-    FormValidator.Bootstrap = function(element, options) {
+    FormValidation.Framework.Bootstrap = function(element, options) {
         options = $.extend(true, {
             clazz: {
                 row: {
@@ -49,10 +49,10 @@
             }
         }, options);
 
-        FormValidator.Base.apply(this, [element, options]);
+        FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidator.Bootstrap.prototype = $.extend({}, FormValidator.Base.prototype, {
+    FormValidation.Framework.Bootstrap.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
          * Create a tooltip or popover
          * It will be shown when focusing on the field
@@ -182,15 +182,17 @@
     });
 
     // Plugin definition
+    // TODO: Remove backward compatibility in v0.7.0
     $.fn.bootstrapValidator = function(option) {
         var params = arguments;
         return this.each(function() {
             var $this   = $(this),
-                data    = $this.data('bootstrapValidator'),
+                data    = $this.data('formValidation') || $this.data('bootstrapValidator'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                data = new FormValidator.Bootstrap(this, options);
-                $this.data('bootstrapValidator', data);
+                data = new FormValidation.Framework.Bootstrap(this, options);
+                $this.data('formValidation', data)
+                     .data('bootstrapValidator', data);
             }
 
             // Allow to call plugin method
@@ -200,5 +202,5 @@
         });
     };
 
-    $.fn.bootstrapValidator.Constructor = FormValidator.Bootstrap;
+    $.fn.bootstrapValidator.Constructor = FormValidation.Framework.Bootstrap;
 }(jQuery));

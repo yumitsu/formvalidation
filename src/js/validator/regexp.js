@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             regexp: {
                 'default': 'Please enter a value matching the pattern'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.regexp = {
+    FormValidation.Validator.regexp = {
         html5Attributes: {
             message: 'message',
             regexp: 'regexp'
@@ -35,7 +35,7 @@
         /**
          * Check if the element value matches given regular expression
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - regexp: The regular expression you need to check

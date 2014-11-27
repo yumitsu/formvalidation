@@ -3,7 +3,7 @@
      * Turkish language package
      * Translated By @CeRBeR666
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'tr_TR': {
             base64: {
                 'default': 'Lütfen 64 bit tabanına uygun bir giriş yapınız'

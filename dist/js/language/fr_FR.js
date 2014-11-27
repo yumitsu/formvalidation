@@ -3,7 +3,7 @@
      * French language package
      * Translated by @dlucazeau. Updated by @neilime, @jazzzz
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'fr_FR': {
             base64: {
                 'default': 'Veuillez fournir une donnée correctement encodée en Base64'

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             date: {
                 'default': 'Please enter a valid date',
@@ -18,7 +18,7 @@
         }
     });
 
-    FormValidator.Validator.date = {
+    FormValidation.Validator.date = {
         html5Attributes: {
             message: 'message',
             format: 'format',
@@ -30,7 +30,7 @@
         /**
          * Return true if the input value is valid date
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -61,7 +61,7 @@
             }
 
             var locale     = validator.getLocale(),
-                message    = options.message || FormValidator.I18n[locale].date['default'],
+                message    = options.message || FormValidation.I18n[locale].date['default'],
                 formats    = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
@@ -187,7 +187,7 @@
             }
 
             // Validate day, month, and year
-            var valid     = FormValidator.Helper.date(year, month, day),
+            var valid     = FormValidation.Helper.date(year, month, day),
                 // declare the date, min and max objects
                 min       = null,
                 max       = null,
@@ -213,17 +213,17 @@
             switch (true) {
                 case (minOption && !maxOption && valid):
                     valid   = date.getTime() >= min.getTime();
-                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.min, minOption);
+                    message = options.message || FormValidation.Helper.format(FormValidation.I18n[locale].date.min, minOption);
                     break;
 
                 case (maxOption && !minOption && valid):
                     valid   = date.getTime() <= max.getTime();
-                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.max, maxOption);
+                    message = options.message || FormValidation.Helper.format(FormValidation.I18n[locale].date.max, maxOption);
                     break;
 
                 case (maxOption && minOption && valid):
                     valid   = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
-                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.range, [minOption, maxOption]);
+                    message = options.message || FormValidation.Helper.format(FormValidation.I18n[locale].date.range, [minOption, maxOption]);
                     break;
 
                 default:

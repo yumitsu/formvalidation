@@ -3,7 +3,7 @@
      * Danish language package
      * Translated by @Djarnis
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'da_DK': {
             base64: {
                 'default': 'Udfyld venligst dette felt med en gyldig base64-kodet værdi'

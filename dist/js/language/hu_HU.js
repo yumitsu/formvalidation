@@ -3,7 +3,7 @@
      * Hungarian language package
      * Translated by @blackfyre
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'hu_HU': {
             base64: {
                 'default': 'Kérlek, hogy érvényes base 64 karakter láncot adj meg'

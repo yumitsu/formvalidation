@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             cvv: {
                 'default': 'Please enter a valid CVV number'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.cvv = {
+    FormValidation.Validator.cvv = {
         html5Attributes: {
             message: 'message',
             ccfield: 'creditCardField'
@@ -24,7 +24,7 @@
         /**
          * Return true if the input value is a valid CVV number.
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - creditCardField: The credit card number field. It can be null

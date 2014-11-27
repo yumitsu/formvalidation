@@ -3,7 +3,7 @@
      * Polish language package
      * Translated by @grzesiek
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'pl_PL': {
             base64: {
                 'default': 'Wpisz poprawny ciąg znaków zakodowany w base 64'

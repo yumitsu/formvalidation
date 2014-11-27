@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             notEmpty: {
                 'default': 'Please enter a value'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.notEmpty = {
+    FormValidation.Validator.notEmpty = {
         enableByHtml5: function($field) {
             var required = $field.attr('required') + '';
             return ('required' === required || 'true' === required);
@@ -24,7 +24,7 @@
         /**
          * Check if input value is empty or not
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
          * @returns {Boolean}

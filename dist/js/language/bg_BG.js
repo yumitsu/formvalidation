@@ -3,7 +3,7 @@
      * Bulgarian language package
      * Translated by @mraiur
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'bg_BG': {
             base64: {
                 'default': 'Моля, въведете валиден base 64 кодиран'

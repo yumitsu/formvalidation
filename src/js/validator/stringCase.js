@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             stringCase: {
                 'default': 'Please enter only lowercase characters',
@@ -16,7 +16,7 @@
         }
     });
 
-    FormValidator.Validator.stringCase = {
+    FormValidation.Validator.stringCase = {
         html5Attributes: {
             message: 'message',
             'case': 'case'
@@ -25,7 +25,7 @@
         /**
          * Check if a string is a lower or upper case one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -42,7 +42,7 @@
                 stringCase = (options['case'] || 'lower').toLowerCase();
             return {
                 valid: ('upper' === stringCase) ? value === value.toUpperCase() : value === value.toLowerCase(),
-                message: options.message || (('upper' === stringCase) ? FormValidator.I18n[locale].stringCase.upper : FormValidator.I18n[locale].stringCase['default'])
+                message: options.message || (('upper' === stringCase) ? FormValidation.I18n[locale].stringCase.upper : FormValidation.I18n[locale].stringCase['default'])
             };
         }
     };

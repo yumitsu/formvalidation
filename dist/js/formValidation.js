@@ -2,15 +2,18 @@
  * BootstrapValidator (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-26 10:05:25 PM
+ * @version     v0.6.0-dev, built on 2014-11-27 1:17:41 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
-window.FormValidator           = {};    // Register the namespace
-window.FormValidator.AddOn     = {};    // Add-ons
-window.FormValidator.Validator = {};    // Available validators
-window.FormValidator.I18n      = {};    // i18n
+// Register the namespace
+window.FormValidation = {
+    AddOn:     {},  // Add-ons
+    Framework: {},  // Supported frameworks
+    I18n:      {},  // i18n
+    Validator: {}   // Available validators
+};
 
 if (typeof jQuery === 'undefined') {
     throw new Error('The plugin requires jQuery');
@@ -26,7 +29,7 @@ if (typeof jQuery === 'undefined') {
 (function($) {
     // The default options
     // Sorted in alphabetical order
-    FormValidator.DEFAULT_OPTIONS = {
+    FormValidation.DEFAULT_OPTIONS = {
         // The first invalid field will be focused automatically
         autoFocus: true,
 
@@ -138,9 +141,9 @@ if (typeof jQuery === 'undefined') {
         verbose: true
     };
 
-    FormValidator.Base = function(form, options) {
+    FormValidation.Base = function(form, options) {
         this.$form   = $(form);
-        this.options = $.extend({}, FormValidator.DEFAULT_OPTIONS);
+        this.options = $.extend({}, FormValidation.DEFAULT_OPTIONS);
         this.options = $.extend(true, this.options, options);
 
         this.$invalidFields = $([]);    // Array of invalid fields
@@ -176,8 +179,8 @@ if (typeof jQuery === 'undefined') {
         this._init();
     };
 
-    FormValidator.Base.prototype = {
-        constructor: FormValidator.Base,
+    FormValidation.Base.prototype = {
+        constructor: FormValidation.Base,
 
         /**
          * Check if the number of characters of field value exceed the threshold or not
@@ -294,8 +297,8 @@ if (typeof jQuery === 'undefined') {
             }
 
             // If the locale is not found, reset it to default one
-            if (!FormValidator.I18n[this.options.locale]) {
-                this.options.locale = FormValidator.DEFAULT_OPTIONS.locale;
+            if (!FormValidation.I18n[this.options.locale]) {
+                this.options.locale = FormValidation.DEFAULT_OPTIONS.locale;
             }
 
             // Parse the add-on options from HTML attributes
@@ -332,8 +335,8 @@ if (typeof jQuery === 'undefined') {
 
             // Init the add-ons
             for (var addOn in this.options.addOns) {
-                if ('function' === typeof FormValidator.AddOn[addOn].init) {
-                    FormValidator.AddOn[addOn].init(this, this.options.addOns[addOn]);
+                if ('function' === typeof FormValidation.AddOn[addOn].init) {
+                    FormValidation.AddOn[addOn].init(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -345,12 +348,12 @@ if (typeof jQuery === 'undefined') {
             // Prepare the events
             if (this.options.onSuccess) {
                 this.$form.on(this.options.events.formSuccess, function(e) {
-                    FormValidator.Helper.call(that.options.onSuccess, [e]);
+                    FormValidation.Helper.call(that.options.onSuccess, [e]);
                 });
             }
             if (this.options.onError) {
                 this.$form.on(this.options.events.formError, function(e) {
-                    FormValidator.Helper.call(that.options.onError, [e]);
+                    FormValidation.Helper.call(that.options.onError, [e]);
                 });
             }
         },
@@ -386,7 +389,7 @@ if (typeof jQuery === 'undefined') {
 
             var validatorName;
             for (validatorName in this.options.fields[field].validators) {
-                if (!FormValidator.Validator[validatorName]) {
+                if (!FormValidation.Validator[validatorName]) {
                     delete this.options.fields[field].validators[validatorName];
                 }
             }
@@ -445,8 +448,8 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     // Init the validator
-                    if ('function' === typeof FormValidator.Validator[validatorName].init) {
-                        FormValidator.Validator[validatorName].init(this, $field, this.options.fields[field].validators[validatorName]);
+                    if ('function' === typeof FormValidation.Validator[validatorName].init) {
+                        FormValidation.Validator[validatorName].init(this, $field, this.options.fields[field].validators[validatorName]);
                     }
                 }
 
@@ -517,31 +520,31 @@ if (typeof jQuery === 'undefined') {
                 .on(this.options.events.fieldSuccess, function(e, data) {
                     var onSuccess = that.getOptions(data.field, null, 'onSuccess');
                     if (onSuccess) {
-                        FormValidator.Helper.call(onSuccess, [e, data]);
+                        FormValidation.Helper.call(onSuccess, [e, data]);
                     }
                 })
                 .on(this.options.events.fieldError, function(e, data) {
                     var onError = that.getOptions(data.field, null, 'onError');
                     if (onError) {
-                        FormValidator.Helper.call(onError, [e, data]);
+                        FormValidation.Helper.call(onError, [e, data]);
                     }
                 })
                 .on(this.options.events.fieldStatus, function(e, data) {
                     var onStatus = that.getOptions(data.field, null, 'onStatus');
                     if (onStatus) {
-                        FormValidator.Helper.call(onStatus, [e, data]);
+                        FormValidation.Helper.call(onStatus, [e, data]);
                     }
                 })
                 .on(this.options.events.validatorError, function(e, data) {
                     var onError = that.getOptions(data.field, data.validator, 'onError');
                     if (onError) {
-                        FormValidator.Helper.call(onError, [e, data]);
+                        FormValidation.Helper.call(onError, [e, data]);
                     }
                 })
                 .on(this.options.events.validatorSuccess, function(e, data) {
                     var onSuccess = that.getOptions(data.field, data.validator, 'onSuccess');
                     if (onSuccess) {
-                        FormValidator.Helper.call(onSuccess, [e, data]);
+                        FormValidation.Helper.call(onSuccess, [e, data]);
                     }
                 });
 
@@ -635,7 +638,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {String}
          */
         _getMessage: function(field, validatorName) {
-            if (!this.options.fields[field] || !FormValidator.Validator[validatorName]
+            if (!this.options.fields[field] || !FormValidation.Validator[validatorName]
                 || !this.options.fields[field].validators || !this.options.fields[field].validators[validatorName])
             {
                 return '';
@@ -646,8 +649,8 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].validators[validatorName].message;
                 case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case !!FormValidator.I18n[this.options.locale][validatorName]['default']:
-                    return FormValidator.I18n[this.options.locale][validatorName]['default'];
+                case !!FormValidation.I18n[this.options.locale][validatorName]['default']:
+                    return FormValidation.I18n[this.options.locale][validatorName]['default'];
                 default:
                     return this.options.message;
             }
@@ -703,13 +706,13 @@ if (typeof jQuery === 'undefined') {
             // Try to parse each add-on options
             var addOn, attrMap, attr, option;
             for (addOn in addOns) {
-                if (!FormValidator.AddOn[addOn]) {
+                if (!FormValidation.AddOn[addOn]) {
                     // Add-on is not found
                     delete addOns[addOn];
                     continue;
                 }
 
-                attrMap = FormValidator.AddOn[addOn].html5Attributes;
+                attrMap = FormValidation.AddOn[addOn].html5Attributes;
                 if (attrMap) {
                     for (attr in attrMap) {
                         option = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
@@ -742,8 +745,8 @@ if (typeof jQuery === 'undefined') {
                 html5AttrName,
                 html5AttrMap;
 
-            for (v in FormValidator.Validator) {
-                validator    = FormValidator.Validator[v];
+            for (v in FormValidation.Validator) {
+                validator    = FormValidation.Validator[v];
                 attrName     = 'data-bv-' + v.toLowerCase(),
                 enabled      = $field.attr(attrName) + '';
                 html5AttrMap = ('function' === typeof validator.enableByHtml5) ? validator.enableByHtml5($field) : null;
@@ -1030,7 +1033,7 @@ if (typeof jQuery === 'undefined') {
          * Disable/enable submit buttons
          *
          * @param {Boolean} disabled Can be true or false
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         disableSubmitButtons: function(disabled) {
             if (!disabled) {
@@ -1081,7 +1084,7 @@ if (typeof jQuery === 'undefined') {
             var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
                                 ? this.options.fields[field].validators[validatorName].transformer : null)
                                 || this.options.fields[field].transformer;
-            return transformer ? FormValidator.Helper.call(transformer, [$field, validatorName]) : $field.val();
+            return transformer ? FormValidation.Helper.call(transformer, [$field, validatorName]) : $field.val();
         },
 
         /**
@@ -1253,7 +1256,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {jQuery[]} $fields The field elements
          * @param {String} namespace The event namespace
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         offLiveChange: function($fields, namespace) {
             if ($fields === null || $fields.length === 0) {
@@ -1275,7 +1278,7 @@ if (typeof jQuery === 'undefined') {
          * @param {jQuery[]} $fields The field elements
          * @param {String} namespace The event namespace
          * @param {Function} handler The handler function
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         onLiveChange: function($fields, namespace, handler) {
             if ($fields === null || $fields.length === 0) {
@@ -1311,7 +1314,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          * @param {String} validator The validator name
          * @param {String} message The message
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         updateMessage: function(field, validator, message) {
             var that    = this,
@@ -1339,7 +1342,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          * @param {String} status The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
          * @param {String} [validatorName] The validator name. If null, the method updates validity result for all validators
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         updateStatus: function(field, status, validatorName) {
             var fields = $([]);
@@ -1488,7 +1491,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate the form
          *
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         validate: function() {
             if (!this.options.fields) {
@@ -1511,7 +1514,7 @@ if (typeof jQuery === 'undefined') {
          * Validate given field
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         validateField: function(field) {
             var fields = $([]);
@@ -1566,7 +1569,7 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     $field.data('bv.result.' + validatorName, this.STATUS_VALIDATING);
-                    validateResult = FormValidator.Validator[validatorName].validate(this, $field, validators[validatorName]);
+                    validateResult = FormValidation.Validator[validatorName].validate(this, $field, validators[validatorName]);
 
                     // validateResult can be a $.Deferred object ...
                     if ('object' === typeof validateResult && validateResult.resolve) {
@@ -1624,7 +1627,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} field The field name or field element
          * @param {Object} [options] The validator rules
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         addField: function(field, options) {
             var fields = $([]);
@@ -1694,8 +1697,8 @@ if (typeof jQuery === 'undefined') {
                               .removeData('bv.dfs.' + validator);
 
                         // Destroy the validator
-                        if ('function' === typeof FormValidator.Validator[validator].destroy) {
-                            FormValidator.Validator[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
+                        if ('function' === typeof FormValidation.Validator[validator].destroy) {
+                            FormValidation.Validator[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
                         }
                     }
                 }
@@ -1741,8 +1744,8 @@ if (typeof jQuery === 'undefined') {
 
             // Destroy the add-ons
             for (var addOn in this.options.addOns) {
-                if ('function' === typeof FormValidator.AddOn[addOn].destroy) {
-                    FormValidator.AddOn[addOn].destroy(this, this.options.addOns[addOn]);
+                if ('function' === typeof FormValidation.AddOn[addOn].destroy) {
+                    FormValidation.AddOn[addOn].destroy(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -1752,7 +1755,8 @@ if (typeof jQuery === 'undefined') {
             this.$form
                 .removeClass(this.options.elementClass)
                 .off('.bv')
-                .removeData('bootstrapValidator')
+                .removeData('bootstrapValidator')   // TODO: Remove backward compatibility in v0.7.0
+                .removeData('formValidation')
                 // Remove generated hidden elements
                 .find('[data-bv-submit-hidden]').remove().end()
                 .find('[type="submit"]').off('click.bv');
@@ -1764,7 +1768,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} field The field name
          * @param {Boolean} enabled Enable/Disable field validators
          * @param {String} [validatorName] The validator name. If null, all validators will be enabled/disabled
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         enableFieldValidators: function(field, enabled, validatorName) {
             var validators = this.options.fields[field].validators;
@@ -1815,7 +1819,7 @@ if (typeof jQuery === 'undefined') {
             // Option can be determined by
             // ... a function
             if ('function' === typeof option) {
-                return FormValidator.Helper.call(option, [value, this, $field]);
+                return FormValidation.Helper.call(option, [value, this, $field]);
             }
             // ... value of other field
             else if ('string' === typeof option) {
@@ -1825,7 +1829,7 @@ if (typeof jQuery === 'undefined') {
                 }
                 // ... return value of callback
                 else {
-                    return FormValidator.Helper.call(option, [value, this, $field]) || option;
+                    return FormValidation.Helper.call(option, [value, this, $field]) || option;
                 }
             }
 
@@ -1920,7 +1924,7 @@ if (typeof jQuery === 'undefined') {
          * Remove a given field
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         removeField: function(field) {
             var fields = $([]);
@@ -1976,7 +1980,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} field The field name or field element
          * @param {Boolean} [resetValue] If true, the method resets field value to empty or remove checked/selected attribute (for radio/checkbox)
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         resetField: function(field, resetValue) {
             var $fields = $([]);
@@ -2016,7 +2020,7 @@ if (typeof jQuery === 'undefined') {
          * Reset the form
          *
          * @param {Boolean} [resetValue] If true, the method resets field value to empty or remove checked/selected attribute (for radio/checkbox)
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         resetForm: function(resetValue) {
             for (var field in this.options.fields) {
@@ -2037,7 +2041,7 @@ if (typeof jQuery === 'undefined') {
          * It's used when you need to revalidate the field which its value is updated by other plugin
          *
          * @param {String|jQuery} field The field name of field element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         revalidateField: function(field) {
             this.updateStatus(field, this.STATUS_NOT_VALIDATED)
@@ -2050,7 +2054,7 @@ if (typeof jQuery === 'undefined') {
          * Set the locale
          *
          * @param {String} locale The locale in format of countrycode_LANGUAGECODE
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         setLocale: function(locale) {
             this.options.locale = locale;
@@ -2069,7 +2073,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} validator The validator name
          * @param {String} option The option name
          * @param {String} value The value to set
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         updateOption: function(field, validator, option, value) {
             if ('object' === typeof field) {
@@ -2088,7 +2092,7 @@ if (typeof jQuery === 'undefined') {
          * It can be used with isValidContainer() when you want to work with wizard form
          *
          * @param {String|jQuery} container The container selector or element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         validateContainer: function(container) {
             var that       = this,
@@ -2113,10 +2117,43 @@ if (typeof jQuery === 'undefined') {
             return this;
         }
     };
+
+    // Plugin definition
+    $.fn.formValidation = function(option) {
+        var params = arguments;
+        return this.each(function() {
+            var $this   = $(this),
+                data    = $this.data('formValidation'),
+                options = 'object' === typeof option && option;
+            if (!data) {
+                var framework = options.framework || $this.attr('data-fv-framework') || 'bootstrap';
+                switch (framework.toLowerCase()) {
+                    case 'foundation':
+                        data = new FormValidation.Framework.Foundation(this, options);
+                        break;
+
+                    case 'bootstrap':
+                    /* falls through */
+                    default:
+                        data = new FormValidation.Framework.Bootstrap(this, options);
+                        break;
+                }
+
+                $this.data('formValidation', data);
+            }
+
+            // Allow to call plugin method
+            if ('string' === typeof option) {
+                data[option].apply(data, Array.prototype.slice.call(params, 1));
+            }
+        });
+    };
+
+    $.fn.formValidation.Constructor = FormValidation.Base;
 }(jQuery));
 ;(function($) {
     // Helper methods, which can be used in validator class
-    FormValidator.Helper = {
+    FormValidation.Helper = {
         /**
          * Execute a callback function
          *
@@ -2272,102 +2309,8 @@ if (typeof jQuery === 'undefined') {
         }
     };
 }(jQuery));
-;// Support Zurb Foundation framework
-(function($) {
-    FormValidator.Foundation = function(element, options) {
-        options = $.extend(true, {
-            clazz: {
-                row: {
-                    selector: '.row',
-                    valid: '',
-                    invalid: 'error',
-                    feedback: 'fv-has-feedback'
-                },
-                message: {
-                    clazz: 'error',
-                    parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
-                },
-                // Foundation doesn't support feedback icon as Bootstrap
-                // Might be we have to adjust the CSS manually
-                icon: {
-                    valid: null,
-                    invalid: null,
-                    validating: null,
-                    feedback: 'fv-control-feedback'
-                }
-            }
-        }, options);
-
-        FormValidator.Base.apply(this, [element, options]);
-    };
-
-    FormValidator.Foundation.prototype = $.extend({}, FormValidator.Base.prototype, {
-        /**
-         * Create a tooltip or popover
-         * It will be shown when focusing on the field
-         *
-         * @param {jQuery} $field The field element
-         * @param {String} message The message
-         * @param {String} type Can be 'tooltip' or 'popover'
-         */
-        _createTooltip: function($field, message, type) {
-            // TODO
-        },
-
-        /**
-         * Destroy the tooltip or popover
-         *
-         * @param {jQuery} $field The field element
-         * @param {String} type Can be 'tooltip' or 'popover'
-         */
-        _destroyTooltip: function($field, type) {
-            // TODO
-        },
-
-        /**
-         * Hide a tooltip or popover
-         *
-         * @param {jQuery} $field The field element
-         * @param {String} type Can be 'tooltip' or 'popover'
-         */
-        _hideTooltip: function($field, type) {
-            // TODO
-        },
-
-        /**
-         * Show a tooltip or popover
-         *
-         * @param {jQuery} $field The field element
-         * @param {String} type Can be 'tooltip' or 'popover'
-         */
-        _showTooltip: function($field, type) {
-            // TODO
-        }
-    });
-
-    // Plugin definition
-    $.fn.foundationValidator = function(option) {
-        var params = arguments;
-        return this.each(function() {
-            var $this   = $(this),
-                data    = $this.data('foundationValidator'),
-                options = 'object' === typeof option && option;
-            if (!data) {
-                data = new FormValidator.Foundation(this, options);
-                $this.data('foundationValidator', data);
-            }
-
-            // Allow to call plugin method
-            if ('string' === typeof option) {
-                data[option].apply(data, Array.prototype.slice.call(params, 1));
-            }
-        });
-    };
-
-    $.fn.foundationValidator.Constructor = FormValidator.Foundation;
-}(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             base64: {
                 'default': 'Please enter a valid base 64 encoded'
@@ -2375,11 +2318,11 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.base64 = {
+    FormValidation.Validator.base64 = {
         /**
          * Return true if the input value is a base 64 encoded string.
          *
-         * @param {FormValidator} validator The validator plugin instance
+         * @param {FormValidation} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2396,7 +2339,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             between: {
                 'default': 'Please enter a value between %s and %s',
@@ -2405,7 +2348,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.between = {
+    FormValidation.Validator.between = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -2427,7 +2370,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is between (strictly or not) two given numbers
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - min
@@ -2464,11 +2407,11 @@ if (typeof jQuery === 'undefined') {
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= minValue && value <= maxValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].between['default'], [min, max])
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].between['default'], [min, max])
                     }
                     : {
                         valid: value > minValue  && value <  maxValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].between.notInclusive, [min, max])
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].between.notInclusive, [min, max])
                     };
         },
 
@@ -2478,7 +2421,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             bic: {
                 'default': 'Please enter a valid BIC number'
@@ -2486,14 +2429,14 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.bic = {
+    FormValidation.Validator.bic = {
         /**
          * Validate an Business Identifier Code (BIC), also known as ISO 9362, SWIFT-BIC, SWIFT ID or SWIFT code
          *
          * For more information see http://en.wikipedia.org/wiki/ISO_9362
          *
          * @todo The 5 and 6 characters are an ISO 3166-1 country code, this could also be validated
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2509,7 +2452,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.Validator.blank = {
+    FormValidation.Validator.blank = {
         /**
          * Placeholder validator that can be used to display a custom validation message
          * returned from the server
@@ -2526,7 +2469,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @see https://github.com/nghuuphuoc/bootstrapvalidator/issues/542
          * @see https://github.com/nghuuphuoc/bootstrapvalidator/pull/666
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2538,7 +2481,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             callback: {
                 'default': 'Please enter a valid value'
@@ -2546,7 +2489,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.callback = {
+    FormValidation.Validator.callback = {
         html5Attributes: {
             message: 'message',
             callback: 'callback'
@@ -2555,7 +2498,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return result from the callback method
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - callback: The callback method that passes 2 parameters:
@@ -2573,7 +2516,7 @@ if (typeof jQuery === 'undefined') {
                 result = { valid: true };
 
             if (options.callback) {
-                var response = FormValidator.Helper.call(options.callback, [value, validator, $field]);
+                var response = FormValidation.Helper.call(options.callback, [value, validator, $field]);
                 result = ('boolean' === typeof response) ? { valid: response } : response;
             }
 
@@ -2583,7 +2526,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             choice: {
                 'default': 'Please enter a valid value',
@@ -2594,7 +2537,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.choice = {
+    FormValidation.Validator.choice = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -2604,7 +2547,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if the number of checked boxes are less or more than a given number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of following keys:
          * - min
@@ -2628,7 +2571,7 @@ if (typeof jQuery === 'undefined') {
                 min        = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
                 max        = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
                 isValid    = true,
-                message    = options.message || FormValidator.I18n[locale].choice['default'];
+                message    = options.message || FormValidation.I18n[locale].choice['default'];
 
             if ((min && numChoices < parseInt(min, 10)) || (max && numChoices > parseInt(max, 10))) {
                 isValid = false;
@@ -2636,15 +2579,15 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (!!min && !!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.less, parseInt(min, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].choice.less, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.more, parseInt(max, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].choice.more, parseInt(max, 10));
                     break;
 
                 default:
@@ -2656,7 +2599,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             color: {
                 'default': 'Please enter a valid color'
@@ -2664,7 +2607,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.color = {
+    FormValidation.Validator.color = {
         html5Attributes: {
             message: 'message',
             type: 'type'
@@ -2734,7 +2677,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a valid color
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -2804,7 +2747,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             creditCard: {
                 'default': 'Please enter a valid credit card number'
@@ -2812,12 +2755,12 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.creditCard = {
+    FormValidation.Validator.creditCard = {
         /**
          * Return true if the input value is valid credit card number
          * Based on https://gist.github.com/DiegoSalazar/4075533
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following key:
          * - message: The invalid message
@@ -2835,7 +2778,7 @@ if (typeof jQuery === 'undefined') {
             }
             value = value.replace(/\D/g, '');
 
-            if (!FormValidator.Helper.luhn(value)) {
+            if (!FormValidation.Helper.luhn(value)) {
                 return false;
             }
 
@@ -2914,7 +2857,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             cusip: {
                 'default': 'Please enter a valid CUSIP number'
@@ -2922,7 +2865,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.cusip = {
+    FormValidation.Validator.cusip = {
         /**
          * Validate a CUSIP number
          * Examples:
@@ -2930,7 +2873,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 31430F200, 022615AC2
          *
          * @see http://en.wikipedia.org/wiki/CUSIP
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following keys:
          * - message: The invalid message
@@ -2973,7 +2916,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             cvv: {
                 'default': 'Please enter a valid CVV number'
@@ -2981,7 +2924,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.cvv = {
+    FormValidation.Validator.cvv = {
         html5Attributes: {
             message: 'message',
             ccfield: 'creditCardField'
@@ -2990,7 +2933,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a valid CVV number.
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - creditCardField: The credit card number field. It can be null
@@ -3093,7 +3036,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             date: {
                 'default': 'Please enter a valid date',
@@ -3104,7 +3047,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.date = {
+    FormValidation.Validator.date = {
         html5Attributes: {
             message: 'message',
             format: 'format',
@@ -3116,7 +3059,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is valid date
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3147,7 +3090,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             var locale     = validator.getLocale(),
-                message    = options.message || FormValidator.I18n[locale].date['default'],
+                message    = options.message || FormValidation.I18n[locale].date['default'],
                 formats    = options.format.split(' '),
                 dateFormat = formats[0],
                 timeFormat = (formats.length > 1) ? formats[1] : null,
@@ -3273,7 +3216,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Validate day, month, and year
-            var valid     = FormValidator.Helper.date(year, month, day),
+            var valid     = FormValidation.Helper.date(year, month, day),
                 // declare the date, min and max objects
                 min       = null,
                 max       = null,
@@ -3299,17 +3242,17 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 case (minOption && !maxOption && valid):
                     valid   = date.getTime() >= min.getTime();
-                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.min, minOption);
+                    message = options.message || FormValidation.Helper.format(FormValidation.I18n[locale].date.min, minOption);
                     break;
 
                 case (maxOption && !minOption && valid):
                     valid   = date.getTime() <= max.getTime();
-                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.max, maxOption);
+                    message = options.message || FormValidation.Helper.format(FormValidation.I18n[locale].date.max, maxOption);
                     break;
 
                 case (maxOption && minOption && valid):
                     valid   = date.getTime() <= max.getTime() && date.getTime() >= min.getTime();
-                    message = options.message || FormValidator.Helper.format(FormValidator.I18n[locale].date.range, [minOption, maxOption]);
+                    message = options.message || FormValidation.Helper.format(FormValidation.I18n[locale].date.range, [minOption, maxOption]);
                     break;
 
                 default:
@@ -3356,7 +3299,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             different: {
                 'default': 'Please enter a different value'
@@ -3364,7 +3307,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.different = {
+    FormValidation.Validator.different = {
         html5Attributes: {
             message: 'message',
             field: 'field'
@@ -3373,7 +3316,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Bind the validator on the live change of the field to compare with current one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -3394,7 +3337,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Unbind the validator on the live change of the field to compare with current one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -3410,7 +3353,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is different with given field's value
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -3445,7 +3388,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             digits: {
                 'default': 'Please enter only digits'
@@ -3453,11 +3396,11 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.digits = {
+    FormValidation.Validator.digits = {
         /**
          * Return true if the input value contains digits only
          *
-         * @param {FormValidator.Base} validator Validate plugin instance
+         * @param {FormValidation.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options]
          * @returns {Boolean}
@@ -3473,7 +3416,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             ean: {
                 'default': 'Please enter a valid EAN number'
@@ -3481,7 +3424,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.ean = {
+    FormValidation.Validator.ean = {
         /**
          * Validate EAN (International Article Number)
          * Examples:
@@ -3489,7 +3432,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 73513536
          *
          * @see http://en.wikipedia.org/wiki/European_Article_Number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3517,7 +3460,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             ein: {
                 'default': 'Please enter a valid EIN number'
@@ -3525,7 +3468,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.ein = {
+    FormValidation.Validator.ein = {
         // The first two digits are called campus
         // See http://en.wikipedia.org/wiki/Employer_Identification_Number
         // http://www.irs.gov/Businesses/Small-Businesses-&-Self-Employed/How-EINs-are-Assigned-and-Valid-EIN-Prefixes
@@ -3548,7 +3491,7 @@ if (typeof jQuery === 'undefined') {
          * Validate EIN (Employer Identification Number) which is also known as
          * Federal Employer Identification Number (FEIN) or Federal Tax Identification Number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3579,7 +3522,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             emailAddress: {
                 'default': 'Please enter a valid email address'
@@ -3587,7 +3530,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.emailAddress = {
+    FormValidation.Validator.emailAddress = {
         html5Attributes: {
             message: 'message',
             multiple: 'multiple',
@@ -3601,7 +3544,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if and only if the input value is a valid email address
          *
-         * @param {FormValidator.Base} validator Validate plugin instance
+         * @param {FormValidation.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options]
          * - multiple: Allow multiple email addresses, separated by a comma or semicolon; default is false.
@@ -3670,7 +3613,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             file: {
                 'default': 'Please choose a valid file'
@@ -3678,7 +3621,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.file = {
+    FormValidation.Validator.file = {
         html5Attributes: {
             extension: 'extension',
             maxfiles: 'maxFiles',
@@ -3694,7 +3637,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate upload file. Use HTML 5 API if the browser supports
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - extension: The allowed extensions, separated by a comma
@@ -3762,7 +3705,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             greaterThan: {
                 'default': 'Please enter a value greater than or equal to %s',
@@ -3771,7 +3714,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.greaterThan = {
+    FormValidation.Validator.greaterThan = {
         html5Attributes: {
             message: 'message',
             value: 'value',
@@ -3793,7 +3736,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is greater than or equals to given number
          *
-         * @param {FormValidator.Base} validator Validate plugin instance
+         * @param {FormValidation.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - value: Define the number to compare with. It can be
@@ -3825,11 +3768,11 @@ if (typeof jQuery === 'undefined') {
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= compareToValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].greaterThan['default'], compareTo)
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].greaterThan['default'], compareTo)
                     }
                     : {
                         valid: value > compareToValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].greaterThan.notInclusive, compareTo)
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].greaterThan.notInclusive, compareTo)
                     };
         },
 
@@ -3839,7 +3782,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             grid: {
                 'default': 'Please enter a valid GRId number'
@@ -3847,7 +3790,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.grid = {
+    FormValidation.Validator.grid = {
         /**
          * Validate GRId (Global Release Identifier)
          * Examples:
@@ -3855,7 +3798,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: A1-2425G-ABC1234002-Q
          *
          * @see http://en.wikipedia.org/wiki/Global_Release_Identifier
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -3875,12 +3818,12 @@ if (typeof jQuery === 'undefined') {
             if ('GRID:' === value.substr(0, 5)) {
                 value = value.substr(5);
             }
-            return FormValidator.Helper.mod37And36(value);
+            return FormValidation.Helper.mod37And36(value);
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             hex: {
                 'default': 'Please enter a valid hexadecimal number'
@@ -3888,11 +3831,11 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.hex = {
+    FormValidation.Validator.hex = {
         /**
          * Return true if and only if the input value is a valid hexadecimal number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -3909,7 +3852,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
@@ -4000,7 +3943,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.iban = {
+    FormValidation.Validator.iban = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -4095,7 +4038,7 @@ if (typeof jQuery === 'undefined') {
          * To test it, take the sample IBAN from
          * http://www.nordea.com/Our+services/International+products+and+services/Cash+Management/IBAN+countries/908462.html
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -4125,14 +4068,14 @@ if (typeof jQuery === 'undefined') {
             if (!this.REGEX[country]) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(FormValidator.I18n[locale].iban.countryNotSupported, country)
+                    message: FormValidation.Helper.format(FormValidation.I18n[locale].iban.countryNotSupported, country)
                 };
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
+                    message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].iban.country, FormValidation.I18n[locale].iban.countries[country])
                 };
             }
 
@@ -4154,13 +4097,13 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: (temp === 1),
-                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].iban.country, FormValidator.I18n[locale].iban.countries[country])
+                message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].iban.country, FormValidation.I18n[locale].iban.countries[country])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             id: {
                 'default': 'Please enter a valid identification number',
@@ -4199,7 +4142,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.id = {
+    FormValidation.Validator.id = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -4215,7 +4158,7 @@ if (typeof jQuery === 'undefined') {
          * Validate identification number in different countries
          *
          * @see http://en.wikipedia.org/wiki/National_identification_number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -4242,7 +4185,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: FormValidator.Helper.format(FormValidator.I18n[locale].id.countryNotSupported, country) };
+                return { valid: false, message: FormValidation.Helper.format(FormValidation.I18n[locale].id.countryNotSupported, country) };
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -4250,7 +4193,7 @@ if (typeof jQuery === 'undefined') {
                     ? true
                     : {
                         valid: false,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].id.country, FormValidator.I18n[locale].id.countries[country.toUpperCase()])
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].id.country, FormValidation.I18n[locale].id.countries[country.toUpperCase()])
                     };
         },
 
@@ -4369,7 +4312,7 @@ if (typeof jQuery === 'undefined') {
                 month -= 20;
             }
 
-            if (!FormValidator.Helper.date(year, month, day)) {
+            if (!FormValidation.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -4997,7 +4940,7 @@ if (typeof jQuery === 'undefined') {
             var year  = parseInt(dob.substr(0, 4), 10),
                 month = parseInt(dob.substr(4, 2), 10),
                 day   = parseInt(dob.substr(6, 2), 10);
-            if (!FormValidator.Helper.date(year, month, day)) {
+            if (!FormValidation.Helper.date(year, month, day)) {
                 return false;
             }
             
@@ -5043,7 +4986,7 @@ if (typeof jQuery === 'undefined') {
                 year += 100;
             }
 
-            if (!FormValidator.Helper.date(year, month, day)) {
+            if (!FormValidation.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -5091,7 +5034,7 @@ if (typeof jQuery === 'undefined') {
                     break;
             }
 
-            return FormValidator.Helper.date(year, month, day);
+            return FormValidation.Helper.date(year, month, day);
         },
 
         /**
@@ -5161,7 +5104,7 @@ if (typeof jQuery === 'undefined') {
                 };
             year = centuries[value.charAt(6)] + year;
 
-            if (!FormValidator.Helper.date(year, month, day)) {
+            if (!FormValidation.Helper.date(year, month, day)) {
                 return false;
             }
 
@@ -5187,7 +5130,7 @@ if (typeof jQuery === 'undefined') {
             if (!/^[0-9]{11}$/.test(value)) {
                 return false;
             }
-            return FormValidator.Helper.mod11And10(value);
+            return FormValidation.Helper.mod11And10(value);
         },
 
         /**
@@ -5248,7 +5191,7 @@ if (typeof jQuery === 'undefined') {
                 century = parseInt(value.charAt(9), 10);
 
             year = (century === 9) ? (1900 + year) : ((20 + century) * 100 + year);
-            if (!FormValidator.Helper.date(year, month, day, true)) {
+            if (!FormValidation.Helper.date(year, month, day, true)) {
                 return false;
             }
             // Validate the check digit
@@ -5282,7 +5225,7 @@ if (typeof jQuery === 'undefined') {
                 day     = parseInt(value.substr(5, 2), 10),
                 century = (gender % 2 === 0) ? (17 + gender / 2) : (17 + (gender + 1) / 2);
             year = century * 100 + year;
-            if (!FormValidator.Helper.date(year, month, day, true)) {
+            if (!FormValidation.Helper.date(year, month, day, true)) {
                 return false;
             }
 
@@ -5331,7 +5274,7 @@ if (typeof jQuery === 'undefined') {
                 year  = parseInt(value.substr(4, 2), 10);
             year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
-            if (!FormValidator.Helper.date(year, month, day, true)) {
+            if (!FormValidation.Helper.date(year, month, day, true)) {
                 return false;
             }
 
@@ -5415,7 +5358,7 @@ if (typeof jQuery === 'undefined') {
             }
             if (gender !== 9) {
                 year = centuries[gender + ''] + year;
-                if (!FormValidator.Helper.date(year, month, day)) {
+                if (!FormValidation.Helper.date(year, month, day)) {
                     return false;
                 }
             }
@@ -5453,12 +5396,12 @@ if (typeof jQuery === 'undefined') {
             var year  = parseInt(value.substr(0, 2), 10) + 1900,
                 month = parseInt(value.substr(2, 2), 10),
                 day   = parseInt(value.substr(4, 2), 10);
-            if (!FormValidator.Helper.date(year, month, day)) {
+            if (!FormValidation.Helper.date(year, month, day)) {
                 return false;
             }
 
             // Validate the last check digit
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
         },
 
         /**
@@ -5529,17 +5472,17 @@ if (typeof jQuery === 'undefined') {
                 day         = parseInt(value.substr(4, 2), 10);
             year = (year >= currentYear) ? (year + 1900) : (year + 2000);
 
-            if (!FormValidator.Helper.date(year, month, day)) {
+            if (!FormValidation.Helper.date(year, month, day)) {
                 return false;
             }
 
             // Validate the last check digit
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             identical: {
                 'default': 'Please enter the same value'
@@ -5547,7 +5490,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.identical = {
+    FormValidation.Validator.identical = {
         html5Attributes: {
             message: 'message',
             field: 'field'
@@ -5556,7 +5499,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Bind the validator on the live change of the field to compare with current one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -5574,7 +5517,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Unbind the validator on the live change of the field to compare with current one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -5587,7 +5530,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if input value equals to value of particular one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -5611,7 +5554,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             imei: {
                 'default': 'Please enter a valid IMEI number'
@@ -5619,7 +5562,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.imei = {
+    FormValidation.Validator.imei = {
         /**
          * Validate IMEI (International Mobile Station Equipment Identity)
          * Examples:
@@ -5627,7 +5570,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 490154203237517
          *
          * @see http://en.wikipedia.org/wiki/International_Mobile_Station_Equipment_Identity
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5644,7 +5587,7 @@ if (typeof jQuery === 'undefined') {
                 case /^\d{2}-\d{6}-\d{6}-\d{1}$/.test(value):
                 case /^\d{2}\s\d{6}\s\d{6}\s\d{1}$/.test(value):
                     value = value.replace(/[^0-9]/g, '');
-                    return FormValidator.Helper.luhn(value);
+                    return FormValidation.Helper.luhn(value);
 
                 case /^\d{14}$/.test(value):
                 case /^\d{16}$/.test(value):
@@ -5659,7 +5602,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             imo: {
                 'default': 'Please enter a valid IMO number'
@@ -5667,7 +5610,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.imo = {
+    FormValidation.Validator.imo = {
         /**
          * Validate IMO (International Maritime Organization)
          * Examples:
@@ -5675,7 +5618,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: IMO 8814274
          *
          * @see http://en.wikipedia.org/wiki/IMO_Number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5708,7 +5651,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             integer: {
                 'default': 'Please enter a valid number'
@@ -5716,7 +5659,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.integer = {
+    FormValidation.Validator.integer = {
         enableByHtml5: function($field) {
             return ('number' === $field.attr('type')) && ($field.attr('step') === undefined || $field.attr('step') % 1 === 0);
         },
@@ -5724,7 +5667,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is an integer
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following key:
          * - message: The invalid message
@@ -5744,7 +5687,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             ip: {
                 'default': 'Please enter a valid IP address',
@@ -5754,7 +5697,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.ip = {
+    FormValidation.Validator.ip = {
         html5Attributes: {
             message: 'message',
             ipv4: 'ipv4',
@@ -5764,7 +5707,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a IP address.
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - ipv4: Enable IPv4 validator, default to true
@@ -5788,19 +5731,19 @@ if (typeof jQuery === 'undefined') {
             switch (true) {
                 case (options.ipv4 && !options.ipv6):
                     valid   = ipv4Regex.test(value);
-                    message = options.message || FormValidator.I18n[locale].ip.ipv4;
+                    message = options.message || FormValidation.I18n[locale].ip.ipv4;
                     break;
 
                 case (!options.ipv4 && options.ipv6):
                     valid   = ipv6Regex.test(value);
-                    message = options.message || FormValidator.I18n[locale].ip.ipv6;
+                    message = options.message || FormValidation.I18n[locale].ip.ipv6;
                     break;
 
                 case (options.ipv4 && options.ipv6):
                 /* falls through */
                 default:
                     valid   = ipv4Regex.test(value) || ipv6Regex.test(value);
-                    message = options.message || FormValidator.I18n[locale].ip['default'];
+                    message = options.message || FormValidation.I18n[locale].ip['default'];
                     break;
             }
 
@@ -5812,7 +5755,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             isbn: {
                 'default': 'Please enter a valid ISBN number'
@@ -5820,7 +5763,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.isbn = {
+    FormValidation.Validator.isbn = {
         /**
          * Return true if the input value is a valid ISBN 10 or ISBN 13 number
          * Examples:
@@ -5832,7 +5775,7 @@ if (typeof jQuery === 'undefined') {
          * ISBN 13: 978-0-306-40615-6
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Book_Number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following keys:
          * - message: The invalid message
@@ -5902,7 +5845,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             isin: {
                 'default': 'Please enter a valid ISIN number'
@@ -5910,7 +5853,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.isin = {
+    FormValidation.Validator.isin = {
         // Available country codes
         // See http://isin.net/country-codes/
         COUNTRY_CODES: 'AF|AX|AL|DZ|AS|AD|AO|AI|AQ|AG|AR|AM|AW|AU|AT|AZ|BS|BH|BD|BB|BY|BE|BZ|BJ|BM|BT|BO|BQ|BA|BW|BV|BR|IO|BN|BG|BF|BI|KH|CM|CA|CV|KY|CF|TD|CL|CN|CX|CC|CO|KM|CG|CD|CK|CR|CI|HR|CU|CW|CY|CZ|DK|DJ|DM|DO|EC|EG|SV|GQ|ER|EE|ET|FK|FO|FJ|FI|FR|GF|PF|TF|GA|GM|GE|DE|GH|GI|GR|GL|GD|GP|GU|GT|GG|GN|GW|GY|HT|HM|VA|HN|HK|HU|IS|IN|ID|IR|IQ|IE|IM|IL|IT|JM|JP|JE|JO|KZ|KE|KI|KP|KR|KW|KG|LA|LV|LB|LS|LR|LY|LI|LT|LU|MO|MK|MG|MW|MY|MV|ML|MT|MH|MQ|MR|MU|YT|MX|FM|MD|MC|MN|ME|MS|MA|MZ|MM|NA|NR|NP|NL|NC|NZ|NI|NE|NG|NU|NF|MP|NO|OM|PK|PW|PS|PA|PG|PY|PE|PH|PN|PL|PT|PR|QA|RE|RO|RU|RW|BL|SH|KN|LC|MF|PM|VC|WS|SM|ST|SA|SN|RS|SC|SL|SG|SX|SK|SI|SB|SO|ZA|GS|SS|ES|LK|SD|SR|SJ|SZ|SE|CH|SY|TW|TJ|TZ|TH|TL|TG|TK|TO|TT|TN|TR|TM|TC|TV|UG|UA|AE|GB|US|UM|UY|UZ|VU|VE|VN|VG|VI|WF|EH|YE|ZM|ZW',
@@ -5922,7 +5865,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: US0378331004, AA0000XVGZA3
          *
          * @see http://en.wikipedia.org/wiki/International_Securities_Identifying_Number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -5965,7 +5908,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             ismn: {
                 'default': 'Please enter a valid ISMN number'
@@ -5973,7 +5916,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.ismn = {
+    FormValidation.Validator.ismn = {
         /**
          * Validate ISMN (International Standard Music Number)
          * Examples:
@@ -5981,7 +5924,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 9790060115614
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Music_Number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6028,7 +5971,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             issn: {
                 'default': 'Please enter a valid ISSN number'
@@ -6036,7 +5979,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.issn = {
+    FormValidation.Validator.issn = {
         /**
          * Validate ISSN (International Standard Serial Number)
          * Examples:
@@ -6044,7 +5987,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 0032-147X
          *
          * @see http://en.wikipedia.org/wiki/International_Standard_Serial_Number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6078,7 +6021,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             lessThan: {
                 'default': 'Please enter a value less than or equal to %s',
@@ -6087,7 +6030,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.lessThan = {
+    FormValidation.Validator.lessThan = {
         html5Attributes: {
             message: 'message',
             value: 'value',
@@ -6109,7 +6052,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is less than or equal to given number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - value: The number used to compare to. It can be
@@ -6141,11 +6084,11 @@ if (typeof jQuery === 'undefined') {
             return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value <= compareToValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].lessThan['default'], compareTo)
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].lessThan['default'], compareTo)
                     }
                     : {
                         valid: value < compareToValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].lessThan.notInclusive, compareTo)
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].lessThan.notInclusive, compareTo)
                     };
         },
 
@@ -6155,7 +6098,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             mac: {
                 'default': 'Please enter a valid MAC address'
@@ -6163,11 +6106,11 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.mac = {
+    FormValidation.Validator.mac = {
         /**
          * Return true if the input value is a MAC address.
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6184,7 +6127,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             meid: {
                 'default': 'Please enter a valid MEID number'
@@ -6192,7 +6135,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.meid = {
+    FormValidation.Validator.meid = {
         /**
          * Validate MEID (Mobile Equipment Identifier)
          * Examples:
@@ -6200,7 +6143,7 @@ if (typeof jQuery === 'undefined') {
          * - Invalid: 2936087365007037101
          *
          * @see http://en.wikipedia.org/wiki/Mobile_equipment_identifier
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6229,7 +6172,7 @@ if (typeof jQuery === 'undefined') {
 
                     // If it's all digits, luhn base 10 is used
                     if (value.match(/^\d*$/i)) {
-                        return FormValidator.Helper.luhn(value);
+                        return FormValidation.Helper.luhn(value);
                     }
 
                     // Strip the check digit
@@ -6271,7 +6214,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             notEmpty: {
                 'default': 'Please enter a value'
@@ -6279,7 +6222,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.notEmpty = {
+    FormValidation.Validator.notEmpty = {
         enableByHtml5: function($field) {
             var required = $field.attr('required') + '';
             return ('required' === required || 'true' === required);
@@ -6288,7 +6231,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if input value is empty or not
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
          * @returns {Boolean}
@@ -6311,7 +6254,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             numeric: {
                 'default': 'Please enter a valid float number'
@@ -6319,7 +6262,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.numeric = {
+    FormValidation.Validator.numeric = {
         html5Attributes: {
             message: 'message',
             separator: 'separator'
@@ -6332,7 +6275,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate decimal number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6358,7 +6301,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
@@ -6387,7 +6330,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.phone = {
+    FormValidation.Validator.phone = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -6400,7 +6343,7 @@ if (typeof jQuery === 'undefined') {
          * Return true if the input value contains a valid phone number for the country
          * selected in the options
          *
-         * @param {FormValidator.Base} validator Validate plugin instance
+         * @param {FormValidation.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6428,7 +6371,7 @@ if (typeof jQuery === 'undefined') {
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(FormValidator.I18n[locale].phone.countryNotSupported, country)
+                    message: FormValidation.Helper.format(FormValidation.I18n[locale].phone.countryNotSupported, country)
                 };
             }
 
@@ -6545,13 +6488,13 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: isValid,
-                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].phone.country, FormValidator.I18n[locale].phone.countries[country])
+                message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].phone.country, FormValidation.I18n[locale].phone.countries[country])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             regexp: {
                 'default': 'Please enter a value matching the pattern'
@@ -6559,7 +6502,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.regexp = {
+    FormValidation.Validator.regexp = {
         html5Attributes: {
             message: 'message',
             regexp: 'regexp'
@@ -6579,7 +6522,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if the element value matches given regular expression
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - regexp: The regular expression you need to check
@@ -6597,7 +6540,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             remote: {
                 'default': 'Please enter a valid value'
@@ -6605,7 +6548,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.remote = {
+    FormValidation.Validator.remote = {
         html5Attributes: {
             message: 'message',
             name: 'name',
@@ -6628,7 +6571,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Request a remote server to check the input value
          *
-         * @param {FormValidator.Base} validator Plugin instance
+         * @param {FormValidation.Base} validator Plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - url {String|Function}
@@ -6709,7 +6652,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             rtn: {
                 'default': 'Please enter a valid RTN number'
@@ -6717,14 +6660,14 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.rtn = {
+    FormValidation.Validator.rtn = {
         /**
          * Validate a RTN (Routing transit number)
          * Examples:
          * - Valid: 021200025, 789456124
          *
          * @see http://en.wikipedia.org/wiki/Routing_transit_number
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6751,7 +6694,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             sedol: {
                 'default': 'Please enter a valid SEDOL number'
@@ -6759,14 +6702,14 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.sedol = {
+    FormValidation.Validator.sedol = {
         /**
          * Validate a SEDOL (Stock Exchange Daily Official List)
          * Examples:
          * - Valid: 0263494, B0WNLY7
          *
          * @see http://en.wikipedia.org/wiki/SEDOL
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -6795,7 +6738,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
 		'en_US': {
 			siren: {
 				'default': 'Please enter a valid SIREN number'
@@ -6803,11 +6746,11 @@ if (typeof jQuery === 'undefined') {
 		}
     });
 
-	FormValidator.Validator.siren = {
+	FormValidation.Validator.siren = {
 		/**
 		 * Check if a string is a siren number
 		 *
-		 * @param {FormValidator.Base} validator The validator plugin instance
+		 * @param {FormValidation.Base} validator The validator plugin instance
 		 * @param {jQuery} $field Field element
 		 * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6822,12 +6765,12 @@ if (typeof jQuery === 'undefined') {
             if (!/^\d{9}$/.test(value)) {
                 return false;
             }
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
 		}
 	};
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
 		'en_US': {
 			siret: {
 				'default': 'Please enter a valid SIRET number'
@@ -6835,11 +6778,11 @@ if (typeof jQuery === 'undefined') {
 		}
     });
 
-	FormValidator.Validator.siret = {
+	FormValidation.Validator.siret = {
         /**
          * Check if a string is a siret number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6869,7 +6812,7 @@ if (typeof jQuery === 'undefined') {
 	};
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             step: {
                 'default': 'Please enter a valid step of %s'
@@ -6877,7 +6820,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.step = {
+    FormValidation.Validator.step = {
         html5Attributes: {
             message: 'message',
             base: 'baseValue',
@@ -6887,7 +6830,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is valid step one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - baseValue: The base value
@@ -6932,13 +6875,13 @@ if (typeof jQuery === 'undefined') {
                 mod    = floatMod(value - options.baseValue, options.step);
             return {
                 valid: mod === 0.0 || mod === options.step,
-                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].step['default'], [options.step])
+                message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].step['default'], [options.step])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             stringCase: {
                 'default': 'Please enter only lowercase characters',
@@ -6947,7 +6890,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.stringCase = {
+    FormValidation.Validator.stringCase = {
         html5Attributes: {
             message: 'message',
             'case': 'case'
@@ -6956,7 +6899,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if a string is a lower or upper case one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -6973,13 +6916,13 @@ if (typeof jQuery === 'undefined') {
                 stringCase = (options['case'] || 'lower').toLowerCase();
             return {
                 valid: ('upper' === stringCase) ? value === value.toUpperCase() : value === value.toLowerCase(),
-                message: options.message || (('upper' === stringCase) ? FormValidator.I18n[locale].stringCase.upper : FormValidator.I18n[locale].stringCase['default'])
+                message: options.message || (('upper' === stringCase) ? FormValidation.I18n[locale].stringCase.upper : FormValidation.I18n[locale].stringCase['default'])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             stringLength: {
                 'default': 'Please enter a value with valid length',
@@ -6990,7 +6933,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.stringLength = {
+    FormValidation.Validator.stringLength = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -7016,7 +6959,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check if the length of element value is less or more than given number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of following keys:
          * - min
@@ -7064,7 +7007,7 @@ if (typeof jQuery === 'undefined') {
                              },
                 length     = options.utf8Bytes ? utf8Length(value) : value.length,
                 isValid    = true,
-                message    = options.message || FormValidator.I18n[locale].stringLength['default'];
+                message    = options.message || FormValidation.I18n[locale].stringLength['default'];
 
             if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                 isValid = false;
@@ -7072,15 +7015,15 @@ if (typeof jQuery === 'undefined') {
 
             switch (true) {
                 case (!!min && !!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.more, parseInt(min, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].stringLength.more, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.less, parseInt(max, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].stringLength.less, parseInt(max, 10));
                     break;
 
                 default:
@@ -7095,7 +7038,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             uri: {
                 'default': 'Please enter a valid URI'
@@ -7103,7 +7046,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.uri = {
+    FormValidation.Validator.uri = {
         html5Attributes: {
             message: 'message',
             allowlocal: 'allowLocal',
@@ -7118,7 +7061,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if the input value is a valid URL
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
          * - message: The error message
@@ -7215,7 +7158,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             uuid: {
                 'default': 'Please enter a valid UUID number',
@@ -7224,7 +7167,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.uuid = {
+    FormValidation.Validator.uuid = {
         html5Attributes: {
             message: 'message',
             version: 'version'
@@ -7234,7 +7177,7 @@ if (typeof jQuery === 'undefined') {
          * Return true if and only if the input value is a valid UUID string
          *
          * @see http://en.wikipedia.org/wiki/Universally_unique_identifier
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -7259,14 +7202,14 @@ if (typeof jQuery === 'undefined') {
             return {
                 valid: (null === patterns[version]) ? true : patterns[version].test(value),
                 message: options.version
-                            ? FormValidator.Helper.format(options.message || FormValidator.I18n[locale].uuid.version, options.version)
-                            : (options.message || FormValidator.I18n[locale].uuid['default'])
+                            ? FormValidation.Helper.format(options.message || FormValidation.I18n[locale].uuid.version, options.version)
+                            : (options.message || FormValidation.I18n[locale].uuid['default'])
             };
         }
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             vat: {
                 'default': 'Please enter a valid VAT number',
@@ -7315,7 +7258,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.vat = {
+    FormValidation.Validator.vat = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -7331,7 +7274,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate an European VAT number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -7360,7 +7303,7 @@ if (typeof jQuery === 'undefined') {
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(FormValidator.I18n[locale].vat.countryNotSupported, country)
+                    message: FormValidation.Helper.format(FormValidation.I18n[locale].vat.countryNotSupported, country)
                 };
             }
 
@@ -7369,7 +7312,7 @@ if (typeof jQuery === 'undefined') {
                 ? true
                 : {
                     valid: false,
-                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].vat.country, FormValidator.I18n[locale].vat.countries[country.toUpperCase()])
+                    message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].vat.country, FormValidation.I18n[locale].vat.countries[country.toUpperCase()])
                 };
         },
 
@@ -7493,7 +7436,7 @@ if (typeof jQuery === 'undefined') {
                             month -= 20;
                         }
 
-                        if (!FormValidator.Helper.date(year, month, day)) {
+                        if (!FormValidation.Helper.date(year, month, day)) {
                             return false;
                         }
 
@@ -7741,7 +7684,7 @@ if (typeof jQuery === 'undefined') {
                     year += 100;
                 }
 
-                if (!FormValidator.Helper.date(year, month, day)) {
+                if (!FormValidation.Helper.date(year, month, day)) {
                     return false;
                 }
 
@@ -7777,7 +7720,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            return FormValidator.Helper.mod11And10(value);
+            return FormValidation.Helper.mod11And10(value);
         },
 
         /**
@@ -7948,7 +7891,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            if (!FormValidator.Helper.luhn(value.substr(2))) {
+            if (!FormValidation.Helper.luhn(value.substr(2))) {
                 return false;
             }
 
@@ -8106,7 +8049,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            return FormValidator.Helper.mod11And10(value);
+            return FormValidation.Helper.mod11And10(value);
         },
 
         /**
@@ -8197,7 +8140,7 @@ if (typeof jQuery === 'undefined') {
                 return false;
             }
 
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
         },
 
         /**
@@ -8296,7 +8239,7 @@ if (typeof jQuery === 'undefined') {
                     year  = parseInt(value.substr(4, 2), 10);
                 year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
-                if (!FormValidator.Helper.date(year, month, day)) {
+                if (!FormValidation.Helper.date(year, month, day)) {
                     return false;
                 }
 
@@ -8578,7 +8521,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             value = value.substr(0, 10);
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
         },
 
         /**
@@ -8688,7 +8631,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             vin: {
                 'default': 'Please enter a valid VIN number'
@@ -8696,11 +8639,11 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.vin = {
+    FormValidation.Validator.vin = {
         /**
          * Validate an US VIN (Vehicle Identification Number)
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -8741,7 +8684,7 @@ if (typeof jQuery === 'undefined') {
     };
 }(jQuery));
 ;(function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             zipCode: {
                 'default': 'Please enter a valid postal code',
@@ -8773,7 +8716,7 @@ if (typeof jQuery === 'undefined') {
         }
     });
 
-    FormValidator.Validator.zipCode = {
+    FormValidation.Validator.zipCode = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -8784,7 +8727,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Return true if and only if the input value is a valid country zip code
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -8818,7 +8761,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: FormValidator.Helper.format(FormValidator.I18n[locale].zipCode.countryNotSupported, country) };
+                return { valid: false, message: FormValidation.Helper.format(FormValidation.I18n[locale].zipCode.countryNotSupported, country) };
             }
 
             var isValid = false;
@@ -8920,7 +8863,7 @@ if (typeof jQuery === 'undefined') {
 
             return {
                 valid: isValid,
-                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].zipCode.country, FormValidator.I18n[locale].zipCode.countries[country])
+                message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].zipCode.country, FormValidation.I18n[locale].zipCode.countries[country])
             };
         },
 

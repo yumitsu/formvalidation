@@ -43,9 +43,9 @@
      *      }
      *  });
      */
-    FormValidator.AddOn.multilingual = {
+    FormValidation.AddOn.multilingual = {
         /**
-         * @param {FormValidator.Base} validator The validator instance
+         * @param {FormValidation.Base} validator The validator instance
          * @param {Object} options The add-on options
          */
         init: function(validator, options) {
@@ -82,8 +82,8 @@
                             messageType = typeof message,
                             localized   = null;
                         // message is defined by language package
-                        if ('undefined' === messageType && FormValidator.I18n[locale][v]['default']) {
-                            localized = FormValidator.I18n[locale][v]['default'];
+                        if ('undefined' === messageType && FormValidation.I18n[locale][v]['default']) {
+                            localized = FormValidation.I18n[locale][v]['default'];
                         }
                         // message is a literal object
                         else if ('object' === messageType && message[locale]) {

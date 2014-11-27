@@ -3,7 +3,7 @@
      * Russian language package
      * Translated by @cylon-v. Improved by @stepin, @oleg-voloshyn
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'ru_RU': {
             base64: {
                 'default': 'Пожалуйста, введите корректную строку base64'

@@ -94,7 +94,7 @@ describe('between', function() {
         this.$age.val(50);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
     });
 
     // #1048
@@ -114,7 +114,7 @@ describe('between', function() {
         this.$age.val(50);
         this.bv.validate();
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
     });
 
     it('compare to return value of a function', function() {
@@ -128,7 +128,7 @@ describe('between', function() {
         expect($('#msgMin').html()).toEqual('betweenCompareMin() called; compare to 20');
         expect($('#msgMax').html()).toEqual('betweenCompareMax() called; compare to 30');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
 
         this.bv.resetForm();
         this.$minAge.val(2);
@@ -151,7 +151,7 @@ describe('between', function() {
         expect($('#msgMin').html()).toEqual('TestSuite.between.compareToMin() called; compare to 20');
         expect($('#msgMax').html()).toEqual('TestSuite.between.compareToMax() called; compare to 30');
         expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidator.Helper.format(FormValidator.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
+        expect(this.bv.getMessages('age', 'between')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].between['default'], [this.$minAge.val(), this.$maxAge.val()]));
 
         this.bv.resetForm();
         this.$minAge.val(2);

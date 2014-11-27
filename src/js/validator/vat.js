@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             vat: {
                 'default': 'Please enter a valid VAT number',
@@ -56,7 +56,7 @@
         }
     });
 
-    FormValidator.Validator.vat = {
+    FormValidation.Validator.vat = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -72,7 +72,7 @@
         /**
          * Validate an European VAT number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -101,7 +101,7 @@
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(FormValidator.I18n[locale].vat.countryNotSupported, country)
+                    message: FormValidation.Helper.format(FormValidation.I18n[locale].vat.countryNotSupported, country)
                 };
             }
 
@@ -110,7 +110,7 @@
                 ? true
                 : {
                     valid: false,
-                    message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].vat.country, FormValidator.I18n[locale].vat.countries[country.toUpperCase()])
+                    message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].vat.country, FormValidation.I18n[locale].vat.countries[country.toUpperCase()])
                 };
         },
 
@@ -234,7 +234,7 @@
                             month -= 20;
                         }
 
-                        if (!FormValidator.Helper.date(year, month, day)) {
+                        if (!FormValidation.Helper.date(year, month, day)) {
                             return false;
                         }
 
@@ -482,7 +482,7 @@
                     year += 100;
                 }
 
-                if (!FormValidator.Helper.date(year, month, day)) {
+                if (!FormValidation.Helper.date(year, month, day)) {
                     return false;
                 }
 
@@ -518,7 +518,7 @@
                 return false;
             }
 
-            return FormValidator.Helper.mod11And10(value);
+            return FormValidation.Helper.mod11And10(value);
         },
 
         /**
@@ -689,7 +689,7 @@
                 return false;
             }
 
-            if (!FormValidator.Helper.luhn(value.substr(2))) {
+            if (!FormValidation.Helper.luhn(value.substr(2))) {
                 return false;
             }
 
@@ -847,7 +847,7 @@
                 return false;
             }
 
-            return FormValidator.Helper.mod11And10(value);
+            return FormValidation.Helper.mod11And10(value);
         },
 
         /**
@@ -938,7 +938,7 @@
                 return false;
             }
 
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
         },
 
         /**
@@ -1037,7 +1037,7 @@
                     year  = parseInt(value.substr(4, 2), 10);
                 year = year + 1800 + parseInt(value.charAt(6), 10) * 100;
 
-                if (!FormValidator.Helper.date(year, month, day)) {
+                if (!FormValidation.Helper.date(year, month, day)) {
                     return false;
                 }
 
@@ -1319,7 +1319,7 @@
             }
 
             value = value.substr(0, 10);
-            return FormValidator.Helper.luhn(value);
+            return FormValidation.Helper.luhn(value);
         },
 
         /**

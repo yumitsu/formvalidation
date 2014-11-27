@@ -3,7 +3,7 @@
      * The Dutch language package
      * Translated by @jvanderheide
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'nl_NL': {
             base64: {
                 'default': 'Voer een geldige Base64 geëncodeerde tekst in'

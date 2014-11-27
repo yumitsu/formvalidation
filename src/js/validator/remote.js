@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             remote: {
                 'default': 'Please enter a valid value'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.remote = {
+    FormValidation.Validator.remote = {
         html5Attributes: {
             message: 'message',
             name: 'name',
@@ -38,7 +38,7 @@
         /**
          * Request a remote server to check the input value
          *
-         * @param {FormValidator.Base} validator Plugin instance
+         * @param {FormValidation.Base} validator Plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - url {String|Function}

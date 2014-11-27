@@ -3,7 +3,7 @@
      * Hebrew language package
      * Translated by @yakidahan
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'he_IL': {
             base64: {
                 'default': 'נא להזין ערך המקודד בבסיס 64'

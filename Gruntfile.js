@@ -14,7 +14,7 @@ module.exports = function(grunt) {
 
         banner: [
             '/*!',
-            ' * BootstrapValidator (<%= pkg.homepage %>)',
+            ' * FormValidation (<%= pkg.homepage %>)',
             ' * <%= pkg.description %>',
             ' *',
             ' * @version     v<%= pkg.version %>, built on <%= grunt.template.today("yyyy-mm-dd h:MM:ss TT") %>',
@@ -32,7 +32,8 @@ module.exports = function(grunt) {
             main: {
                 files: [
                     { cwd: '<%= dirs.src %>/css', src: '**', dest: '<%= dirs.dist %>/css', expand: true, flatten: true, filter: 'isFile' },
-                    { cwd: '<%= dirs.src %>/js/language', src: '**', dest: '<%= dirs.dist %>/js/language', expand: true, flatten: true, filter: 'isFile' }
+                    { cwd: '<%= dirs.src %>/js/language', src: '**', dest: '<%= dirs.dist %>/js/language', expand: true, flatten: true, filter: 'isFile' },
+                    { cwd: '<%= dirs.src %>/js/framework', src: '**', dest: '<%= dirs.dist %>/js/framework', expand: true, flatten: true, filter: 'isFile' }
                 ]
             }
         },
@@ -45,20 +46,29 @@ module.exports = function(grunt) {
                     banner: '<%= banner %>'
                 },
                 files: {
-                    '<%= dirs.dist %>/css/bootstrapValidator.min.css': ['<%= dirs.src %>/css/bootstrapValidator.css']
+                    '<%= dirs.dist %>/css/formValidation.min.css': ['<%= dirs.src %>/css/formValidation.css']
                 }
             }
         },
 
         concat: {
+            base: {
+                options: {
+                    separator: ';',
+                    stripBanners: true,
+                    banner: '<%= banner %>'
+                },
+                src: ['<%= dirs.src %>/js/base.js', '<%= dirs.src %>/js/helper.js', '<%= dirs.src %>/js/validator/*.js'],
+                dest: '<%= dirs.dist %>/js/formValidation.js'
+            },
             bootstrap: {
                 options: {
                     separator: ';',
                     stripBanners: true,
                     banner: '<%= banner %>'
                 },
-                src: ['<%= dirs.src %>/js/core.js', '<%= dirs.src %>/js/helper.js', '<%= dirs.src %>/js/bootstrap.js', '<%= dirs.src %>/js/validator/*.js'],
-                dest: '<%= dirs.dist %>/js/bootstrapValidator.js'
+                src: ['<%= dirs.src %>/js/framework/bootstrap.js'],
+                dest: '<%= dirs.dist %>/js/framework/bootstrap.js'
             },
             foundation: {
                 options: {
@@ -66,8 +76,8 @@ module.exports = function(grunt) {
                     stripBanners: true,
                     banner: '<%= banner %>'
                 },
-                src: ['<%= dirs.src %>/js/core.js', '<%= dirs.src %>/js/helper.js', '<%= dirs.src %>/js/foundation.js', '<%= dirs.src %>/js/validator/*.js'],
-                dest: '<%= dirs.dist %>/js/foundationValidator.js'
+                src: ['<%= dirs.src %>/js/framework/foundation.js'],
+                dest: '<%= dirs.dist %>/js/framework/foundation.js'
             },
             test: {
                 src: ['<%= dirs.test %>/spec/*.js', '<%= dirs.test %>/spec/validator/*.js'],
@@ -79,13 +89,17 @@ module.exports = function(grunt) {
             options: {
                 banner: '<%= banner %>'
             },
+            base: {
+                src: ['<%= dirs.dist %>/js/formValidation.js'],
+                dest: '<%= dirs.dist %>/js/formValidation.min.js'
+            },
             bootstrap: {
-                src: ['<%= dirs.dist %>/js/bootstrapValidator.js'],
-                dest: '<%= dirs.dist %>/js/bootstrapValidator.min.js'
+                src: ['<%= dirs.dist %>/js/framework/bootstrap.js'],
+                dest: '<%= dirs.dist %>/js/framework/bootstrap.min.js'
             },
             foundation: {
-                src: ['<%= dirs.dist %>/js/foundationValidator.js'],
-                dest: '<%= dirs.dist %>/js/foundationValidator.min.js'
+                src: ['<%= dirs.dist %>/js/framework/foundation.js'],
+                dest: '<%= dirs.dist %>/js/framework/foundation.min.js'
             }
         },
 

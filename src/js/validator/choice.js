@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             choice: {
                 'default': 'Please enter a valid value',
@@ -18,7 +18,7 @@
         }
     });
 
-    FormValidator.Validator.choice = {
+    FormValidation.Validator.choice = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -28,7 +28,7 @@
         /**
          * Check if the number of checked boxes are less or more than a given number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of following keys:
          * - min
@@ -52,7 +52,7 @@
                 min        = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
                 max        = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
                 isValid    = true,
-                message    = options.message || FormValidator.I18n[locale].choice['default'];
+                message    = options.message || FormValidation.I18n[locale].choice['default'];
 
             if ((min && numChoices < parseInt(min, 10)) || (max && numChoices > parseInt(max, 10))) {
                 isValid = false;
@@ -60,15 +60,15 @@
 
             switch (true) {
                 case (!!min && !!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].choice.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.less, parseInt(min, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].choice.less, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].choice.more, parseInt(max, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].choice.more, parseInt(max, 10));
                     break;
 
                 default:

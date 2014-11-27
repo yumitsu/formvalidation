@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             creditCard: {
                 'default': 'Please enter a valid credit card number'
@@ -15,12 +15,12 @@
         }
     });
 
-    FormValidator.Validator.creditCard = {
+    FormValidation.Validator.creditCard = {
         /**
          * Return true if the input value is valid credit card number
          * Based on https://gist.github.com/DiegoSalazar/4075533
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} [options] Can consist of the following key:
          * - message: The invalid message
@@ -38,7 +38,7 @@
             }
             value = value.replace(/\D/g, '');
 
-            if (!FormValidator.Helper.luhn(value)) {
+            if (!FormValidation.Helper.luhn(value)) {
                 return false;
             }
 

@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
@@ -36,7 +36,7 @@
         }
     });
 
-    FormValidator.Validator.phone = {
+    FormValidation.Validator.phone = {
         html5Attributes: {
             message: 'message',
             country: 'country'
@@ -49,7 +49,7 @@
          * Return true if the input value contains a valid phone number for the country
          * selected in the options
          *
-         * @param {FormValidator.Base} validator Validate plugin instance
+         * @param {FormValidation.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message
@@ -77,7 +77,7 @@
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
                 return {
                     valid: false,
-                    message: FormValidator.Helper.format(FormValidator.I18n[locale].phone.countryNotSupported, country)
+                    message: FormValidation.Helper.format(FormValidation.I18n[locale].phone.countryNotSupported, country)
                 };
             }
 
@@ -194,7 +194,7 @@
 
             return {
                 valid: isValid,
-                message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].phone.country, FormValidator.I18n[locale].phone.countries[country])
+                message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].phone.country, FormValidation.I18n[locale].phone.countries[country])
             };
         }
     };

@@ -3,7 +3,7 @@
      * Romanian language package
      * Translated by @filipac
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'ro_RO': {
             base64: {
                 'default': 'Te rog introdu un base64 valid'

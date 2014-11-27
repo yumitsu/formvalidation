@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             identical: {
                 'default': 'Please enter the same value'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.identical = {
+    FormValidation.Validator.identical = {
         html5Attributes: {
             message: 'message',
             field: 'field'
@@ -24,7 +24,7 @@
         /**
          * Bind the validator on the live change of the field to compare with current one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -42,7 +42,7 @@
         /**
          * Unbind the validator on the live change of the field to compare with current one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one
@@ -55,7 +55,7 @@
         /**
          * Check if input value equals to value of particular one
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of the following key:
          * - field: The name of field that will be used to compare with current one

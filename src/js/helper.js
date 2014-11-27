@@ -1,5 +1,5 @@
 /**
- * BootstrapValidator (http://bootstrapvalidator.com)
+ * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
  * @author      https://twitter.com/nghuuphuoc
@@ -9,7 +9,7 @@
 
 (function($) {
     // Helper methods, which can be used in validator class
-    FormValidator.Helper = {
+    FormValidation.Helper = {
         /**
          * Execute a callback function
          *

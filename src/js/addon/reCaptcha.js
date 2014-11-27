@@ -9,7 +9,7 @@
  */
 /* global Recaptcha: false */
 (function($) {
-    FormValidator.AddOn.reCaptcha = {
+    FormValidation.AddOn.reCaptcha = {
         html5Attributes: {
             element: 'element',
             message: 'message',
@@ -22,7 +22,7 @@
         CAPTCHA_FIELD: 'recaptcha_response_field',
 
         /**
-         * @param {FormValidator.Base} validator The validator instance
+         * @param {FormValidation.Base} validator The validator instance
          * @param {Object} options The add-on options. Consists of the following keys:
          * - element: The ID of element showing the captcha
          * - theme: The theme name provided by Google.

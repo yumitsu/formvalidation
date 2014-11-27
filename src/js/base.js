@@ -1,5 +1,5 @@
 /**
- * BootstrapValidator (http://bootstrapvalidator.com)
+ * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
  * @author      https://twitter.com/nghuuphuoc
@@ -7,26 +7,29 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 
-window.FormValidator           = {};    // Register the namespace
-window.FormValidator.AddOn     = {};    // Add-ons
-window.FormValidator.Validator = {};    // Available validators
-window.FormValidator.I18n      = {};    // i18n
+// Register the namespace
+window.FormValidation = {
+    AddOn:     {},  // Add-ons
+    Framework: {},  // Supported frameworks
+    I18n:      {},  // i18n
+    Validator: {}   // Available validators
+};
 
 if (typeof jQuery === 'undefined') {
-    throw new Error('The plugin requires jQuery');
+    throw new Error('FormValidation requires jQuery');
 }
 
 (function($) {
     var version = $.fn.jquery.split(' ')[0].split('.');
     if ((+version[0] < 2 && +version[1] < 9) || (+version[0] === 1 && +version[1] === 9 && +version[2] < 1)) {
-        throw new Error('The plugin requires jQuery version 1.9.1 or higher');
+        throw new Error('FormValidation requires jQuery version 1.9.1 or higher');
     }
 }(jQuery));
 
 (function($) {
     // The default options
     // Sorted in alphabetical order
-    FormValidator.DEFAULT_OPTIONS = {
+    FormValidation.DEFAULT_OPTIONS = {
         // The first invalid field will be focused automatically
         autoFocus: true,
 
@@ -138,9 +141,9 @@ if (typeof jQuery === 'undefined') {
         verbose: true
     };
 
-    FormValidator.Base = function(form, options) {
+    FormValidation.Base = function(form, options) {
         this.$form   = $(form);
-        this.options = $.extend({}, FormValidator.DEFAULT_OPTIONS);
+        this.options = $.extend({}, FormValidation.DEFAULT_OPTIONS);
         this.options = $.extend(true, this.options, options);
 
         this.$invalidFields = $([]);    // Array of invalid fields
@@ -176,8 +179,8 @@ if (typeof jQuery === 'undefined') {
         this._init();
     };
 
-    FormValidator.Base.prototype = {
-        constructor: FormValidator.Base,
+    FormValidation.Base.prototype = {
+        constructor: FormValidation.Base,
 
         /**
          * Check if the number of characters of field value exceed the threshold or not
@@ -294,8 +297,8 @@ if (typeof jQuery === 'undefined') {
             }
 
             // If the locale is not found, reset it to default one
-            if (!FormValidator.I18n[this.options.locale]) {
-                this.options.locale = FormValidator.DEFAULT_OPTIONS.locale;
+            if (!FormValidation.I18n[this.options.locale]) {
+                this.options.locale = FormValidation.DEFAULT_OPTIONS.locale;
             }
 
             // Parse the add-on options from HTML attributes
@@ -332,8 +335,8 @@ if (typeof jQuery === 'undefined') {
 
             // Init the add-ons
             for (var addOn in this.options.addOns) {
-                if ('function' === typeof FormValidator.AddOn[addOn].init) {
-                    FormValidator.AddOn[addOn].init(this, this.options.addOns[addOn]);
+                if ('function' === typeof FormValidation.AddOn[addOn].init) {
+                    FormValidation.AddOn[addOn].init(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -345,12 +348,12 @@ if (typeof jQuery === 'undefined') {
             // Prepare the events
             if (this.options.onSuccess) {
                 this.$form.on(this.options.events.formSuccess, function(e) {
-                    FormValidator.Helper.call(that.options.onSuccess, [e]);
+                    FormValidation.Helper.call(that.options.onSuccess, [e]);
                 });
             }
             if (this.options.onError) {
                 this.$form.on(this.options.events.formError, function(e) {
-                    FormValidator.Helper.call(that.options.onError, [e]);
+                    FormValidation.Helper.call(that.options.onError, [e]);
                 });
             }
         },
@@ -386,7 +389,7 @@ if (typeof jQuery === 'undefined') {
 
             var validatorName;
             for (validatorName in this.options.fields[field].validators) {
-                if (!FormValidator.Validator[validatorName]) {
+                if (!FormValidation.Validator[validatorName]) {
                     delete this.options.fields[field].validators[validatorName];
                 }
             }
@@ -445,8 +448,8 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     // Init the validator
-                    if ('function' === typeof FormValidator.Validator[validatorName].init) {
-                        FormValidator.Validator[validatorName].init(this, $field, this.options.fields[field].validators[validatorName]);
+                    if ('function' === typeof FormValidation.Validator[validatorName].init) {
+                        FormValidation.Validator[validatorName].init(this, $field, this.options.fields[field].validators[validatorName]);
                     }
                 }
 
@@ -517,31 +520,31 @@ if (typeof jQuery === 'undefined') {
                 .on(this.options.events.fieldSuccess, function(e, data) {
                     var onSuccess = that.getOptions(data.field, null, 'onSuccess');
                     if (onSuccess) {
-                        FormValidator.Helper.call(onSuccess, [e, data]);
+                        FormValidation.Helper.call(onSuccess, [e, data]);
                     }
                 })
                 .on(this.options.events.fieldError, function(e, data) {
                     var onError = that.getOptions(data.field, null, 'onError');
                     if (onError) {
-                        FormValidator.Helper.call(onError, [e, data]);
+                        FormValidation.Helper.call(onError, [e, data]);
                     }
                 })
                 .on(this.options.events.fieldStatus, function(e, data) {
                     var onStatus = that.getOptions(data.field, null, 'onStatus');
                     if (onStatus) {
-                        FormValidator.Helper.call(onStatus, [e, data]);
+                        FormValidation.Helper.call(onStatus, [e, data]);
                     }
                 })
                 .on(this.options.events.validatorError, function(e, data) {
                     var onError = that.getOptions(data.field, data.validator, 'onError');
                     if (onError) {
-                        FormValidator.Helper.call(onError, [e, data]);
+                        FormValidation.Helper.call(onError, [e, data]);
                     }
                 })
                 .on(this.options.events.validatorSuccess, function(e, data) {
                     var onSuccess = that.getOptions(data.field, data.validator, 'onSuccess');
                     if (onSuccess) {
-                        FormValidator.Helper.call(onSuccess, [e, data]);
+                        FormValidation.Helper.call(onSuccess, [e, data]);
                     }
                 });
 
@@ -635,7 +638,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {String}
          */
         _getMessage: function(field, validatorName) {
-            if (!this.options.fields[field] || !FormValidator.Validator[validatorName]
+            if (!this.options.fields[field] || !FormValidation.Validator[validatorName]
                 || !this.options.fields[field].validators || !this.options.fields[field].validators[validatorName])
             {
                 return '';
@@ -646,8 +649,8 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].validators[validatorName].message;
                 case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case !!FormValidator.I18n[this.options.locale][validatorName]['default']:
-                    return FormValidator.I18n[this.options.locale][validatorName]['default'];
+                case !!FormValidation.I18n[this.options.locale][validatorName]['default']:
+                    return FormValidation.I18n[this.options.locale][validatorName]['default'];
                 default:
                     return this.options.message;
             }
@@ -703,13 +706,13 @@ if (typeof jQuery === 'undefined') {
             // Try to parse each add-on options
             var addOn, attrMap, attr, option;
             for (addOn in addOns) {
-                if (!FormValidator.AddOn[addOn]) {
+                if (!FormValidation.AddOn[addOn]) {
                     // Add-on is not found
                     delete addOns[addOn];
                     continue;
                 }
 
-                attrMap = FormValidator.AddOn[addOn].html5Attributes;
+                attrMap = FormValidation.AddOn[addOn].html5Attributes;
                 if (attrMap) {
                     for (attr in attrMap) {
                         option = this.$form.attr('data-bv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
@@ -742,8 +745,8 @@ if (typeof jQuery === 'undefined') {
                 html5AttrName,
                 html5AttrMap;
 
-            for (v in FormValidator.Validator) {
-                validator    = FormValidator.Validator[v];
+            for (v in FormValidation.Validator) {
+                validator    = FormValidation.Validator[v];
                 attrName     = 'data-bv-' + v.toLowerCase(),
                 enabled      = $field.attr(attrName) + '';
                 html5AttrMap = ('function' === typeof validator.enableByHtml5) ? validator.enableByHtml5($field) : null;
@@ -1030,7 +1033,7 @@ if (typeof jQuery === 'undefined') {
          * Disable/enable submit buttons
          *
          * @param {Boolean} disabled Can be true or false
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         disableSubmitButtons: function(disabled) {
             if (!disabled) {
@@ -1081,7 +1084,7 @@ if (typeof jQuery === 'undefined') {
             var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
                                 ? this.options.fields[field].validators[validatorName].transformer : null)
                                 || this.options.fields[field].transformer;
-            return transformer ? FormValidator.Helper.call(transformer, [$field, validatorName]) : $field.val();
+            return transformer ? FormValidation.Helper.call(transformer, [$field, validatorName]) : $field.val();
         },
 
         /**
@@ -1253,7 +1256,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {jQuery[]} $fields The field elements
          * @param {String} namespace The event namespace
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         offLiveChange: function($fields, namespace) {
             if ($fields === null || $fields.length === 0) {
@@ -1275,7 +1278,7 @@ if (typeof jQuery === 'undefined') {
          * @param {jQuery[]} $fields The field elements
          * @param {String} namespace The event namespace
          * @param {Function} handler The handler function
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         onLiveChange: function($fields, namespace, handler) {
             if ($fields === null || $fields.length === 0) {
@@ -1311,7 +1314,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          * @param {String} validator The validator name
          * @param {String} message The message
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         updateMessage: function(field, validator, message) {
             var that    = this,
@@ -1339,7 +1342,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          * @param {String} status The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
          * @param {String} [validatorName] The validator name. If null, the method updates validity result for all validators
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         updateStatus: function(field, status, validatorName) {
             var fields = $([]);
@@ -1488,7 +1491,7 @@ if (typeof jQuery === 'undefined') {
         /**
          * Validate the form
          *
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         validate: function() {
             if (!this.options.fields) {
@@ -1511,7 +1514,7 @@ if (typeof jQuery === 'undefined') {
          * Validate given field
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         validateField: function(field) {
             var fields = $([]);
@@ -1566,7 +1569,7 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     $field.data('bv.result.' + validatorName, this.STATUS_VALIDATING);
-                    validateResult = FormValidator.Validator[validatorName].validate(this, $field, validators[validatorName]);
+                    validateResult = FormValidation.Validator[validatorName].validate(this, $field, validators[validatorName]);
 
                     // validateResult can be a $.Deferred object ...
                     if ('object' === typeof validateResult && validateResult.resolve) {
@@ -1624,7 +1627,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} field The field name or field element
          * @param {Object} [options] The validator rules
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         addField: function(field, options) {
             var fields = $([]);
@@ -1694,8 +1697,8 @@ if (typeof jQuery === 'undefined') {
                               .removeData('bv.dfs.' + validator);
 
                         // Destroy the validator
-                        if ('function' === typeof FormValidator.Validator[validator].destroy) {
-                            FormValidator.Validator[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
+                        if ('function' === typeof FormValidation.Validator[validator].destroy) {
+                            FormValidation.Validator[validator].destroy(this, $field, this.options.fields[field].validators[validator]);
                         }
                     }
                 }
@@ -1741,8 +1744,8 @@ if (typeof jQuery === 'undefined') {
 
             // Destroy the add-ons
             for (var addOn in this.options.addOns) {
-                if ('function' === typeof FormValidator.AddOn[addOn].destroy) {
-                    FormValidator.AddOn[addOn].destroy(this, this.options.addOns[addOn]);
+                if ('function' === typeof FormValidation.AddOn[addOn].destroy) {
+                    FormValidation.AddOn[addOn].destroy(this, this.options.addOns[addOn]);
                 }
             }
 
@@ -1752,7 +1755,8 @@ if (typeof jQuery === 'undefined') {
             this.$form
                 .removeClass(this.options.elementClass)
                 .off('.bv')
-                .removeData('bootstrapValidator')
+                .removeData('bootstrapValidator')   // TODO: Remove backward compatibility in v0.7.0
+                .removeData('formValidation')
                 // Remove generated hidden elements
                 .find('[data-bv-submit-hidden]').remove().end()
                 .find('[type="submit"]').off('click.bv');
@@ -1764,7 +1768,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} field The field name
          * @param {Boolean} enabled Enable/Disable field validators
          * @param {String} [validatorName] The validator name. If null, all validators will be enabled/disabled
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         enableFieldValidators: function(field, enabled, validatorName) {
             var validators = this.options.fields[field].validators;
@@ -1815,7 +1819,7 @@ if (typeof jQuery === 'undefined') {
             // Option can be determined by
             // ... a function
             if ('function' === typeof option) {
-                return FormValidator.Helper.call(option, [value, this, $field]);
+                return FormValidation.Helper.call(option, [value, this, $field]);
             }
             // ... value of other field
             else if ('string' === typeof option) {
@@ -1825,7 +1829,7 @@ if (typeof jQuery === 'undefined') {
                 }
                 // ... return value of callback
                 else {
-                    return FormValidator.Helper.call(option, [value, this, $field]) || option;
+                    return FormValidation.Helper.call(option, [value, this, $field]) || option;
                 }
             }
 
@@ -1920,7 +1924,7 @@ if (typeof jQuery === 'undefined') {
          * Remove a given field
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         removeField: function(field) {
             var fields = $([]);
@@ -1976,7 +1980,7 @@ if (typeof jQuery === 'undefined') {
          *
          * @param {String|jQuery} field The field name or field element
          * @param {Boolean} [resetValue] If true, the method resets field value to empty or remove checked/selected attribute (for radio/checkbox)
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         resetField: function(field, resetValue) {
             var $fields = $([]);
@@ -2016,7 +2020,7 @@ if (typeof jQuery === 'undefined') {
          * Reset the form
          *
          * @param {Boolean} [resetValue] If true, the method resets field value to empty or remove checked/selected attribute (for radio/checkbox)
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         resetForm: function(resetValue) {
             for (var field in this.options.fields) {
@@ -2037,7 +2041,7 @@ if (typeof jQuery === 'undefined') {
          * It's used when you need to revalidate the field which its value is updated by other plugin
          *
          * @param {String|jQuery} field The field name of field element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         revalidateField: function(field) {
             this.updateStatus(field, this.STATUS_NOT_VALIDATED)
@@ -2050,7 +2054,7 @@ if (typeof jQuery === 'undefined') {
          * Set the locale
          *
          * @param {String} locale The locale in format of countrycode_LANGUAGECODE
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         setLocale: function(locale) {
             this.options.locale = locale;
@@ -2069,7 +2073,7 @@ if (typeof jQuery === 'undefined') {
          * @param {String} validator The validator name
          * @param {String} option The option name
          * @param {String} value The value to set
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         updateOption: function(field, validator, option, value) {
             if ('object' === typeof field) {
@@ -2088,7 +2092,7 @@ if (typeof jQuery === 'undefined') {
          * It can be used with isValidContainer() when you want to work with wizard form
          *
          * @param {String|jQuery} container The container selector or element
-         * @returns {FormValidator.Base}
+         * @returns {FormValidation.Base}
          */
         validateContainer: function(container) {
             var that       = this,
@@ -2113,4 +2117,37 @@ if (typeof jQuery === 'undefined') {
             return this;
         }
     };
+
+    // Plugin definition
+    $.fn.formValidation = function(option) {
+        var params = arguments;
+        return this.each(function() {
+            var $this   = $(this),
+                data    = $this.data('formValidation'),
+                options = 'object' === typeof option && option;
+            if (!data) {
+                var framework = options.framework || $this.attr('data-fv-framework') || 'bootstrap';
+                switch (framework.toLowerCase()) {
+                    case 'foundation':
+                        data = new FormValidation.Framework.Foundation(this, options);
+                        break;
+
+                    case 'bootstrap':
+                    /* falls through */
+                    default:
+                        data = new FormValidation.Framework.Bootstrap(this, options);
+                        break;
+                }
+
+                $this.data('formValidation', data);
+            }
+
+            // Allow to call plugin method
+            if ('string' === typeof option) {
+                data[option].apply(data, Array.prototype.slice.call(params, 1));
+            }
+        });
+    };
+
+    $.fn.formValidation.Constructor = FormValidation.Base;
 }(jQuery));

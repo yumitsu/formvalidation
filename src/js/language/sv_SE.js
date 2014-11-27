@@ -3,7 +3,7 @@
      * Swedish language package
      * Translated by @ulsa
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'sv_SE': {
             base64: {
                 'default': 'Vänligen mata in ett giltigt Base64-kodat värde'

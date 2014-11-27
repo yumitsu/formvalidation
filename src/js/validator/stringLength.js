@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             stringLength: {
                 'default': 'Please enter a value with valid length',
@@ -18,7 +18,7 @@
         }
     });
 
-    FormValidator.Validator.stringLength = {
+    FormValidation.Validator.stringLength = {
         html5Attributes: {
             message: 'message',
             min: 'min',
@@ -44,7 +44,7 @@
         /**
          * Check if the length of element value is less or more than given number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consists of following keys:
          * - min
@@ -92,7 +92,7 @@
                              },
                 length     = options.utf8Bytes ? utf8Length(value) : value.length,
                 isValid    = true,
-                message    = options.message || FormValidator.I18n[locale].stringLength['default'];
+                message    = options.message || FormValidation.I18n[locale].stringLength['default'];
 
             if ((min && length < parseInt(min, 10)) || (max && length > parseInt(max, 10))) {
                 isValid = false;
@@ -100,15 +100,15 @@
 
             switch (true) {
                 case (!!min && !!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].stringLength.between, [parseInt(min, 10), parseInt(max, 10)]);
                     break;
 
                 case (!!min):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.more, parseInt(min, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].stringLength.more, parseInt(min, 10));
                     break;
 
                 case (!!max):
-                    message = FormValidator.Helper.format(options.message || FormValidator.I18n[locale].stringLength.less, parseInt(max, 10));
+                    message = FormValidation.Helper.format(options.message || FormValidation.I18n[locale].stringLength.less, parseInt(max, 10));
                     break;
 
                 default:

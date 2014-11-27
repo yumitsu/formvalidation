@@ -3,7 +3,7 @@
      * Albanian language package
      * Translated by @desaretiuss
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'sq_AL': {
             base64: {
                 'default': 'Ju lutem përdorni sistemin e kodimit Base64'

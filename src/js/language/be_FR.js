@@ -3,7 +3,7 @@
      * Belgium (French) language package
      * Translated by @neilime
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'be_FR': {
             base64: {
                 'default': 'Veuillez fournir une donnée correctement encodée en Base64'

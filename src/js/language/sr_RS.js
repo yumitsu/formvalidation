@@ -3,7 +3,7 @@
      * Serbian Latin language package
      * Translated by @markocrni
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'sr_RS': {
             base64: {
                 'default': 'Molimo da unesete važeći base 64 enkodovan'

@@ -3,7 +3,7 @@
      * Greek language package
      * Translated by @pRieStaKos
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'gr_EL': {
             base64: {
                 'default': 'Παρακαλώ εισάγετε μια έγκυρη κωδικοποίηση base 64'

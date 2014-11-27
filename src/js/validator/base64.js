@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             base64: {
                 'default': 'Please enter a valid base 64 encoded'
@@ -15,11 +15,11 @@
         }
     });
 
-    FormValidator.Validator.base64 = {
+    FormValidation.Validator.base64 = {
         /**
          * Return true if the input value is a base 64 encoded string.
          *
-         * @param {FormValidator} validator The validator plugin instance
+         * @param {FormValidation} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

@@ -3,7 +3,7 @@
      * Thai language package
      * Translated by @figgaro
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'th_TH': {
             base64: {
                 'default': 'กรุณาระบุ base 64 encoded ให้ถูกต้อง'

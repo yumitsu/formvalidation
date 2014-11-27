@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             ip: {
                 'default': 'Please enter a valid IP address',
@@ -17,7 +17,7 @@
         }
     });
 
-    FormValidator.Validator.ip = {
+    FormValidation.Validator.ip = {
         html5Attributes: {
             message: 'message',
             ipv4: 'ipv4',
@@ -27,7 +27,7 @@
         /**
          * Return true if the input value is a IP address.
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - ipv4: Enable IPv4 validator, default to true
@@ -51,19 +51,19 @@
             switch (true) {
                 case (options.ipv4 && !options.ipv6):
                     valid   = ipv4Regex.test(value);
-                    message = options.message || FormValidator.I18n[locale].ip.ipv4;
+                    message = options.message || FormValidation.I18n[locale].ip.ipv4;
                     break;
 
                 case (!options.ipv4 && options.ipv6):
                     valid   = ipv6Regex.test(value);
-                    message = options.message || FormValidator.I18n[locale].ip.ipv6;
+                    message = options.message || FormValidation.I18n[locale].ip.ipv6;
                     break;
 
                 case (options.ipv4 && options.ipv6):
                 /* falls through */
                 default:
                     valid   = ipv4Regex.test(value) || ipv6Regex.test(value);
-                    message = options.message || FormValidator.I18n[locale].ip['default'];
+                    message = options.message || FormValidation.I18n[locale].ip['default'];
                     break;
             }
 

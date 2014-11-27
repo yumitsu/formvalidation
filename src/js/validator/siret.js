@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
 		'en_US': {
 			siret: {
 				'default': 'Please enter a valid SIRET number'
@@ -15,11 +15,11 @@
 		}
     });
 
-	FormValidator.Validator.siret = {
+	FormValidation.Validator.siret = {
         /**
          * Check if a string is a siret number
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Consist of key:
          * - message: The invalid message

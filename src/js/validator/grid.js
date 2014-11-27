@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             grid: {
                 'default': 'Please enter a valid GRId number'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.grid = {
+    FormValidation.Validator.grid = {
         /**
          * Validate GRId (Global Release Identifier)
          * Examples:
@@ -23,7 +23,7 @@
          * - Invalid: A1-2425G-ABC1234002-Q
          *
          * @see http://en.wikipedia.org/wiki/Global_Release_Identifier
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
@@ -43,7 +43,7 @@
             if ('GRID:' === value.substr(0, 5)) {
                 value = value.substr(5);
             }
-            return FormValidator.Helper.mod37And36(value);
+            return FormValidation.Helper.mod37And36(value);
         }
     };
 }(jQuery));

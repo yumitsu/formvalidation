@@ -3,7 +3,7 @@
      * Italian language package
      * Translated by @maramazza
      */
-    FormValidator.I18n = $.extend(true, FormValidator.I18n, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'it_IT': {
             base64: {
                 'default': 'Si prega di inserire un valore codificato in Base 64'

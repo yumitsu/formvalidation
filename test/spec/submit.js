@@ -1,11 +1,11 @@
 describe('submit', function() {
     var submitted, originalTimeout;
 
-    FormValidator.Validator.fake_remote = {
+    FormValidation.Validator.fakeRemote = {
         validate: function(validator, $field, options) {
             var dfd = new $.Deferred();
             setTimeout(function() {
-                dfd.resolve($field, 'fake_remote', { valid: options.valid });
+                dfd.resolve($field, 'fakeRemote', { valid: options.valid });
             }, 0);
             return dfd;
         }
@@ -130,7 +130,7 @@ describe('submit', function() {
     it('with fake remote returning true', function(done) {
         this.bv.addField('username', {
             validators: {
-                fake_remote: {
+                fakeRemote: {
                     message: 'The username is not available',
                     valid: true
                 }
@@ -147,7 +147,7 @@ describe('submit', function() {
     it('with fake remote returning false', function(done) {
         this.bv.addField('username', {
             validators: {
-                fake_remote: {
+                fakeRemote: {
                     message: 'The username is not available',
                     valid: false
                 }

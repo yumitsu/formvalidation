@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             uri: {
                 'default': 'Please enter a valid URI'
@@ -15,7 +15,7 @@
         }
     });
 
-    FormValidator.Validator.uri = {
+    FormValidation.Validator.uri = {
         html5Attributes: {
             message: 'message',
             allowlocal: 'allowLocal',
@@ -30,7 +30,7 @@
         /**
          * Return true if the input value is a valid URL
          *
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options
          * - message: The error message

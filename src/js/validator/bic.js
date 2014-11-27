@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             bic: {
                 'default': 'Please enter a valid BIC number'
@@ -15,14 +15,14 @@
         }
     });
 
-    FormValidator.Validator.bic = {
+    FormValidation.Validator.bic = {
         /**
          * Validate an Business Identifier Code (BIC), also known as ISO 9362, SWIFT-BIC, SWIFT ID or SWIFT code
          *
          * For more information see http://en.wikipedia.org/wiki/ISO_9362
          *
          * @todo The 5 and 6 characters are an ISO 3166-1 country code, this could also be validated
-         * @param {FormValidator.Base} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message

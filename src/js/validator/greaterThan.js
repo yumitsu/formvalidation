@@ -7,7 +7,7 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 (function($) {
-    FormValidator.I18n = $.extend(true, FormValidator.I18n || {}, {
+    FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {
         'en_US': {
             greaterThan: {
                 'default': 'Please enter a value greater than or equal to %s',
@@ -16,7 +16,7 @@
         }
     });
 
-    FormValidator.Validator.greaterThan = {
+    FormValidation.Validator.greaterThan = {
         html5Attributes: {
             message: 'message',
             value: 'value',
@@ -38,7 +38,7 @@
         /**
          * Return true if the input value is greater than or equals to given number
          *
-         * @param {FormValidator.Base} validator Validate plugin instance
+         * @param {FormValidation.Base} validator Validate plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - value: Define the number to compare with. It can be
@@ -70,11 +70,11 @@
 			return (options.inclusive === true || options.inclusive === undefined)
                     ? {
                         valid: value >= compareToValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].greaterThan['default'], compareTo)
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].greaterThan['default'], compareTo)
                     }
                     : {
                         valid: value > compareToValue,
-                        message: FormValidator.Helper.format(options.message || FormValidator.I18n[locale].greaterThan.notInclusive, compareTo)
+                        message: FormValidation.Helper.format(options.message || FormValidation.I18n[locale].greaterThan.notInclusive, compareTo)
                     };
         },
 
