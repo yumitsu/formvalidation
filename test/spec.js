@@ -5617,7 +5617,7 @@ describe('id', function() {
         this.bv.updateOption('id', 'id', 'country', 'BR');
 
         // Valid samples
-        var validSamples = ['39053344705', '390.533.447-05', '111.444.777-35'];
+        var validSamples = ['39053344705', '11144477735', '390.533.447-05', '111.444.777-35'];
         for (var i in validSamples) {
             this.bv.resetForm();
             this.$id.val(validSamples[i]);
@@ -5626,7 +5626,7 @@ describe('id', function() {
         }
 
         // Invalid samples
-        var invalidSamples = ['231.002.999-00'];
+        var invalidSamples = ['231.002.999-00', '000.000.000-00', '111.111.111-11', '23100299900', '00000000000', '11111111111'];
         for (i in invalidSamples) {
             this.bv.resetForm();
             this.$id.val(invalidSamples[i]);

@@ -31,6 +31,7 @@ __Improvements__
 * [#1154](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1154): Allow to reuse data which is returned by the validator
 * [#1177](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1177): Don't need to set the [different](http://bootstrapvalidator.com/validators/different/) validator for both fields
 * [#1186](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1186), [#1188](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1188): Improve the [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@igorescobar](https://github.com/igorescobar)
+* [#1197](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1197): Add sample data for [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@dgmike](https://github.com/dgmike)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
