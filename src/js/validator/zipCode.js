@@ -21,6 +21,7 @@
                     CZ: 'Czech Republic',
                     DE: 'Germany',
                     DK: 'Denmark',
+                    ES: 'Spain',
                     FR: 'France',
                     GB: 'United Kingdom',
                     IE: 'Ireland',
@@ -45,7 +46,7 @@
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -119,6 +120,12 @@
 
                 case 'DK':
                     isValid = /^(DK(-|\s)?)?\d{4}$/i.test(value);
+                    break;
+
+		// Zip codes in Spain go from 01XXX to 52XXX.
+		// Test: http://refiddle.com/1ufo
+                case 'ES':
+                    isValid = /^(?:0[1-9]|[1-4][0-9]|5[0-2])\d{3}$/.test(value);
                     break;
 
                 // http://en.wikipedia.org/wiki/Postal_codes_in_France

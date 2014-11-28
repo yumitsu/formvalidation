@@ -957,32 +957,90 @@
 
         /**
          * Validate Spanish personal identity code (DNI)
-         * Support i) DNI (for Spanish citizens) and ii) NIE (for foreign people)
+         * Support i) DNI (for Spanish citizens), ii) NIE (for foreign people)
+         * and iii) CIF (for legal entities)
          *
          * Examples:
-         * - Valid: i) 54362315K, 54362315-K; ii) X2482300W, X-2482300W, X-2482300-W
-         * - Invalid: i) 54362315Z; ii) X-2482300A
+         * - Valid:
+         *      i) 54362315K, 54362315-K
+         *      ii) X2482300W, X-2482300W, X-2482300-W
+         *      iii) A58818501, A-58818501
+         * - Invalid:
+         *      i) 54362315Z
+         *      ii) X-2482300A
+         *      iii) A5881850A, K58818501, G58818507
          *
          * @see https://en.wikipedia.org/wiki/National_identification_number#Spain
          * @param {String} value The ID
          * @returns {Boolean}
          */
         _es: function(value) {
-            if (!/^[0-9A-Z]{8}[-]{0,1}[0-9A-Z]$/.test(value)                    // DNI
-                && !/^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-Z]$/.test(value)) {    // NIE
+            var isDNI = /^[0-9]{8}[-]{0,1}[A-HJ-NP-TV-Z]$/.test(value),
+                isNIE = /^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[A-HJ-NP-TV-Z]$/.test(value),
+                isCIF = /^[A-HNPQS][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-J]$/.test(value);
+            if (!isDNI && !isNIE && !isCIF) {
                 return false;
             }
 
             value = value.replace(/-/g, '');
-            var index = 'XYZ'.indexOf(value.charAt(0));
-            if (index !== -1) {
-                // It is NIE number
-                value = index + value.substr(1) + '';
-            }
+            if (isDNI || isNIE) {
+                var index = 'XYZ'.indexOf(value.charAt(0));
+                if (index !== -1) {
+                        // It is NIE number
+                        value = index + value.substr(1) + '';
+                }
 
-            var check = parseInt(value.substr(0, 8), 10);
-            check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
-            return (check === value.substr(8, 1));
+                var check = parseInt(value.substr(0, 8), 10);
+                check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
+                return (check === value.substr(8, 1));
+            } else {
+                var check = value.substr(1, 7);
+                var letter = check[0];
+                var control = value.substr(-1);
+                var sum = 0;
+
+                // The digits in the even positions are added to the sum
+                // directly. The ones in the odd positions are multiplied
+                // by 2 and then added to the sum. If the result of
+                // multiplying by 2 is 10 or higher, add the two digits
+                // together and add that to the sum instead.
+                for (var i = 0; i < check.length; i++) {
+                    if (i % 2 != 0) {
+                        sum += parseInt(check[i], 10);
+                    } else {
+                        var tmp = '' + (parseInt(check[i], 10) * 2);
+                        sum += parseInt(tmp[0], 10);
+                        if (tmp.length == 2) {
+                            sum += parseInt(tmp[1], 10);
+                        }
+                    }
+                }
+
+                // The control digit is calculated from the last digit
+                // of the sum. If that last digit is not 0, substract it
+                // from 10.
+                var lastDigit = sum - (Math.floor(sum / 10) * 10);
+                if (lastDigit != 0) {
+                    lastDigit = 10 - lastDigit;
+                }
+                
+                var result = false;
+                if ('KQS'.indexOf(letter) != -1) {
+                    // If the CIF starts with a K, Q or S, the control
+                    // digit must be a letter.
+                    result = (control === 'JABCDEFGHI'[lastDigit]);
+                } else if ('ABEH'.indexOf(letter) != -1) {
+                    // If it starts with A, B, E or H, it has to be
+                    // a number.
+                    result = (control === ('' + lastDigit));
+                } else {
+                    // In any other case, it doesn't matter.
+                    result = (control === ('' + lastDigit)
+                            || control === 'JABCDEFGHI'[lastDigit]);
+                }
+
+                return result;
+            }
         },
 
         /**
