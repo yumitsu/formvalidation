@@ -393,7 +393,7 @@ describe('phone', function() {
             '0034912345678', '0034900900900',
             '0034902902902', '0034611222333',
             '0034744555666', '0034538564738',
-            '0034806396847'
+            '0034806396847',
             '+34912345678', '+34900900900',
             '+34902902902', '+34611222333',
             '+34744555666', '+34538564738',
@@ -412,7 +412,7 @@ describe('phone', function() {
             '938191230420', // Too many digits
             '938191',       // Too few digits
             '00952345754',  // Lacks international prefix
-            '+745295738',   // Lacks international prefix
+            '+745295738'    // Lacks international prefix
         ];
         for (i in invalidSamples) {
             this.bv.resetForm();

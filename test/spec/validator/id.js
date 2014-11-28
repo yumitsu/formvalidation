@@ -220,7 +220,7 @@ describe('id', function() {
         }
     });
 
-    it('Spanish personal identity code (DNI/NIE)', function() {
+    it('Spanish personal identity code (DNI/NIE/CIF)', function() {
         this.bv.updateOption('id', 'id', 'country', 'ES');
 
         // Valid samples

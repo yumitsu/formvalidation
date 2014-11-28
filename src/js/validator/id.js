@@ -995,7 +995,7 @@
                 return (check === value.substr(8, 1));
             } else {
                 var check = value.substr(1, 7);
-                var letter = check[0];
+                var letter = value[0];
                 var control = value.substr(-1);
                 var sum = 0;
 

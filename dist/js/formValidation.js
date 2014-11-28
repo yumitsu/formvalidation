@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 5:28:58 PM
+ * @version     v0.6.0-dev, built on 2014-11-28 8:07:23 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -5058,32 +5058,90 @@ if (typeof jQuery === 'undefined') {
 
         /**
          * Validate Spanish personal identity code (DNI)
-         * Support i) DNI (for Spanish citizens) and ii) NIE (for foreign people)
+         * Support i) DNI (for Spanish citizens), ii) NIE (for foreign people)
+         * and iii) CIF (for legal entities)
          *
          * Examples:
-         * - Valid: i) 54362315K, 54362315-K; ii) X2482300W, X-2482300W, X-2482300-W
-         * - Invalid: i) 54362315Z; ii) X-2482300A
+         * - Valid:
+         *      i) 54362315K, 54362315-K
+         *      ii) X2482300W, X-2482300W, X-2482300-W
+         *      iii) A58818501, A-58818501
+         * - Invalid:
+         *      i) 54362315Z
+         *      ii) X-2482300A
+         *      iii) A5881850A, K58818501, G58818507
          *
          * @see https://en.wikipedia.org/wiki/National_identification_number#Spain
          * @param {String} value The ID
          * @returns {Boolean}
          */
         _es: function(value) {
-            if (!/^[0-9A-Z]{8}[-]{0,1}[0-9A-Z]$/.test(value)                    // DNI
-                && !/^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-Z]$/.test(value)) {    // NIE
+            var isDNI = /^[0-9]{8}[-]{0,1}[A-HJ-NP-TV-Z]$/.test(value),
+                isNIE = /^[XYZ][-]{0,1}[0-9]{7}[-]{0,1}[A-HJ-NP-TV-Z]$/.test(value),
+                isCIF = /^[A-HNPQS][-]{0,1}[0-9]{7}[-]{0,1}[0-9A-J]$/.test(value);
+            if (!isDNI && !isNIE && !isCIF) {
                 return false;
             }
 
             value = value.replace(/-/g, '');
-            var index = 'XYZ'.indexOf(value.charAt(0));
-            if (index !== -1) {
-                // It is NIE number
-                value = index + value.substr(1) + '';
-            }
+            if (isDNI || isNIE) {
+                var index = 'XYZ'.indexOf(value.charAt(0));
+                if (index !== -1) {
+                        // It is NIE number
+                        value = index + value.substr(1) + '';
+                }
 
-            var check = parseInt(value.substr(0, 8), 10);
-            check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
-            return (check === value.substr(8, 1));
+                var check = parseInt(value.substr(0, 8), 10);
+                check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
+                return (check === value.substr(8, 1));
+            } else {
+                var check = value.substr(1, 7);
+                var letter = value[0];
+                var control = value.substr(-1);
+                var sum = 0;
+
+                // The digits in the even positions are added to the sum
+                // directly. The ones in the odd positions are multiplied
+                // by 2 and then added to the sum. If the result of
+                // multiplying by 2 is 10 or higher, add the two digits
+                // together and add that to the sum instead.
+                for (var i = 0; i < check.length; i++) {
+                    if (i % 2 != 0) {
+                        sum += parseInt(check[i], 10);
+                    } else {
+                        var tmp = '' + (parseInt(check[i], 10) * 2);
+                        sum += parseInt(tmp[0], 10);
+                        if (tmp.length == 2) {
+                            sum += parseInt(tmp[1], 10);
+                        }
+                    }
+                }
+
+                // The control digit is calculated from the last digit
+                // of the sum. If that last digit is not 0, substract it
+                // from 10.
+                var lastDigit = sum - (Math.floor(sum / 10) * 10);
+                if (lastDigit != 0) {
+                    lastDigit = 10 - lastDigit;
+                }
+                
+                var result = false;
+                if ('KQS'.indexOf(letter) != -1) {
+                    // If the CIF starts with a K, Q or S, the control
+                    // digit must be a letter.
+                    result = (control === 'JABCDEFGHI'[lastDigit]);
+                } else if ('ABEH'.indexOf(letter) != -1) {
+                    // If it starts with A, B, E or H, it has to be
+                    // a number.
+                    result = (control === ('' + lastDigit));
+                } else {
+                    // In any other case, it doesn't matter.
+                    result = (control === ('' + lastDigit)
+                            || control === 'JABCDEFGHI'[lastDigit]);
+                }
+
+                return result;
+            }
         },
 
         /**
@@ -6422,8 +6480,17 @@ if (typeof jQuery === 'undefined') {
 
                 case 'ES':
                     // http://regex101.com/r/rB9mA9/1
+		    // Telephone numbers in Spain go like this:
+		    //
+		    //     9: Landline phones and special prefixes.
+		    //     6, 7: Mobile phones.
+		    //     5: VoIP lines.
+		    //     8: Premium-rate services.
+		    //
+		    // There are also special 5-digit and 3-digit numbers, but
+		    // maybe it would be overkill to include them all.
                     value   = $.trim(value);
-                    isValid = (/^(?:(?:(?:\+|00)34\D?))?(?:9|6)(?:\d\D?){8}$/).test(value);
+                    isValid = (/^(?:(?:(?:\+|00)34\D?))?(?:5|6|7|8|9)(?:\d\D?){8}$/).test(value);
                     break;
 
                 case 'FR':
@@ -8703,6 +8770,7 @@ if (typeof jQuery === 'undefined') {
                     CZ: 'Czech Republic',
                     DE: 'Germany',
                     DK: 'Denmark',
+                    ES: 'Spain',
                     FR: 'France',
                     GB: 'United Kingdom',
                     IE: 'Ireland',
@@ -8727,7 +8795,7 @@ if (typeof jQuery === 'undefined') {
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -8801,6 +8869,12 @@ if (typeof jQuery === 'undefined') {
 
                 case 'DK':
                     isValid = /^(DK(-|\s)?)?\d{4}$/i.test(value);
+                    break;
+
+		// Zip codes in Spain go from 01XXX to 52XXX.
+		// Test: http://refiddle.com/1ufo
+                case 'ES':
+                    isValid = /^(?:0[1-9]|[1-4][0-9]|5[0-2])\d{3}$/.test(value);
                     break;
 
                 // http://en.wikipedia.org/wiki/Postal_codes_in_France
