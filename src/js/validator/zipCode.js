@@ -122,8 +122,8 @@
                     isValid = /^(DK(-|\s)?)?\d{4}$/i.test(value);
                     break;
 
-		// Zip codes in Spain go from 01XXX to 52XXX.
-		// Test: http://refiddle.com/1ufo
+                // Zip codes in Spain go from 01XXX to 52XXX.
+                // Test: http://refiddle.com/1ufo
                 case 'ES':
                     isValid = /^(?:0[1-9]|[1-4][0-9]|5[0-2])\d{3}$/.test(value);
                     break;

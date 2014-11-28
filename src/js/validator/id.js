@@ -968,7 +968,7 @@
          * - Invalid:
          *      i) 54362315Z
          *      ii) X-2482300A
-         *      iii) A5881850A, K58818501, G58818507
+         *      iii) K58818501, G58818507
          *
          * @see https://en.wikipedia.org/wiki/National_identification_number#Spain
          * @param {String} value The ID
@@ -983,60 +983,56 @@
             }
 
             value = value.replace(/-/g, '');
+            var check;
             if (isDNI || isNIE) {
                 var index = 'XYZ'.indexOf(value.charAt(0));
                 if (index !== -1) {
-                        // It is NIE number
-                        value = index + value.substr(1) + '';
+                    // It is NIE number
+                    value = index + value.substr(1) + '';
                 }
 
-                var check = parseInt(value.substr(0, 8), 10);
+                check = parseInt(value.substr(0, 8), 10);
                 check = 'TRWAGMYFPDXBNJZSQVHLCKE'[check % 23];
                 return (check === value.substr(8, 1));
             } else {
-                var check = value.substr(1, 7);
-                var letter = check[0];
-                var control = value.substr(-1);
-                var sum = 0;
+                check = value.substr(1, 7);
+                var letter  = check[0],
+                    control = value.substr(-1),
+                    sum     = 0;
 
-                // The digits in the even positions are added to the sum
-                // directly. The ones in the odd positions are multiplied
-                // by 2 and then added to the sum. If the result of
-                // multiplying by 2 is 10 or higher, add the two digits
+                // The digits in the even positions are added to the sum directly.
+                // The ones in the odd positions are multiplied by 2 and then added to the sum.
+                // If the result of multiplying by 2 is 10 or higher, add the two digits
                 // together and add that to the sum instead.
                 for (var i = 0; i < check.length; i++) {
-                    if (i % 2 != 0) {
+                    if (i % 2 !== 0) {
                         sum += parseInt(check[i], 10);
                     } else {
                         var tmp = '' + (parseInt(check[i], 10) * 2);
                         sum += parseInt(tmp[0], 10);
-                        if (tmp.length == 2) {
+                        if (tmp.length === 2) {
                             sum += parseInt(tmp[1], 10);
                         }
                     }
                 }
 
-                // The control digit is calculated from the last digit
-                // of the sum. If that last digit is not 0, substract it
-                // from 10.
+                // The control digit is calculated from the last digit of the sum.
+                // If that last digit is not 0, subtract it from 10.
                 var lastDigit = sum - (Math.floor(sum / 10) * 10);
-                if (lastDigit != 0) {
+                if (lastDigit !== 0) {
                     lastDigit = 10 - lastDigit;
                 }
                 
                 var result = false;
-                if ('KQS'.indexOf(letter) != -1) {
-                    // If the CIF starts with a K, Q or S, the control
-                    // digit must be a letter.
+                if ('KQS'.indexOf(letter) !== -1) {
+                    // If the CIF starts with a K, Q or S, the control digit must be a letter
                     result = (control === 'JABCDEFGHI'[lastDigit]);
-                } else if ('ABEH'.indexOf(letter) != -1) {
-                    // If it starts with A, B, E or H, it has to be
-                    // a number.
+                } else if ('ABEH'.indexOf(letter) !== -1) {
+                    // If it starts with A, B, E or H, it has to be a number
                     result = (control === ('' + lastDigit));
                 } else {
-                    // In any other case, it doesn't matter.
-                    result = (control === ('' + lastDigit)
-                            || control === 'JABCDEFGHI'[lastDigit]);
+                    // In any other case, it doesn't matter
+                    result = (control === ('' + lastDigit) || control === 'JABCDEFGHI'[lastDigit]);
                 }
 
                 return result;

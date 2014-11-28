@@ -34,6 +34,7 @@ I would like to give big thanks to the following contributors:
 * [@egig](https://github.com/egig)
 * [@emilchristensen](https://github.com/emilchristensen)
 * [@ericnakagawa](https://github.com/ericnakagawa)
+* [@ethernet-zero](https://github.com/ethernet-zero)
 * [@etorres](https://github.com/etorres)
 * [@evilchili](https://github.com/evilchili)
 * [@fhferreira](https://github.com/fhferreira)

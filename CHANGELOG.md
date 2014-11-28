@@ -12,7 +12,8 @@ __New Features__
 * [#1165](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1165): Add BIC (ISO 9362) validator, thanks to [@thomaslhotta](https://github.com/thomaslhotta)
 * [#1185](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1185): Add ```composer.json``` file, thanks to [@rbnvrw](https://github.com/rbnvrw)
 * [#1189](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1189), [#1194](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1194): Add ```err```, ```icon```, ```row``` options
-* [#1204](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1204): Support Zurb Foundation framework
+* [#1204](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1204): __Support Zurb Foundation framework__
+* [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Add Spanish [postal code](http://bootstrapvalidator.com/validators/zipCode/), support Spanish [CIF](http://bootstrapvalidator.com/validators/id/) validators, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
 
 __Changes__
 * [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead
@@ -33,6 +34,7 @@ __Improvements__
 * [#1177](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1177): Don't need to set the [different](http://bootstrapvalidator.com/validators/different/) validator for both fields
 * [#1186](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1186), [#1188](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1188): Improve the [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@igorescobar](https://github.com/igorescobar)
 * [#1197](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1197): Add sample data for [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@dgmike](https://github.com/dgmike)
+* [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Improve Spanish [phone](http://bootstrapvalidator.com/validators/zipCode/phone/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work

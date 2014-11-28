@@ -123,15 +123,13 @@
 
                 case 'ES':
                     // http://regex101.com/r/rB9mA9/1
-		    // Telephone numbers in Spain go like this:
-		    //
-		    //     9: Landline phones and special prefixes.
-		    //     6, 7: Mobile phones.
-		    //     5: VoIP lines.
-		    //     8: Premium-rate services.
-		    //
-		    // There are also special 5-digit and 3-digit numbers, but
-		    // maybe it would be overkill to include them all.
+                    // Telephone numbers in Spain go like this:
+                    //     9: Landline phones and special prefixes.
+                    //     6, 7: Mobile phones.
+                    //     5: VoIP lines.
+                    //     8: Premium-rate services.
+                    // There are also special 5-digit and 3-digit numbers, but
+                    // maybe it would be overkill to include them all.
                     value   = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)34\D?))?(?:5|6|7|8|9)(?:\d\D?){8}$/).test(value);
                     break;
