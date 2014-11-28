@@ -43,11 +43,13 @@
     height: 34px;
     line-height: 34px;
     text-align: center;
-    pointer-events: none;
 }
 .fv-has-feedback .fv-control-feedback {
     right: 15px;
 }
 .error .fv-control-feedback {
     color: #f04124;
+}
+.fv-has-feedback.error {
+    margin-bottom: 1rem;
 }

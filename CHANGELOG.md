@@ -12,6 +12,7 @@ __New Features__
 * [#1165](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1165): Add BIC (ISO 9362) validator, thanks to [@thomaslhotta](https://github.com/thomaslhotta)
 * [#1185](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1185): Add ```composer.json``` file, thanks to [@rbnvrw](https://github.com/rbnvrw)
 * [#1189](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1189), [#1194](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1194): Add ```err```, ```icon```, ```row``` options
+* [#1204](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1204): Support Zurb Foundation framework
 
 __Changes__
 * [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead

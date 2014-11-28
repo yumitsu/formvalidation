@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 2:32:38 PM
+ * @version     v0.6.0-dev, built on 2014-11-28 4:11:16 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -60,7 +60,24 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            // TODO
+            var that  = this,
+                $icon = $field.data('bv.icon');
+            if ($icon) {
+                $icon
+                    .attr('title', message)
+                    .css({
+                        'cursor': 'pointer'
+                    })
+                    .off('mouseenter.container.bv focusin.container.bv')
+                    .on('mouseenter.container.bv', function() {
+                        that._showTooltip($field, type);
+                    })
+                    .off('mouseleave.container.bv focusout.container.bv')
+                    .on('mouseleave.container.bv focusout.container.bv', function() {
+                        that._hideTooltip($field, type);
+                    });
+                Foundation.libs.tooltip.create($icon);
+            }
         },
 
         /**
@@ -70,7 +87,10 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            // TODO
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                Foundation.libs.tooltip.hide($icon);
+            }
         },
 
         /**
@@ -80,7 +100,10 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            // TODO
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                Foundation.libs.tooltip.hide($icon);
+            }
         },
 
         /**
@@ -90,7 +113,10 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            // TODO
+            var $icon = $field.data('bv.icon');
+            if ($icon && !this.isValidField($field)) {
+                Foundation.libs.tooltip.show($icon);
+            }
         }
     });
 }(jQuery));
