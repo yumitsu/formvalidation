@@ -7108,6 +7108,55 @@ describe('phone', function() {
             expect(this.bv.isValid()).toEqual(false);
         }
     });
+
+    it('Spanish phone number', function() {
+        this.bv.updateOption('phone', 'phone', 'country', 'ES');
+
+        // Valid samples
+        var validSamples = [
+            // Landline numbers
+            '912345678',
+            // Special prefixes
+            '900900900', '902902902',
+            // Mobile numbers
+            '611222333', '744555666',
+            // VoIP lines
+            '538564738',
+            // Premium-rate services
+            '806396847',
+
+            // International versions
+            '0034912345678', '0034900900900',
+            '0034902902902', '0034611222333',
+            '0034744555666', '0034538564738',
+            '0034806396847'
+            '+34912345678', '+34900900900',
+            '+34902902902', '+34611222333',
+            '+34744555666', '+34538564738',
+            '+34806396847'
+        ];
+        for (var i in validSamples) {
+            this.bv.resetForm();
+            this.$phone.val(validSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = [
+            '472849284',    // Invalid prefix
+            '938191230420', // Too many digits
+            '938191',       // Too few digits
+            '00952345754',  // Lacks international prefix
+            '+745295738',   // Lacks international prefix
+        ];
+        for (i in invalidSamples) {
+            this.bv.resetForm();
+            this.$phone.val(invalidSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toEqual(false);
+        }
+    });
 });
 
 describe('stringLength', function() {
@@ -8377,6 +8426,7 @@ describe('zipCode', function() {
                             '<option value="CA">Canada</option>',
                             '<option value="CZ">Czech Republic</option>',
                             '<option value="DK">Denmark</option>',
+                            '<option value="ES">Spain</option>',
                             '<option value="FR">France</option>',
                             '<option value="GB">United Kingdom</option>',
                             '<option value="IE">Ireland</option>',
@@ -8728,6 +8778,28 @@ describe('zipCode', function() {
 
         // Invalid samples
         var invalidSamples = ['0123', '99999', '102', 'ABCD', 'CH-5224 XY'];
+        for (i in invalidSamples) {
+            this.bv.resetForm();
+            this.$zipCode.val(invalidSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toEqual(false);
+        }
+    });
+
+    it('Spain postal code', function() {
+        this.bv.updateOption('zc', 'zipCode', 'country', 'ES');
+
+        // Valid samples
+        var validSamples = [ '01234', '28080', '29004', '41023'];
+        for (var i in validSamples) {
+            this.bv.resetForm();
+            this.$zipCode.val(validSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = ['0123', '99999', '102', 'ABCD', '00000'];
         for (i in invalidSamples) {
             this.bv.resetForm();
             this.$zipCode.val(invalidSamples[i]);

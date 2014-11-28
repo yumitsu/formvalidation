@@ -25,6 +25,7 @@ describe('zipCode', function() {
                             '<option value="CA">Canada</option>',
                             '<option value="CZ">Czech Republic</option>',
                             '<option value="DK">Denmark</option>',
+                            '<option value="ES">Spain</option>',
                             '<option value="FR">France</option>',
                             '<option value="GB">United Kingdom</option>',
                             '<option value="IE">Ireland</option>',
@@ -376,6 +377,28 @@ describe('zipCode', function() {
 
         // Invalid samples
         var invalidSamples = ['0123', '99999', '102', 'ABCD', 'CH-5224 XY'];
+        for (i in invalidSamples) {
+            this.bv.resetForm();
+            this.$zipCode.val(invalidSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toEqual(false);
+        }
+    });
+
+    it('Spain postal code', function() {
+        this.bv.updateOption('zc', 'zipCode', 'country', 'ES');
+
+        // Valid samples
+        var validSamples = [ '01234', '28080', '29004', '41023'];
+        for (var i in validSamples) {
+            this.bv.resetForm();
+            this.$zipCode.val(validSamples[i]);
+            this.bv.validate();
+            expect(this.bv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = ['0123', '99999', '102', 'ABCD', '00000'];
         for (i in invalidSamples) {
             this.bv.resetForm();
             this.$zipCode.val(invalidSamples[i]);
