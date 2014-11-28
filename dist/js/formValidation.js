@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 8:27:38 AM
+ * @version     v0.6.0-dev, built on 2014-11-28 2:32:38 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -34,7 +34,7 @@ if (typeof jQuery === 'undefined') {
         autoFocus: true,
 
         // The form CSS class
-        elementClass: 'bv-form',
+        elementClass: 'fv-form',
 
         // Use custom event name to avoid window.onerror being invoked by jQuery
         // See #630
@@ -478,32 +478,6 @@ if (typeof jQuery === 'undefined') {
                                     .attr('data-bv-icon-for', field)
                                     .insertAfter($field);
 
-                    if ('string' === typeof this.options.fields[field].icon && this.options.fields[field].icon !== 'true') {
-                        $icon.appendTo($(this.options.fields[field].icon));
-                    }
-
-                    // Place it after the container of checkbox/radio
-                    // so when clicking the icon, it doesn't effect to the checkbox/radio element
-                    if ('checkbox' === type || 'radio' === type) {
-                        var $fieldParent = $field.parent();
-                        if ($fieldParent.hasClass(type)) {
-                            $icon.insertAfter($fieldParent);
-                        } else if ($fieldParent.parent().hasClass(type)) {
-                            $icon.insertAfter($fieldParent.parent());
-                        }
-                    }
-
-                    // The feedback icon does not render correctly if there is no label
-                    // https://github.com/twbs/bootstrap/issues/12873
-                    if ($parent.find('label').length === 0) {
-                        $icon.addClass('bv-no-label');
-                    }
-                    // Fix feedback icons in input-group
-                    if ($parent.find('.input-group').length !== 0) {
-                        $icon.addClass('bv-icon-input-group')
-                             .insertAfter($parent.find('.input-group').eq(0));
-                    }
-
                     // Store the icon as a data of field element
                     if (!updateAll) {
                         $field.data('bv.icon', $icon);
@@ -524,6 +498,12 @@ if (typeof jQuery === 'undefined') {
                             .on('blur.container.bv', function() {
                                 that._hideTooltip($field, container);
                             });
+                    }
+
+                    if ('string' === typeof this.options.fields[field].icon && this.options.fields[field].icon !== 'true') {
+                        $icon.appendTo($(this.options.fields[field].icon));
+                    } else {
+                        this._fixIcon($field, $icon);
                     }
                 }
             }
@@ -974,6 +954,15 @@ if (typeof jQuery === 'undefined') {
         // Abstract methods
         // Need to be implemented by sub-class that supports specific framework
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        /**
+         * Specific framework might need to adjust the icon position
+         *
+         * @param {jQuery} $field The field element
+         * @param {jQuery} $icon The icon element
+         */
+        _fixIcon: function($field, $icon) {
+        },
 
         /**
          * Create a tooltip or popover

@@ -44,18 +44,20 @@
                     <div class="small-3 columns">
                         <label class="right">Username</label>
                     </div>    
-                    <div class="small-9 columns">
+                    <div class="small-6 columns">
                         <input type="text" name="username" />
                     </div>
+                    <div class="small-3 columns"></div>
                 </div>
 
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Email address</label>
                     </div>
-                    <div class="small-9 columns">
+                    <div class="small-6 columns">
                         <input type="text" name="email" />
                     </div>
+                    <div class="small-3 columns"></div>
                 </div>
                 
                 <div class="row">
@@ -101,11 +103,10 @@
                         <label class="right">Languages</label>
                     </div>
                     <div class="small-9 columns">
-                        <input type="checkbox" name="languages[]" value="english" /><label>English</label><br/>
-                        <input type="checkbox" name="languages[]" value="french" /><label>French</label><br/>
-                        <input type="checkbox" name="languages[]" value="german" /><label>German</label><br/>
-                        <input type="checkbox" name="languages[]" value="russian" /><label>Russian</label><br/>
-                        <input type="checkbox" name="languages[]" value="other" /><label>Other</label>
+                        <input type="checkbox" name="languages[]" value="english" /><label>English</label>
+                        <input type="checkbox" name="languages[]" value="french" /><label>French</label>
+                        <input type="checkbox" name="languages[]" value="german" /><label>German</label>
+                        <input type="checkbox" name="languages[]" value="russian" /><label>Russian</label>
                     </div>
                 </div>
                 
@@ -128,9 +129,10 @@
                     <div class="small-3 columns">
                         <label class="right" id="captchaOperation"></label>
                     </div>
-                    <div class="small-9 columns">
+                    <div class="small-3 columns">
                         <input type="text" name="captcha" />
                     </div>
+                    <div class="small-6 columns"></div>
                 </div>
                 
                 <div class="row">
@@ -198,7 +200,7 @@ $(document).ready(function() {
                     },
                     remote: {
                         type: 'POST',
-                        url: 'remote.php',
+                        url: '../remote.php',
                         message: 'The username is not available'
                     }
                 }

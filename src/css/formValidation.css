@@ -7,12 +7,6 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 
-.bv-form .help-block {
-    margin-bottom: 0;
-}
-.bv-form .tooltip-inner {
-    text-align: left;
-}
 .nav-tabs li.bv-tab-success > a {
     color: #3c763d;
 }
@@ -20,11 +14,17 @@
     color: #a94442;
 }
 
-.bv-form .bv-icon-no-label {
+/* For Bootstrap */
+.fv-form .help-block {
+    margin-bottom: 0;
+}
+.fv-form .tooltip-inner {
+    text-align: left;
+}
+.fv-form .fv-bootstrap-no-label {
 	top: 0;
 }
-
-.bv-form .bv-icon-input-group {
+.fv-form .fv-bootstrap-icon-input-group {
 	top: 0;
 	z-index: 100;
 }

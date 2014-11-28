@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 8:27:38 AM
+ * @version     v0.6.0-dev, built on 2014-11-28 2:32:38 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -35,6 +35,22 @@
     };
 
     FormValidation.Framework.Foundation.prototype = $.extend({}, FormValidation.Base.prototype, {
+        /**
+         * Specific framework might need to adjust the icon position
+         *
+         * @param {jQuery} $field The field element
+         * @param {jQuery} $icon The icon element
+         */
+        _fixIcon: function($field, $icon) {
+            var type = $field.attr('type');
+            if ('checkbox' === type || 'radio' === type) {
+                var $next = $icon.next();
+                if ($next.is('label')) {
+                    $icon.insertAfter($next);
+                }
+            }
+        },
+
         /**
          * Create a tooltip or popover
          * It will be shown when focusing on the field

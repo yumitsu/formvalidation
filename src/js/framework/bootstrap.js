@@ -53,6 +53,41 @@
 
     FormValidation.Framework.Bootstrap.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
+         * Specific framework might need to adjust the icon position
+         *
+         * @param {jQuery} $field The field element
+         * @param {jQuery} $icon The icon element
+         */
+        _fixIcon: function($field, $icon) {
+            var type    = $field.attr('type'),
+                field   = $field.attr('data-bv-field'),
+                row     = this.options.fields[field].row || this.options.row.selector,
+                $parent = $field.closest(row);
+
+            // Place it after the container of checkbox/radio
+            // so when clicking the icon, it doesn't effect to the checkbox/radio element
+            if ('checkbox' === type || 'radio' === type) {
+                var $fieldParent = $field.parent();
+                if ($fieldParent.hasClass(type)) {
+                    $icon.insertAfter($fieldParent);
+                } else if ($fieldParent.parent().hasClass(type)) {
+                    $icon.insertAfter($fieldParent.parent());
+                }
+            }
+
+            // The feedback icon does not render correctly if there is no label
+            // https://github.com/twbs/bootstrap/issues/12873
+            if ($parent.find('label').length === 0) {
+                $icon.addClass('fv-bootstrap-no-label');
+            }
+            // Fix feedback icons in input-group
+            if ($parent.find('.input-group').length !== 0) {
+                $icon.addClass('fv-bootstrap-icon-input-group')
+                     .insertAfter($parent.find('.input-group').eq(0));
+            }
+        },
+
+        /**
          * Create a tooltip or popover
          * It will be shown when focusing on the field
          *

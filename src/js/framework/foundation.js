@@ -36,6 +36,22 @@
 
     FormValidation.Framework.Foundation.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
+         * Specific framework might need to adjust the icon position
+         *
+         * @param {jQuery} $field The field element
+         * @param {jQuery} $icon The icon element
+         */
+        _fixIcon: function($field, $icon) {
+            var type = $field.attr('type');
+            if ('checkbox' === type || 'radio' === type) {
+                var $next = $icon.next();
+                if ($next.is('label')) {
+                    $icon.insertAfter($next);
+                }
+            }
+        },
+
+        /**
          * Create a tooltip or popover
          * It will be shown when focusing on the field
          *
