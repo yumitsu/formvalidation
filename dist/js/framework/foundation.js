@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 4:11:16 PM
+ * @version     v0.6.0-dev, built on 2014-11-28 5:28:58 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -13,7 +13,7 @@
         options = $.extend(true, {
             err: {
                 clazz: 'error',
-                parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
+                parent: '^.*((small|medium|large)-[0-9]+)\\s.*(columns).*$'
             },
             // Foundation doesn't support feedback icon as Bootstrap
             // Might be we have to adjust the CSS manually
@@ -27,7 +27,7 @@
                 selector: '.row',
                 valid: '',
                 invalid: 'error',
-                feedback: 'fv-has-feedback'
+                feedback: 'fv-has-feedback fv-foundation-has-feedback'
             }
         }, options);
 
@@ -102,6 +102,9 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
+                $icon.css({
+                    'cursor': ''
+                });
                 Foundation.libs.tooltip.hide($icon);
             }
         },

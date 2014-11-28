@@ -13,7 +13,7 @@
         options = $.extend(true, {
             err: {
                 clazz: 'error',
-                parent: '^.*((small|large)-[0-9]+)\\s.*(columns).*$'
+                parent: '^.*((small|medium|large)-[0-9]+)\\s.*(columns).*$'
             },
             // Foundation doesn't support feedback icon as Bootstrap
             // Might be we have to adjust the CSS manually
@@ -27,7 +27,7 @@
                 selector: '.row',
                 valid: '',
                 invalid: 'error',
-                feedback: 'fv-has-feedback'
+                feedback: 'fv-has-feedback fv-foundation-has-feedback'
             }
         }, options);
 
@@ -102,6 +102,9 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
+                $icon.css({
+                    'cursor': ''
+                });
                 Foundation.libs.tooltip.hide($icon);
             }
         },

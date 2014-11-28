@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 4:11:16 PM
+ * @version     v0.6.0-dev, built on 2014-11-28 5:28:58 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -479,14 +479,17 @@ if (typeof jQuery === 'undefined') {
                                     .insertAfter($field);
 
                     // Store the icon as a data of field element
-                    if (!updateAll) {
-                        $field.data('bv.icon', $icon);
-                    } else if (i === total - 1) {
-                        // All fields with the same name have the same icon
-                        fields.data('bv.icon', $icon);
-                    }
+                    (!updateAll ? $field : fields).data('bv.icon', $icon);
 
                     if ('tooltip' === container || 'popover' === container) {
+                        (!updateAll ? $field : fields)
+                            .on(this.options.events.fieldError, function() {
+                                $parent.addClass('fv-has-tooltip');
+                            })
+                            .on(this.options.events.fieldSuccess, function() {
+                                $parent.removeClass('fv-has-tooltip');
+                            });
+
                         $field
                             // Show tooltip/popover message when field gets focus
                             .off('focus.container.bv')

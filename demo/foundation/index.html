@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="row">
-        <div class="small-8">
+        <div class="small-8 small-centered columns">
             <h2>Sign up</h2>
             <hr/>
 
@@ -44,40 +44,36 @@
                     <div class="small-3 columns">
                         <label class="right">Username</label>
                     </div>    
-                    <div class="small-6 columns">
+                    <div class="small-6 small-pull-3 columns">
                         <input type="text" name="username" />
                     </div>
-                    <div class="small-3 columns"></div>
                 </div>
 
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Email address</label>
                     </div>
-                    <div class="small-6 columns">
+                    <div class="small-6 small-pull-3 columns">
                         <input type="text" name="email" />
                     </div>
-                    <div class="small-3 columns"></div>
                 </div>
                 
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Password</label>
                     </div>
-                    <div class="small-6 columns">
+                    <div class="small-6 small-pull-3 columns">
                         <input type="password" name="password" />
                     </div>
-                    <div class="small-3 columns"></div>
                 </div>
                 
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Retype password</label>
                     </div>
-                    <div class="small-6 columns">
+                    <div class="small-6 small-pull-3 columns">
                         <input type="password" name="confirmPassword" />
                     </div>
-                    <div class="small-3 columns"></div>
                 </div>
                 
                 <div class="row">
@@ -95,10 +91,9 @@
                     <div class="small-3 columns">
                         <label class="right">Birthday</label>
                     </div>
-                    <div class="small-6 columns">
+                    <div class="small-6 small-pull-3 columns">
                         <input type="text" name="birthday" placeholder="YYYY/MM/DD" />
                     </div>
-                    <div class="small-3 columns"></div>
                 </div>
                 
                 <div class="row">
@@ -117,7 +112,7 @@
                     <div class="small-3 columns">
                         <label class="right">Programming Languages</label>
                     </div>
-                    <div class="small-6 columns">
+                    <div class="small-6 small-pull-3 columns">
                         <input type="checkbox" name="programs[]" value="net" /><label>.Net</label><br/>
                         <input type="checkbox" name="programs[]" value="java" /><label>Java</label><br/>
                         <input type="checkbox" name="programs[]" value="php" /><label>PHP</label><br/>
@@ -126,25 +121,21 @@
                         <input type="checkbox" name="programs[]" value="python" /><label>Python</label><br/>
                         <input type="checkbox" name="programs[]" value="javascript" /><label>Javascript</label>
                     </div>
-                    <div class="small-3 columns"></div>
                 </div>
                 
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right" id="captchaOperation"></label>
                     </div>
-                    <div class="small-3 columns">
+                    <div class="small-3 small-pull-6 columns">
                         <input type="text" name="captcha" />
                     </div>
-                    <div class="small-6 columns"></div>
                 </div>
                 
                 <div class="row">
                     <div class="small-3 columns"></div>
                     <div class="small-9 columns">
                         <button type="submit" class="button small" name="signup" value="Sign up">Sign up</button>
-                        <button type="button" class="button small" id="validateBtn">Manual validate</button>
-                        <button type="button" class="button small" id="resetBtn">Reset form</button>
                     </div>
                 </div>
             </form>
@@ -169,7 +160,7 @@ $(document).ready(function() {
             validating: 'fa fa-refresh',
             feedback: 'fv-control-feedback'
         },
-        container: 'tooltip',
+        //container: 'tooltip',
         fields: {
             firstName: {
                 row: '.small-6',

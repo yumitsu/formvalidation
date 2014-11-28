@@ -479,14 +479,17 @@ if (typeof jQuery === 'undefined') {
                                     .insertAfter($field);
 
                     // Store the icon as a data of field element
-                    if (!updateAll) {
-                        $field.data('bv.icon', $icon);
-                    } else if (i === total - 1) {
-                        // All fields with the same name have the same icon
-                        fields.data('bv.icon', $icon);
-                    }
+                    (!updateAll ? $field : fields).data('bv.icon', $icon);
 
                     if ('tooltip' === container || 'popover' === container) {
+                        (!updateAll ? $field : fields)
+                            .on(this.options.events.fieldError, function() {
+                                $parent.addClass('fv-has-tooltip');
+                            })
+                            .on(this.options.events.fieldSuccess, function() {
+                                $parent.removeClass('fv-has-tooltip');
+                            });
+
                         $field
                             // Show tooltip/popover message when field gets focus
                             .off('focus.container.bv')

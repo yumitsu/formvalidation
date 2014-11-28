@@ -14,22 +14,6 @@
     color: #a94442;
 }
 
-/* For Bootstrap */
-.fv-form .help-block {
-    margin-bottom: 0;
-}
-.fv-form .tooltip-inner {
-    text-align: left;
-}
-.fv-form .fv-bootstrap-no-label {
-	top: 0;
-}
-.fv-form .fv-bootstrap-icon-input-group {
-	top: 0;
-	z-index: 100;
-}
-
-/* For Foundation form */
 .fv-has-feedback {
     position: relative;
 }
@@ -47,9 +31,30 @@
 .fv-has-feedback .fv-control-feedback {
     right: 15px;
 }
+
+/* For Bootstrap */
+.fv-form .help-block {
+    margin-bottom: 0;
+}
+.fv-form .tooltip-inner {
+    text-align: left;
+}
+.fv-form .fv-bootstrap-no-label {
+	top: 0;
+}
+.fv-form .fv-bootstrap-icon-input-group {
+	top: 0;
+	z-index: 100;
+}
+
+/* For Foundation form */
 .error .fv-control-feedback {
     color: #f04124;
 }
-.fv-has-feedback.error {
+/**
+ * Foundation reset the bottom marin to 0 when the row has '.error' class
+ * I need to adjust it when using tooltip to show the error
+ */
+.error.fv-has-tooltip input, .error.fv-has-tooltip textarea, .error.fv-has-tooltip select {
     margin-bottom: 1rem;
 }
