@@ -478,6 +478,10 @@ if (typeof jQuery === 'undefined') {
                                     .attr('data-bv-icon-for', field)
                                     .insertAfter($field);
 
+                    if ('string' === typeof this.options.fields[field].icon && this.options.fields[field].icon !== 'true') {
+                        $icon.appendTo($(this.options.fields[field].icon));
+                    }
+
                     // Place it after the container of checkbox/radio
                     // so when clicking the icon, it doesn't effect to the checkbox/radio element
                     if ('checkbox' === type || 'radio' === type) {

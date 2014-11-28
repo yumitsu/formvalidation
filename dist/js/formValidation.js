@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-28 7:36:58 AM
+ * @version     v0.6.0-dev, built on 2014-11-28 8:27:38 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -477,6 +477,10 @@ if (typeof jQuery === 'undefined') {
                                     .addClass(this.options.icon.feedback)
                                     .attr('data-bv-icon-for', field)
                                     .insertAfter($field);
+
+                    if ('string' === typeof this.options.fields[field].icon && this.options.fields[field].icon !== 'true') {
+                        $icon.appendTo($(this.options.fields[field].icon));
+                    }
 
                     // Place it after the container of checkbox/radio
                     // so when clicking the icon, it doesn't effect to the checkbox/radio element
