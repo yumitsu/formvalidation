@@ -6,6 +6,7 @@
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
+/* global Foundation: false */
 
 // Support Zurb Foundation framework
 (function($) {

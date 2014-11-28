@@ -125,7 +125,7 @@ module.exports = function(grunt) {
                 white: true,
                 globals: {
                     jQuery: false,
-                    FormValidator: false
+                    FormValidation: false
                 }
             }
         },
