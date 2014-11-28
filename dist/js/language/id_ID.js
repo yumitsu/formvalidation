@@ -356,6 +356,7 @@
                     CZ: 'Czech',
                     DE: 'Jerman',
                     DK: 'Denmark',
+                    ES: 'Spanyol',
                     FR: 'Francis',
                     GB: 'Inggris',
                     IE: 'Irlandia',

@@ -356,6 +356,7 @@
                     CZ: 'Csehországban',
                     DE: 'Németországban',
                     DK: 'Dániában',
+                    ES: 'Spanyolországban',
                     FR: 'Franciaországban',
                     GB: 'az Egyesült Királyságban',
                     IE: 'Írországban',

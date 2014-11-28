@@ -356,6 +356,7 @@
                     CZ: 'Republika Çeke',
                     DE: 'Gjermani',
                     DK: 'Danimarkë',
+                    ES: 'Spanjë',
                     FR: 'Francë',
                     GB: 'Mbretëria e Bashkuar',
                     IE: 'Irlandë',

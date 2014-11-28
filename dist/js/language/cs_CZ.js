@@ -356,6 +356,7 @@
                     CZ: 'Českou Republiku',
                     DE: 'Německo',
                     DK: 'Dánsko',
+                    ES: 'Španělsko',
                     FR: 'Francie',
                     GB: 'Velkou Británii',
                     IE: 'Irsko',

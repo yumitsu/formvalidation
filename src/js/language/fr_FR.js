@@ -356,6 +356,7 @@
                     CZ: 'République Tchèque',
                     DE: 'Allemagne',
                     DK: 'Danemark',
+                    ES: 'Espagne',
                     FR: 'France',
                     GB: 'Royaume-Uni',
                     IE: 'Irlande',

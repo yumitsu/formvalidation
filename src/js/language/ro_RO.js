@@ -356,6 +356,7 @@
                     CZ: 'Republica Cehia',
                     DE: 'Germania',
                     DK: 'Danemarca',
+                    ES: 'Spania',
                     FR: 'Franta',
                     GB: 'Regatul Unit',
                     IE: 'Irlanda',

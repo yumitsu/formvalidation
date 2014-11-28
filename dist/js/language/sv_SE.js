@@ -356,6 +356,7 @@
                     CZ: 'Tjeckien',
                     DE: 'Tyskland',
                     DK: 'Danmark',
+                    ES: 'Spanien',
                     FR: 'Frankrike',
                     GB: 'Förenade Kungariket',
                     IE: 'Irland',

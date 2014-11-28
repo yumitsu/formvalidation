@@ -356,6 +356,7 @@
                     CZ: 'Séc',
                     DE: 'Đức',
                     DK: 'Đan Mạch',
+                    ES: 'Tây Ban Nha',
                     FR: 'Pháp',
                     GB: 'Vương quốc Anh',
                     IE: 'Ireland',

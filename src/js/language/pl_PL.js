@@ -356,6 +356,7 @@
                     CZ: 'Czechy',
                     DE: 'Niemcy',
                     DK: 'Dania',
+                    ES: 'Hiszpania',
                     FR: 'Francja',
                     GB: 'Wielka Brytania',
                     IE: 'Irlandia',

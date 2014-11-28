@@ -356,6 +356,7 @@
                     CZ: 'Češke',
                     DE: 'Nemačke',
                     DK: 'Danske',
+                    ES: 'Španije',
                     FR: 'Francuske',
                     GB: 'Engleske',
                     IE: 'Irske',
