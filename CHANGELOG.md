@@ -13,7 +13,8 @@ __New Features__
 * [#1185](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1185): Add ```composer.json``` file, thanks to [@rbnvrw](https://github.com/rbnvrw)
 * [#1189](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1189), [#1194](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1194): Add ```err```, ```icon```, ```row``` options
 * [#1204](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1204): __Support Zurb Foundation framework__
-* [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Add Spanish [postal code](http://bootstrapvalidator.com/validators/zipCode/), support Spanish [CIF](http://bootstrapvalidator.com/validators/id/) validators, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
+* [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Add Spanish [postal code](http://bootstrapvalidator.com/validators/zipCode/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
+* [#1208](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1208): Support Spanish [CIF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
 
 __Changes__
 * [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead
