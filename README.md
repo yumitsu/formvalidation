@@ -14,12 +14,13 @@ Next version will be a big release with the following new features and improveme
 
 - [ ] Support many frameworks:
     - [x] [Bootstrap](http://getbootstrap.com/)
-    - [x] [Zurb Foundation](http://foundation.zurb.com/)
+    - [x] [Foundation](http://foundation.zurb.com/)
+    - [x] [Pure](http://purecss.io/)
     - [ ] [Semantic UI](http://semantic-ui.com/)
     - [ ] [UIKit](http://getuikit.com/)
-    - [ ] [Pure](http://purecss.io/)
 - [x] Support add-ons
 - [x] Support multiple languages
+- [x] Add ```transformer``` option, allowing to hook the field value before validating
 - [x] Allow to reuse data returned by the validator
 
 Follow [@nghuuphuoc](https://twitter.com/nghuuphuoc) and [@bsvalidator](https://twitter.com/bsvalidator) to be up-to-date.

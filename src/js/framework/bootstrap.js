@@ -7,9 +7,17 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 
+/**
+ * This class supports Bootstrap (http://getbootstrap.com/)
+ */
 (function($) {
     FormValidation.Framework.Bootstrap = function(element, options) {
         options = $.extend(true, {
+            button: {
+                // The class of disabled button
+                // http://getbootstrap.com/css/#buttons-disabled
+                disabled: 'disabled'
+            },
             err: {
                 clazz: 'help-block',
                 parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
@@ -215,8 +223,14 @@
         }
     });
 
-    // Plugin definition
-    // TODO: Remove backward compatibility in v0.7.0
+    /**
+     * Plugin definition
+     * Support backward
+     * @deprecated It will be removed soon. Instead of using $(form).bootstrapValidator(), use
+     *  $(form).formValidation({
+     *      framework: 'bootstrap'  // It's equivalent to use data-fv-framework="bootstrap" for <form>
+     *  });
+     */
     $.fn.bootstrapValidator = function(option) {
         var params = arguments;
         return this.each(function() {

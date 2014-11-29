@@ -7,10 +7,17 @@
  * @license     http://bootstrapvalidator.com/license/
  */
 
-// Support Pure framework
+/**
+ * This class supports validating Pure framework (http://purecss.io/)
+ */
 (function($) {
     FormValidation.Framework.Pure = function(element, options) {
         options = $.extend(true, {
+            button: {
+                // The class of disabled button
+                // http://purecss.io/buttons/#disabled-buttons
+                disabled: 'pure-button-disabled'
+            },
             err: {
                 clazz: 'fv-help-block',
                 parent: '^.*pure-control-group.*$'
@@ -23,6 +30,7 @@
                 feedback: 'fv-control-feedback'
             },
             row: {
+                // http://purecss.io/forms/#aligned-form
                 selector: '.pure-control-group',
                 valid: '',
                 invalid: '',

@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-29 4:47:12 PM
+ * @version     v0.6.0-dev, built on 2014-11-29 5:15:44 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -94,10 +94,6 @@ if (typeof jQuery === 'undefined') {
         // Default invalid message
         message: 'This value is not valid',
 
-        // The submit buttons selector
-        // These buttons will be disabled to prevent the valid form from multiple submissions
-        submitButtons: '[type="submit"]',
-
         // The field will not be live validated if its length is less than this number of characters
         threshold: null,
 
@@ -112,6 +108,15 @@ if (typeof jQuery === 'undefined') {
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // These options mostly are overridden by specific framework
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        button: {
+            // The submit buttons selector
+            // These buttons will be disabled to prevent the valid form from multiple submissions
+            selector: '[type="submit"]',
+
+            // The disabled class
+            disabled: ''
+        },
 
         err: {
             // The CSS class of each message element
@@ -213,6 +218,10 @@ if (typeof jQuery === 'undefined') {
                 options = {
                     addOns:         {},
                     autoFocus:      this.$form.attr('data-bv-autofocus'),
+                    button: {
+                        selector: this.$form.attr('data-bv-button-selector') || this.$form.attr('data-bv-submitbuttons'), // Support backward
+                        disabled: this.$form.attr('data-bv-button-disabled')
+                    },
                     err: {
                         clazz:     this.$form.attr('data-bv-err-clazz'),
                         container: this.$form.attr('data-bv-err-container') || this.$form.attr('data-bv-container'), // Support backward
@@ -250,7 +259,6 @@ if (typeof jQuery === 'undefined') {
                         invalid:  this.$form.attr('data-bv-row-invalid'),
                         feedback: this.$form.attr('data-bv-row-feedback')
                     },
-                    submitButtons: this.$form.attr('data-bv-submitbuttons'),
                     threshold:     this.$form.attr('data-bv-threshold'),
                     trigger:       this.$form.attr('data-bv-trigger'),
                     verbose:       this.$form.attr('data-bv-verbose'),
@@ -266,7 +274,7 @@ if (typeof jQuery === 'undefined') {
                     e.preventDefault();
                     that.validate();
                 })
-                .on('click.bv', this.options.submitButtons, function() {
+                .on('click.bv', this.options.button.selector, function() {
                     that.$submitButton  = $(this);
                     // The user just click the submit button
                     that._submitIfValid = true;
@@ -303,6 +311,10 @@ if (typeof jQuery === 'undefined') {
                 this.options.row.selector = this.options.group;
                 delete this.options.group;
             }
+            if (this.options.submitButtons) {
+                this.options.button.selector = this.options.submitButtons;
+                delete this.options.submitButtons;
+            }
 
             // If the locale is not found, reset it to default one
             if (!FormValidation.I18n[this.options.locale]) {
@@ -330,8 +342,8 @@ if (typeof jQuery === 'undefined') {
                             $button = $target.is('[type="submit"]') ? $target.eq(0) : $target.parent('[type="submit"]').eq(0);
 
                         // Don't perform validation when clicking on the submit button/input
-                        // which aren't defined by the 'submitButtons' option
-                        if (that.options.submitButtons && !$button.is(that.options.submitButtons) && !$button.is(that.$hiddenButton)) {
+                        // which aren't defined by the 'button.selector' option
+                        if (that.options.button.selector && !$button.is(that.options.button.selector) && !$button.is(that.$hiddenButton)) {
                             that.$form.off('submit.bv').submit();
                         }
                     }
@@ -1038,10 +1050,16 @@ if (typeof jQuery === 'undefined') {
          */
         disableSubmitButtons: function(disabled) {
             if (!disabled) {
-                this.$form.find(this.options.submitButtons).removeAttr('disabled');
+                this.$form
+                    .find(this.options.button.selector)
+                        .removeAttr('disabled')
+                        .removeClass(this.options.button.disabled);
             } else if (this.options.live !== 'disabled') {
                 // Don't disable if the live validating mode is disabled
-                this.$form.find(this.options.submitButtons).attr('disabled', 'disabled');
+                this.$form
+                    .find(this.options.button.selector)
+                        .attr('disabled', 'disabled')
+                        .addClass(this.options.button.disabled);
             }
 
             return this;

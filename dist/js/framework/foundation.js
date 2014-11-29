@@ -2,17 +2,23 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-29 4:47:13 PM
+ * @version     v0.6.0-dev, built on 2014-11-29 5:15:44 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
+/**
+ * This class supports validating Foundation framework (http://foundation.zurb.com/)
+ */
 /* global Foundation: false */
-
-// Support Zurb Foundation framework
 (function($) {
     FormValidation.Framework.Foundation = function(element, options) {
         options = $.extend(true, {
+            button: {
+                // The class for disabled button
+                // http://foundation.zurb.com/docs/components/buttons.html
+                disabled: 'disabled'
+            },
             err: {
                 clazz: 'error',
                 parent: '^.*((small|medium|large)-[0-9]+)\\s.*(columns).*$'
@@ -25,6 +31,7 @@
                 feedback: 'fv-control-feedback'
             },
             row: {
+                // http://foundation.zurb.com/docs/components/forms.html
                 selector: '.row',
                 valid: '',
                 invalid: 'error',

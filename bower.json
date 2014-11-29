@@ -1,6 +1,6 @@
 {
     "name": "bootstrapvalidator",
-    "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks",
+    "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure frameworks",
     "version": "0.6.0-dev",
     "ignore": [
         "demo",
