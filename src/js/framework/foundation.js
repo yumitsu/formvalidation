@@ -1,6 +1,6 @@
 /**
  * FormValidation (http://bootstrapvalidator.com)
- * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
+ * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure frameworks
  *
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
@@ -16,8 +16,7 @@
                 clazz: 'error',
                 parent: '^.*((small|medium|large)-[0-9]+)\\s.*(columns).*$'
             },
-            // Foundation doesn't support feedback icon as Bootstrap
-            // Might be we have to adjust the CSS manually
+            // Foundation doesn't support feedback icon
             icon: {
                 valid: null,
                 invalid: null,

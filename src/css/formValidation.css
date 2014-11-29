@@ -1,6 +1,6 @@
 /**
  * FormValidation (http://bootstrapvalidator.com)
- * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation frameworks
+ * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure frameworks
  *
  * @author      http://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
@@ -31,8 +31,14 @@
 .fv-has-feedback .fv-control-feedback {
     right: 15px;
 }
+.fv-help-block {
+    display: block;
+}
 
-/* For Bootstrap */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~ For Bootstrap form ~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 .fv-form .help-block {
     margin-bottom: 0;
 }
@@ -47,7 +53,10 @@
 	z-index: 100;
 }
 
-/* For Foundation form */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~ For Foundation form ~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 .error .fv-control-feedback {
     color: #f04124;
 }
@@ -57,4 +66,16 @@
  */
 .error.fv-has-tooltip input, .error.fv-has-tooltip textarea, .error.fv-has-tooltip select {
     margin-bottom: 1rem;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~ For Pure form ~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~ */
+
+.pure-form .fv-help-block {
+    color: rgb(202, 60, 60);    /* Same as Pure .button-error */
+}
+.pure-form-aligned .pure-control-group .fv-help-block {
+    margin-top: 5px;
+    margin-left: 180px;
 }

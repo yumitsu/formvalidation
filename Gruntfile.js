@@ -79,6 +79,15 @@ module.exports = function(grunt) {
                 src: ['<%= dirs.src %>/js/framework/foundation.js'],
                 dest: '<%= dirs.dist %>/js/framework/foundation.js'
             },
+            pure: {
+                options: {
+                    separator: ';',
+                    stripBanners: true,
+                    banner: '<%= banner %>'
+                },
+                src: ['<%= dirs.src %>/js/framework/pure.js'],
+                dest: '<%= dirs.dist %>/js/framework/pure.js'
+            },
             test: {
                 src: ['<%= dirs.test %>/spec/*.js', '<%= dirs.test %>/spec/validator/*.js'],
                 dest: '<%= dirs.test %>/spec.js'
@@ -100,6 +109,10 @@ module.exports = function(grunt) {
             foundation: {
                 src: ['<%= dirs.dist %>/js/framework/foundation.js'],
                 dest: '<%= dirs.dist %>/js/framework/foundation.min.js'
+            },
+            pure: {
+                src: ['<%= dirs.dist %>/js/framework/pure.js'],
+                dest: '<%= dirs.dist %>/js/framework/pure.min.js'
             }
         },
 
