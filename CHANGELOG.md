@@ -15,6 +15,7 @@ __New Features__
 * [#1204](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1204): __Support Zurb Foundation framework__
 * [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Add Spanish [postal code](http://bootstrapvalidator.com/validators/zipCode/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
 * [#1208](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1208): Support Spanish [CIF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
+* [#1210](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1210): __Support UI Kit framework__
 * [#1212](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1212): __Support Yahoo Pure framework__
 
 __Changes__

@@ -1,6 +1,6 @@
 {
     "name": "nghuuphuoc/bootstrapvalidator",
-    "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure frameworks",
+    "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, UIKit frameworks",
     "version": "0.6.0-dev",
     "type": "library",
     "keywords": [

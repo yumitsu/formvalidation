@@ -8,11 +8,10 @@
  */
 
 /**
- * This class supports validating Foundation framework (http://foundation.zurb.com/)
+ * This class supports validating UIKit framework (http://getuikit.com/)
  */
-/* global Foundation: false */
 (function($) {
-    FormValidation.Framework.Foundation = function(element, options) {
+    FormValidation.Framework.UIKit = function(element, options) {
         options = $.extend(true, {
             button: {
                 // The class for disabled button
@@ -20,10 +19,10 @@
                 disabled: 'disabled'
             },
             err: {
-                clazz: 'error',
-                parent: '^.*((small|medium|large)-[0-9]+)\\s.*(columns).*$'
+                clazz: 'uk-form-help-block',
+                parent: '^.*uk-form-controls.*$'
             },
-            // Foundation doesn't support feedback icon
+            // UIkit doesn't support feedback icon
             icon: {
                 valid: null,
                 invalid: null,
@@ -31,18 +30,18 @@
                 feedback: 'fv-control-feedback'
             },
             row: {
-                // http://foundation.zurb.com/docs/components/forms.html
-                selector: '.row',
+                // http://getuikit.com/docs/form.html
+                selector: '.uk-form-row',
                 valid: '',
-                invalid: 'error',
-                feedback: 'fv-has-feedback fv-foundation-has-feedback'
+                invalid: '',
+                feedback: 'fv-has-feedback'
             }
         }, options);
 
         FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidation.Framework.Foundation.prototype = $.extend({}, FormValidation.Base.prototype, {
+    FormValidation.Framework.UIKit.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
          * Specific framework might need to adjust the icon position
          *
@@ -50,13 +49,6 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
-            var type = $field.attr('type');
-            if ('checkbox' === type || 'radio' === type) {
-                var $next = $icon.next();
-                if ($next.is('label')) {
-                    $icon.insertAfter($next);
-                }
-            }
         },
 
         /**
@@ -68,23 +60,14 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var that  = this,
-                $icon = $field.data('bv.icon');
+            var $icon = $field.data('bv.icon');
             if ($icon) {
                 $icon
                     .attr('title', message)
                     .css({
                         'cursor': 'pointer'
-                    })
-                    .off('mouseenter.container.bv focusin.container.bv')
-                    .on('mouseenter.container.bv', function() {
-                        that._showTooltip($field, type);
-                    })
-                    .off('mouseleave.container.bv focusout.container.bv')
-                    .on('mouseleave.container.bv focusout.container.bv', function() {
-                        that._hideTooltip($field, type);
                     });
-                Foundation.libs.tooltip.create($icon);
+                $icon.data('tooltip', new $.UIkit.tooltip($icon));
             }
         },
 
@@ -95,10 +78,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                Foundation.libs.tooltip.hide($icon);
-            }
+            this._hideTooltip($field, type);
         },
 
         /**
@@ -110,10 +90,10 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                $icon.css({
-                    'cursor': ''
-                });
-                Foundation.libs.tooltip.hide($icon);
+                var $tooltip = $icon.data('tooltip');
+                if ($tooltip) {
+                    $tooltip.hide();
+                }
             }
         },
 
@@ -125,8 +105,11 @@
          */
         _showTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
-            if ($icon && !this.isValidField($field)) {
-                Foundation.libs.tooltip.show($icon);
+            if ($icon) {
+                var $tooltip = $icon.data('tooltip');
+                if ($tooltip) {
+                    $tooltip.show();
+                }
             }
         }
     });

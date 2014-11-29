@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FormValidation &rarr; UIKit demo</title>
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/uikit/2.12.0/css/uikit.min.css"/>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" href="../../dist/css/formValidation.css"/>
+
+    <script type="text/javascript" src="../../vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/uikit/2.12.0/js/uikit.min.js"></script>
+
+    <script type="text/javascript" src="../../dist/js/formValidation.js"></script>
+    <script type="text/javascript" src="../../dist/js/framework/uikit.js"></script>
+</head>
+<body>
+    <div class="uk-width-1-2 uk-container-center">
+        <form id="stackedForm" class="uk-form uk-form-stacked">
+            <fieldset>
+                <legend>Stacked form</legend>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Username</label>
+                    <div class="uk-form-controls">
+                        <input name="username" type="text" placeholder="Username" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Email address</label>
+                    <div class="uk-form-controls">
+                        <input name="email" type="text" placeholder="Email address" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Password</label>
+                    <div class="uk-form-controls">
+                        <input name="password" type="password" placeholder="Password" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Confirm password</label>
+                    <div class="uk-form-controls">
+                        <input name="confirmPassword" type="password" placeholder="Password" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Gender</label>
+                    <div class="uk-form-controls">
+                        <input name="gender" type="radio" value="male" /> <label>Male</label> <br/>
+                        <input name="gender" type="radio" value="female" /> <label>Female</label> <br/>
+                        <input name="gender" type="radio" value="other" /> <label>Other</label>
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <div class="uk-form-controls">
+                        <input name="agree" type="checkbox" /> <label>Agree with the terms and conditions</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="uk-button uk-button-primary">Submit</button>
+            </fieldset>
+        </form>
+
+        <form id="horizontalForm" class="uk-form uk-form-horizontal">
+            <fieldset>
+                <legend>Horizontal form</legend>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Username</label>
+                    <div class="uk-form-controls">
+                        <input name="username" type="text" placeholder="Username" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Email address</label>
+                    <div class="uk-form-controls">
+                        <input name="email" type="text" placeholder="Email address" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Password</label>
+                    <div class="uk-form-controls">
+                        <input name="password" type="password" placeholder="Password" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Confirm password</label>
+                    <div class="uk-form-controls">
+                        <input name="confirmPassword" type="password" placeholder="Password" />
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label">Gender</label>
+                    <div class="uk-form-controls">
+                        <input name="gender" type="radio" value="male" /> <label>Male</label> <br/>
+                        <input name="gender" type="radio" value="female" /> <label>Female</label> <br/>
+                        <input name="gender" type="radio" value="other" /> <label>Other</label>
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input name="agree" type="checkbox" /> <label>Agree with the terms and conditions</label>
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <button type="submit" class="uk-button uk-button-primary">Submit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('form').formValidation({
+        framework: 'uikit',
+        icon: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'fa fa-refresh',
+            feedback: 'fv-control-feedback'
+        },
+        fields: {
+            username: {
+                message: 'The username is not valid',
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and cannot be empty'
+                    },
+                    different: {
+                        field: 'username',
+                        message: 'The password cannot be the same as username'
+                    }
+                }
+            },
+            confirmPassword: {
+                validators: {
+                    notEmpty: {
+                        message: 'The confirm password is required and cannot be empty'
+                    },
+                    identical: {
+                        field: 'password',
+                        message: 'The password and its confirm are not the same'
+                    }
+                }
+            },
+            gender: {
+                validators: {
+                    notEmpty: {
+                        message: 'The gender is required'
+                    }
+                }
+            },
+            agree: {
+                validators: {
+                    notEmpty: {
+                        message: 'You must agree with the terms and conditions'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

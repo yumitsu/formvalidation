@@ -1,6 +1,6 @@
 /**
  * FormValidation (http://bootstrapvalidator.com)
- * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure frameworks
+ * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, UIKit frameworks
  *
  * @author      http://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
@@ -78,4 +78,16 @@
 .pure-form-aligned .pure-control-group .fv-help-block {
     margin-top: 5px;
     margin-left: 180px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~ For UIKit form ~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~ */
+
+.uk-form .fv-help-block {
+    color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
+}
+.fv-form .uk-form-help-block {
+    color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
+    display: block;
 }

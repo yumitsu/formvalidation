@@ -88,6 +88,15 @@ module.exports = function(grunt) {
                 src: ['<%= dirs.src %>/js/framework/pure.js'],
                 dest: '<%= dirs.dist %>/js/framework/pure.js'
             },
+            uikit: {
+                options: {
+                    separator: ';',
+                    stripBanners: true,
+                    banner: '<%= banner %>'
+                },
+                src: ['<%= dirs.src %>/js/framework/uikit.js'],
+                dest: '<%= dirs.dist %>/js/framework/uikit.js'
+            },
             test: {
                 src: ['<%= dirs.test %>/spec/*.js', '<%= dirs.test %>/spec/validator/*.js'],
                 dest: '<%= dirs.test %>/spec.js'
@@ -113,6 +122,10 @@ module.exports = function(grunt) {
             pure: {
                 src: ['<%= dirs.dist %>/js/framework/pure.js'],
                 dest: '<%= dirs.dist %>/js/framework/pure.min.js'
+            },
+            uikit: {
+                src: ['<%= dirs.dist %>/js/framework/uikit.js'],
+                dest: '<%= dirs.dist %>/js/framework/uikit.min.js'
             }
         },
 
