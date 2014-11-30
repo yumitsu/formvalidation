@@ -1,8 +1,8 @@
 module.exports = function(grunt) {
     grunt.initConfig({
-        // ---
+        // ~~~~~~~~~
         // Variables
-        // ---
+        // ~~~~~~~~~
 
         pkg: grunt.file.readJSON('package.json'),
 
@@ -24,9 +24,9 @@ module.exports = function(grunt) {
             ' */\n'
         ].join('\n'),
 
-        // ---
+        // ~~~~
         // Tasks
-        // ---
+        // ~~~~
 
         copy: {
             main: {
@@ -88,6 +88,15 @@ module.exports = function(grunt) {
                 src: ['<%= dirs.src %>/js/framework/pure.js'],
                 dest: '<%= dirs.dist %>/js/framework/pure.js'
             },
+            semantic: {
+                options: {
+                    separator: ';',
+                    stripBanners: true,
+                    banner: '<%= banner %>'
+                },
+                src: ['<%= dirs.src %>/js/framework/semantic.js'],
+                dest: '<%= dirs.dist %>/js/framework/semantic.js'
+            },
             uikit: {
                 options: {
                     separator: ';',
@@ -122,6 +131,10 @@ module.exports = function(grunt) {
             pure: {
                 src: ['<%= dirs.dist %>/js/framework/pure.js'],
                 dest: '<%= dirs.dist %>/js/framework/pure.min.js'
+            },
+            semantic: {
+                src: ['<%= dirs.dist %>/js/framework/semantic.js'],
+                dest: '<%= dirs.dist %>/js/framework/semantic.min.js'
             },
             uikit: {
                 src: ['<%= dirs.dist %>/js/framework/uikit.js'],

@@ -1,17 +1,17 @@
-/*!
+/**
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-30 6:11:44 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
+
 /**
- * This class supports validating UIKit framework (http://getuikit.com/)
+ * This class supports validating SemanticUI framework (http://semantic-ui.com/)
  */
 (function($) {
-    FormValidation.Framework.UIKit = function(element, options) {
+    FormValidation.Framework.Semantic = function(element, options) {
         options = $.extend(true, {
             button: {
                 // The class for disabled button
@@ -64,15 +64,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                $icon
-                    .attr('title', message)
-                    .css({
-                        'cursor': 'pointer'
-                    })
-                    .data('tooltip', new $.UIkit.tooltip($icon));
-            }
+
         },
 
         /**
@@ -82,15 +74,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                var tooltip = $icon.data('tooltip');
-                if (tooltip) {
-                    tooltip.hide();
-                    $icon.off('focus mouseenter')
-                         .removeData('tooltip');
-                }
-            }
+
         },
 
         /**
@@ -100,13 +84,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                var tooltip = $icon.data('tooltip');
-                if (tooltip) {
-                    tooltip.hide();
-                }
-            }
+
         },
 
         /**
@@ -116,13 +94,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
-            if ($icon) {
-                var tooltip = $icon.data('tooltip');
-                if (tooltip) {
-                    tooltip.show();
-                }
-            }
+
         }
     });
 }(jQuery));

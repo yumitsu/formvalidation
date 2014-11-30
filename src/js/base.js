@@ -1,6 +1,6 @@
 /**
  * FormValidation (http://bootstrapvalidator.com)
- * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, UIKit frameworks
+ * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
@@ -454,7 +454,7 @@ if (typeof jQuery === 'undefined') {
                 }
 
                 // Remove all error messages and feedback icons
-                $message.find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove();
+                $message.find('.' + this.options.err.clazz.split(' ').join('.') + '[data-bv-validator][data-bv-for="' + field + '"]').remove();
                 $parent.find('i[data-bv-icon-for="' + field + '"]').remove();
 
                 // Whenever the user change the field value, mark it as not validated yet
@@ -1224,7 +1224,7 @@ if (typeof jQuery === 'undefined') {
             for (var field in map) {
                 var $f = map[field];
                 if ($f.data('bv.messages')
-                      .find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]')
+                      .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-bv-validator][data-bv-for="' + field + '"]')
                       .filter('[data-bv-result="' + this.STATUS_INVALID +'"]')
                       .length > 0)
                 {
@@ -1408,7 +1408,7 @@ if (typeof jQuery === 'undefined') {
 
                 var $parent      = $field.closest(row),
                     $message     = $field.data('bv.messages'),
-                    $allErrors   = $message.find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]'),
+                    $allErrors   = $message.find('.' + this.options.err.clazz.split(' ').join('.') + '[data-bv-validator][data-bv-for="' + field + '"]'),
                     $errors      = validatorName ? $allErrors.filter('[data-bv-validator="' + validatorName + '"]') : $allErrors,
                     $icon        = $field.data('bv.icon'),
                     // Support backward
@@ -1750,7 +1750,7 @@ if (typeof jQuery === 'undefined') {
                     $field
                         // Remove all error messages
                         .data('bv.messages')
-                            .find('.' + this.options.err.clazz + '[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
+                            .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-bv-validator][data-bv-for="' + field + '"]').remove().end()
                             .end()
                         .removeData('bv.messages')
                         // Remove feedback classes
@@ -2166,14 +2166,18 @@ if (typeof jQuery === 'undefined') {
                 data    = $this.data('formValidation'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                var framework = options.framework || $this.attr('data-fv-framework') || 'bootstrap';
-                switch (framework.toLowerCase()) {
+                var framework = (options.framework || $this.attr('data-fv-framework') || 'bootstrap').toLowerCase();
+                switch (framework) {
                     case 'foundation':
                         data = new FormValidation.Framework.Foundation(this, options);
                         break;
 
                     case 'pure':
                         data = new FormValidation.Framework.Pure(this, options);
+                        break;
+
+                    case 'semantic':
+                        data = new FormValidation.Framework.Semantic(this, options);
                         break;
 
                     case 'uikit':
@@ -2187,7 +2191,8 @@ if (typeof jQuery === 'undefined') {
                         break;
                 }
 
-                $this.data('formValidation', data);
+                $this.addClass('fv-form-' + framework)
+                     .data('formValidation', data);
             }
 
             // Allow to call plugin method

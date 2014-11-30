@@ -1,6 +1,6 @@
 /**
  * FormValidation (http://bootstrapvalidator.com)
- * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, UIKit frameworks
+ * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
  * @author      http://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
@@ -39,16 +39,16 @@
 /* ~~~ For Bootstrap form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-.fv-form .help-block {
+.fv-form-bootstrap .help-block {
     margin-bottom: 0;
 }
-.fv-form .tooltip-inner {
+.fv-form-bootstrap .tooltip-inner {
     text-align: left;
 }
-.fv-form .fv-bootstrap-no-label {
+.fv-form-bootstrap .fv-bootstrap-no-label {
 	top: 0;
 }
-.fv-form .fv-bootstrap-icon-input-group {
+.fv-form-bootstrap .fv-bootstrap-icon-input-group {
 	top: 0;
 	z-index: 100;
 }
@@ -57,14 +57,14 @@
 /* ~~~ For Foundation form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
-.error .fv-control-feedback {
+.fv-form-foundation .error .fv-control-feedback {
     color: #f04124;
 }
 /**
  * Foundation reset the bottom marin to 0 when the row has '.error' class
  * I need to adjust it when using tooltip to show the error
  */
-.error.fv-has-tooltip input, .error.fv-has-tooltip textarea, .error.fv-has-tooltip select {
+.fv-form-foundation .error.fv-has-tooltip input, .error.fv-has-tooltip textarea, .error.fv-has-tooltip select {
     margin-bottom: 1rem;
 }
 
@@ -72,7 +72,7 @@
 /* ~~~ For Pure form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~ */
 
-.pure-form .fv-help-block {
+.fv-form-pure .fv-help-block {
     color: rgb(202, 60, 60);    /* Same as Pure .button-error */
 }
 .pure-form-aligned .pure-control-group .fv-help-block {
@@ -80,14 +80,25 @@
     margin-left: 180px;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~ For Semantic form ~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.fv-form-semantic .fv-control-feedback.icon {
+    right: 7px;
+}
+.fv-form-semantic .error .icon {
+    color: #d95c5c;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~ For UIKit form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~ */
 
-.uk-form .fv-help-block {
+.fv-form-uikit .fv-help-block {
     color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
 }
-.fv-form .uk-form-help-block {
+.fv-form-uikit .uk-form-help-block {
     color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
     display: block;
 }

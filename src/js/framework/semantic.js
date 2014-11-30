@@ -1,43 +1,47 @@
-/*!
+/**
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-11-30 6:11:44 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
  */
+
 /**
- * This class supports validating UIKit framework (http://getuikit.com/)
+ * This class supports validating SemanticUI framework (http://semantic-ui.com/)
  */
 (function($) {
-    FormValidation.Framework.UIKit = function(element, options) {
+    FormValidation.Framework.Semantic = function(element, options) {
         options = $.extend(true, {
             button: {
-                // The class for disabled button
-                // http://foundation.zurb.com/docs/components/buttons.html
+                // CSS class of disabled button
+                // http://semantic-ui.com/elements/button.html#disabled
                 disabled: 'disabled'
             },
             control: {
-                valid: 'uk-form-success',
-                invalid: 'uk-form-danger'
+                valid: '',
+                invalid: ''
             },
             err: {
-                clazz: 'uk-form-help-block',
-                parent: '^.*uk-form-controls.*$'
+                clazz: 'ui red pointing prompt label transition',
+                parent: '^.*(field|column).*$'
             },
-            // UIKit doesn't support feedback icon
+            // When using feedback icon, the input must place inside 'ui input icon' element
+            //  <div class="ui input icon">
+            //      <input type="text" />
+            //  </div>
+            // See http://semantic-ui.com/elements/input.html#icon
             icon: {
-                valid: null,
-                invalid: null,
-                validating: null,
-                feedback: 'fv-control-feedback'
+                // http://semantic-ui.com/elements/icon.html
+                valid: null,        // 'checkmark icon'
+                invalid: null,      // 'remove icon'
+                validating: null,   // 'refresh icon'
+                feedback: ''
             },
             row: {
-                // http://getuikit.com/docs/form.html
-                selector: '.uk-form-row',
+                selector: '.field',
                 valid: '',
-                invalid: '',
+                invalid: 'error',
                 feedback: 'fv-has-feedback'
             }
         }, options);
@@ -45,7 +49,7 @@
         FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidation.Framework.UIKit.prototype = $.extend({}, FormValidation.Base.prototype, {
+    FormValidation.Framework.Semantic.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
          * Specific framework might need to adjust the icon position
          *
@@ -53,6 +57,13 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
+            var type = $field.attr('type');
+            if ('checkbox' === type || 'radio' === type) {
+                var $fieldParent = $field.parent();
+                if ($fieldParent.hasClass(type)) {
+                    $icon.insertAfter($fieldParent);
+                }
+            }
         },
 
         /**
@@ -66,12 +77,14 @@
         _createTooltip: function($field, message, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
+                // http://semantic-ui.com/modules/popup.html
                 $icon
-                    .attr('title', message)
                     .css({
                         'cursor': 'pointer'
                     })
-                    .data('tooltip', new $.UIkit.tooltip($icon));
+                    .popup({
+                        content: message
+                    });
             }
         },
 
@@ -84,12 +97,14 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                var tooltip = $icon.data('tooltip');
-                if (tooltip) {
-                    tooltip.hide();
-                    $icon.off('focus mouseenter')
-                         .removeData('tooltip');
+                // TODO: Remove the popup from DOM
+                var popup = $icon.css({ 'cursor': '' }).data('module-popup');
+                if (popup) {
+                    popup.hide();
+                    popup.destroy();
                 }
+                $icon.popup('remove');
+                $icon.removeData('module-popup');
             }
         },
 
@@ -102,9 +117,9 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                var tooltip = $icon.data('tooltip');
-                if (tooltip) {
-                    tooltip.hide();
+                var popup = $icon.data('module-popup');
+                if (popup) {
+                    popup.hide();
                 }
             }
         },
@@ -118,9 +133,9 @@
         _showTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                var tooltip = $icon.data('tooltip');
-                if (tooltip) {
-                    tooltip.show();
+                var popup = $icon.data('module-popup');
+                if (popup) {
+                    popup.show();
                 }
             }
         }
