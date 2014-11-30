@@ -18,11 +18,15 @@
                 // http://foundation.zurb.com/docs/components/buttons.html
                 disabled: 'disabled'
             },
+            control: {
+                valid: 'uk-form-success',
+                invalid: 'uk-form-danger'
+            },
             err: {
                 clazz: 'uk-form-help-block',
                 parent: '^.*uk-form-controls.*$'
             },
-            // UIkit doesn't support feedback icon
+            // UIKit doesn't support feedback icon
             icon: {
                 valid: null,
                 invalid: null,
@@ -66,8 +70,8 @@
                     .attr('title', message)
                     .css({
                         'cursor': 'pointer'
-                    });
-                $icon.data('tooltip', new $.UIkit.tooltip($icon));
+                    })
+                    .data('tooltip', new $.UIkit.tooltip($icon));
             }
         },
 
@@ -78,7 +82,15 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            this._hideTooltip($field, type);
+            var $icon = $field.data('bv.icon');
+            if ($icon) {
+                var tooltip = $icon.data('tooltip');
+                if (tooltip) {
+                    tooltip.hide();
+                    $icon.off('focus mouseenter')
+                         .removeData('tooltip');
+                }
+            }
         },
 
         /**
@@ -90,9 +102,9 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                var $tooltip = $icon.data('tooltip');
-                if ($tooltip) {
-                    $tooltip.hide();
+                var tooltip = $icon.data('tooltip');
+                if (tooltip) {
+                    tooltip.hide();
                 }
             }
         },
@@ -106,9 +118,9 @@
         _showTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                var $tooltip = $icon.data('tooltip');
-                if ($tooltip) {
-                    $tooltip.show();
+                var tooltip = $icon.data('tooltip');
+                if (tooltip) {
+                    tooltip.show();
                 }
             }
         }

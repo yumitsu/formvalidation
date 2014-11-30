@@ -118,6 +118,14 @@ if (typeof jQuery === 'undefined') {
             disabled: ''
         },
 
+        control: {
+            // The CSS class for valid control
+            valid: '',
+
+            // The CSS class for invalid control
+            invalid: ''
+        },
+
         err: {
             // The CSS class of each message element
             clazz: '',
@@ -221,6 +229,10 @@ if (typeof jQuery === 'undefined') {
                     button: {
                         selector: this.$form.attr('data-bv-button-selector') || this.$form.attr('data-bv-submitbuttons'), // Support backward
                         disabled: this.$form.attr('data-bv-button-disabled')
+                    },
+                    control: {
+                        valid:   this.$form.attr('data-bv-control-valid'),
+                        invalid: this.$form.attr('data-bv-control-invalid')
                     },
                     err: {
                         clazz:     this.$form.attr('data-bv-err-clazz'),
@@ -1429,6 +1441,7 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_VALIDATING:
                         isValidField = null;
                         this.disableSubmitButtons(true);
+                        $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
                         $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
                         if ($icon) {
                             $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.invalid).addClass(this.options.icon.validating).show();
@@ -1441,6 +1454,7 @@ if (typeof jQuery === 'undefined') {
                     case this.STATUS_INVALID:
                         isValidField = false;
                         this.disableSubmitButtons(true);
+                        $field.removeClass(this.options.control.valid).addClass(this.options.control.invalid);
                         $parent.removeClass(this.options.row.valid).addClass(this.options.row.invalid);
                         if ($icon) {
                             $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.validating).addClass(this.options.icon.invalid).show();
@@ -1455,8 +1469,10 @@ if (typeof jQuery === 'undefined') {
                         isValidField = ($allErrors.filter('[data-bv-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
                                      ? ($allErrors.filter('[data-bv-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
                                      : null;                                                                                            // There are some validators that have not done
+                        $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
                         if (isValidField !== null) {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
+                            $field.addClass(isValidField ? this.options.control.valid : this.options.control.invalid);
                             if ($icon) {
                                 $icon
                                     .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
@@ -1476,6 +1492,7 @@ if (typeof jQuery === 'undefined') {
                     default:
                         isValidField = null;
                         this.disableSubmitButtons(false);
+                        $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
                         $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
                         if ($icon) {
                             $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).hide();
