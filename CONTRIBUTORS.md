@@ -20,6 +20,7 @@ I would like to give big thanks to the following contributors:
 * [@beeglebug](https://github.com/beeglebug)
 * [@bermo](https://github.com/bermo)
 * [@blackfyre](https://github.com/blackfyre)
+* [@budik21](https://github.com/budik21)
 * [@caijh](https://github.com/caijh)
 * [@CeRBeR666](https://github.com/CeRBeR666)
 * [@cuchac](https://github.com/cuchac)
