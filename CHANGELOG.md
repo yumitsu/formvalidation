@@ -64,6 +64,7 @@ __Document__
 __Language Packages__
 * [#1150](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1150): Add Catalan language package, thanks to [@ArnauAregall](https://github.com/ArnauAregall)
 * [#1216](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1216): Add Slovak language package, thanks to [@budik21](https://github.com/budik21)
+* [#1217](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1217): Update Czech language package, thanks to [@budik21](https://github.com/budik21)
 
 ## v0.5.3 (2014-11-05)
 
