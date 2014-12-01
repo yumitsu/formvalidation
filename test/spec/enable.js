@@ -30,8 +30,8 @@ describe('enable validators', function() {
             }
         });
 
-        this.bv        = $('#enableForm').data('bootstrapValidator');
-        this.$fullName = this.bv.getFieldElements('fullName');
+        this.fv        = $('#enableForm').data('bootstrapValidator');
+        this.$fullName = this.fv.getFieldElements('fullName');
     });
 
     afterEach(function() {
@@ -40,64 +40,64 @@ describe('enable validators', function() {
 
     it('enable all validators', function() {
         this.$fullName.val('@ $full N@m3');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$fullName.val('Contain#$@');
-        this.bv.enableFieldValidators('fullName', true);
-        this.bv.validate();
-        expect(this.bv.isValidField('fullName')).toEqual(false);
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.enableFieldValidators('fullName', true);
+        this.fv.validate();
+        expect(this.fv.isValidField('fullName')).toEqual(false);
+        expect(this.fv.isValid()).toEqual(false);
     });
 
     it('disable all validators', function() {
-        this.bv.resetForm();
-        this.bv.enableFieldValidators('fullName', false);
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.resetForm();
+        this.fv.enableFieldValidators('fullName', false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('enabled option particular validator', function() {
         this.$fullName.val('Contain@#$');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        var messages = this.bv.getMessages('fullName');
+        var messages = this.fv.getMessages('fullName');
         expect(messages.length).toEqual(0);
     });
 
     it('enable particular validators', function() {
         // Enable stringLength validator
-        this.bv.resetForm();
-        this.bv.enableFieldValidators('fullName', true, 'stringLength');
-        this.bv.enableFieldValidators('fullName', true, 'regexp');
+        this.fv.resetForm();
+        this.fv.enableFieldValidators('fullName', true, 'stringLength');
+        this.fv.enableFieldValidators('fullName', true, 'regexp');
         this.$fullName.val('Full@');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        var messages = this.bv.getMessages('fullName');
+        var messages = this.fv.getMessages('fullName');
         expect($.inArray('The full name must be more than 8 and less than 40 characters long', messages)).toBeGreaterThan(-1);
         expect($.inArray('The full name can only consist of alphabetical, number, and space', messages)).toBeGreaterThan(-1);
     });
 
     it('disable particular validators', function() {
         // Disable stringLength validator
-        this.bv.enableFieldValidators('fullName', false, 'stringLength');
+        this.fv.enableFieldValidators('fullName', false, 'stringLength');
         this.$fullName.val('Full');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        var messages = this.bv.getMessages('fullName');
+        var messages = this.fv.getMessages('fullName');
         expect($.inArray('The full name must be more than 8 and less than 40 characters long', messages)).toEqual(-1);
 
         // Disable regexp validator
-        this.bv.enableFieldValidators('fullName', false, 'regexp');
+        this.fv.enableFieldValidators('fullName', false, 'regexp');
         this.$fullName.val('Special@#$');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        var messages = this.bv.getMessages('fullName');
+        var messages = this.fv.getMessages('fullName');
         expect($.inArray('The full name can only consist of alphabetical, number, and space', messages)).toEqual(-1);
     });
 });

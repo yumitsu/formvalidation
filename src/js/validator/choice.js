@@ -47,8 +47,8 @@
         validate: function(validator, $field, options) {
             var locale     = validator.getLocale(),
                 numChoices = $field.is('select')
-                            ? validator.getFieldElements($field.attr('data-bv-field')).find('option').filter(':selected').length
-                            : validator.getFieldElements($field.attr('data-bv-field')).filter(':checked').length,
+                            ? validator.getFieldElements($field.attr('data-fv-field')).find('option').filter(':selected').length
+                            : validator.getFieldElements($field.attr('data-fv-field')).filter(':checked').length,
                 min        = options.min ? ($.isNumeric(options.min) ? options.min : validator.getDynamicOption($field, options.min)) : null,
                 max        = options.max ? ($.isNumeric(options.max) ? options.max : validator.getDynamicOption($field, options.max)) : null,
                 isValid    = true,

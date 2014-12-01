@@ -3,15 +3,15 @@ describe('bic', function() {
         $([
             '<form class="form-horizontal" id="bicForm">',
                 '<div class="form-group">',
-                    '<input type="text" name="bic" data-bv-bic />',
+                    '<input type="text" name="bic" data-fv-bic />',
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
 
         $('#bicForm').bootstrapValidator();
 
-        this.bv   = $('#bicForm').data('bootstrapValidator');
-        this.$bic = this.bv.getFieldElements('bic');
+        this.fv   = $('#bicForm').data('bootstrapValidator');
+        this.$bic = this.fv.getFieldElements('bic');
     });
 
     afterEach(function() {
@@ -26,10 +26,10 @@ describe('bic', function() {
             '1SBACNBXSHA', 'D2BACNBXSHA', 'DS3ACNBXSHA', 'DSB4CNBXSHA', 'DSBA5NBXSHA', 'DSBAC6BXSHA', '1S3AC6BXSHA'
         ];
         for (i in invalidSamples) {
-            this.bv.resetForm();
+            this.fv.resetForm();
             this.$bic.val(invalidSamples[i]);
-            this.bv.validate();
-            expect(this.bv.isValid()).toEqual(false);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
         }
     });
 
@@ -37,10 +37,10 @@ describe('bic', function() {
         // Examples see http://en.wikipedia.org/wiki/ISO_9362
         var validSamples = ['ASPKAT2LXXX', 'ASPKAT2L', 'DSBACNBXSHA', 'UNCRIT2B912', 'DABADKKK', 'RZOOAT2L303'];
         for (i in validSamples) {
-            this.bv.resetForm();
+            this.fv.resetForm();
             this.$bic.val(validSamples[i]);
-            this.bv.validate();
-            expect(this.bv.isValid()).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
         }
     });
 });

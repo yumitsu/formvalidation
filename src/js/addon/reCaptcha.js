@@ -59,7 +59,7 @@
                         // The field 'recaptcha_response_field' has just been added
                         if (data.field === that.CAPTCHA_FIELD) {
                             // Move icon to other position
-                            var $icon = data.element.data('bv.icon');
+                            var $icon = data.element.data('fv.icon');
                             $icon.insertAfter('#' + options.element);
                         }
                     })
@@ -82,7 +82,7 @@
                         if (data.field === that.CAPTCHA_FIELD) {
                             // User enter a captcha
                             // Hide the feedback icon
-                            data.element.data('bv.icon').hide();
+                            data.element.data('fv.icon').hide();
                         }
                     })
                     .on('submit', function(e) {

@@ -4,15 +4,15 @@ describe('uri', function() {
             '<form class="form-horizontal" id="uriForm">',
                 '<div id="msg"></div>',
                 '<div class="form-group">',
-                    '<input type="text" name="uri" data-bv-uri />',
+                    '<input type="text" name="uri" data-fv-uri />',
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
 
         $('#uriForm').bootstrapValidator();
 
-        this.bv   = $('#uriForm').data('bootstrapValidator');
-        this.$uri = this.bv.getFieldElements('uri');
+        this.fv   = $('#uriForm').data('bootstrapValidator');
+        this.$uri = this.fv.getFieldElements('uri');
     });
 
     afterEach(function() {
@@ -164,64 +164,64 @@ describe('uri', function() {
     it('Valid URIs (allowLocal=false)', function() {
         var that = this;
         $.each(validGlobalURIs, function(index, uri) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$uri.val(uri);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeTruthy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowLocal=false)', function() {
         var that = this;
         $.each(invalidGlobalURIs.concat(localURIs), function(index, uri) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$uri.val(uri);
-            that.bv.validate();
-            expect(that.bv.isValid()).toEqual(false);
+            that.fv.validate();
+            expect(that.fv.isValid()).toEqual(false);
         });
     });
 
     it('Valid URIs (allowLocal=true)', function() {
         var that = this;
-        this.bv.updateOption('uri', 'uri', 'allowLocal', true);
+        this.fv.updateOption('uri', 'uri', 'allowLocal', true);
         $.each(validGlobalURIs.concat(localURIs), function(index, uri) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$uri.val(uri);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeTruthy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowLocal=true)', function() {
         var that = this;
-        this.bv.updateOption('uri', 'uri', 'allowLocal', true);
+        this.fv.updateOption('uri', 'uri', 'allowLocal', true);
         $.each(invalidGlobalURIs, function(index, uri) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$uri.val(uri);
-            that.bv.validate();
-            expect(that.bv.isValid()).toEqual(false);
+            that.fv.validate();
+            expect(that.fv.isValid()).toEqual(false);
         });
     });
 
     it('Valid URIs (allowEmptyProtocol=true)', function() {
         var that = this;
-        this.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
+        this.fv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
         $.each(validGlobalURIs.concat(validEmptyProtocolURIs), function(index, uri) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$uri.val(uri);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeTruthy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid URIs (allowEmptyProtocol=true)', function() {
         var that = this;
-        this.bv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
+        this.fv.updateOption('uri', 'uri', 'allowEmptyProtocol', true);
         $.each(invalidEmptyProtocolURIs, function(index, uri) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$uri.val(uri);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeFalsy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeFalsy();
         });
     });
 });

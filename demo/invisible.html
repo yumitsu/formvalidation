@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -22,17 +22,17 @@
                 </div>
 
                 <form id="contactForm" method="post" class="form-horizontal" action="target.php"
-                      data-bv-message="This value is not valid"
-                      data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-                      data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
-                      data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                      data-fv-message="This value is not valid"
+                      data-fv-icon-valid="glyphicon glyphicon-ok"
+                      data-fv-icon-invalid="glyphicon glyphicon-remove"
+                      data-fv-icon-validating="glyphicon glyphicon-refresh">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Full name <sup>*</sup></label>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="firstName" placeholder="First name" required data-bv-notempty-message="The first name is required" />
+                            <input type="text" class="form-control" name="firstName" placeholder="First name" required data-fv-notempty-message="The first name is required" />
                         </div>
                         <div class="col-lg-4">
-                            <input type="text" class="form-control" name="lastName" placeholder="Last name" required data-bv-notempty-message="The last name is required" />
+                            <input type="text" class="form-control" name="lastName" placeholder="Last name" required data-fv-notempty-message="The last name is required" />
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                         <label class="col-lg-3 control-label">Company <sup>*</sup></label>
                         <div class="col-lg-5">
                             <input type="text" class="form-control" name="company"
-                                   required data-bv-notempty-message="The company name is required" />
+                                   required data-fv-notempty-message="The company name is required" />
                         </div>
                         <div class="col-lg-2">
                             <button type="button" class="btn btn-link" data-toggle="#jobInfo">Add more info</button>
@@ -52,7 +52,7 @@
                             <label class="col-lg-3 control-label">Job title <sup>*</sup></label>
                             <div class="col-lg-5">
                                 <input type="text" class="form-control" name="job"
-                                       required data-bv-notempty-message="The job title is required" />
+                                       required data-fv-notempty-message="The job title is required" />
                             </div>
                         </div>
 
@@ -60,7 +60,7 @@
                             <label class="col-lg-3 control-label">Department <sup>*</sup></label>
                             <div class="col-lg-5">
                                 <input type="text" class="form-control" name="department"
-                                       required data-bv-notempty-message="The department name is required" />
+                                       required data-fv-notempty-message="The department name is required" />
                             </div>
                         </div>
                     </div>
@@ -69,8 +69,8 @@
                         <label class="col-lg-3 control-label">Mobile phone <sup>*</sup></label>
                         <div class="col-lg-5">
                             <input type="text" class="form-control" name="mobilePhone"
-                                   required data-bv-notempty-message="The mobile phone number is required"
-                                   data-bv-digits data-bv-digits-message="The mobile phone number is not valid" />
+                                   required data-fv-notempty-message="The mobile phone number is required"
+                                   data-fv-digits data-fv-digits-message="The mobile phone number is not valid" />
                         </div>
                         <div class="col-lg-2">
                             <button type="button" class="btn btn-link" data-toggle="#phoneInfo">Add more phone numbers</button>
@@ -82,7 +82,7 @@
                             <label class="col-lg-3 control-label">Home phone</label>
                             <div class="col-lg-5">
                                 <input type="text" class="form-control" name="homePhone"
-                                       data-bv-digits data-bv-digits-message="The home phone number is not valid" />
+                                       data-fv-digits data-fv-digits-message="The home phone number is not valid" />
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                             <label class="col-lg-3 control-label">Office phone</label>
                             <div class="col-lg-5">
                                 <input type="text" class="form-control" name="officePhone"
-                                       data-bv-digits data-bv-digits-message="The office phone number is not valid" />
+                                       data-fv-digits data-fv-digits-message="The office phone number is not valid" />
                             </div>
                         </div>
                     </div>

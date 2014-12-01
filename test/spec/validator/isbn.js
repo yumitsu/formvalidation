@@ -4,7 +4,7 @@ describe('isbn', function() {
             '<div class="container">',
                 '<form class="form-horizontal" id="isbnForm">',
                     '<div class="form-group">',
-                        '<input type="text" name="isbn" data-bv-isbn />',
+                        '<input type="text" name="isbn" data-fv-isbn />',
                     '</div>',
                 '</form>',
             '</div>'
@@ -13,8 +13,8 @@ describe('isbn', function() {
         $(html).appendTo('body');
         $('#isbnForm').bootstrapValidator();
 
-        this.bv    = $('#isbnForm').data('bootstrapValidator');
-        this.$isbn = this.bv.getFieldElements('isbn');
+        this.fv    = $('#isbnForm').data('bootstrapValidator');
+        this.$isbn = this.fv.getFieldElements('isbn');
     });
 
     afterEach(function() {
@@ -26,8 +26,8 @@ describe('isbn', function() {
 
         for (var i in samples) {
             this.$isbn.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValidField('isbn')).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValidField('isbn')).toBeTruthy();
         }
     });
 
@@ -36,8 +36,8 @@ describe('isbn', function() {
 
         for (var i in samples) {
             this.$isbn.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValidField('isbn')).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValidField('isbn')).toBeTruthy();
         }
     });
 
@@ -45,26 +45,26 @@ describe('isbn', function() {
         var samples = ['0-8044-2957-X', '0-9752298-0-X'];
         for (var i in samples) {
             this.$isbn.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValidField('isbn')).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValidField('isbn')).toBeTruthy();
         }
     });
 
     it('isbn10 invalid check digit', function() {
         this.$isbn.val('99921-58-10-6');
-        this.bv.validate();
-        expect(this.bv.isValidField('isbn')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('isbn')).toEqual(false);
     });
 
     it('isbn13', function() {
         this.$isbn.val('978-0-306-40615-7');
-        this.bv.validate();
-        expect(this.bv.isValidField('isbn')).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValidField('isbn')).toBeTruthy();
     });
 
     it('isbn13 invalid check digit', function() {
         this.$isbn.val('978-0-306-40615-6');
-        this.bv.validate();
-        expect(this.bv.isValidField('isbn')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('isbn')).toEqual(false);
     });
 });

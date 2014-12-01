@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-01 2:06:36 PM
+ * @version     v0.6.0-dev, built on 2014-12-01 5:04:48 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -68,7 +68,7 @@
          */
         _fixIcon: function($field, $icon) {
             var type    = $field.attr('type'),
-                field   = $field.attr('data-bv-field'),
+                field   = $field.attr('data-fv-field'),
                 row     = this.options.fields[field].row || this.options.row.selector,
                 $parent = $field.closest(row);
 
@@ -104,7 +104,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -150,7 +150,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -183,7 +183,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -206,7 +206,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -239,7 +239,8 @@
                 options = 'object' === typeof option && option;
             if (!data) {
                 data = new FormValidation.Framework.Bootstrap(this, options);
-                $this.data('formValidation', data)
+                $this.addClass('fv-form-bootstrap')
+                     .data('formValidation', data)
                      .data('bootstrapValidator', data);
             }
 

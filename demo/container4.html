@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -96,7 +96,7 @@ $(document).ready(function() {
     $('#defaultForm')
         .bootstrapValidator({
             message: 'This value is not valid',
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -160,18 +160,18 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('error.field.bv', function(e, data) {
-            var messages = data.bv.getMessages(data.field);
-            $('#errors').find('li[data-bv-for="' + data.field + '"]').remove();
+        .on('error.field.fv', function(e, data) {
+            var messages = data.fv.getMessages(data.field);
+            $('#errors').find('li[data-fv-for="' + data.field + '"]').remove();
             for (var i in messages) {
-                $('<li/>').attr('data-bv-for', data.field).html(messages[i]).appendTo('#errors');
+                $('<li/>').attr('data-fv-for', data.field).html(messages[i]).appendTo('#errors');
             }
             $('#errors').parents('.form-group').removeClass('hide');
         })
-        .on('success.field.bv', function(e, data) {
-            $('#errors').find('li[data-bv-for="' + data.field + '"]').remove();
+        .on('success.field.fv', function(e, data) {
+            $('#errors').find('li[data-fv-for="' + data.field + '"]').remove();
         })
-        .on('success.form.bv', function(e) {
+        .on('success.form.fv', function(e) {
             $('#errors')
                 .html('')
                 .parents('.form-group').addClass('hide');

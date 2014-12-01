@@ -15,7 +15,7 @@ describe('callback', function() {
                 '</div>',
                 '<div class="form-group">',
                     '<div class="col-md-2 col-md-offset-3">',
-                        '<input type="text" class="form-control" name="declarativeCaptcha" data-bv-callback data-bv-callback-callback="validateCaptcha" />',
+                        '<input type="text" class="form-control" name="declarativeCaptcha" data-fv-callback data-fv-callback-callback="validateCaptcha" />',
                     '</div>',
                 '</div>',
             '</form>'
@@ -36,9 +36,9 @@ describe('callback', function() {
             }
         });
 
-        this.bv                  = $('#callbackForm').data('bootstrapValidator');
-        this.$captcha            = this.bv.getFieldElements('captcha');
-        this.$declarativeCaptcha = this.bv.getFieldElements('declarativeCaptcha');
+        this.fv                  = $('#callbackForm').data('bootstrapValidator');
+        this.$captcha            = this.fv.getFieldElements('captcha');
+        this.$declarativeCaptcha = this.fv.getFieldElements('declarativeCaptcha');
     });
 
     afterEach(function() {
@@ -49,25 +49,25 @@ describe('callback', function() {
         $('#captchaOperation').html('1 + 2');
 
         this.$captcha.val('3');
-        this.bv.validate();
-        expect(this.bv.isValidField('captcha')).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValidField('captcha')).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$captcha.val('5');
-        this.bv.validate();
-        expect(this.bv.isValidField('captcha')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('captcha')).toEqual(false);
     });
 
     it('callback declarative', function() {
         $('#captchaOperation').html('10 + 20');
 
         this.$declarativeCaptcha.val('40');
-        this.bv.validate();
-        expect(this.bv.isValidField('declarativeCaptcha')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('declarativeCaptcha')).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$declarativeCaptcha.val('30');
-        this.bv.validate();
-        expect(this.bv.isValidField('declarativeCaptcha')).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValidField('declarativeCaptcha')).toBeTruthy();
     });
 });

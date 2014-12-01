@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-01 2:06:36 PM
+ * @version     v0.6.0-dev, built on 2014-12-01 5:04:48 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -75,7 +75,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 // http://semantic-ui.com/modules/popup.html
                 $icon
@@ -95,7 +95,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 // TODO: Remove the popup from DOM
                 var popup = $icon.css({ 'cursor': '' }).data('module-popup');
@@ -115,7 +115,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 var popup = $icon.data('module-popup');
                 if (popup) {
@@ -131,7 +131,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 var popup = $icon.data('module-popup');
                 if (popup) {

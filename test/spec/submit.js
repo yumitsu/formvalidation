@@ -24,7 +24,7 @@ describe('submit', function() {
         this.$form = $('#submitForm');
         this.$form
             .bootstrapValidator()
-            .on('success.form.bv', function(e) {
+            .on('success.form.fv', function(e) {
                 e.preventDefault();
                 ++submitted;
             })
@@ -33,8 +33,8 @@ describe('submit', function() {
             });
             
         submitted      = 0;
-        this.bv        = this.$form.data('bootstrapValidator');
-        this.$username = this.bv.getFieldElements('username');
+        this.fv        = this.$form.data('bootstrapValidator');
+        this.$username = this.fv.getFieldElements('username');
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
@@ -56,7 +56,7 @@ describe('submit', function() {
 
     // #481
     it('with callback returning true', function(done) {
-        this.bv.addField('username', {
+        this.fv.addField('username', {
             validators: {
                 callback: {
                     message: 'Please enter an username',
@@ -75,7 +75,7 @@ describe('submit', function() {
 
     // #481
     it('with callback returning false', function(done) {
-        this.bv.addField('username', {
+        this.fv.addField('username', {
             validators: {
                 callback: {
                     message: 'Please enter an username',
@@ -94,7 +94,7 @@ describe('submit', function() {
 
     // #481
     it('with remote returning true', function(done) {
-        this.bv.addField('username', {
+        this.fv.addField('username', {
             validators: {
                 remote: {
                     url: '/test/valid.json',
@@ -111,7 +111,7 @@ describe('submit', function() {
 
     // #481
     it('with remote returning false', function(done) {
-        this.bv.addField('username', {
+        this.fv.addField('username', {
             validators: {
                 remote: {
                     url: '/test/invalid.json',
@@ -128,7 +128,7 @@ describe('submit', function() {
 
     // #481
     it('with fake remote returning true', function(done) {
-        this.bv.addField('username', {
+        this.fv.addField('username', {
             validators: {
                 fakeRemote: {
                     message: 'The username is not available',
@@ -145,7 +145,7 @@ describe('submit', function() {
 
     // #481
     it('with fake remote returning false', function(done) {
-        this.bv.addField('username', {
+        this.fv.addField('username', {
             validators: {
                 fakeRemote: {
                     message: 'The username is not available',

@@ -57,7 +57,7 @@
             validator
                 .getForm()
                 .on(opts.events.localeChanged, function(e, data) {
-                    that._setMessage(data.bv);
+                    that._setMessage(data.fv);
                 });
         },
 

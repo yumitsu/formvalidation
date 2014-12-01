@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -120,7 +120,7 @@
         $('#defaultForm')
             .bootstrapValidator({
                 message: 'This value is not valid',
-                feedbackIcons: {
+                icon: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
@@ -149,16 +149,16 @@
                     }
                 }
             })
-            .on('error.field.bv', function(e, data) {
-                //console.log('error.field.bv -->', data.element);
+            .on('error.field.fv', function(e, data) {
+                //console.log('error.field.fv -->', data.element);
             })
-            .on('success.field.bv', function(e, data) {
-                //console.log('success.field.bv -->', data.element);
+            .on('success.field.fv', function(e, data) {
+                //console.log('success.field.fv -->', data.element);
             })
-            .on('added.field.bv', function(e, data) {
+            .on('added.field.fv', function(e, data) {
                 //console.log('Added element -->', data.field, data.element);
             })
-            .on('removed.field.bv', function(e, data) {
+            .on('removed.field.fv', function(e, data) {
                 //console.log('Removed element -->', data.field, data.element);
             });
     });

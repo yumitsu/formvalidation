@@ -56,7 +56,7 @@ $(document).ready(function() {
     $('#defaultForm')
         .bootstrapValidator({
             message: 'This value is not valid',
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -102,14 +102,14 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('success.form.bv', function(e) {
+        .on('success.form.fv', function(e) {
             // Prevent form submission
             e.preventDefault();
 
             // Get the form instance
             var $form = $(e.target);
 
-            // Get the BootstrapValidator instance
+            // Get the FormValidation instance
             var bv = $form.data('bootstrapValidator');
 
             // Use Ajax to submit form data

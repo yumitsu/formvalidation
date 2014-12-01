@@ -3,14 +3,14 @@ describe('ein', function() {
         $([
             '<form class="form-horizontal" id="einForm">',
                 '<div class="form-group">',
-                    '<input type="text" name="ein" data-bv-ein />',
+                    '<input type="text" name="ein" data-fv-ein />',
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
         $('#einForm').bootstrapValidator();
 
-        this.bv   = $('#einForm').data('bootstrapValidator');
-        this.$ein = this.bv.getFieldElements('ein');
+        this.fv   = $('#einForm').data('bootstrapValidator');
+        this.$ein = this.fv.getFieldElements('ein');
     });
 
     afterEach(function() {
@@ -21,10 +21,10 @@ describe('ein', function() {
         var samples = ['01-1234567', '91-1144442', '011234567'];
 
         for (var i in samples) {
-            this.bv.resetForm();
+            this.fv.resetForm();
             this.$ein.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValid()).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
         }
     });
 
@@ -32,10 +32,10 @@ describe('ein', function() {
         var samples = ['123-45-6789'];
 
         for (var i in samples) {
-            this.bv.resetForm();
+            this.fv.resetForm();
             this.$ein.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValid()).toEqual(false);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
         }
     });
 
@@ -43,15 +43,15 @@ describe('ein', function() {
         var samples = ['00-1234567', '07-1144442', '49-1234567'];
 
         for (var i in samples) {
-            this.bv.resetForm();
+            this.fv.resetForm();
             this.$ein.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValid()).toEqual(false);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
         }
     });
 
     it('campus', function() {
-        $('#einForm').on('success.field.bv', function(e, data) {
+        $('#einForm').on('success.field.fv', function(e, data) {
             expect(data.result.campus).toEqual(data.element.attr('data-campus'));
         });
 
@@ -62,9 +62,9 @@ describe('ein', function() {
         };
 
         for (var i in samples) {
-            this.bv.resetForm();
+            this.fv.resetForm();
             this.$ein.val(samples[i]).attr('data-campus', i);
-            this.bv.validate();
+            this.fv.validate();
         }
     });
 });

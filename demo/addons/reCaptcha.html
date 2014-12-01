@@ -21,8 +21,8 @@
                 </div>
 
                 <form id="defaultForm" method="post" class="form-horizontal" action="/demo/target.php"
-                        data-bv-addons="requiredIcon"
-                        data-bv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
+                        data-fv-addons="requiredIcon"
+                        data-fv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Captcha</label>
                         <div class="col-sm-6">
@@ -45,12 +45,12 @@
 $(document).ready(function() {
     // You can enable and set add-on options via HTML attributes
     // <form
-    //      data-bv-addons="reCaptcha, otherAddOn, anotherOne"
-    //      data-bv-addons-recaptcha-element="captchaContainer"
-    //      data-bv-addons-recaptcha-theme="white"
-    //      data-bv-addons-recaptcha-publickey="6LfiX_0SAAAAAFGN6mRslurxcH4V1zXAfXIp3nv_"
-    //      data-bv-addons-recaptcha-url="/demo/recaptcha.php"
-    //      data-bv-addons-recaptcha-message="The captcha is not valid">
+    //      data-fv-addons="reCaptcha, otherAddOn, anotherOne"
+    //      data-fv-addons-recaptcha-element="captchaContainer"
+    //      data-fv-addons-recaptcha-theme="white"
+    //      data-fv-addons-recaptcha-publickey="6LfiX_0SAAAAAFGN6mRslurxcH4V1zXAfXIp3nv_"
+    //      data-fv-addons-recaptcha-url="/demo/recaptcha.php"
+    //      data-fv-addons-recaptcha-message="The captcha is not valid">
 
     $('#defaultForm').bootstrapValidator({
         addOns: {
@@ -62,7 +62,7 @@ $(document).ready(function() {
                 message: 'The captcha is not valid'
             }
         },
-        feedbackIcons: {
+        icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'

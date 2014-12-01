@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" />
@@ -74,7 +74,7 @@
 $(document).ready(function() {
     $('#paymentForm')
         .bootstrapValidator({
-            feedbackIcons: {
+            icon: {
                 valid: 'fa fa-check',
                 invalid: 'fa fa-times',
                 validating: 'fa fa-refresh'
@@ -183,9 +183,9 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('success.field.bv', function(e, data) {
+        .on('success.field.fv', function(e, data) {
             if (data.field === 'ccNumber') {
-                var $icon = data.element.data('bv.icon');
+                var $icon = data.element.data('fv.icon');
                 switch (data.result.type) {
                     case 'AMERICAN_EXPRESS':
                         $icon.removeClass().addClass('form-control-feedback fa fa-cc-amex');
@@ -205,9 +205,9 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('error.field.bv', function(e, data) {
+        .on('error.field.fv', function(e, data) {
             if (data.field === 'ccNumber') {
-                var $icon = data.element.data('bv.icon');
+                var $icon = data.element.data('fv.icon');
                 $icon.removeClass().addClass('form-control-feedback fa fa-times');
             }
         });

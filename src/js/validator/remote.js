@@ -29,8 +29,8 @@
          * Destroy the timer when destroying the bootstrapValidator (using validator.destroy() method)
          */
         destroy: function(validator, $field, options) {
-            if ($field.data('bv.remote.timer')) {
-                clearTimeout($field.data('bv.remote.timer'));
+            if ($field.data('fv.remote.timer')) {
+                clearTimeout($field.data('fv.remote.timer'));
                 $field.removeData('bv.remote.timer');
             }
         },
@@ -61,7 +61,7 @@
                 return dfd;
             }
 
-            var name    = $field.attr('data-bv-field'),
+            var name    = $field.attr('data-fv-field'),
                 data    = options.data || {},
                 url     = options.url,
                 type    = options.type || 'GET',
@@ -106,11 +106,11 @@
             if (options.delay) {
                 // Since the form might have multiple fields with the same name
                 // I have to attach the timer to the field element
-                if ($field.data('bv.remote.timer')) {
-                    clearTimeout($field.data('bv.remote.timer'));
+                if ($field.data('fv.remote.timer')) {
+                    clearTimeout($field.data('fv.remote.timer'));
                 }
 
-                $field.data('bv.remote.timer', setTimeout(runCallback, options.delay));
+                $field.data('fv.remote.timer', setTimeout(runCallback, options.delay));
                 return dfd;
             } else {
                 return runCallback();

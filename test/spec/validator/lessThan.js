@@ -23,16 +23,16 @@ describe('lessThan', function() {
                     '<input type="text" name="maxAge" />',
                 '</div>',
                 '<div class="form-group">',
-                    '<input type="text" name="age" data-bv-lessthan data-bv-lessthan-value="100" />',
+                    '<input type="text" name="age" data-fv-lessthan data-fv-lessthan-value="100" />',
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
 
         $('#lessThanForm').bootstrapValidator();
 
-        this.bv      = $('#lessThanForm').data('bootstrapValidator');
-        this.$maxAge = this.bv.getFieldElements('maxAge');
-        this.$age    = this.bv.getFieldElements('age');
+        this.fv      = $('#lessThanForm').data('bootstrapValidator');
+        this.$maxAge = this.fv.getFieldElements('maxAge');
+        this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
@@ -41,97 +41,97 @@ describe('lessThan', function() {
 
     it('not a number', function() {
         this.$age.val('20abc');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
     });
 
     it('value with comma separator', function() {
         this.$age.val('120,2234');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$age.val('30,2234');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('compare to value', function() {
         this.$age.val(120);
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$age.val(30);
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('compare to other field', function() {
-        this.bv.updateOption('age', 'lessThan', 'value', 'maxAge');
+        this.fv.updateOption('age', 'lessThan', 'value', 'maxAge');
 
         this.$maxAge.val(40);
         this.$age.val(20);
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$maxAge.val(20);
         this.$age.val(30);
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
+        expect(this.fv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.fv.getLocale()].lessThan['default'], this.$maxAge.val()));
     });
 
     // #1048
     it('compare to other field that value has comma', function() {
-        this.bv.updateOption('age', 'lessThan', 'value', 'maxAge');
+        this.fv.updateOption('age', 'lessThan', 'value', 'maxAge');
         this.$maxAge.val('30,5');
         this.$age.val(20);
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$maxAge.val('20,5');
         this.$age.val(30);
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
+        expect(this.fv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.fv.getLocale()].lessThan['default'], this.$maxAge.val()));
     });
 
     it('compare to return value of a function', function() {
-        this.bv.updateOption('age', 'lessThan', 'value', 'lessThanCompare');
+        this.fv.updateOption('age', 'lessThan', 'value', 'lessThanCompare');
 
         this.$maxAge.val(50);
         this.$age.val(60);
-        this.bv.validate();
+        this.fv.validate();
         expect($('#msg').html()).toEqual('lessThanCompare() called; compare to 50');
-        expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        expect(this.fv.isValid()).toEqual(false);
+        expect(this.fv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.fv.getLocale()].lessThan['default'], this.$maxAge.val()));
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$maxAge.val(60);
         this.$age.val(30);
-        this.bv.validate();
+        this.fv.validate();
         expect($('#msg').html()).toEqual('lessThanCompare() called; compare to 60');
-        expect(this.bv.isValid()).toBeTruthy();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('compare to return value of a namespace function', function() {
-        this.bv.updateOption('age', 'lessThan', 'value', 'TestSuite.lessThan.compareTo');
+        this.fv.updateOption('age', 'lessThan', 'value', 'TestSuite.lessThan.compareTo');
 
         this.$maxAge.val(50);
         this.$age.val(60);
-        this.bv.validate();
+        this.fv.validate();
         expect($('#msg').html()).toEqual('TestSuite.lessThan.compareTo() called; compare to 50');
-        expect(this.bv.isValid()).toEqual(false);
-        expect(this.bv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.bv.getLocale()].lessThan['default'], this.$maxAge.val()));
+        expect(this.fv.isValid()).toEqual(false);
+        expect(this.fv.getMessages('age', 'lessThan')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.fv.getLocale()].lessThan['default'], this.$maxAge.val()));
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$maxAge.val(60);
         this.$age.val(30);
-        this.bv.validate();
+        this.fv.validate();
         expect($('#msg').html()).toEqual('TestSuite.lessThan.compareTo() called; compare to 60');
-        expect(this.bv.isValid()).toBeTruthy();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 });

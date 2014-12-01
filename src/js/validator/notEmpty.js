@@ -33,7 +33,7 @@
             var type = $field.attr('type');
             if ('radio' === type || 'checkbox' === type) {
                 return validator
-                            .getFieldElements($field.attr('data-bv-field'))
+                            .getFieldElements($field.attr('data-fv-field'))
                             .filter(':checked')
                             .length > 0;
             }

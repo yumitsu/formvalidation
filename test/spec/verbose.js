@@ -4,9 +4,9 @@ describe('verbose option', function() {
             '<form class="form-horizontal" id="verboseForm">',
                 '<div class="form-group">',
                     '<input type="text" name="fullName" class="form-control" ',
-                        'required data-bv-notempty-message="The full name is required and cannot be empty" ',
-                        'data-bv-regexp="true" data-bv-regexp-regexp="^[a-zA-Z\\s]+$" data-bv-regexp-message="The full name can only consist of alphabetical, number, and space" ',
-                        'data-bv-stringlength="true" data-bv-stringlength-min="8" data-bv-stringlength-max="40" data-bv-stringlength-message="The full name must be more than 8 and less than 40 characters long" ',
+                        'required data-fv-notempty-message="The full name is required and cannot be empty" ',
+                        'data-fv-regexp="true" data-fv-regexp-regexp="^[a-zA-Z\\s]+$" data-fv-regexp-message="The full name can only consist of alphabetical, number, and space" ',
+                        'data-fv-stringlength="true" data-fv-stringlength-min="8" data-fv-stringlength-max="40" data-fv-stringlength-message="The full name must be more than 8 and less than 40 characters long" ',
                     '/>',
                 '</div>',
             '</form>'
@@ -22,9 +22,9 @@ describe('verbose option', function() {
         $('#verboseForm').bootstrapValidator('destroy').remove();
     });
 
-    it('set data-bv-verbose="false" for form', function() {
+    it('set data-fv-verbose="false" for form', function() {
         var bv        = $('#verboseForm')
-                            .attr('data-bv-verbose', 'false')
+                            .attr('data-fv-verbose', 'false')
                             .bootstrapValidator('destroy')
                             .bootstrapValidator()
                             .data('bootstrapValidator'),
@@ -35,28 +35,28 @@ describe('verbose option', function() {
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-notempty-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-notempty-message'));
 
         bv.resetForm();
         $fullName.val('Spe@#$');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-regexp-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-regexp-message'));
 
         bv.resetForm();
         $fullName.val('Full');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-stringlength-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-stringlength-message'));
     });
 
-    it('set data-bv-verbose="false" for field', function() {
+    it('set data-fv-verbose="false" for field', function() {
         var bv        = $('#verboseForm')
-                            .attr('data-bv-verbose', 'true')
+                            .attr('data-fv-verbose', 'true')
                             .find('[name="fullName"]')
-                                .attr('data-bv-verbose', 'false')
+                                .attr('data-fv-verbose', 'false')
                                 .end()
                             .bootstrapValidator('destroy')
                             .bootstrapValidator()
@@ -68,21 +68,21 @@ describe('verbose option', function() {
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-notempty-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-notempty-message'));
 
         bv.resetForm();
         $fullName.val('Spe@#$');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-regexp-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-regexp-message'));
 
         bv.resetForm();
         $fullName.val('Full');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-stringlength-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-stringlength-message'));
     });
 
     it('set verbose: "false" for form', function() {
@@ -97,27 +97,27 @@ describe('verbose option', function() {
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-notempty-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-notempty-message'));
 
         bv.resetForm();
         $fullName.val('Spe@#$');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-regexp-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-regexp-message'));
 
         bv.resetForm();
         $fullName.val('Full');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-stringlength-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-stringlength-message'));
     });
 
     // #1057
     it('set verbose: "false" for field', function() {
         var bv        = $('#verboseForm')
-                            .attr('data-bv-verbose', 'true')
+                            .attr('data-fv-verbose', 'true')
                             .bootstrapValidator('destroy')
                             .bootstrapValidator({
                                 verbose: true,
@@ -135,28 +135,28 @@ describe('verbose option', function() {
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-notempty-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-notempty-message'));
 
         bv.resetForm();
         $fullName.val('Spe@#$');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-regexp-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-regexp-message'));
 
         bv.resetForm();
         $fullName.val('Full');
         bv.validate();
         messages = bv.getMessages('fullName');
         expect(messages.length).toEqual(1);
-        expect(messages[0]).toEqual($fullName.attr('data-bv-stringlength-message'));
+        expect(messages[0]).toEqual($fullName.attr('data-fv-stringlength-message'));
     });
 
     // #1055
-    it('trigger "error.field.bv" event', function() {
+    it('trigger "error.field.fv" event', function() {
         var validators = [],    // Array of not passed validators
             bv         = $('#verboseForm')
-                            .attr('data-bv-verbose', 'true')
+                            .attr('data-fv-verbose', 'true')
                             .bootstrapValidator('destroy')
                             .bootstrapValidator({
                                 verbose: true,
@@ -166,7 +166,7 @@ describe('verbose option', function() {
                                     }
                                 }
                             })
-                            .on('error.field.bv', function(e, data) {
+                            .on('error.field.fv', function(e, data) {
                                 validators.push(data.validator);
                             })
                             .data('bootstrapValidator'),

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Email address</label>
                     <div class="col-lg-5">
-                        <input type="text" class="form-control" name="email" data-bv-feedbackicons="false" />
+                        <input type="text" class="form-control" name="email" data-fv-icon="false" />
                     </div>
                 </div>
 
@@ -91,7 +91,7 @@ $(document).ready(function() {
     $('#defaultForm')
         .bootstrapValidator({
             message: 'This value is not valid',
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -136,7 +136,7 @@ $(document).ready(function() {
                     }
                 },
                 password: {
-                    feedbackIcons: 'false',
+                    icon: 'false',
                     validators: {
                         notEmpty: {
                             message: 'The password is required and cannot be empty'
@@ -148,7 +148,7 @@ $(document).ready(function() {
                     }
                 },
                 gender: {
-                    feedbackIcons: false,
+                    icon: false,
                     validators: {
                         notEmpty: {
                             message: 'The gender is required'

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../../dist/css/formValidation.css"/>
@@ -41,7 +41,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     // You can enable the add-on via HTML attributes
-    // <form data-bv-addons="oneMessage, otherAddOn, anotherOne">
+    // <form data-fv-addons="oneMessage, otherAddOn, anotherOne">
     $('#defaultForm').bootstrapValidator({
         addOns: {
             // Show only one message for fields
@@ -50,7 +50,7 @@ $(document).ready(function() {
                 username: true
             }
         },
-        feedbackIcons: {
+        icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'

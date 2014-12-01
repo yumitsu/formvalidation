@@ -2,12 +2,12 @@ describe('excluded', function() {
     beforeEach(function() {
         $([
             '<div class="container">',
-                '<form class="form-horizontal" id="excludedForm" data-bv-excluded="[name=\'email\']">',
+                '<form class="form-horizontal" id="excludedForm" data-fv-excluded="[name=\'email\']">',
                     '<div class="form-group">',
                         '<input type="text" name="username" required />',
                     '</div>',
                     '<div class="form-group">',
-                        '<input type="text" name="email" required data-bv-emailaddress />',
+                        '<input type="text" name="email" required data-fv-emailaddress />',
                     '</div>',
                 '</form>',
             '</div>'
@@ -15,9 +15,9 @@ describe('excluded', function() {
 
         $('#excludedForm').bootstrapValidator();
 
-        this.bv        = $('#excludedForm').data('bootstrapValidator');
-        this.$username = this.bv.getFieldElements('username');
-        this.$email    = this.bv.getFieldElements('email');
+        this.fv        = $('#excludedForm').data('bootstrapValidator');
+        this.$username = this.fv.getFieldElements('username');
+        this.$email    = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
@@ -25,68 +25,68 @@ describe('excluded', function() {
     });
 
     it('excluded form declarative', function() {
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$username.val('your_user_name');
         this.$email.val('');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('excluded form programmatically', function() {
-        this.bv.destroy();
-        $('#excludedForm').removeAttr('data-bv-excluded');
+        this.fv.destroy();
+        $('#excludedForm').removeAttr('data-fv-excluded');
 
         $('#excludedForm').bootstrapValidator({
             excluded: '[name="username"]'
         });
 
-        this.bv        = $('#excludedForm').data('bootstrapValidator');
-        this.$username = this.bv.getFieldElements('username');
-        this.$email    = this.bv.getFieldElements('email');
+        this.fv        = $('#excludedForm').data('bootstrapValidator');
+        this.$username = this.fv.getFieldElements('username');
+        this.$email    = this.fv.getFieldElements('email');
 
         this.$username.val('');
         this.$email.val('invalid#email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$email.val('valid@email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('excluded field declarative', function() {
-        this.bv.destroy();
-        $('#excludedForm').removeAttr('data-bv-excluded');
-        $('#excludedForm').find('[name="username"]').attr('data-bv-excluded', 'true');
-        $('#excludedForm').find('[name="email"]').attr('data-bv-excluded', 'false');
+        this.fv.destroy();
+        $('#excludedForm').removeAttr('data-fv-excluded');
+        $('#excludedForm').find('[name="username"]').attr('data-fv-excluded', 'true');
+        $('#excludedForm').find('[name="email"]').attr('data-fv-excluded', 'false');
 
-        this.bv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
-        this.$username = this.bv.getFieldElements('username');
-        this.$email    = this.bv.getFieldElements('email');
+        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.$username = this.fv.getFieldElements('username');
+        this.$email    = this.fv.getFieldElements('email');
 
         this.$username.val('');
         this.$email.val('');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$email.val('invalid#email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$email.val('valid@email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('excluded field programmatically true/false', function() {
-        this.bv.destroy();
-        $('#excludedForm').removeAttr('data-bv-excluded');
+        this.fv.destroy();
+        $('#excludedForm').removeAttr('data-fv-excluded');
 
         $('#excludedForm').bootstrapValidator({
             fields: {
@@ -99,29 +99,29 @@ describe('excluded', function() {
             }
         });
 
-        this.bv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
-        this.$username = this.bv.getFieldElements('username');
-        this.$email    = this.bv.getFieldElements('email');
+        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.$username = this.fv.getFieldElements('username');
+        this.$email    = this.fv.getFieldElements('email');
 
         this.$username.val('');
         this.$email.val('');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$email.val('invalid#email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$email.val('valid@email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('excluded field programmatically "true"/"false"', function() {
-        this.bv.destroy();
-        $('#excludedForm').removeAttr('data-bv-excluded');
+        this.fv.destroy();
+        $('#excludedForm').removeAttr('data-fv-excluded');
 
         $('#excludedForm').bootstrapValidator({
             fields: {
@@ -134,19 +134,19 @@ describe('excluded', function() {
             }
         });
 
-        this.bv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
-        this.$username = this.bv.getFieldElements('username');
-        this.$email    = this.bv.getFieldElements('email');
+        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.$username = this.fv.getFieldElements('username');
+        this.$email    = this.fv.getFieldElements('email');
 
         this.$username.val('');
         this.$email.val('valid@email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValid()).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$username.val('your_user_name');
         this.$email.val('invalid#email.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 });

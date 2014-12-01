@@ -64,7 +64,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 $icon
                     .attr('title', message)
@@ -82,7 +82,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 var tooltip = $icon.data('tooltip');
                 if (tooltip) {
@@ -100,7 +100,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 var tooltip = $icon.data('tooltip');
                 if (tooltip) {
@@ -116,7 +116,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 var tooltip = $icon.data('tooltip');
                 if (tooltip) {

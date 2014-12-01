@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../../dist/css/formValidation.css"/>
@@ -91,13 +91,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
     // You can enable the add-on via HTML attributes
-    // <form data-bv-addons="multilingual, otherAddOn, anotherOne">
+    // <form data-fv-addons="multilingual, otherAddOn, anotherOne">
     $('#defaultForm')
         .bootstrapValidator({
             addOns: {
                 multilingual: {}
             },
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'

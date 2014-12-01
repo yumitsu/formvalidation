@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -175,7 +175,7 @@ $(document).ready(function() {
     $('#defaultForm')
         .bootstrapValidator({
             message: 'This value is not valid',
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -270,8 +270,8 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('error.form.bv', function(e) {
-            console.log('error.form.bv');
+        .on('error.form.fv', function(e) {
+            console.log('error.form.fv');
 
             // You can get the form instance and then access API
             var $form = $(e.target);
@@ -280,24 +280,24 @@ $(document).ready(function() {
             // If you want to prevent the default handler (bootstrapValidator._onError(e))
             // e.preventDefault();
         })
-        .on('success.form.bv', function(e) {
-            console.log('success.form.bv');
+        .on('success.form.fv', function(e) {
+            console.log('success.form.fv');
 
             // If you want to prevent the default handler (bootstrapValidator._onSuccess(e))
             // e.preventDefault();
         })
-        .on('error.field.bv', function(e, data) {
-            console.log('error.field.bv -->', data);
+        .on('error.field.fv', function(e, data) {
+            console.log('error.field.fv -->', data);
         })
-        .on('success.field.bv', function(e, data) {
-            console.log('success.field.bv -->', data);
+        .on('success.field.fv', function(e, data) {
+            console.log('success.field.fv -->', data);
         })
-        .on('status.field.bv', function(e, data) {
+        .on('status.field.fv', function(e, data) {
             // I don't want to add has-success class to valid field container
             data.element.parents('.form-group').removeClass('has-success');
 
             // I want to enable the submit button all the time
-            data.bv.disableSubmitButtons(false);
+            data.fv.disableSubmitButtons(false);
         });
 
     // Validate the form manually

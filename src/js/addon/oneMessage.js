@@ -23,11 +23,11 @@
                     }
 
                     data.element
-                        .data('bv.messages')
+                        .data('fv.messages')
                         // Hide all the messages
-                        .find('.help-block[data-bv-for="' + data.field + '"]').hide()
+                        .find('.help-block[data-fv-for="' + data.field + '"]').hide()
                         // Show only message associated with current validator
-                        .filter('[data-bv-validator="' + data.validator + '"]').show();
+                        .filter('[data-fv-validator="' + data.validator + '"]').show();
                 });
         }
     };

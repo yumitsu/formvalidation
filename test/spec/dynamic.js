@@ -38,8 +38,8 @@ describe('dynamic fields', function() {
             }
         });
 
-        this.bv        = $('#dynamicForm').data('bootstrapValidator');
-        this.$fullName = this.bv.getFieldElements('fullName');
+        this.fv        = $('#dynamicForm').data('bootstrapValidator');
+        this.$fullName = this.fv.getFieldElements('fullName');
     });
 
     afterEach(function() {
@@ -55,19 +55,19 @@ describe('dynamic fields', function() {
                         .attr('name', 'email')
                         .appendTo($div);
 
-        this.bv.addField('email');
+        this.fv.addField('email');
 
         this.$fullName.val('Phuoc Nguyen');
 
         $email.val('not valid@email');
-        this.bv.validate();
-        expect(this.bv.isValidField('email')).toBeFalsy();
-        expect(this.bv.isValid()).toBeFalsy();
+        this.fv.validate();
+        expect(this.fv.isValidField('email')).toBeFalsy();
+        expect(this.fv.isValid()).toBeFalsy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         $email.val('valid@email.com');
-        this.bv.validate();
-        expect(this.bv.isValidField('email')).toBeTruthy();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValidField('email')).toBeTruthy();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 });

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -17,7 +17,7 @@
             <!-- form: -->
             <section>
                 <div class="page-header">
-                    <h1>Bootstrap Validate plugin</h1>
+                    <h1>Built-in validators</h1>
                 </div>
 
                 <div class="col-lg-8 col-lg-offset-2">
@@ -155,7 +155,7 @@
 $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
         message: 'This value is not valid',
-        feedbackIcons: {
+        icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'

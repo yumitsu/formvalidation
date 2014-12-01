@@ -15,15 +15,15 @@ describe('transformer', function() {
         $([
             '<form class="form-horizontal" id="transformerForm">',
                 '<div class="form-group">',
-                    '<input type="text" name="website" data-bv-uri />',
+                    '<input type="text" name="website" data-fv-uri />',
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
 
         $('#transformerForm').bootstrapValidator();
 
-        this.bv       = $('#transformerForm').data('bootstrapValidator');
-        this.$website = this.bv.getFieldElements('website');
+        this.fv       = $('#transformerForm').data('bootstrapValidator');
+        this.$website = this.fv.getFieldElements('website');
     });
 
     afterEach(function() {
@@ -32,12 +32,12 @@ describe('transformer', function() {
 
     it('transformer not set', function() {
         this.$website.val('foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeFalsy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeFalsy();
     });
 
     it('programmatically usage', function() {
-        this.bv = $('#transformerForm')
+        this.fv = $('#transformerForm')
                     .bootstrapValidator('destroy')
                     .bootstrapValidator({
                         fields: {
@@ -58,58 +58,58 @@ describe('transformer', function() {
                     })
                     .data('bootstrapValidator');
         this.$website.val('foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$website.val('http://foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$website.val('https://foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('declarative usage', function() {
-        this.$website.attr('data-bv-uri-transformer', 'TestSuite.Transformer.uri');
+        this.$website.attr('data-fv-uri-transformer', 'TestSuite.Transformer.uri');
 
-        this.bv = $('#transformerForm')
+        this.fv = $('#transformerForm')
                     .bootstrapValidator('destroy')
                     .bootstrapValidator()
                     .data('bootstrapValidator');
 
         this.$website.val('foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$website.val('http://foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$website.val('https://foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('update via updateOption()', function() {
-        this.bv.updateOption('website', 'uri', 'transformer', 'TestSuite.Transformer.uri');
+        this.fv.updateOption('website', 'uri', 'transformer', 'TestSuite.Transformer.uri');
 
         this.$website.val('foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$website.val('http://foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$website.val('https://foo.com');
-        this.bv.validate();
-        expect(this.bv.isValid()).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValid()).toBeTruthy();
     });
 });

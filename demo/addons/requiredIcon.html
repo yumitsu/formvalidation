@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../../dist/css/formValidation.css"/>
@@ -21,8 +21,8 @@
                 </div>
 
                 <form id="defaultForm" method="post" class="form-horizontal" action="/demo/target.php"
-                        data-bv-addons="requiredIcon"
-                        data-bv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
+                        data-fv-addons="requiredIcon"
+                        data-fv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-5">
@@ -68,8 +68,8 @@
 $(document).ready(function() {
     // You can enable and set add-on options via HTML attributes
     // <form
-    //      data-bv-addons="requiredIcon, otherAddOn, anotherOne"
-    //      data-bv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
+    //      data-fv-addons="requiredIcon, otherAddOn, anotherOne"
+    //      data-fv-addons-requiredicon-icon="glyphicon glyphicon-asterisk">
     $('#defaultForm')
         .bootstrapValidator({
             addOns: {
@@ -77,7 +77,7 @@ $(document).ready(function() {
                     icon: 'glyphicon glyphicon-asterisk'
                 }
             },
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'

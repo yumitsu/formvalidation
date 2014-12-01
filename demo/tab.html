@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -95,7 +95,7 @@ $(document).ready(function() {
     $('#accountForm')
         .bootstrapValidator({
             excluded: [':disabled'],
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -145,9 +145,8 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('status.field.bv', function(e, data) {
-            var $form     = $(e.target),
-                validator = data.bv,
+        .on('status.field.fv', function(e, data) {
+            var validator = data.fv,
                 $tabPane  = data.element.parents('.tab-pane'),
                 tabId     = $tabPane.attr('id');
             

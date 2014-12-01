@@ -4,7 +4,7 @@ describe('ean', function() {
             '<div class="container">',
                 '<form class="form-horizontal" id="eanForm">',
                     '<div class="form-group">',
-                        '<input type="text" name="ean" data-bv-ean />',
+                        '<input type="text" name="ean" data-fv-ean />',
                     '</div>',
                 '</form>',
             '</div>'
@@ -13,8 +13,8 @@ describe('ean', function() {
         $(html).appendTo('body');
         $('#eanForm').bootstrapValidator();
 
-        this.bv   = $('#eanForm').data('bootstrapValidator');
-        this.$ean = this.bv.getFieldElements('ean');
+        this.fv   = $('#eanForm').data('bootstrapValidator');
+        this.$ean = this.fv.getFieldElements('ean');
     });
 
     afterEach(function() {
@@ -26,26 +26,26 @@ describe('ean', function() {
 
         for (var i in samples) {
             this.$ean.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValidField('ean')).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValidField('ean')).toBeTruthy();
         }
     });
 
     it('contains only digits', function() {
         this.$ean.val('123abcDEF!@#');
-        this.bv.validate();
-        expect(this.bv.isValidField('ean')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('ean')).toEqual(false);
     });
 
     it('invalid length', function() {
         this.$ean.val('1234567');
-        this.bv.validate();
-        expect(this.bv.isValidField('ean')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('ean')).toEqual(false);
     });
 
     it('invalid check digit', function() {
         this.$ean.val('73513536');
-        this.bv.validate();
-        expect(this.bv.isValidField('ean')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('ean')).toEqual(false);
     });
 });

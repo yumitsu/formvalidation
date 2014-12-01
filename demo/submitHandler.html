@@ -63,7 +63,7 @@ $(document).ready(function() {
         .bootstrapValidator({
             message: 'This value is not valid',
             //live: 'submitted',
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -109,7 +109,7 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('success.form.bv', function(e) {
+        .on('success.form.fv', function(e) {
             // Prevent submit form
             e.preventDefault();
 

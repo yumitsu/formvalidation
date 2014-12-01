@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
 </head>
 <body>

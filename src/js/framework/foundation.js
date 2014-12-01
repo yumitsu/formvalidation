@@ -69,19 +69,19 @@
          */
         _createTooltip: function($field, message, type) {
             var that  = this,
-                $icon = $field.data('bv.icon');
+                $icon = $field.data('fv.icon');
             if ($icon) {
                 $icon
                     .attr('title', message)
                     .css({
                         'cursor': 'pointer'
                     })
-                    .off('mouseenter.container.bv focusin.container.bv')
-                    .on('mouseenter.container.bv', function() {
+                    .off('mouseenter.container.fv focusin.container.fv')
+                    .on('mouseenter.container.fv', function() {
                         that._showTooltip($field, type);
                     })
-                    .off('mouseleave.container.bv focusout.container.bv')
-                    .on('mouseleave.container.bv focusout.container.bv', function() {
+                    .off('mouseleave.container.fv focusout.container.fv')
+                    .on('mouseleave.container.fv focusout.container.fv', function() {
                         that._hideTooltip($field, type);
                     });
                 Foundation.libs.tooltip.create($icon);
@@ -96,7 +96,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 $icon.css({
                     'cursor': ''
@@ -118,7 +118,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 $icon.css({
                     'cursor': ''
@@ -137,7 +137,7 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('bv.icon');
+            var $icon = $field.data('fv.icon');
             if ($icon) {
                 var $tooltip = $icon.data('fv.foundation.tooltip');
                 if ($tooltip) {

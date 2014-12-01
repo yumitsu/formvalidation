@@ -48,12 +48,12 @@ $(document).ready(function() {
 
     function captchaLoaded() {
         $('#defaultForm')
-            .on('added.field.bv', function(e, data) {
+            .on('added.field.fv', function(e, data) {
                 // The field "recaptcha_response_field" has just been added
                 if (data.field === 'recaptcha_response_field') {
                     // Find the icon
                     var $parent = data.element.parents('.form-group'),
-                        $icon   = $parent.find('.form-control-feedback[data-bv-icon-for="' + data.field + '"]');
+                        $icon   = $parent.find('.form-control-feedback[data-fv-icon-for="' + data.field + '"]');
 
                     // Move icon to other position
                     $icon.insertAfter('#recaptcha');
@@ -81,7 +81,7 @@ $(document).ready(function() {
     };
 
     $('#defaultForm').bootstrapValidator({
-        feedbackIcons: {
+        icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'

@@ -3,10 +3,10 @@ describe('api', function() {
         $([
             '<form class="form-horizontal" id="apiForm">',
                 '<div class="form-group">',
-                    '<input type="text" name="username" data-bv-notempty data-bv-stringlength data-bv-stringlength-min="8" />',
+                    '<input type="text" name="username" data-fv-notempty data-fv-stringlength data-fv-stringlength-min="8" />',
                 '</div>',
                 '<div class="form-group">',
-                    '<input type="text" name="email" data-bv-notempty data-bv-emailaddress />',
+                    '<input type="text" name="email" data-fv-notempty data-fv-emailaddress />',
                 '</div>',
                 '<div class="form-group">',
                     '<input type="text" name="note"/>',
@@ -22,8 +22,8 @@ describe('api', function() {
             }
         });
 
-        this.bv     = $('#apiForm').data('bootstrapValidator');
-        this.$email = this.bv.getFieldElements('email');
+        this.fv     = $('#apiForm').data('bootstrapValidator');
+        this.$email = this.fv.getFieldElements('email');
         this.$note  = $('#apiForm').find('input[name="note"]');
     });
 
@@ -33,52 +33,52 @@ describe('api', function() {
 
     it('revalidateField()', function() {
         this.$email.val('email@domain.com');
-        this.bv.validate();
-        expect(this.bv.isValidField('email')).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValidField('email')).toBeTruthy();
 
         this.$email.val('invalid#email.address');
-        this.bv.revalidateField('email');
-        expect(this.bv.isValidField(this.$email)).toEqual(false);
+        this.fv.revalidateField('email');
+        expect(this.fv.isValidField(this.$email)).toEqual(false);
     });
 
     it('destroy()', function() {
-        this.bv.destroy();
+        this.fv.destroy();
         expect($('#apiForm').data('bootstrapValidator')).toBeUndefined();
-        expect($('#apiForm').find('i[data-bv-icon-for]').length).toEqual(0);
-        expect($('#apiForm').find('.help-block[data-bv-for]').length).toEqual(0);
+        expect($('#apiForm').find('i[data-fv-icon-for]').length).toEqual(0);
+        expect($('#apiForm').find('.help-block[data-fv-for]').length).toEqual(0);
         expect($('#apiForm').find('.has-feedback').length).toEqual(0);
         expect($('#apiForm').find('.has-success').length).toEqual(0);
         expect($('#apiForm').find('.has-error').length).toEqual(0);
-        expect($('#apiForm').find('[data-bv-field]').length).toEqual(0);
+        expect($('#apiForm').find('[data-fv-field]').length).toEqual(0);
     });
 
     it('getOptions()', function() {
         // Form options
-        expect(this.bv.getOptions().icon.valid).toEqual('glyphicon glyphicon-ok');
+        expect(this.fv.getOptions().icon.valid).toEqual('glyphicon glyphicon-ok');
 
         // Field options
-        expect(this.bv.getOptions('username', 'stringlength')).toBeNull();
-        expect(this.bv.getOptions('username', 'stringlength', 'min')).toBeNull();
+        expect(this.fv.getOptions('username', 'stringlength')).toBeNull();
+        expect(this.fv.getOptions('username', 'stringlength', 'min')).toBeNull();
 
-        expect(this.bv.getOptions('username', 'stringLength')).toBeDefined();
-        expect(this.bv.getOptions('username', 'stringLength', 'min')).toEqual('8');
-        expect(this.bv.getOptions('username', 'stringlength', 'max')).toBeNull();
+        expect(this.fv.getOptions('username', 'stringLength')).toBeDefined();
+        expect(this.fv.getOptions('username', 'stringLength', 'min')).toEqual('8');
+        expect(this.fv.getOptions('username', 'stringlength', 'max')).toBeNull();
     });
 
     // #1014
     it('isValidField()', function() {
         this.$email.val('email@domain.com');
-        this.bv.validate();
-        expect(this.bv.isValidField(this.$note)).toBeTruthy();
-        expect(this.bv.isValidField(this.$email)).toBeTruthy();
+        this.fv.validate();
+        expect(this.fv.isValidField(this.$note)).toBeTruthy();
+        expect(this.fv.isValidField(this.$email)).toBeTruthy();
     });
 
     // #1014
     it('validateField()', function() {
         this.$email.val('email@domain.com');
-        this.bv.validateField(this.$email);
-        this.bv.validateField(this.$note);
-        expect(this.bv.isValidField(this.$email)).toBeTruthy();
-        expect(this.bv.isValidField(this.$note)).toBeTruthy();
+        this.fv.validateField(this.$email);
+        this.fv.validateField(this.$note);
+        expect(this.fv.isValidField(this.$email)).toBeTruthy();
+        expect(this.fv.isValidField(this.$note)).toBeTruthy();
     });
 });

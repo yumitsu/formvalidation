@@ -12,7 +12,7 @@ describe('group option', function() {
                     '<div class="lastNameGroup">',
                         '<label class="col-sm-2 control-label">Last name</label>',
                         '<div class="col-sm-4">',
-                            '<input type="text" class="form-control" name="lastName" data-bv-group=".lastNameGroup" />',
+                            '<input type="text" class="form-control" name="lastName" data-fv-group=".lastNameGroup" />',
                         '</div>',
                     '</div>',
                 '</div>',
@@ -62,10 +62,10 @@ describe('group option', function() {
             }
         });
 
-        this.bv         = $('#groupForm').data('bootstrapValidator');
-        this.$firstName = this.bv.getFieldElements('firstName');
-        this.$lastName  = this.bv.getFieldElements('lastName');
-        this.$username  = this.bv.getFieldElements('username');
+        this.fv         = $('#groupForm').data('bootstrapValidator');
+        this.$firstName = this.fv.getFieldElements('firstName');
+        this.$lastName  = this.fv.getFieldElements('lastName');
+        this.$username  = this.fv.getFieldElements('username');
     });
 
     afterEach(function() {
@@ -74,20 +74,20 @@ describe('group option', function() {
 
     it('group default', function() {
         this.$username.val('123@#$');
-        this.bv.validate();
+        this.fv.validate();
         expect(this.$username.parents('.form-group').hasClass('has-error')).toBeTruthy();
         expect(this.$username.parents('.form-group').hasClass('has-success')).toEqual(false);
 
-        this.bv.resetForm();
+        this.fv.resetForm();
         this.$username.val('validUser.Name');
-        this.bv.validate();
+        this.fv.validate();
         expect(this.$username.parents('.form-group').hasClass('has-success')).toBeTruthy();
         expect(this.$username.parents('.form-group').hasClass('has-error')).toEqual(false);
     });
 
     it('group programmatically', function() {
         this.$firstName.val('');
-        this.bv.validate();
+        this.fv.validate();
         expect(this.$firstName.parents('.firstNameGroup').hasClass('has-error')).toBeTruthy();
         expect(this.$firstName.parents('.firstNameGroup').hasClass('has-success')).toEqual(false);
         expect(this.$firstName.parents('.form-group').hasClass('has-error')).toEqual(false);
@@ -96,7 +96,7 @@ describe('group option', function() {
     it('group declarative', function() {
         this.$firstName.val('First');
         this.$lastName.val('Last');
-        this.bv.validate();
+        this.fv.validate();
         expect(this.$lastName.parents('.lastNameGroup').hasClass('has-success')).toBeTruthy();
         expect(this.$lastName.parents('.lastNameGroup').hasClass('has-error')).toEqual(false);
         expect(this.$lastName.parents('.form-group').hasClass('has-success')).toEqual(false);

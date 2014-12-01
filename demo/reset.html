@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BootstrapValidator demo</title>
+    <title>FormValidation demo</title>
 
     <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -87,7 +87,7 @@
 $(document).ready(function() {
     $('#defaultForm')
         .bootstrapValidator({
-            feedbackIcons: {
+            icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
@@ -126,7 +126,7 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('success.form.bv', function(e) {
+        .on('success.form.fv', function(e) {
             // Prevent submit form
             e.preventDefault();
 

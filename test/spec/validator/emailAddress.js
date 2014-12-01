@@ -4,15 +4,15 @@ describe('emailAddress', function() {
             '<form class="form-horizontal" id="emailAddressForm">',
                 '<div id="msg"></div>',
                 '<div class="form-group">',
-                    '<input type="text" name="email-address-or-addresses" data-bv-emailaddress />',
+                    '<input type="text" name="email-address-or-addresses" data-fv-emailaddress />',
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
 
         $('#emailAddressForm').bootstrapValidator();
 
-        this.bv = $('#emailAddressForm').data('bootstrapValidator');
-        this.$emailAddressOrAddresses = this.bv.getFieldElements('email-address-or-addresses');
+        this.fv = $('#emailAddressForm').data('bootstrapValidator');
+        this.$emailAddressOrAddresses = this.fv.getFieldElements('email-address-or-addresses');
     });
 
     afterEach(function() {
@@ -69,10 +69,10 @@ describe('emailAddress', function() {
     it('Valid email addresses (multiple=false)', function() {
         var that = this;
         $.each(validEmailAddresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeTruthy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeTruthy();
         });
     });
 
@@ -86,16 +86,16 @@ describe('emailAddress', function() {
                             .concat(invalidMultipleEmailAddressesForCommaOrDollarSignSeparators);
 
         $.each(addresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toEqual(false);
+            that.fv.validate();
+            expect(that.fv.isValid()).toEqual(false);
         });
     });
 
     it('Invalid email addresses (multiple=false,separator=/[,\$]/)', function() {
         var that = this;
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'separator', /[,;]/);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'separator', /[,;]/);
 
         var addresses = invalidEmailAddresses
                             .concat(validMultipleEmailAddressesForDefaultSeparators)
@@ -104,72 +104,72 @@ describe('emailAddress', function() {
                             .concat(invalidMultipleEmailAddressesForCommaOrDollarSignSeparators);
 
         $.each(addresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toEqual(false);
+            that.fv.validate();
+            expect(that.fv.isValid()).toEqual(false);
         });
     });
 
     it('Valid email addresses (multiple=true)', function() {
         var that = this;
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
 
         var addresses = validEmailAddresses
                             .concat(validMultipleEmailAddressesForDefaultSeparators);
 
         $.each(addresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeTruthy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid email addresses (multiple=true)', function() {
         var that = this;
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
 
         var addresses = invalidEmailAddresses
                             .concat(invalidMultipleEmailAddressesForDefaultSeparators);
 
         $.each(addresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toEqual(false);
+            that.fv.validate();
+            expect(that.fv.isValid()).toEqual(false);
         });
     });
 
     it('Valid email addresses (multiple=true,separator=/[,\$]/)', function() {
         var that = this;
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'separator', /[,\$]/);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'separator', /[,\$]/);
 
         var addresses = validEmailAddresses
                             .concat(validMultipleEmailAddressesForCommaOrDollarSignSeparators);
 
         $.each(addresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toBeTruthy();
+            that.fv.validate();
+            expect(that.fv.isValid()).toBeTruthy();
         });
     });
 
     it('Invalid email addresses (multiple=true,separator=/[,\$]/)', function() {
         var that = this;
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
-        that.bv.updateOption('email-address-or-addresses', 'emailAddress', 'separator', /[,\$]/);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'multiple', true);
+        that.fv.updateOption('email-address-or-addresses', 'emailAddress', 'separator', /[,\$]/);
 
         var addresses = invalidEmailAddresses
                             .concat(invalidMultipleEmailAddressesForCommaOrDollarSignSeparators);
 
         $.each(addresses, function(index, emailAddress) {
-            that.bv.resetForm();
+            that.fv.resetForm();
             that.$emailAddressOrAddresses.val(emailAddress);
-            that.bv.validate();
-            expect(that.bv.isValid()).toEqual(false);
+            that.fv.validate();
+            expect(that.fv.isValid()).toEqual(false);
         });
     });
 });

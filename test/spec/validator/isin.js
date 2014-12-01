@@ -4,7 +4,7 @@ describe('isin', function() {
             '<div class="container">',
                 '<form class="form-horizontal" id="isinForm">',
                     '<div class="form-group">',
-                        '<input type="text" name="isin" data-bv-isin />',
+                        '<input type="text" name="isin" data-fv-isin />',
                     '</div>',
                 '</form>',
             '</div>'
@@ -13,8 +13,8 @@ describe('isin', function() {
         $(html).appendTo('body');
         $('#isinForm').bootstrapValidator();
 
-        this.bv    = $('#isinForm').data('bootstrapValidator');
-        this.$isin = this.bv.getFieldElements('isin');
+        this.fv    = $('#isinForm').data('bootstrapValidator');
+        this.$isin = this.fv.getFieldElements('isin');
     });
 
     afterEach(function() {
@@ -26,32 +26,32 @@ describe('isin', function() {
 
         for (var i in samples) {
             this.$isin.val(samples[i]);
-            this.bv.validate();
-            expect(this.bv.isValidField('isin')).toBeTruthy();
+            this.fv.validate();
+            expect(this.fv.isValidField('isin')).toBeTruthy();
         }
     });
 
     it('invalid country code', function() {
         this.$isin.val('AA0000XVGZA3');
-        this.bv.validate();
-        expect(this.bv.isValidField('isin')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('isin')).toEqual(false);
     });
 
     it('contains only digits and alphabet', function() {
         this.$isin.val('US12345ABC@#$');
-        this.bv.validate();
-        expect(this.bv.isValidField('isin')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('isin')).toEqual(false);
     });
 
     it('invalid length', function() {
         this.$isin.val('US1234567');
-        this.bv.validate();
-        expect(this.bv.isValidField('isin')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('isin')).toEqual(false);
     });
 
     it('invalid check digit', function() {
         this.$isin.val('US0378331004');
-        this.bv.validate();
-        expect(this.bv.isValidField('isin')).toEqual(false);
+        this.fv.validate();
+        expect(this.fv.isValidField('isin')).toEqual(false);
     });
 });

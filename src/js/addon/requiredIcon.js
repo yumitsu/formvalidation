@@ -32,7 +32,7 @@
             for (var field in opts.fields) {
                 validator.getFieldElements(field).each(function() {
                     var $field 	   = $(this),
-                        $icon      = $field.data('bv.icon'),
+                        $icon      = $field.data('fv.icon'),
                         validators = opts.fields[field].validators;    // The field validators
 
                     if (validators.notEmpty && !that._isEmpty(validator, $field)) {
@@ -72,8 +72,8 @@
                 .getForm()
                 .on(opts.events.fieldStatus, function(e, data) {
                     // Remove the required icon when the field updates its status
-                    var $icon      = data.element.data('bv.icon'),
-                        validators = data.bv.getOptions(data.field).validators; // The field validators
+                    var $icon      = data.element.data('fv.icon'),
+                        validators = data.fv.getOptions(data.field).validators; // The field validators
 
                     if (validators.notEmpty) {
                         (opts.feedbackIcons && (opts.feedbackIcons.valid || opts.feedbackIcons.invalid || opts.feedbackIcons.validating))
