@@ -713,7 +713,7 @@ describe('vat', function() {
         }
 
         // Invalid samples
-        var invalidSamples = ['SI50223055', '50223055'];
+        var invalidSamples = ['SI50223055', '50223055', 'SI09999990', '09999990'];
         for (i in invalidSamples) {
             this.fv.resetForm();
             this.$vat.val(invalidSamples[i]);

@@ -1327,16 +1327,18 @@
          * Examples:
          * - Valid: SI50223054
          * - Invalid: SI50223055
+         * - Invalid: SI09999990
          *
          * @param {String} value VAT number
          * @returns {Boolean}
          */
         _si: function(value) {
-            if (/^SI[0-9]{8}$/.test(value)) {
-                value = value.substr(2);
-            }
-            if (!/^[0-9]{8}$/.test(value)) {
+            var res = value.match(/^(SI)?([1-9][0-9]{7})$/);
+            if (!res) {
                 return false;
+            }
+            if (res[1]) {
+                value = value.substr(2);
             }
 
             var sum    = 0,
