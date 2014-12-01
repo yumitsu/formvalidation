@@ -43,6 +43,7 @@ I would like to give big thanks to the following contributors:
 * [@filipac](https://github.com/filipac)
 * [@Francismori7](https://github.com/Francismori7)
 * [@gercheq](https://github.com/gercheq)
+* [@Glavic](https://github.com/Glavic)
 * [@grzesiek](https://github.com/grzesiek)
 * [@henningda](https://github.com/henningda)
 * [@i0](https://github.com/i0)

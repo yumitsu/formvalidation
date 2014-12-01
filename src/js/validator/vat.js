@@ -1333,6 +1333,7 @@
          * @returns {Boolean}
          */
         _si: function(value) {
+            // The Slovenian VAT numbers don't start with zero
             var res = value.match(/^(SI)?([1-9][0-9]{7})$/);
             if (!res) {
                 return false;

@@ -37,7 +37,8 @@ __Improvements__
 * [#1177](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1177): Don't need to set the [different](http://bootstrapvalidator.com/validators/different/) validator for both fields
 * [#1186](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1186), [#1188](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1188): Improve the [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@igorescobar](https://github.com/igorescobar)
 * [#1197](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1197): Add sample data for [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@dgmike](https://github.com/dgmike)
-* [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Improve Spanish [phone](http://bootstrapvalidator.com/validators/zipCode/phone/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
+* [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Improve Spanish [phone](http://bootstrapvalidator.com/validators/phone/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
+* [#1218](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1218): Improve Slovenian [vat number](http://bootstrapvalidator.com/validators/vat/) validator, thanks to [@Glavic](https://github.com/Glavic)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
