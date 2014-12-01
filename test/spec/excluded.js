@@ -13,15 +13,15 @@ describe('excluded', function() {
             '</div>'
         ].join('')).appendTo('body');
 
-        $('#excludedForm').bootstrapValidator();
+        $('#excludedForm').formValidation();
 
-        this.fv        = $('#excludedForm').data('bootstrapValidator');
+        this.fv        = $('#excludedForm').data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#excludedForm').bootstrapValidator('destroy').parent().remove();
+        $('#excludedForm').formValidation('destroy').parent().remove();
     });
 
     it('excluded form declarative', function() {
@@ -39,11 +39,11 @@ describe('excluded', function() {
         this.fv.destroy();
         $('#excludedForm').removeAttr('data-fv-excluded');
 
-        $('#excludedForm').bootstrapValidator({
+        $('#excludedForm').formValidation({
             excluded: '[name="username"]'
         });
 
-        this.fv        = $('#excludedForm').data('bootstrapValidator');
+        this.fv        = $('#excludedForm').data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -64,7 +64,7 @@ describe('excluded', function() {
         $('#excludedForm').find('[name="username"]').attr('data-fv-excluded', 'true');
         $('#excludedForm').find('[name="email"]').attr('data-fv-excluded', 'false');
 
-        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv        = $('#excludedForm').formValidation().data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -88,7 +88,7 @@ describe('excluded', function() {
         this.fv.destroy();
         $('#excludedForm').removeAttr('data-fv-excluded');
 
-        $('#excludedForm').bootstrapValidator({
+        $('#excludedForm').formValidation({
             fields: {
                 username: {
                     excluded: true
@@ -99,7 +99,7 @@ describe('excluded', function() {
             }
         });
 
-        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv        = $('#excludedForm').formValidation().data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -123,7 +123,7 @@ describe('excluded', function() {
         this.fv.destroy();
         $('#excludedForm').removeAttr('data-fv-excluded');
 
-        $('#excludedForm').bootstrapValidator({
+        $('#excludedForm').formValidation({
             fields: {
                 username: {
                     excluded: 'false'
@@ -134,7 +134,7 @@ describe('excluded', function() {
             }
         });
 
-        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv        = $('#excludedForm').formValidation().data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 

@@ -47,19 +47,19 @@ describe('zipCode', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#zipCodeForm').bootstrapValidator();
+        $('#zipCodeForm').formValidation();
 
         /**
          * @type {BootstrapValidator}
          */
-        this.fv       = $('#zipCodeForm').data('bootstrapValidator');
+        this.fv       = $('#zipCodeForm').data('formValidation');
 
         this.$country = this.fv.getFieldElements('country');
         this.$zipCode = this.fv.getFieldElements('zc');
     });
 
     afterEach(function() {
-        $('#zipCodeForm').bootstrapValidator('destroy').remove();
+        $('#zipCodeForm').formValidation('destroy').remove();
     });
 
     it('country code updateOption()', function() {
@@ -90,10 +90,10 @@ describe('zipCode', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'country');
 
         // Need to destroy the plugin instance ...
-        $('#zipCodeForm').bootstrapValidator('destroy');
+        $('#zipCodeForm').formValidation('destroy');
 
         // ... and re-create it
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('IT');
 
         this.fv.resetForm();
@@ -109,8 +109,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative function', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'getCountryCode');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('NL');
         this.$zipCode.val('0123');
         this.fv.validate();
@@ -120,8 +120,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative function()', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'getCountryCode()');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('NL');
         this.$zipCode.val('1234 ab');
         this.fv.validate();
@@ -131,8 +131,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative A.B.C', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'TestSuite.ZipCode.getCountryCode');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('DK');
         this.$zipCode.val('DK 123');
         this.fv.validate();
@@ -142,8 +142,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative A.B.C()', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'TestSuite.ZipCode.getCountryCode()');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('DK');
         this.$zipCode.val('DK-1234');
         this.fv.validate();
@@ -153,9 +153,9 @@ describe('zipCode', function() {
 
     it('country code callback programmatically', function() {
         this.$zipCode.removeAttr('data-fv-zipcode-country');
-        $('#zipCodeForm').bootstrapValidator('destroy');
+        $('#zipCodeForm').formValidation('destroy');
         this.fv = $('#zipCodeForm')
-                        .bootstrapValidator({
+                        .formValidation({
                             fields: {
                                 zc: {
                                     validators: {
@@ -168,7 +168,7 @@ describe('zipCode', function() {
                                 }
                             }
                         })
-                        .data('bootstrapValidator');
+                        .data('formValidation');
         this.$country.val('SE');
 
         this.fv.resetForm();
@@ -187,9 +187,9 @@ describe('zipCode', function() {
     it('not supported country code', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'NOT_SUPPORTED');
 
-        $('#zipCodeForm').bootstrapValidator('destroy');
+        $('#zipCodeForm').formValidation('destroy');
 
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
 
         this.fv.resetForm();
         this.$zipCode.val('1234');

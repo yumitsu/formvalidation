@@ -101,7 +101,7 @@
 $(document).ready(function() {
     $('#datetimePicker').datetimepicker();
 
-    $('#defaultForm').bootstrapValidator({
+    $('#defaultForm').formValidation({
         message: 'This value is not valid',
         icon: {
             valid: 'glyphicon glyphicon-ok',
@@ -176,9 +176,9 @@ $(document).ready(function() {
     $('#datetimePicker')
         .on('dp.change dp.show', function(e) {
             // Validate the date when user change it
-            $('#defaultForm').data('bootstrapValidator').revalidateField('datetimePicker');
+            $('#defaultForm').data('formValidation').revalidateField('datetimePicker');
             // You also can call it as following:
-            // $('#defaultForm').bootstrapValidator('revalidateField', 'datetimePicker');
+            // $('#defaultForm').formValidation('revalidateField', 'datetimePicker');
         });
 });
 </script>

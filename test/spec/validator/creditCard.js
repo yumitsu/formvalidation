@@ -13,14 +13,14 @@ describe('creditCard', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#ccForm').bootstrapValidator();
+        $('#ccForm').formValidation();
 
-        this.fv          = $('#ccForm').data('bootstrapValidator');
+        this.fv          = $('#ccForm').data('formValidation');
         this.$creditCard = this.fv.getFieldElements('cc');
     });
 
     afterEach(function() {
-        $('#ccForm').bootstrapValidator('destroy').parent().remove();
+        $('#ccForm').formValidation('destroy').parent().remove();
     });
 
     it('accept spaces', function() {

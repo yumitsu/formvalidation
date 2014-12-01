@@ -29,7 +29,7 @@ describe('color', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#colorForm').bootstrapValidator({
+        $('#colorForm').formValidation({
             fields: {
                 color: {
                     validators: {
@@ -91,7 +91,7 @@ describe('color', function() {
             }
         });
 
-        this.fv             = $('#colorForm').data('bootstrapValidator');
+        this.fv             = $('#colorForm').data('formValidation');
         this.$color         = this.fv.getFieldElements('color');
         this.$colorMultiple = this.fv.getFieldElements('colorMultiple');
         this.$colorHex      = this.fv.getFieldElements('colorHex');
@@ -103,7 +103,7 @@ describe('color', function() {
     });
 
     afterEach(function() {
-        $('#colorForm').bootstrapValidator('destroy').remove();
+        $('#colorForm').formValidation('destroy').remove();
     });
 
     // Start hsla() tests

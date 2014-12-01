@@ -30,9 +30,9 @@ describe('date', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#dateForm').bootstrapValidator();
+        $('#dateForm').formValidation();
 
-        this.fv       = $('#dateForm').data('bootstrapValidator');
+        this.fv       = $('#dateForm').data('formValidation');
         this.$date    = this.fv.getFieldElements('date');
         this.$minDate = this.fv.getFieldElements('minDate');
         this.$maxDate = this.fv.getFieldElements('maxDate');
@@ -40,7 +40,7 @@ describe('date', function() {
     });
 
     afterEach(function() {
-        $('#dateForm').bootstrapValidator('destroy').remove();
+        $('#dateForm').formValidation('destroy').remove();
     });
 
     it('YYYY/MM/DD', function() {
@@ -604,7 +604,7 @@ describe('date', function() {
     it('dynamic min: name of field', function() {
         this.$minDate.attr('data-fv-date-min', 'date');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -622,7 +622,7 @@ describe('date', function() {
     it('dynamic min: callback declarative function', function() {
         this.$minDate.attr('data-fv-date-min', 'getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -640,7 +640,7 @@ describe('date', function() {
     it('dynamic min: callback declarative function()', function() {
         this.$minDate.attr('data-fv-date-min', 'getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -658,7 +658,7 @@ describe('date', function() {
     it('dynamic min: callback declarative A.B.C', function() {
         this.$minDate.attr('data-fv-date-min', 'TestSuite.Date.getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -676,7 +676,7 @@ describe('date', function() {
     it('dynamic min: callback declarative A.B.C()', function() {
         this.$minDate.attr('data-fv-date-min', 'TestSuite.Date.getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -695,7 +695,7 @@ describe('date', function() {
         this.$minDate.removeAttr('data-fv-date-min');
         this.fv.destroy();
         this.fv = $('#dateForm')
-                        .bootstrapValidator({
+                        .formValidation({
                             fields: {
                                 minDate: {
                                     validators: {
@@ -708,7 +708,7 @@ describe('date', function() {
                                 }
                             }
                         })
-                        .data('bootstrapValidator');
+                        .data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -727,7 +727,7 @@ describe('date', function() {
     it('dynamic max: name of field', function() {
         this.$maxDate.attr('data-fv-date-max', 'date');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -745,7 +745,7 @@ describe('date', function() {
     it('dynamic max: callback declarative function', function() {
         this.$maxDate.attr('data-fv-date-max', 'getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -763,7 +763,7 @@ describe('date', function() {
     it('dynamic max: callback declarative function()', function() {
         this.$maxDate.attr('data-fv-date-max', 'getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -781,7 +781,7 @@ describe('date', function() {
     it('dynamic max: callback declarative A.B.C', function() {
         this.$maxDate.attr('data-fv-date-max', 'TestSuite.Date.getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -799,7 +799,7 @@ describe('date', function() {
     it('dynamic max: callback declarative A.B.C()', function() {
         this.$maxDate.attr('data-fv-date-max', 'TestSuite.Date.getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -818,7 +818,7 @@ describe('date', function() {
         this.$maxDate.removeAttr('data-fv-date-max');
         this.fv.destroy();
         this.fv = $('#dateForm')
-                        .bootstrapValidator({
+                        .formValidation({
                             fields: {
                                 maxDate: {
                                     validators: {
@@ -831,7 +831,7 @@ describe('date', function() {
                                 }
                             }
                         })
-                        .data('bootstrapValidator');
+                        .data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');

@@ -20,14 +20,14 @@ describe('transformer', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#transformerForm').bootstrapValidator();
+        $('#transformerForm').formValidation();
 
-        this.fv       = $('#transformerForm').data('bootstrapValidator');
+        this.fv       = $('#transformerForm').data('formValidation');
         this.$website = this.fv.getFieldElements('website');
     });
 
     afterEach(function() {
-        $('#transformerForm').bootstrapValidator('destroy').remove();
+        $('#transformerForm').formValidation('destroy').remove();
     });
 
     it('transformer not set', function() {
@@ -38,8 +38,8 @@ describe('transformer', function() {
 
     it('programmatically usage', function() {
         this.fv = $('#transformerForm')
-                    .bootstrapValidator('destroy')
-                    .bootstrapValidator({
+                    .formValidation('destroy')
+                    .formValidation({
                         fields: {
                             website: {
                                 validators: {
@@ -56,7 +56,7 @@ describe('transformer', function() {
                             }
                         }
                     })
-                    .data('bootstrapValidator');
+                    .data('formValidation');
         this.$website.val('foo.com');
         this.fv.validate();
         expect(this.fv.isValid()).toBeTruthy();
@@ -76,9 +76,9 @@ describe('transformer', function() {
         this.$website.attr('data-fv-uri-transformer', 'TestSuite.Transformer.uri');
 
         this.fv = $('#transformerForm')
-                    .bootstrapValidator('destroy')
-                    .bootstrapValidator()
-                    .data('bootstrapValidator');
+                    .formValidation('destroy')
+                    .formValidation()
+                    .data('formValidation');
 
         this.$website.val('foo.com');
         this.fv.validate();

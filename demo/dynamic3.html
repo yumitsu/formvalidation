@@ -109,7 +109,7 @@
             .on('init.form.fv', function(e, data) {
                 //console.log(data);
             })
-            .bootstrapValidator({
+            .formValidation({
                 message: 'This value is not valid',
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
@@ -164,24 +164,24 @@
 
                     $('#shippingForm')
                         // Remove field
-                        .bootstrapValidator('removeField', 'receiverName')
-                        .bootstrapValidator('removeField', 'receiverAddress')
-                        .bootstrapValidator('removeField', $receiverPhone)
-                        .bootstrapValidator('removeField', $receiverCity);
+                        .formValidation('removeField', 'receiverName')
+                        .formValidation('removeField', 'receiverAddress')
+                        .formValidation('removeField', $receiverPhone)
+                        .formValidation('removeField', $receiverCity);
                 } else {
                     $('#receiverInfo').show();
 
                     $('#shippingForm')
                         // Add field
-                        .bootstrapValidator('addField', 'receiverName', {
+                        .formValidation('addField', 'receiverName', {
                             validators: {
                                 notEmpty: {
                                     message: 'The name is required'
                                 }
                             }
                         })
-                        .bootstrapValidator('addField', 'receiverAddress')      // The options are automatically parsed from HTML attributes
-                        .bootstrapValidator('addField', $receiverPhone, {
+                        .formValidation('addField', 'receiverAddress')      // The options are automatically parsed from HTML attributes
+                        .formValidation('addField', $receiverPhone, {
                             message: 'The phone number is not valid',
                             validators: {
                                 notEmpty: {
@@ -192,7 +192,7 @@
                                 }
                             }
                         })
-                        .bootstrapValidator('addField', $receiverCity);  // The options are automatically parsed from HTML attributes
+                        .formValidation('addField', $receiverCity);  // The options are automatically parsed from HTML attributes
                 }
             });
     });

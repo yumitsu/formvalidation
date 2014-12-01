@@ -8,7 +8,7 @@
  */
 
 /**
- * This class supports Bootstrap (http://getbootstrap.com/)
+ * This class supports validating Bootstrap form (http://getbootstrap.com/)
  */
 (function($) {
     FormValidation.Framework.Bootstrap = function(element, options) {

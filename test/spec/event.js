@@ -45,14 +45,14 @@ describe('event form attribute callback global', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -79,14 +79,14 @@ describe('event form attribute callback namespace', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -114,7 +114,7 @@ describe('event form trigger', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.form.fv', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered success.form.fv event');
             })
@@ -122,12 +122,12 @@ describe('event form trigger', function() {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
             });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('trigger success.form.fv', function() {
@@ -154,7 +154,7 @@ describe('event form programmatically', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator({
+        $('#eventForm').formValidation({
             onSuccess: function(e) {
                 $('#msg').html('onSuccess() called');
             },
@@ -163,12 +163,12 @@ describe('event form programmatically', function() {
             }
         });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call onSuccess()', function() {
@@ -212,14 +212,14 @@ describe('event field attribute callback global', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -249,14 +249,14 @@ describe('event field attribute callback namespace', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -286,7 +286,7 @@ describe('event field trigger', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered success.field.fv on ' + data.field);
             })
@@ -294,12 +294,12 @@ describe('event field trigger', function() {
                 $('#msg').html('triggered error.field.fv on ' + data.field);
             });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('trigger success.field.fv', function() {
@@ -326,7 +326,7 @@ describe('event field programmatically', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator({
+        $('#eventForm').formValidation({
             fields: {
                 email: {
                     onSuccess: function(e, data) {
@@ -339,12 +339,12 @@ describe('event field programmatically', function() {
             }
         });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call onSuccess()', function() {
@@ -376,7 +376,7 @@ describe('event form trigger with default events', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm1')
-            .bootstrapValidator()
+            .formValidation()
             .on('bv.form.success', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.success event');
             })
@@ -390,12 +390,12 @@ describe('event form trigger with default events', function() {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
             });
 
-        this.fv     = $('#eventForm1').data('bootstrapValidator');
+        this.fv     = $('#eventForm1').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm1').bootstrapValidator('destroy').remove();
+        $('#eventForm1').formValidation('destroy').remove();
     });
 
     it('does not trigger bv.form.success', function() {
@@ -435,7 +435,7 @@ describe('event field trigger with default events', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm3')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered success.field.fv on ' + data.field);
             })
@@ -449,12 +449,12 @@ describe('event field trigger with default events', function() {
                 $('#msg').html('triggered bv.field.error on ' + data.field);
             });
 
-        this.fv     = $('#eventForm3').data('bootstrapValidator');
+        this.fv     = $('#eventForm3').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm3').bootstrapValidator('destroy').remove();
+        $('#eventForm3').formValidation('destroy').remove();
     });
 
     it('triggers success.field.fv', function() {
@@ -512,7 +512,7 @@ describe('event form trigger with events changed', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm2')
-            .bootstrapValidator()
+            .formValidation()
             .on('bv.form.success', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.success event');
             })
@@ -526,12 +526,12 @@ describe('event form trigger with events changed', function() {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
             });
 
-        this.fv     = $('#eventForm2').data('bootstrapValidator');
+        this.fv     = $('#eventForm2').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm2').bootstrapValidator('destroy').remove();
+        $('#eventForm2').formValidation('destroy').remove();
         FormValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
@@ -588,7 +588,7 @@ describe('event field trigger with events changed', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm4')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered success.field.fv on ' + data.field);
             })
@@ -602,12 +602,12 @@ describe('event field trigger with events changed', function() {
                 $('#msg').html('triggered bv.field.error on ' + data.field);
             });
 
-        this.fv     = $('#eventForm4').data('bootstrapValidator');
+        this.fv     = $('#eventForm4').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm4').bootstrapValidator('destroy').remove();
+        $('#eventForm4').formValidation('destroy').remove();
         FormValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
@@ -663,14 +663,14 @@ describe('event validator declarative', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('trigger data-fv-emailaddress-onsuccess', function() {
@@ -697,7 +697,7 @@ describe('event validator programmatically', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator({
+        $('#eventForm').formValidation({
             fields: {
                 email: {
                     validators: {
@@ -715,12 +715,12 @@ describe('event validator programmatically', function() {
             }
         });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call onSuccess()', function() {

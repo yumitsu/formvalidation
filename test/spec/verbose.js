@@ -19,15 +19,15 @@ describe('verbose option', function() {
     });
 
     afterEach(function() {
-        $('#verboseForm').bootstrapValidator('destroy').remove();
+        $('#verboseForm').formValidation('destroy').remove();
     });
 
     it('set data-fv-verbose="false" for form', function() {
         var bv        = $('#verboseForm')
                             .attr('data-fv-verbose', 'false')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator()
-                            .data('bootstrapValidator'),
+                            .formValidation('destroy')
+                            .formValidation()
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -58,9 +58,9 @@ describe('verbose option', function() {
                             .find('[name="fullName"]')
                                 .attr('data-fv-verbose', 'false')
                                 .end()
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator()
-                            .data('bootstrapValidator'),
+                            .formValidation('destroy')
+                            .formValidation()
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -87,9 +87,9 @@ describe('verbose option', function() {
 
     it('set verbose: "false" for form', function() {
         var bv        = $('#verboseForm')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator({ verbose: false })
-                            .data('bootstrapValidator'),
+                            .formValidation('destroy')
+                            .formValidation({ verbose: false })
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -118,8 +118,8 @@ describe('verbose option', function() {
     it('set verbose: "false" for field', function() {
         var bv        = $('#verboseForm')
                             .attr('data-fv-verbose', 'true')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator({
+                            .formValidation('destroy')
+                            .formValidation({
                                 verbose: true,
                                 fields: {
                                     fullName: {
@@ -127,7 +127,7 @@ describe('verbose option', function() {
                                     }
                                 }
                             })
-                            .data('bootstrapValidator'),
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -157,8 +157,8 @@ describe('verbose option', function() {
         var validators = [],    // Array of not passed validators
             bv         = $('#verboseForm')
                             .attr('data-fv-verbose', 'true')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator({
+                            .formValidation('destroy')
+                            .formValidation({
                                 verbose: true,
                                 fields: {
                                     fullName: {
@@ -169,7 +169,7 @@ describe('verbose option', function() {
                             .on('error.field.fv', function(e, data) {
                                 validators.push(data.validator);
                             })
-                            .data('bootstrapValidator'),
+                            .data('formValidation'),
             $fullName  = bv.getFieldElements('fullName');
 
         $fullName.val('');

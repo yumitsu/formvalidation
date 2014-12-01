@@ -28,15 +28,15 @@ describe('lessThan', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#lessThanForm').bootstrapValidator();
+        $('#lessThanForm').formValidation();
 
-        this.fv      = $('#lessThanForm').data('bootstrapValidator');
+        this.fv      = $('#lessThanForm').data('formValidation');
         this.$maxAge = this.fv.getFieldElements('maxAge');
         this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
-        $('#lessThanForm').bootstrapValidator('destroy').remove();
+        $('#lessThanForm').formValidation('destroy').remove();
     });
 
     it('not a number', function() {

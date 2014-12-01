@@ -15,17 +15,17 @@ describe('autoFocus', function() {
         ].join('')).appendTo('body');
 
         this.fv        = $('#autoFocusForm')
-                            .bootstrapValidator()
+                            .formValidation()
                             .submit(function(e) {
                                 e.preventDefault();
                             })
-                            .data('bootstrapValidator');
+                            .data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#autoFocusForm').bootstrapValidator('destroy').remove();
+        $('#autoFocusForm').formValidation('destroy').remove();
     });
 
     it('default option (autoFocus=true)', function() {
@@ -43,8 +43,8 @@ describe('autoFocus', function() {
 
     it('set autoFocus=false for form', function() {
         $('#autoFocusForm')
-                .bootstrapValidator('destroy')
-                .bootstrapValidator({
+                .formValidation('destroy')
+                .formValidation({
                     autoFocus: false
                 });
         this.$username.val('');

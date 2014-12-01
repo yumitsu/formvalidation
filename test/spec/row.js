@@ -26,7 +26,7 @@ describe('row option', function() {
             '</form>'
         ].join('')).appendTo('body');
 
-        $('#groupForm').bootstrapValidator({
+        $('#groupForm').formValidation({
             fields: {
                 firstName: {
                     row: '.firstNameGroup',
@@ -62,14 +62,14 @@ describe('row option', function() {
             }
         });
 
-        this.fv         = $('#groupForm').data('bootstrapValidator');
+        this.fv         = $('#groupForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
         this.$username  = this.fv.getFieldElements('username');
     });
 
     afterEach(function() {
-        $('#groupForm').bootstrapValidator('destroy').remove();
+        $('#groupForm').formValidation('destroy').remove();
     });
 
     it('default', function() {

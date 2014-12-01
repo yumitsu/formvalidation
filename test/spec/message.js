@@ -11,7 +11,7 @@ describe('message', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#messageForm').bootstrapValidator({
+        $('#messageForm').formValidation({
             fields: {
                 password: {
                     validators: {
@@ -55,12 +55,12 @@ describe('message', function() {
             }
         });
 
-        this.fv        = $('#messageForm').data('bootstrapValidator');
+        this.fv        = $('#messageForm').data('formValidation');
         this.$password = this.fv.getFieldElements('password');
     });
 
     afterEach(function() {
-        $('#messageForm').bootstrapValidator('destroy').parent().remove();
+        $('#messageForm').formValidation('destroy').parent().remove();
     });
 
     it('update message from callback', function() {

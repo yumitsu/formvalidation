@@ -114,11 +114,11 @@ $(document).ready(function() {
         $target.toggle();
         if (!$target.is(':visible')) {
             // Enable the submit buttons in case additional fields are not valid
-            $('#contactForm').data('bootstrapValidator').disableSubmitButtons(false);
+            $('#contactForm').data('formValidation').disableSubmitButtons(false);
         }
     });
 
-    $('#contactForm').bootstrapValidator();
+    $('#contactForm').formValidation();
 });
 </script>
 </body>

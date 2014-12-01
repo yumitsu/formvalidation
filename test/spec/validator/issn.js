@@ -11,14 +11,14 @@ describe('issn', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#issnForm').bootstrapValidator();
+        $('#issnForm').formValidation();
 
-        this.fv    = $('#issnForm').data('bootstrapValidator');
+        this.fv    = $('#issnForm').data('formValidation');
         this.$issn = this.fv.getFieldElements('issn');
     });
 
     afterEach(function() {
-        $('#issnForm').bootstrapValidator('destroy').parent().remove();
+        $('#issnForm').formValidation('destroy').parent().remove();
     });
 
     it('valid', function() {

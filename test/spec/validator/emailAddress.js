@@ -9,14 +9,14 @@ describe('emailAddress', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#emailAddressForm').bootstrapValidator();
+        $('#emailAddressForm').formValidation();
 
-        this.fv = $('#emailAddressForm').data('bootstrapValidator');
+        this.fv = $('#emailAddressForm').data('formValidation');
         this.$emailAddressOrAddresses = this.fv.getFieldElements('email-address-or-addresses');
     });
 
     afterEach(function() {
-        $('#emailAddressForm').bootstrapValidator('destroy').remove();
+        $('#emailAddressForm').formValidation('destroy').remove();
     });
 
     var validEmailAddresses = [

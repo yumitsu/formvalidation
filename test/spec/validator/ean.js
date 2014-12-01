@@ -11,14 +11,14 @@ describe('ean', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#eanForm').bootstrapValidator();
+        $('#eanForm').formValidation();
 
-        this.fv   = $('#eanForm').data('bootstrapValidator');
+        this.fv   = $('#eanForm').data('formValidation');
         this.$ean = this.fv.getFieldElements('ean');
     });
 
     afterEach(function() {
-        $('#eanForm').bootstrapValidator('destroy').parent().remove();
+        $('#eanForm').formValidation('destroy').parent().remove();
     });
 
     it('valid', function() {

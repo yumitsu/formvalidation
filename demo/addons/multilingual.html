@@ -93,7 +93,7 @@ $(document).ready(function() {
     // You can enable the add-on via HTML attributes
     // <form data-fv-addons="multilingual, otherAddOn, anotherOne">
     $('#defaultForm')
-        .bootstrapValidator({
+        .formValidation({
             addOns: {
                 multilingual: {}
             },
@@ -171,7 +171,7 @@ $(document).ready(function() {
     $('.setLocaleButton').on('click', function() {
         $('.setLocaleButton').removeClass('btn-primary').addClass('btn-default');
         $(this).removeClass('btn-default').addClass('btn-primary');
-        $('#defaultForm').bootstrapValidator('setLocale', $(this).attr('data-locale'));
+        $('#defaultForm').formValidation('setLocale', $(this).attr('data-locale'));
     });
 });
 </script>

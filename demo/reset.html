@@ -86,7 +86,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#defaultForm')
-        .bootstrapValidator({
+        .formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -131,7 +131,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             var $form     = $(e.target),
-                validator = $form.data('bootstrapValidator');
+                validator = $form.data('formValidation');
 
             // Show the modal
             var fullName = [validator.getFieldElements('firstName').val(),
@@ -141,8 +141,8 @@ $(document).ready(function() {
                 .modal('show');
 
             $form
-                .bootstrapValidator('disableSubmitButtons', false)  // Enable the submit buttons
-                .bootstrapValidator('resetForm', true);             // Reset the form
+                .formValidation('disableSubmitButtons', false)  // Enable the submit buttons
+                .formValidation('resetForm', true);             // Reset the form
         });
 });
 

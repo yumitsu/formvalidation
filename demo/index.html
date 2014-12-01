@@ -198,7 +198,7 @@ $(document).ready(function() {
     };
     $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
 
-    $('#defaultForm').bootstrapValidator({
+    $('#defaultForm').formValidation({
         message: 'This value is not valid',
         icon: {
             valid: 'glyphicon glyphicon-ok',
@@ -308,7 +308,7 @@ $(document).ready(function() {
                 validators: {
                     callback: {
                         message: 'Wrong answer',
-                        callback: function(value, validator) {
+                        callback: function(value, validator, $field) {
                             var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
                             return value == sum;
                         }
@@ -320,11 +320,11 @@ $(document).ready(function() {
 
     // Validate the form manually
     $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
+        $('#defaultForm').formValidation('validate');
     });
 
     $('#resetBtn').click(function() {
-        $('#defaultForm').data('bootstrapValidator').resetForm(true);
+        $('#defaultForm').data('formValidation').resetForm(true);
     });
 });
 </script>

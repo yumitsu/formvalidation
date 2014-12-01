@@ -1,5 +1,8 @@
 # BootstrapValidator - [v0.5.3](http://bootstrapvalidator.com/download/)
 
+> From next v0.6.0 version, the plugin supports many frameworks (Bootstrap, Foundation, Semantic UI, UIKit).
+> It will be renamed to __FormValidation__. The upgrading guide will be available when v0.6.0 is released.
+
 [http://bootstrapvalidator.com](http://bootstrapvalidator.com) - The best [jQuery](http://jquery.com/) plugin to validate form fields, designed to use with [Bootstrap 3](http://getbootstrap.com).
 
 It's developed from scratch by [@nghuuphuoc](http://twitter.com/nghuuphuoc).

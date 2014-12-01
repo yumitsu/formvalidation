@@ -8,7 +8,7 @@
  */
 
 /**
- * This class supports validating SemanticUI framework (http://semantic-ui.com/)
+ * This class supports validating SemanticUI form (http://semantic-ui.com/)
  */
 (function($) {
     FormValidation.Framework.Semantic = function(element, options) {

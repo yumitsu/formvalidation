@@ -11,14 +11,14 @@ describe('isin', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#isinForm').bootstrapValidator();
+        $('#isinForm').formValidation();
 
-        this.fv    = $('#isinForm').data('bootstrapValidator');
+        this.fv    = $('#isinForm').data('formValidation');
         this.$isin = this.fv.getFieldElements('isin');
     });
 
     afterEach(function() {
-        $('#isinForm').bootstrapValidator('destroy').parent().remove();
+        $('#isinForm').formValidation('destroy').parent().remove();
     });
 
     it('valid', function() {

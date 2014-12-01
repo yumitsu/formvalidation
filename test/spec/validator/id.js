@@ -39,24 +39,24 @@ describe('id', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#idForm').bootstrapValidator();
+        $('#idForm').formValidation();
 
         /**
-         * @type {BootstrapValidator}
+         * @type {FormValidation.Base}
          */
-        this.fv       = $('#idForm').data('bootstrapValidator');
+        this.fv       = $('#idForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$id      = this.fv.getFieldElements('id');
     });
 
     afterEach(function() {
-        $('#idForm').bootstrapValidator('destroy').remove();
+        $('#idForm').formValidation('destroy').remove();
     });
 
     it('dynamic country', function() {
         this.$id.attr('data-fv-id-country', 'country');
         this.fv.destroy();
-        this.fv = $('#idForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#idForm').formValidation().data('formValidation');
 
         this.$country.val('BG');
         this.$id.val('7552010005');

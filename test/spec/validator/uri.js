@@ -9,14 +9,14 @@ describe('uri', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#uriForm').bootstrapValidator();
+        $('#uriForm').formValidation();
 
-        this.fv   = $('#uriForm').data('bootstrapValidator');
+        this.fv   = $('#uriForm').data('formValidation');
         this.$uri = this.fv.getFieldElements('uri');
     });
 
     afterEach(function() {
-        $('#uriForm').bootstrapValidator('destroy').remove();
+        $('#uriForm').formValidation('destroy').remove();
     });
 
     var validGlobalURIs = [

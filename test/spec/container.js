@@ -17,15 +17,15 @@ describe('container form option', function() {
     });
 
     afterEach(function() {
-        $('#containerForm').bootstrapValidator('destroy').remove();
+        $('#containerForm').formValidation('destroy').remove();
     });
 
     it('form container declarative', function() {
         $('#containerForm')
             .attr('data-fv-container', '#errors')
-            .bootstrapValidator();
+            .formValidation();
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -39,13 +39,13 @@ describe('container form option', function() {
     });
 
     it('form container programmatically', function() {
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             err: {
                 container: '#errors'
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -83,7 +83,7 @@ describe('container field option', function() {
             '</form>'
         ].join('')).appendTo('body');
 
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             fields: {
                 lastName: {
                     err: '.lastNameMessage'
@@ -91,13 +91,13 @@ describe('container field option', function() {
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
     });
 
     afterEach(function() {
-        $('#containerForm').bootstrapValidator('destroy').remove();
+        $('#containerForm').formValidation('destroy').remove();
     });
 
     it('field container declarative', function() {
@@ -140,7 +140,7 @@ describe('container tooltip/popover', function() {
     });
 
     afterEach(function() {
-        $('#containerForm').bootstrapValidator('destroy').remove();
+        $('#containerForm').formValidation('destroy').remove();
     });
 
     it('container declarative', function() {
@@ -149,7 +149,7 @@ describe('container tooltip/popover', function() {
             .find('[name="lastName"]')
                 .attr('data-fv-container', 'popover')
                 .end()
-            .bootstrapValidator({
+            .formValidation({
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
@@ -157,7 +157,7 @@ describe('container tooltip/popover', function() {
                 }
             });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -176,7 +176,7 @@ describe('container tooltip/popover', function() {
     });
 
     it('container programmatically', function() {
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -192,7 +192,7 @@ describe('container tooltip/popover', function() {
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -212,7 +212,7 @@ describe('container tooltip/popover', function() {
 
     // #991: Validate once when setting trigger: blur, container: tooltip
     it('trigger: blur, container: tooltip', function() {
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -256,7 +256,7 @@ describe('container tooltip/popover', function() {
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 

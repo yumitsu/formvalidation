@@ -7,14 +7,14 @@ describe('cusip', function() {
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
-        $('#cusipForm').bootstrapValidator();
+        $('#cusipForm').formValidation();
 
-        this.fv     = $('#cusipForm').data('bootstrapValidator');
+        this.fv     = $('#cusipForm').data('formValidation');
         this.$cusip = this.fv.getFieldElements('cusip');
     });
 
     afterEach(function() {
-        $('#cusipForm').bootstrapValidator('destroy').remove();
+        $('#cusipForm').formValidation('destroy').remove();
     });
 
     it('valid', function() {

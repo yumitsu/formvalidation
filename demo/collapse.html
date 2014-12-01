@@ -150,7 +150,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#defaultForm').bootstrapValidator({
+    $('#defaultForm').formValidation({
         message: 'This value is not valid',
         excluded: ':disabled',
         icon: {
@@ -252,7 +252,7 @@ $(document).ready(function() {
 
         // Active the panel element containing the first invalid element
         var $form         = $(e.target),
-            validator     = $form.data('bootstrapValidator'),
+            validator     = $form.data('formValidation'),
             $invalidField = validator.getInvalidFields().eq(0),
             $collapse     = $invalidField.parents('.collapse');
 

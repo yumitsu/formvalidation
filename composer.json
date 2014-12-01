@@ -9,7 +9,10 @@
         "validate",
         "validator",
         "form",
-        "Bootstrap"
+        "Bootstrap",
+        "Foundation",
+        "SemanticUI",
+        "UIKit"
     ],
     "homepage": "http://bootstrapvalidator.com",
     "license": "http://bootstrapvalidator.com/license/",

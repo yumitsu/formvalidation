@@ -60,7 +60,7 @@ $(document).ready(function() {
                 }
             })
             // Add new field after loading captcha
-            .bootstrapValidator('addField', 'recaptcha_response_field', {
+            .formValidation('addField', 'recaptcha_response_field', {
                 validators: {
                     notEmpty: {
                         message: 'The captcha is required and can\'t be empty'
@@ -80,7 +80,7 @@ $(document).ready(function() {
             });
     };
 
-    $('#defaultForm').bootstrapValidator({
+    $('#defaultForm').formValidation({
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',

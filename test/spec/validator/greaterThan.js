@@ -28,15 +28,15 @@ describe('greaterThan', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#greaterThanForm').bootstrapValidator();
+        $('#greaterThanForm').formValidation();
 
-        this.fv      = $('#greaterThanForm').data('bootstrapValidator');
+        this.fv      = $('#greaterThanForm').data('formValidation');
         this.$minAge = this.fv.getFieldElements('minAge');
         this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
-        $('#greaterThanForm').bootstrapValidator('destroy').remove();
+        $('#greaterThanForm').formValidation('destroy').remove();
     });
 
     it('not a number', function() {

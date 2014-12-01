@@ -7,14 +7,14 @@ describe('ein', function() {
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
-        $('#einForm').bootstrapValidator();
+        $('#einForm').formValidation();
 
-        this.fv   = $('#einForm').data('bootstrapValidator');
+        this.fv   = $('#einForm').data('formValidation');
         this.$ein = this.fv.getFieldElements('ein');
     });
 
     afterEach(function() {
-        $('#einForm').bootstrapValidator('destroy').remove();
+        $('#einForm').formValidation('destroy').remove();
     });
 
     it('valid', function() {

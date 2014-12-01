@@ -14,7 +14,7 @@ describe('api', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#apiForm').bootstrapValidator({
+        $('#apiForm').formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -22,13 +22,13 @@ describe('api', function() {
             }
         });
 
-        this.fv     = $('#apiForm').data('bootstrapValidator');
+        this.fv     = $('#apiForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
         this.$note  = $('#apiForm').find('input[name="note"]');
     });
 
     afterEach(function() {
-        $('#apiForm').bootstrapValidator('destroy').remove();
+        $('#apiForm').formValidation('destroy').remove();
     });
 
     it('revalidateField()', function() {
@@ -43,7 +43,7 @@ describe('api', function() {
 
     it('destroy()', function() {
         this.fv.destroy();
-        expect($('#apiForm').data('bootstrapValidator')).toBeUndefined();
+        expect($('#apiForm').data('formValidation')).toBeUndefined();
         expect($('#apiForm').find('i[data-fv-icon-for]').length).toEqual(0);
         expect($('#apiForm').find('.help-block[data-fv-for]').length).toEqual(0);
         expect($('#apiForm').find('.has-feedback').length).toEqual(0);
@@ -100,17 +100,17 @@ describe('autoFocus', function() {
         ].join('')).appendTo('body');
 
         this.fv        = $('#autoFocusForm')
-                            .bootstrapValidator()
+                            .formValidation()
                             .submit(function(e) {
                                 e.preventDefault();
                             })
-                            .data('bootstrapValidator');
+                            .data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#autoFocusForm').bootstrapValidator('destroy').remove();
+        $('#autoFocusForm').formValidation('destroy').remove();
     });
 
     it('default option (autoFocus=true)', function() {
@@ -128,8 +128,8 @@ describe('autoFocus', function() {
 
     it('set autoFocus=false for form', function() {
         $('#autoFocusForm')
-                .bootstrapValidator('destroy')
-                .bootstrapValidator({
+                .formValidation('destroy')
+                .formValidation({
                     autoFocus: false
                 });
         this.$username.val('');
@@ -193,15 +193,15 @@ describe('container form option', function() {
     });
 
     afterEach(function() {
-        $('#containerForm').bootstrapValidator('destroy').remove();
+        $('#containerForm').formValidation('destroy').remove();
     });
 
     it('form container declarative', function() {
         $('#containerForm')
             .attr('data-fv-container', '#errors')
-            .bootstrapValidator();
+            .formValidation();
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -215,13 +215,13 @@ describe('container form option', function() {
     });
 
     it('form container programmatically', function() {
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             err: {
                 container: '#errors'
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -259,7 +259,7 @@ describe('container field option', function() {
             '</form>'
         ].join('')).appendTo('body');
 
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             fields: {
                 lastName: {
                     err: '.lastNameMessage'
@@ -267,13 +267,13 @@ describe('container field option', function() {
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
     });
 
     afterEach(function() {
-        $('#containerForm').bootstrapValidator('destroy').remove();
+        $('#containerForm').formValidation('destroy').remove();
     });
 
     it('field container declarative', function() {
@@ -316,7 +316,7 @@ describe('container tooltip/popover', function() {
     });
 
     afterEach(function() {
-        $('#containerForm').bootstrapValidator('destroy').remove();
+        $('#containerForm').formValidation('destroy').remove();
     });
 
     it('container declarative', function() {
@@ -325,7 +325,7 @@ describe('container tooltip/popover', function() {
             .find('[name="lastName"]')
                 .attr('data-fv-container', 'popover')
                 .end()
-            .bootstrapValidator({
+            .formValidation({
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
@@ -333,7 +333,7 @@ describe('container tooltip/popover', function() {
                 }
             });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -352,7 +352,7 @@ describe('container tooltip/popover', function() {
     });
 
     it('container programmatically', function() {
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -368,7 +368,7 @@ describe('container tooltip/popover', function() {
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -388,7 +388,7 @@ describe('container tooltip/popover', function() {
 
     // #991: Validate once when setting trigger: blur, container: tooltip
     it('trigger: blur, container: tooltip', function() {
-        $('#containerForm').bootstrapValidator({
+        $('#containerForm').formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -432,7 +432,7 @@ describe('container tooltip/popover', function() {
             }
         });
 
-        this.fv         = $('#containerForm').data('bootstrapValidator');
+        this.fv         = $('#containerForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
 
@@ -476,7 +476,7 @@ describe('dynamic fields', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#dynamicForm').bootstrapValidator({
+        $('#dynamicForm').formValidation({
             fields: {
                 fullName: {
                     validators: {
@@ -506,12 +506,12 @@ describe('dynamic fields', function() {
             }
         });
 
-        this.fv        = $('#dynamicForm').data('bootstrapValidator');
+        this.fv        = $('#dynamicForm').data('formValidation');
         this.$fullName = this.fv.getFieldElements('fullName');
     });
 
     afterEach(function() {
-        $('#dynamicForm').bootstrapValidator('destroy').remove();
+        $('#dynamicForm').formValidation('destroy').remove();
     });
 
     // https://github.com/nghuuphuoc/bootstrapvalidator/pull/725
@@ -550,7 +550,7 @@ describe('enable validators', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#enableForm').bootstrapValidator({
+        $('#enableForm').formValidation({
             fields: {
                 fullName: {
                     validators: {
@@ -572,12 +572,12 @@ describe('enable validators', function() {
             }
         });
 
-        this.fv        = $('#enableForm').data('bootstrapValidator');
+        this.fv        = $('#enableForm').data('formValidation');
         this.$fullName = this.fv.getFieldElements('fullName');
     });
 
     afterEach(function() {
-        $('#enableForm').bootstrapValidator('destroy').remove();
+        $('#enableForm').formValidation('destroy').remove();
     });
 
     it('enable all validators', function() {
@@ -691,14 +691,14 @@ describe('event form attribute callback global', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -725,14 +725,14 @@ describe('event form attribute callback namespace', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -760,7 +760,7 @@ describe('event form trigger', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.form.fv', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered success.form.fv event');
             })
@@ -768,12 +768,12 @@ describe('event form trigger', function() {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
             });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('trigger success.form.fv', function() {
@@ -800,7 +800,7 @@ describe('event form programmatically', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator({
+        $('#eventForm').formValidation({
             onSuccess: function(e) {
                 $('#msg').html('onSuccess() called');
             },
@@ -809,12 +809,12 @@ describe('event form programmatically', function() {
             }
         });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call onSuccess()', function() {
@@ -858,14 +858,14 @@ describe('event field attribute callback global', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -895,14 +895,14 @@ describe('event field attribute callback namespace', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call data-fv-onsuccess', function() {
@@ -932,7 +932,7 @@ describe('event field trigger', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered success.field.fv on ' + data.field);
             })
@@ -940,12 +940,12 @@ describe('event field trigger', function() {
                 $('#msg').html('triggered error.field.fv on ' + data.field);
             });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('trigger success.field.fv', function() {
@@ -972,7 +972,7 @@ describe('event field programmatically', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator({
+        $('#eventForm').formValidation({
             fields: {
                 email: {
                     onSuccess: function(e, data) {
@@ -985,12 +985,12 @@ describe('event field programmatically', function() {
             }
         });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call onSuccess()', function() {
@@ -1022,7 +1022,7 @@ describe('event form trigger with default events', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm1')
-            .bootstrapValidator()
+            .formValidation()
             .on('bv.form.success', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.success event');
             })
@@ -1036,12 +1036,12 @@ describe('event form trigger with default events', function() {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
             });
 
-        this.fv     = $('#eventForm1').data('bootstrapValidator');
+        this.fv     = $('#eventForm1').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm1').bootstrapValidator('destroy').remove();
+        $('#eventForm1').formValidation('destroy').remove();
     });
 
     it('does not trigger bv.form.success', function() {
@@ -1081,7 +1081,7 @@ describe('event field trigger with default events', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm3')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered success.field.fv on ' + data.field);
             })
@@ -1095,12 +1095,12 @@ describe('event field trigger with default events', function() {
                 $('#msg').html('triggered bv.field.error on ' + data.field);
             });
 
-        this.fv     = $('#eventForm3').data('bootstrapValidator');
+        this.fv     = $('#eventForm3').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm3').bootstrapValidator('destroy').remove();
+        $('#eventForm3').formValidation('destroy').remove();
     });
 
     it('triggers success.field.fv', function() {
@@ -1158,7 +1158,7 @@ describe('event form trigger with events changed', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm2')
-            .bootstrapValidator()
+            .formValidation()
             .on('bv.form.success', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.success event');
             })
@@ -1172,12 +1172,12 @@ describe('event form trigger with events changed', function() {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
             });
 
-        this.fv     = $('#eventForm2').data('bootstrapValidator');
+        this.fv     = $('#eventForm2').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm2').bootstrapValidator('destroy').remove();
+        $('#eventForm2').formValidation('destroy').remove();
         FormValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
@@ -1234,7 +1234,7 @@ describe('event field trigger with events changed', function() {
         ].join('\n')).appendTo('body');
 
         $('#eventForm4')
-            .bootstrapValidator()
+            .formValidation()
             .on('success.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered success.field.fv on ' + data.field);
             })
@@ -1248,12 +1248,12 @@ describe('event field trigger with events changed', function() {
                 $('#msg').html('triggered bv.field.error on ' + data.field);
             });
 
-        this.fv     = $('#eventForm4').data('bootstrapValidator');
+        this.fv     = $('#eventForm4').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm4').bootstrapValidator('destroy').remove();
+        $('#eventForm4').formValidation('destroy').remove();
         FormValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
@@ -1309,14 +1309,14 @@ describe('event validator declarative', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator();
+        $('#eventForm').formValidation();
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('trigger data-fv-emailaddress-onsuccess', function() {
@@ -1343,7 +1343,7 @@ describe('event validator programmatically', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#eventForm').bootstrapValidator({
+        $('#eventForm').formValidation({
             fields: {
                 email: {
                     validators: {
@@ -1361,12 +1361,12 @@ describe('event validator programmatically', function() {
             }
         });
 
-        this.fv     = $('#eventForm').data('bootstrapValidator');
+        this.fv     = $('#eventForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#eventForm').bootstrapValidator('destroy').remove();
+        $('#eventForm').formValidation('destroy').remove();
     });
 
     it('call onSuccess()', function() {
@@ -1397,15 +1397,15 @@ describe('excluded', function() {
             '</div>'
         ].join('')).appendTo('body');
 
-        $('#excludedForm').bootstrapValidator();
+        $('#excludedForm').formValidation();
 
-        this.fv        = $('#excludedForm').data('bootstrapValidator');
+        this.fv        = $('#excludedForm').data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
     });
 
     afterEach(function() {
-        $('#excludedForm').bootstrapValidator('destroy').parent().remove();
+        $('#excludedForm').formValidation('destroy').parent().remove();
     });
 
     it('excluded form declarative', function() {
@@ -1423,11 +1423,11 @@ describe('excluded', function() {
         this.fv.destroy();
         $('#excludedForm').removeAttr('data-fv-excluded');
 
-        $('#excludedForm').bootstrapValidator({
+        $('#excludedForm').formValidation({
             excluded: '[name="username"]'
         });
 
-        this.fv        = $('#excludedForm').data('bootstrapValidator');
+        this.fv        = $('#excludedForm').data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -1448,7 +1448,7 @@ describe('excluded', function() {
         $('#excludedForm').find('[name="username"]').attr('data-fv-excluded', 'true');
         $('#excludedForm').find('[name="email"]').attr('data-fv-excluded', 'false');
 
-        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv        = $('#excludedForm').formValidation().data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -1472,7 +1472,7 @@ describe('excluded', function() {
         this.fv.destroy();
         $('#excludedForm').removeAttr('data-fv-excluded');
 
-        $('#excludedForm').bootstrapValidator({
+        $('#excludedForm').formValidation({
             fields: {
                 username: {
                     excluded: true
@@ -1483,7 +1483,7 @@ describe('excluded', function() {
             }
         });
 
-        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv        = $('#excludedForm').formValidation().data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -1507,7 +1507,7 @@ describe('excluded', function() {
         this.fv.destroy();
         $('#excludedForm').removeAttr('data-fv-excluded');
 
-        $('#excludedForm').bootstrapValidator({
+        $('#excludedForm').formValidation({
             fields: {
                 username: {
                     excluded: 'false'
@@ -1518,7 +1518,7 @@ describe('excluded', function() {
             }
         });
 
-        this.fv        = $('#excludedForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv        = $('#excludedForm').formValidation().data('formValidation');
         this.$username = this.fv.getFieldElements('username');
         this.$email    = this.fv.getFieldElements('email');
 
@@ -1663,7 +1663,7 @@ describe('i18n', function() {
             '</form>'
         ].join('')).appendTo('body');
 
-        $('#i18nForm').bootstrapValidator({
+        $('#i18nForm').formValidation({
             clazz: {
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
@@ -1767,7 +1767,7 @@ describe('i18n', function() {
             }
         });
 
-        this.fv        = $('#i18nForm').data('bootstrapValidator');
+        this.fv        = $('#i18nForm').data('formValidation');
         this.$fullName = this.fv.getFieldElements('fullName');
         this.$email    = this.fv.getFieldElements('email');
         this.$userName = this.fv.getFieldElements('username');
@@ -1780,7 +1780,7 @@ describe('i18n', function() {
     });
 
     afterEach(function() {
-        $('#i18nForm').bootstrapValidator('destroy').remove();
+        $('#i18nForm').formValidation('destroy').remove();
     });
 
     it('default message', function() {
@@ -1871,7 +1871,7 @@ describe('message', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#messageForm').bootstrapValidator({
+        $('#messageForm').formValidation({
             fields: {
                 password: {
                     validators: {
@@ -1915,12 +1915,12 @@ describe('message', function() {
             }
         });
 
-        this.fv        = $('#messageForm').data('bootstrapValidator');
+        this.fv        = $('#messageForm').data('formValidation');
         this.$password = this.fv.getFieldElements('password');
     });
 
     afterEach(function() {
-        $('#messageForm').bootstrapValidator('destroy').parent().remove();
+        $('#messageForm').formValidation('destroy').parent().remove();
     });
 
     it('update message from callback', function() {
@@ -1984,7 +1984,7 @@ describe('row option', function() {
             '</form>'
         ].join('')).appendTo('body');
 
-        $('#groupForm').bootstrapValidator({
+        $('#groupForm').formValidation({
             fields: {
                 firstName: {
                     row: '.firstNameGroup',
@@ -2020,14 +2020,14 @@ describe('row option', function() {
             }
         });
 
-        this.fv         = $('#groupForm').data('bootstrapValidator');
+        this.fv         = $('#groupForm').data('formValidation');
         this.$firstName = this.fv.getFieldElements('firstName');
         this.$lastName  = this.fv.getFieldElements('lastName');
         this.$username  = this.fv.getFieldElements('username');
     });
 
     afterEach(function() {
-        $('#groupForm').bootstrapValidator('destroy').remove();
+        $('#groupForm').formValidation('destroy').remove();
     });
 
     it('default', function() {
@@ -2087,7 +2087,7 @@ describe('submit', function() {
 
         this.$form = $('#submitForm');
         this.$form
-            .bootstrapValidator()
+            .formValidation()
             .on('success.form.fv', function(e) {
                 e.preventDefault();
                 ++submitted;
@@ -2097,7 +2097,7 @@ describe('submit', function() {
             });
             
         submitted      = 0;
-        this.fv        = this.$form.data('bootstrapValidator');
+        this.fv        = this.$form.data('formValidation');
         this.$username = this.fv.getFieldElements('username');
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -2105,7 +2105,7 @@ describe('submit', function() {
     });
 
     afterEach(function() {
-        $('#submitForm').bootstrapValidator('destroy').remove();
+        $('#submitForm').formValidation('destroy').remove();
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     });
 
@@ -2247,14 +2247,14 @@ describe('transformer', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#transformerForm').bootstrapValidator();
+        $('#transformerForm').formValidation();
 
-        this.fv       = $('#transformerForm').data('bootstrapValidator');
+        this.fv       = $('#transformerForm').data('formValidation');
         this.$website = this.fv.getFieldElements('website');
     });
 
     afterEach(function() {
-        $('#transformerForm').bootstrapValidator('destroy').remove();
+        $('#transformerForm').formValidation('destroy').remove();
     });
 
     it('transformer not set', function() {
@@ -2265,8 +2265,8 @@ describe('transformer', function() {
 
     it('programmatically usage', function() {
         this.fv = $('#transformerForm')
-                    .bootstrapValidator('destroy')
-                    .bootstrapValidator({
+                    .formValidation('destroy')
+                    .formValidation({
                         fields: {
                             website: {
                                 validators: {
@@ -2283,7 +2283,7 @@ describe('transformer', function() {
                             }
                         }
                     })
-                    .data('bootstrapValidator');
+                    .data('formValidation');
         this.$website.val('foo.com');
         this.fv.validate();
         expect(this.fv.isValid()).toBeTruthy();
@@ -2303,9 +2303,9 @@ describe('transformer', function() {
         this.$website.attr('data-fv-uri-transformer', 'TestSuite.Transformer.uri');
 
         this.fv = $('#transformerForm')
-                    .bootstrapValidator('destroy')
-                    .bootstrapValidator()
-                    .data('bootstrapValidator');
+                    .formValidation('destroy')
+                    .formValidation()
+                    .data('formValidation');
 
         this.$website.val('foo.com');
         this.fv.validate();
@@ -2361,15 +2361,15 @@ describe('verbose option', function() {
     });
 
     afterEach(function() {
-        $('#verboseForm').bootstrapValidator('destroy').remove();
+        $('#verboseForm').formValidation('destroy').remove();
     });
 
     it('set data-fv-verbose="false" for form', function() {
         var bv        = $('#verboseForm')
                             .attr('data-fv-verbose', 'false')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator()
-                            .data('bootstrapValidator'),
+                            .formValidation('destroy')
+                            .formValidation()
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -2400,9 +2400,9 @@ describe('verbose option', function() {
                             .find('[name="fullName"]')
                                 .attr('data-fv-verbose', 'false')
                                 .end()
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator()
-                            .data('bootstrapValidator'),
+                            .formValidation('destroy')
+                            .formValidation()
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -2429,9 +2429,9 @@ describe('verbose option', function() {
 
     it('set verbose: "false" for form', function() {
         var bv        = $('#verboseForm')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator({ verbose: false })
-                            .data('bootstrapValidator'),
+                            .formValidation('destroy')
+                            .formValidation({ verbose: false })
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -2460,8 +2460,8 @@ describe('verbose option', function() {
     it('set verbose: "false" for field', function() {
         var bv        = $('#verboseForm')
                             .attr('data-fv-verbose', 'true')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator({
+                            .formValidation('destroy')
+                            .formValidation({
                                 verbose: true,
                                 fields: {
                                     fullName: {
@@ -2469,7 +2469,7 @@ describe('verbose option', function() {
                                     }
                                 }
                             })
-                            .data('bootstrapValidator'),
+                            .data('formValidation'),
             $fullName = bv.getFieldElements('fullName'),
             messages;
 
@@ -2499,8 +2499,8 @@ describe('verbose option', function() {
         var validators = [],    // Array of not passed validators
             bv         = $('#verboseForm')
                             .attr('data-fv-verbose', 'true')
-                            .bootstrapValidator('destroy')
-                            .bootstrapValidator({
+                            .formValidation('destroy')
+                            .formValidation({
                                 verbose: true,
                                 fields: {
                                     fullName: {
@@ -2511,7 +2511,7 @@ describe('verbose option', function() {
                             .on('error.field.fv', function(e, data) {
                                 validators.push(data.validator);
                             })
-                            .data('bootstrapValidator'),
+                            .data('formValidation'),
             $fullName  = bv.getFieldElements('fullName');
 
         $fullName.val('');
@@ -2581,16 +2581,16 @@ describe('between', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#betweenForm').bootstrapValidator();
+        $('#betweenForm').formValidation();
 
-        this.fv      = $('#betweenForm').data('bootstrapValidator');
+        this.fv      = $('#betweenForm').data('formValidation');
         this.$minAge = this.fv.getFieldElements('minAge');
         this.$maxAge = this.fv.getFieldElements('maxAge');
         this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
-        $('#betweenForm').bootstrapValidator('destroy').remove();
+        $('#betweenForm').formValidation('destroy').remove();
     });
 
     it('not a number', function() {
@@ -2711,14 +2711,14 @@ describe('bic', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#bicForm').bootstrapValidator();
+        $('#bicForm').formValidation();
 
-        this.fv   = $('#bicForm').data('bootstrapValidator');
+        this.fv   = $('#bicForm').data('formValidation');
         this.$bic = this.fv.getFieldElements('bic');
     });
 
     afterEach(function() {
-        $('#bicForm').bootstrapValidator('destroy').remove();
+        $('#bicForm').formValidation('destroy').remove();
     });
 
     it('invalid bic', function() {
@@ -2771,7 +2771,7 @@ describe('callback', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#callbackForm').bootstrapValidator({
+        $('#callbackForm').formValidation({
             fields: {
                 captcha: {
                     validators: {
@@ -2786,13 +2786,13 @@ describe('callback', function() {
             }
         });
 
-        this.fv                  = $('#callbackForm').data('bootstrapValidator');
+        this.fv                  = $('#callbackForm').data('formValidation');
         this.$captcha            = this.fv.getFieldElements('captcha');
         this.$declarativeCaptcha = this.fv.getFieldElements('declarativeCaptcha');
     });
 
     afterEach(function() {
-        $('#callbackForm').bootstrapValidator('destroy').remove();
+        $('#callbackForm').formValidation('destroy').remove();
     });
 
     it('execute the callback', function() {
@@ -2853,7 +2853,7 @@ describe('color', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#colorForm').bootstrapValidator({
+        $('#colorForm').formValidation({
             fields: {
                 color: {
                     validators: {
@@ -2915,7 +2915,7 @@ describe('color', function() {
             }
         });
 
-        this.fv             = $('#colorForm').data('bootstrapValidator');
+        this.fv             = $('#colorForm').data('formValidation');
         this.$color         = this.fv.getFieldElements('color');
         this.$colorMultiple = this.fv.getFieldElements('colorMultiple');
         this.$colorHex      = this.fv.getFieldElements('colorHex');
@@ -2927,7 +2927,7 @@ describe('color', function() {
     });
 
     afterEach(function() {
-        $('#colorForm').bootstrapValidator('destroy').remove();
+        $('#colorForm').formValidation('destroy').remove();
     });
 
     // Start hsla() tests
@@ -3492,14 +3492,14 @@ describe('creditCard', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#ccForm').bootstrapValidator();
+        $('#ccForm').formValidation();
 
-        this.fv          = $('#ccForm').data('bootstrapValidator');
+        this.fv          = $('#ccForm').data('formValidation');
         this.$creditCard = this.fv.getFieldElements('cc');
     });
 
     afterEach(function() {
-        $('#ccForm').bootstrapValidator('destroy').parent().remove();
+        $('#ccForm').formValidation('destroy').parent().remove();
     });
 
     it('accept spaces', function() {
@@ -3608,14 +3608,14 @@ describe('cusip', function() {
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
-        $('#cusipForm').bootstrapValidator();
+        $('#cusipForm').formValidation();
 
-        this.fv     = $('#cusipForm').data('bootstrapValidator');
+        this.fv     = $('#cusipForm').data('formValidation');
         this.$cusip = this.fv.getFieldElements('cusip');
     });
 
     afterEach(function() {
-        $('#cusipForm').bootstrapValidator('destroy').remove();
+        $('#cusipForm').formValidation('destroy').remove();
     });
 
     it('valid', function() {
@@ -3673,9 +3673,9 @@ describe('date', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#dateForm').bootstrapValidator();
+        $('#dateForm').formValidation();
 
-        this.fv       = $('#dateForm').data('bootstrapValidator');
+        this.fv       = $('#dateForm').data('formValidation');
         this.$date    = this.fv.getFieldElements('date');
         this.$minDate = this.fv.getFieldElements('minDate');
         this.$maxDate = this.fv.getFieldElements('maxDate');
@@ -3683,7 +3683,7 @@ describe('date', function() {
     });
 
     afterEach(function() {
-        $('#dateForm').bootstrapValidator('destroy').remove();
+        $('#dateForm').formValidation('destroy').remove();
     });
 
     it('YYYY/MM/DD', function() {
@@ -4247,7 +4247,7 @@ describe('date', function() {
     it('dynamic min: name of field', function() {
         this.$minDate.attr('data-fv-date-min', 'date');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -4265,7 +4265,7 @@ describe('date', function() {
     it('dynamic min: callback declarative function', function() {
         this.$minDate.attr('data-fv-date-min', 'getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -4283,7 +4283,7 @@ describe('date', function() {
     it('dynamic min: callback declarative function()', function() {
         this.$minDate.attr('data-fv-date-min', 'getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -4301,7 +4301,7 @@ describe('date', function() {
     it('dynamic min: callback declarative A.B.C', function() {
         this.$minDate.attr('data-fv-date-min', 'TestSuite.Date.getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -4319,7 +4319,7 @@ describe('date', function() {
     it('dynamic min: callback declarative A.B.C()', function() {
         this.$minDate.attr('data-fv-date-min', 'TestSuite.Date.getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -4338,7 +4338,7 @@ describe('date', function() {
         this.$minDate.removeAttr('data-fv-date-min');
         this.fv.destroy();
         this.fv = $('#dateForm')
-                        .bootstrapValidator({
+                        .formValidation({
                             fields: {
                                 minDate: {
                                     validators: {
@@ -4351,7 +4351,7 @@ describe('date', function() {
                                 }
                             }
                         })
-                        .data('bootstrapValidator');
+                        .data('formValidation');
         this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2014/09/08');
@@ -4370,7 +4370,7 @@ describe('date', function() {
     it('dynamic max: name of field', function() {
         this.$maxDate.attr('data-fv-date-max', 'date');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -4388,7 +4388,7 @@ describe('date', function() {
     it('dynamic max: callback declarative function', function() {
         this.$maxDate.attr('data-fv-date-max', 'getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -4406,7 +4406,7 @@ describe('date', function() {
     it('dynamic max: callback declarative function()', function() {
         this.$maxDate.attr('data-fv-date-max', 'getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -4424,7 +4424,7 @@ describe('date', function() {
     it('dynamic max: callback declarative A.B.C', function() {
         this.$maxDate.attr('data-fv-date-max', 'TestSuite.Date.getDate');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -4442,7 +4442,7 @@ describe('date', function() {
     it('dynamic max: callback declarative A.B.C()', function() {
         this.$maxDate.attr('data-fv-date-max', 'TestSuite.Date.getDate()');
         this.fv.destroy();
-        this.fv = $('#dateForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#dateForm').formValidation().data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -4461,7 +4461,7 @@ describe('date', function() {
         this.$maxDate.removeAttr('data-fv-date-max');
         this.fv.destroy();
         this.fv = $('#dateForm')
-                        .bootstrapValidator({
+                        .formValidation({
                             fields: {
                                 maxDate: {
                                     validators: {
@@ -4474,7 +4474,7 @@ describe('date', function() {
                                 }
                             }
                         })
-                        .data('bootstrapValidator');
+                        .data('formValidation');
         this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
 
         this.$date.val('2015/01/01');
@@ -4503,14 +4503,14 @@ describe('ean', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#eanForm').bootstrapValidator();
+        $('#eanForm').formValidation();
 
-        this.fv   = $('#eanForm').data('bootstrapValidator');
+        this.fv   = $('#eanForm').data('formValidation');
         this.$ean = this.fv.getFieldElements('ean');
     });
 
     afterEach(function() {
-        $('#eanForm').bootstrapValidator('destroy').parent().remove();
+        $('#eanForm').formValidation('destroy').parent().remove();
     });
 
     it('valid', function() {
@@ -4551,14 +4551,14 @@ describe('ein', function() {
                 '</div>',
             '</form>'
         ].join('\n')).appendTo('body');
-        $('#einForm').bootstrapValidator();
+        $('#einForm').formValidation();
 
-        this.fv   = $('#einForm').data('bootstrapValidator');
+        this.fv   = $('#einForm').data('formValidation');
         this.$ein = this.fv.getFieldElements('ein');
     });
 
     afterEach(function() {
-        $('#einForm').bootstrapValidator('destroy').remove();
+        $('#einForm').formValidation('destroy').remove();
     });
 
     it('valid', function() {
@@ -4624,14 +4624,14 @@ describe('emailAddress', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#emailAddressForm').bootstrapValidator();
+        $('#emailAddressForm').formValidation();
 
-        this.fv = $('#emailAddressForm').data('bootstrapValidator');
+        this.fv = $('#emailAddressForm').data('formValidation');
         this.$emailAddressOrAddresses = this.fv.getFieldElements('email-address-or-addresses');
     });
 
     afterEach(function() {
-        $('#emailAddressForm').bootstrapValidator('destroy').remove();
+        $('#emailAddressForm').formValidation('destroy').remove();
     });
 
     var validEmailAddresses = [
@@ -4819,15 +4819,15 @@ describe('greaterThan', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#greaterThanForm').bootstrapValidator();
+        $('#greaterThanForm').formValidation();
 
-        this.fv      = $('#greaterThanForm').data('bootstrapValidator');
+        this.fv      = $('#greaterThanForm').data('formValidation');
         this.$minAge = this.fv.getFieldElements('minAge');
         this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
-        $('#greaterThanForm').bootstrapValidator('destroy').remove();
+        $('#greaterThanForm').formValidation('destroy').remove();
     });
 
     it('not a number', function() {
@@ -5019,15 +5019,15 @@ describe('iban', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#ibanForm').bootstrapValidator();
+        $('#ibanForm').formValidation();
 
-        this.fv       = $('#ibanForm').data('bootstrapValidator');
+        this.fv       = $('#ibanForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$iban    = this.fv.getFieldElements('iban');
     });
 
     afterEach(function() {
-        $('#ibanForm').bootstrapValidator('destroy').remove();
+        $('#ibanForm').formValidation('destroy').remove();
     });
 
     it('not supported country', function() {
@@ -5039,7 +5039,7 @@ describe('iban', function() {
     it('dynamic country', function() {
         this.$iban.attr('data-fv-iban-country', 'country');
         this.fv.destroy();
-        this.fv = $('#ibanForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#ibanForm').formValidation().data('formValidation');
 
         this.$country.val('AT');
         this.$iban.val('AT611904300234573201');
@@ -5566,24 +5566,24 @@ describe('id', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#idForm').bootstrapValidator();
+        $('#idForm').formValidation();
 
         /**
-         * @type {BootstrapValidator}
+         * @type {FormValidation.Base}
          */
-        this.fv       = $('#idForm').data('bootstrapValidator');
+        this.fv       = $('#idForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$id      = this.fv.getFieldElements('id');
     });
 
     afterEach(function() {
-        $('#idForm').bootstrapValidator('destroy').remove();
+        $('#idForm').formValidation('destroy').remove();
     });
 
     it('dynamic country', function() {
         this.$id.attr('data-fv-id-country', 'country');
         this.fv.destroy();
-        this.fv = $('#idForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#idForm').formValidation().data('formValidation');
 
         this.$country.val('BG');
         this.$id.val('7552010005');
@@ -6035,14 +6035,14 @@ describe('imo', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#imoForm').bootstrapValidator();
+        $('#imoForm').formValidation();
 
-        this.fv   = $('#imoForm').data('bootstrapValidator');
+        this.fv   = $('#imoForm').data('formValidation');
         this.$imo = this.fv.getFieldElements('imo');
     });
 
     afterEach(function() {
-        $('#imoForm').bootstrapValidator('destroy').remove();
+        $('#imoForm').formValidation('destroy').remove();
     });
 
     it('Valid IMO (upper)', function() {
@@ -6090,16 +6090,16 @@ describe('ip', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#ipForm').bootstrapValidator();
+        $('#ipForm').formValidation();
 
-        this.fv    = $('#ipForm').data('bootstrapValidator');
+        this.fv    = $('#ipForm').data('formValidation');
         this.$ipv4 = this.fv.getFieldElements('ipv4');
         this.$ipv6 = this.fv.getFieldElements('ipv6');
         this.$both = this.fv.getFieldElements('both');
     });
 
     afterEach(function() {
-        $('#ipForm').bootstrapValidator('destroy').remove();
+        $('#ipForm').formValidation('destroy').remove();
     });
 
     it('Valid ipv4', function() {
@@ -6241,14 +6241,14 @@ describe('isbn', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#isbnForm').bootstrapValidator();
+        $('#isbnForm').formValidation();
 
-        this.fv    = $('#isbnForm').data('bootstrapValidator');
+        this.fv    = $('#isbnForm').data('formValidation');
         this.$isbn = this.fv.getFieldElements('isbn');
     });
 
     afterEach(function() {
-        $('#isbnForm').bootstrapValidator('destroy').parent().remove();
+        $('#isbnForm').formValidation('destroy').parent().remove();
     });
 
     it('isbn10 hyphen', function() {
@@ -6312,14 +6312,14 @@ describe('isin', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#isinForm').bootstrapValidator();
+        $('#isinForm').formValidation();
 
-        this.fv    = $('#isinForm').data('bootstrapValidator');
+        this.fv    = $('#isinForm').data('formValidation');
         this.$isin = this.fv.getFieldElements('isin');
     });
 
     afterEach(function() {
-        $('#isinForm').bootstrapValidator('destroy').parent().remove();
+        $('#isinForm').formValidation('destroy').parent().remove();
     });
 
     it('valid', function() {
@@ -6370,14 +6370,14 @@ describe('ismn', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#ismnForm').bootstrapValidator();
+        $('#ismnForm').formValidation();
 
-        this.fv    = $('#ismnForm').data('bootstrapValidator');
+        this.fv    = $('#ismnForm').data('formValidation');
         this.$ismn = this.fv.getFieldElements('ismn');
     });
 
     afterEach(function() {
-        $('#ismnForm').bootstrapValidator('destroy').parent().remove();
+        $('#ismnForm').formValidation('destroy').parent().remove();
     });
 
     it('valid start with M', function() {
@@ -6430,14 +6430,14 @@ describe('issn', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#issnForm').bootstrapValidator();
+        $('#issnForm').formValidation();
 
-        this.fv    = $('#issnForm').data('bootstrapValidator');
+        this.fv    = $('#issnForm').data('formValidation');
         this.$issn = this.fv.getFieldElements('issn');
     });
 
     afterEach(function() {
-        $('#issnForm').bootstrapValidator('destroy').parent().remove();
+        $('#issnForm').formValidation('destroy').parent().remove();
     });
 
     it('valid', function() {
@@ -6499,15 +6499,15 @@ describe('lessThan', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#lessThanForm').bootstrapValidator();
+        $('#lessThanForm').formValidation();
 
-        this.fv      = $('#lessThanForm').data('bootstrapValidator');
+        this.fv      = $('#lessThanForm').data('formValidation');
         this.$maxAge = this.fv.getFieldElements('maxAge');
         this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
-        $('#lessThanForm').bootstrapValidator('destroy').remove();
+        $('#lessThanForm').formValidation('destroy').remove();
     });
 
     it('not a number', function() {
@@ -6617,14 +6617,14 @@ describe('meid', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#meidForm').bootstrapValidator();
+        $('#meidForm').formValidation();
 
-        this.fv    = $('#meidForm').data('bootstrapValidator');
+        this.fv    = $('#meidForm').data('formValidation');
         this.$meid = this.fv.getFieldElements('meid');
     });
 
     afterEach(function() {
-        $('#meidForm').bootstrapValidator('destroy').remove();
+        $('#meidForm').formValidation('destroy').remove();
     });
 
     it('Valid MEID (14 hex, check digit)', function() {
@@ -6771,24 +6771,24 @@ describe('phone', function() {
             '</form>',
         ].join('\n')).appendTo('body');
 
-        $('#phoneForm').bootstrapValidator();
+        $('#phoneForm').formValidation();
 
         /**
-         * @type {BootstrapValidator}
+         * @type {FormValidation.Base}
          */
-        this.fv       = $('#phoneForm').data('bootstrapValidator');
+        this.fv       = $('#phoneForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$phone   = this.fv.getFieldElements('phone');
     });
 
     afterEach(function() {
-        $('#phoneForm').bootstrapValidator('destroy').remove();
+        $('#phoneForm').formValidation('destroy').remove();
     });
 
     it('dynamic country', function() {
         this.$phone.attr('data-fv-phone-country', 'country');
         this.fv.destroy();
-        this.fv = $('#phoneForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#phoneForm').formValidation().data('formValidation');
 
         this.$country.val('BR');
         this.$phone.val('16920894635');
@@ -7208,9 +7208,9 @@ describe('stringLength', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#stringLengthForm').bootstrapValidator();
+        $('#stringLengthForm').formValidation();
 
-        this.fv                             = $('#stringLengthForm').data('bootstrapValidator');
+        this.fv                             = $('#stringLengthForm').data('formValidation');
         this.$textCharMaxLength             = this.fv.getFieldElements('textCharMaxLength');
         this.$textareaCharMaxLength         = this.fv.getFieldElements('textareaCharMaxLength');
         this.$textUTF8BytesMaxLength        = this.fv.getFieldElements('textUTF8BytesMaxLength');
@@ -7226,7 +7226,7 @@ describe('stringLength', function() {
     });
 
     afterEach(function() {
-        $('#stringLengthForm').bootstrapValidator('destroy').remove();
+        $('#stringLengthForm').formValidation('destroy').remove();
     });
 
     it('Valid max lengths', function() {
@@ -7397,14 +7397,14 @@ describe('uri', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#uriForm').bootstrapValidator();
+        $('#uriForm').formValidation();
 
-        this.fv   = $('#uriForm').data('bootstrapValidator');
+        this.fv   = $('#uriForm').data('formValidation');
         this.$uri = this.fv.getFieldElements('uri');
     });
 
     afterEach(function() {
-        $('#uriForm').bootstrapValidator('destroy').remove();
+        $('#uriForm').formValidation('destroy').remove();
     });
 
     var validGlobalURIs = [
@@ -7663,24 +7663,24 @@ describe('vat', function() {
             '</form>',
         ].join('\n')).appendTo('body');
 
-        $('#vatForm').bootstrapValidator();
+        $('#vatForm').formValidation();
 
         /**
          * @type {BootstrapValidator}
          */
-        this.fv       = $('#vatForm').data('bootstrapValidator');
+        this.fv       = $('#vatForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$vat     = this.fv.getFieldElements('vat');
     });
 
     afterEach(function() {
-        $('#vatForm').bootstrapValidator('destroy').remove();
+        $('#vatForm').formValidation('destroy').remove();
     });
 
     it('dynamic country', function() {
         this.$vat.attr('data-fv-vat-country', 'country');
         this.fv.destroy();
-        this.fv = $('#vatForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#vatForm').formValidation().data('formValidation');
 
         this.$country.val('AT');
         this.$vat.val('ATU13585627');
@@ -8454,19 +8454,19 @@ describe('zipCode', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#zipCodeForm').bootstrapValidator();
+        $('#zipCodeForm').formValidation();
 
         /**
          * @type {BootstrapValidator}
          */
-        this.fv       = $('#zipCodeForm').data('bootstrapValidator');
+        this.fv       = $('#zipCodeForm').data('formValidation');
 
         this.$country = this.fv.getFieldElements('country');
         this.$zipCode = this.fv.getFieldElements('zc');
     });
 
     afterEach(function() {
-        $('#zipCodeForm').bootstrapValidator('destroy').remove();
+        $('#zipCodeForm').formValidation('destroy').remove();
     });
 
     it('country code updateOption()', function() {
@@ -8497,10 +8497,10 @@ describe('zipCode', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'country');
 
         // Need to destroy the plugin instance ...
-        $('#zipCodeForm').bootstrapValidator('destroy');
+        $('#zipCodeForm').formValidation('destroy');
 
         // ... and re-create it
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('IT');
 
         this.fv.resetForm();
@@ -8516,8 +8516,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative function', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'getCountryCode');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('NL');
         this.$zipCode.val('0123');
         this.fv.validate();
@@ -8527,8 +8527,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative function()', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'getCountryCode()');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('NL');
         this.$zipCode.val('1234 ab');
         this.fv.validate();
@@ -8538,8 +8538,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative A.B.C', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'TestSuite.ZipCode.getCountryCode');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('DK');
         this.$zipCode.val('DK 123');
         this.fv.validate();
@@ -8549,8 +8549,8 @@ describe('zipCode', function() {
 
     it('country code callback declarative A.B.C()', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'TestSuite.ZipCode.getCountryCode()');
-        $('#zipCodeForm').bootstrapValidator('destroy');
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        $('#zipCodeForm').formValidation('destroy');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
         this.$country.val('DK');
         this.$zipCode.val('DK-1234');
         this.fv.validate();
@@ -8560,9 +8560,9 @@ describe('zipCode', function() {
 
     it('country code callback programmatically', function() {
         this.$zipCode.removeAttr('data-fv-zipcode-country');
-        $('#zipCodeForm').bootstrapValidator('destroy');
+        $('#zipCodeForm').formValidation('destroy');
         this.fv = $('#zipCodeForm')
-                        .bootstrapValidator({
+                        .formValidation({
                             fields: {
                                 zc: {
                                     validators: {
@@ -8575,7 +8575,7 @@ describe('zipCode', function() {
                                 }
                             }
                         })
-                        .data('bootstrapValidator');
+                        .data('formValidation');
         this.$country.val('SE');
 
         this.fv.resetForm();
@@ -8594,9 +8594,9 @@ describe('zipCode', function() {
     it('not supported country code', function() {
         this.$zipCode.attr('data-fv-zipcode-country', 'NOT_SUPPORTED');
 
-        $('#zipCodeForm').bootstrapValidator('destroy');
+        $('#zipCodeForm').formValidation('destroy');
 
-        this.fv = $('#zipCodeForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#zipCodeForm').formValidation().data('formValidation');
 
         this.fv.resetForm();
         this.$zipCode.val('1234');

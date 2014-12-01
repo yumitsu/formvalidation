@@ -55,7 +55,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#signupForm').bootstrapValidator({
+    $('#signupForm').formValidation({
         message: 'This value is not valid',
         icon: {
             valid: 'glyphicon glyphicon-ok',
@@ -96,11 +96,11 @@ $(document).ready(function() {
     // Enable the password/confirm password validators if the password is not empty
     $('#signupForm').find('[name="password"]').on('keyup', function() {
         var isEmpty = $(this).val() == '';
-        $('#signupForm').bootstrapValidator('enableFieldValidators', 'password', !isEmpty)
-                        .bootstrapValidator('enableFieldValidators', 'confirm_password', !isEmpty);
+        $('#signupForm').formValidation('enableFieldValidators', 'password', !isEmpty)
+                        .formValidation('enableFieldValidators', 'confirm_password', !isEmpty);
         if ($(this).val().length == 1) {
-            $('#signupForm').bootstrapValidator('validateField', 'password')
-                            .bootstrapValidator('validateField', 'confirm_password');
+            $('#signupForm').formValidation('validateField', 'password')
+                            .formValidation('validateField', 'confirm_password');
         }
     });
 });

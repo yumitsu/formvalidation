@@ -8,14 +8,14 @@ describe('imo', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#imoForm').bootstrapValidator();
+        $('#imoForm').formValidation();
 
-        this.fv   = $('#imoForm').data('bootstrapValidator');
+        this.fv   = $('#imoForm').data('formValidation');
         this.$imo = this.fv.getFieldElements('imo');
     });
 
     afterEach(function() {
-        $('#imoForm').bootstrapValidator('destroy').remove();
+        $('#imoForm').formValidation('destroy').remove();
     });
 
     it('Valid IMO (upper)', function() {

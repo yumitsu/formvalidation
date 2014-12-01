@@ -78,7 +78,7 @@
                     .end()
                 .on('click', '.removeButton', function() {
                     // Remove field when clicking the Remove button
-                    $('#contactForm').bootstrapValidator('removeField', fieldName);
+                    $('#contactForm').formValidation('removeField', fieldName);
 
                     // Enable the Add button
                     $that.parent().removeClass('disabled');
@@ -88,7 +88,7 @@
                 });
 
             // Add new field
-            $('#contactForm').bootstrapValidator('addField', fieldName, {
+            $('#contactForm').formValidation('addField', fieldName, {
                 message: 'The phone number is not valid',
                 validators: {
                     digits: {
@@ -99,7 +99,7 @@
         });
 
         $('#contactForm')
-            .bootstrapValidator({
+            .formValidation({
                 message: 'This value is not valid',
                 icon: {
                     valid: 'glyphicon glyphicon-ok',

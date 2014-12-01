@@ -8,7 +8,7 @@
  */
 
 /**
- * This class supports validating UIKit framework (http://getuikit.com/)
+ * This class supports validating UIKit form (http://getuikit.com/)
  */
 (function($) {
     FormValidation.Framework.UIKit = function(element, options) {

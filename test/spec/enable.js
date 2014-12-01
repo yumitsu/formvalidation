@@ -8,7 +8,7 @@ describe('enable validators', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#enableForm').bootstrapValidator({
+        $('#enableForm').formValidation({
             fields: {
                 fullName: {
                     validators: {
@@ -30,12 +30,12 @@ describe('enable validators', function() {
             }
         });
 
-        this.fv        = $('#enableForm').data('bootstrapValidator');
+        this.fv        = $('#enableForm').data('formValidation');
         this.$fullName = this.fv.getFieldElements('fullName');
     });
 
     afterEach(function() {
-        $('#enableForm').bootstrapValidator('destroy').remove();
+        $('#enableForm').formValidation('destroy').remove();
     });
 
     it('enable all validators', function() {

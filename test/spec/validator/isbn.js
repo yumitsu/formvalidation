@@ -11,14 +11,14 @@ describe('isbn', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#isbnForm').bootstrapValidator();
+        $('#isbnForm').formValidation();
 
-        this.fv    = $('#isbnForm').data('bootstrapValidator');
+        this.fv    = $('#isbnForm').data('formValidation');
         this.$isbn = this.fv.getFieldElements('isbn');
     });
 
     afterEach(function() {
-        $('#isbnForm').bootstrapValidator('destroy').parent().remove();
+        $('#isbnForm').formValidation('destroy').parent().remove();
     });
 
     it('isbn10 hyphen', function() {

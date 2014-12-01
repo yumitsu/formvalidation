@@ -8,7 +8,7 @@
  */
 
 /**
- * This class supports validating Foundation framework (http://foundation.zurb.com/)
+ * This class supports validating Foundation form (http://foundation.zurb.com/)
  */
 /* global Foundation: false */
 (function($) {

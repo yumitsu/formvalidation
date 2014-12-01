@@ -8,7 +8,7 @@ describe('dynamic fields', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#dynamicForm').bootstrapValidator({
+        $('#dynamicForm').formValidation({
             fields: {
                 fullName: {
                     validators: {
@@ -38,12 +38,12 @@ describe('dynamic fields', function() {
             }
         });
 
-        this.fv        = $('#dynamicForm').data('bootstrapValidator');
+        this.fv        = $('#dynamicForm').data('formValidation');
         this.$fullName = this.fv.getFieldElements('fullName');
     });
 
     afterEach(function() {
-        $('#dynamicForm').bootstrapValidator('destroy').remove();
+        $('#dynamicForm').formValidation('destroy').remove();
     });
 
     // https://github.com/nghuuphuoc/bootstrapvalidator/pull/725

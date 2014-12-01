@@ -21,7 +21,7 @@ describe('callback', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#callbackForm').bootstrapValidator({
+        $('#callbackForm').formValidation({
             fields: {
                 captcha: {
                     validators: {
@@ -36,13 +36,13 @@ describe('callback', function() {
             }
         });
 
-        this.fv                  = $('#callbackForm').data('bootstrapValidator');
+        this.fv                  = $('#callbackForm').data('formValidation');
         this.$captcha            = this.fv.getFieldElements('captcha');
         this.$declarativeCaptcha = this.fv.getFieldElements('declarativeCaptcha');
     });
 
     afterEach(function() {
-        $('#callbackForm').bootstrapValidator('destroy').remove();
+        $('#callbackForm').formValidation('destroy').remove();
     });
 
     it('execute the callback', function() {

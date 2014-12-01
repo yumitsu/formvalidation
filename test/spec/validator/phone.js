@@ -29,24 +29,24 @@ describe('phone', function() {
             '</form>',
         ].join('\n')).appendTo('body');
 
-        $('#phoneForm').bootstrapValidator();
+        $('#phoneForm').formValidation();
 
         /**
-         * @type {BootstrapValidator}
+         * @type {FormValidation.Base}
          */
-        this.fv       = $('#phoneForm').data('bootstrapValidator');
+        this.fv       = $('#phoneForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$phone   = this.fv.getFieldElements('phone');
     });
 
     afterEach(function() {
-        $('#phoneForm').bootstrapValidator('destroy').remove();
+        $('#phoneForm').formValidation('destroy').remove();
     });
 
     it('dynamic country', function() {
         this.$phone.attr('data-fv-phone-country', 'country');
         this.fv.destroy();
-        this.fv = $('#phoneForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#phoneForm').formValidation().data('formValidation');
 
         this.$country.val('BR');
         this.$phone.val('16920894635');

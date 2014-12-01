@@ -126,7 +126,7 @@ describe('i18n', function() {
             '</form>'
         ].join('')).appendTo('body');
 
-        $('#i18nForm').bootstrapValidator({
+        $('#i18nForm').formValidation({
             clazz: {
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
@@ -230,7 +230,7 @@ describe('i18n', function() {
             }
         });
 
-        this.fv        = $('#i18nForm').data('bootstrapValidator');
+        this.fv        = $('#i18nForm').data('formValidation');
         this.$fullName = this.fv.getFieldElements('fullName');
         this.$email    = this.fv.getFieldElements('email');
         this.$userName = this.fv.getFieldElements('username');
@@ -243,7 +243,7 @@ describe('i18n', function() {
     });
 
     afterEach(function() {
-        $('#i18nForm').bootstrapValidator('destroy').remove();
+        $('#i18nForm').formValidation('destroy').remove();
     });
 
     it('default message', function() {

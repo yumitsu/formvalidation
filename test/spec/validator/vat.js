@@ -47,24 +47,24 @@ describe('vat', function() {
             '</form>',
         ].join('\n')).appendTo('body');
 
-        $('#vatForm').bootstrapValidator();
+        $('#vatForm').formValidation();
 
         /**
          * @type {BootstrapValidator}
          */
-        this.fv       = $('#vatForm').data('bootstrapValidator');
+        this.fv       = $('#vatForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$vat     = this.fv.getFieldElements('vat');
     });
 
     afterEach(function() {
-        $('#vatForm').bootstrapValidator('destroy').remove();
+        $('#vatForm').formValidation('destroy').remove();
     });
 
     it('dynamic country', function() {
         this.$vat.attr('data-fv-vat-country', 'country');
         this.fv.destroy();
-        this.fv = $('#vatForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#vatForm').formValidation().data('formValidation');
 
         this.$country.val('AT');
         this.$vat.val('ATU13585627');

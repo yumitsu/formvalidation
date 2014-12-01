@@ -8,14 +8,14 @@ describe('bic', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#bicForm').bootstrapValidator();
+        $('#bicForm').formValidation();
 
-        this.fv   = $('#bicForm').data('bootstrapValidator');
+        this.fv   = $('#bicForm').data('formValidation');
         this.$bic = this.fv.getFieldElements('bic');
     });
 
     afterEach(function() {
-        $('#bicForm').bootstrapValidator('destroy').remove();
+        $('#bicForm').formValidation('destroy').remove();
     });
 
     it('invalid bic', function() {

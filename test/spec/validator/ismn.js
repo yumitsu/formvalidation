@@ -11,14 +11,14 @@ describe('ismn', function() {
         ].join('\n');
 
         $(html).appendTo('body');
-        $('#ismnForm').bootstrapValidator();
+        $('#ismnForm').formValidation();
 
-        this.fv    = $('#ismnForm').data('bootstrapValidator');
+        this.fv    = $('#ismnForm').data('formValidation');
         this.$ismn = this.fv.getFieldElements('ismn');
     });
 
     afterEach(function() {
-        $('#ismnForm').bootstrapValidator('destroy').parent().remove();
+        $('#ismnForm').formValidation('destroy').parent().remove();
     });
 
     it('valid start with M', function() {

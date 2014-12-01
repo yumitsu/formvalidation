@@ -8,14 +8,14 @@ describe('meid', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#meidForm').bootstrapValidator();
+        $('#meidForm').formValidation();
 
-        this.fv    = $('#meidForm').data('bootstrapValidator');
+        this.fv    = $('#meidForm').data('formValidation');
         this.$meid = this.fv.getFieldElements('meid');
     });
 
     afterEach(function() {
-        $('#meidForm').bootstrapValidator('destroy').remove();
+        $('#meidForm').formValidation('destroy').remove();
     });
 
     it('Valid MEID (14 hex, check digit)', function() {

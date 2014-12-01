@@ -101,7 +101,7 @@
                 $templateEle = $('#' + template + 'Template'),
                 $row         = $templateEle.clone().removeAttr('id').insertBefore($templateEle).removeClass('hide'),
                 $el          = $row.find('input').eq(0).attr('name', template + '[]');
-            $('#defaultForm').bootstrapValidator('addField', $el);
+            $('#defaultForm').formValidation('addField', $el);
 
             // Set random value for checkbox and textbox
             if ('checkbox' == $el.attr('type') || 'radio' == $el.attr('type')) {
@@ -112,13 +112,13 @@
             }
 
             $row.on('click', '.removeButton', function(e) {
-                $('#defaultForm').bootstrapValidator('removeField', $el);
+                $('#defaultForm').formValidation('removeField', $el);
                 $row.remove();
             });
         });
 
         $('#defaultForm')
-            .bootstrapValidator({
+            .formValidation({
                 message: 'This value is not valid',
                 icon: {
                     valid: 'glyphicon glyphicon-ok',

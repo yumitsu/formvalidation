@@ -14,16 +14,16 @@ describe('ip', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#ipForm').bootstrapValidator();
+        $('#ipForm').formValidation();
 
-        this.fv    = $('#ipForm').data('bootstrapValidator');
+        this.fv    = $('#ipForm').data('formValidation');
         this.$ipv4 = this.fv.getFieldElements('ipv4');
         this.$ipv6 = this.fv.getFieldElements('ipv6');
         this.$both = this.fv.getFieldElements('both');
     });
 
     afterEach(function() {
-        $('#ipForm').bootstrapValidator('destroy').remove();
+        $('#ipForm').formValidation('destroy').remove();
     });
 
     it('Valid ipv4', function() {

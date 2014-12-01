@@ -173,7 +173,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#defaultForm')
-        .bootstrapValidator({
+        .formValidation({
             message: 'This value is not valid',
             icon: {
                 valid: 'glyphicon glyphicon-ok',
@@ -275,15 +275,15 @@ $(document).ready(function() {
 
             // You can get the form instance and then access API
             var $form = $(e.target);
-            console.log($form.data('bootstrapValidator').getInvalidFields());
+            console.log($form.data('formValidation').getInvalidFields());
 
-            // If you want to prevent the default handler (bootstrapValidator._onError(e))
+            // If you want to prevent the default handler (formValidation._onError(e))
             // e.preventDefault();
         })
         .on('success.form.fv', function(e) {
             console.log('success.form.fv');
 
-            // If you want to prevent the default handler (bootstrapValidator._onSuccess(e))
+            // If you want to prevent the default handler (formValidation._onSuccess(e))
             // e.preventDefault();
         })
         .on('error.field.fv', function(e, data) {
@@ -302,7 +302,7 @@ $(document).ready(function() {
 
     // Validate the form manually
     $('#validateBtn').click(function() {
-        $('#defaultForm').bootstrapValidator('validate');
+        $('#defaultForm').formValidation('validate');
     });
 });
 </script>

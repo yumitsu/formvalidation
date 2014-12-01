@@ -57,7 +57,7 @@ $(document).ready(function() {
     generateCaptcha();
 
     $('#form')
-        .bootstrapValidator({
+        .formValidation({
             message: 'This value is not valid',
             icon: {
                 valid: 'glyphicon glyphicon-ok',
@@ -76,7 +76,7 @@ $(document).ready(function() {
                     validators: {
                         callback: {
                             message: 'Wrong answer',
-                            callback: function(value, validator) {
+                            callback: function(value, validator, $field) {
                                 var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
                                 return value == sum;
                             }
@@ -86,10 +86,10 @@ $(document).ready(function() {
             }
         })
         .on('error.form.fv', function(e) {
-            var $form              = $(e.target),
-                bootstrapValidator = $form.data('bootstrapValidator');
+            var $form          = $(e.target),
+                formValidation = $form.data('formValidation');
 
-            if (!bootstrapValidator.isValidField('captcha')) {
+            if (!formValidation.isValidField('captcha')) {
                 // The captcha is not valid
                 // Regenerate the captcha
                 generateCaptcha();

@@ -23,7 +23,7 @@ describe('submit', function() {
 
         this.$form = $('#submitForm');
         this.$form
-            .bootstrapValidator()
+            .formValidation()
             .on('success.form.fv', function(e) {
                 e.preventDefault();
                 ++submitted;
@@ -33,7 +33,7 @@ describe('submit', function() {
             });
             
         submitted      = 0;
-        this.fv        = this.$form.data('bootstrapValidator');
+        this.fv        = this.$form.data('formValidation');
         this.$username = this.fv.getFieldElements('username');
 
         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
@@ -41,7 +41,7 @@ describe('submit', function() {
     });
 
     afterEach(function() {
-        $('#submitForm').bootstrapValidator('destroy').remove();
+        $('#submitForm').formValidation('destroy').remove();
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
     });
 

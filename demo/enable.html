@@ -147,7 +147,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('#checkoutForm').bootstrapValidator({
+    $('#checkoutForm').formValidation({
         message: 'This value is not valid',
         icon: {
             valid: 'glyphicon glyphicon-ok',
@@ -192,21 +192,21 @@ $(document).ready(function() {
 
     // Enable street/city/country validators if user want to ship to other address
     $('input[name="shipping_to"]').on('change', function() {
-        var bootstrapValidator = $('#checkoutForm').data('bootstrapValidator'),
+        var formValidation = $('#checkoutForm').data('formValidation'),
             shipNewAddress     = ($(this).val() == 'new');
 
         shipNewAddress ? $('#newAddress').find('.form-control').removeAttr('disabled')
                        : $('#newAddress').find('.form-control').attr('disabled', 'disabled');
 
-        bootstrapValidator.enableFieldValidators('street', shipNewAddress)
+        formValidation.enableFieldValidators('street', shipNewAddress)
                           .enableFieldValidators('city', shipNewAddress)
                           .enableFieldValidators('country', shipNewAddress)
                           .enableFieldValidators('state', shipNewAddress && $('select[name="country"]').val() == 'US');
     });
 
     $('select[name="country"]').on('change', function() {
-        var bootstrapValidator = $('#checkoutForm').data('bootstrapValidator');
-        bootstrapValidator.enableFieldValidators('state', $(this).val() == 'US');
+        var formValidation = $('#checkoutForm').data('formValidation');
+        formValidation.enableFieldValidators('state', $(this).val() == 'US');
     });
 });
 </script>

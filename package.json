@@ -1,5 +1,5 @@
 {
-    "name": "bootstrapValidator",
+    "name": "formValidation",
     "version": "0.6.0-dev",
     "description": "The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks",
     "keywords": [
@@ -8,7 +8,10 @@
         "validate",
         "validator",
         "form",
-        "Bootstrap"
+        "Bootstrap",
+        "Foundation",
+        "SemanticUI",
+        "UIKit"
     ],
     "author": {
         "name": "Nguyen Huu Phuoc",
@@ -21,7 +24,7 @@
         "email": "phuoc@huuphuoc.me"
     },
     "license": "http://bootstrapvalidator.com/license/",
-    "main": "./dist/js/bootstrapValidator.js",
+    "main": "./dist/js/formValidation.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/nghuuphuoc/bootstrapvalidator.git"

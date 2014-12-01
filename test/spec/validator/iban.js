@@ -90,15 +90,15 @@ describe('iban', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#ibanForm').bootstrapValidator();
+        $('#ibanForm').formValidation();
 
-        this.fv       = $('#ibanForm').data('bootstrapValidator');
+        this.fv       = $('#ibanForm').data('formValidation');
         this.$country = this.fv.getFieldElements('country');
         this.$iban    = this.fv.getFieldElements('iban');
     });
 
     afterEach(function() {
-        $('#ibanForm').bootstrapValidator('destroy').remove();
+        $('#ibanForm').formValidation('destroy').remove();
     });
 
     it('not supported country', function() {
@@ -110,7 +110,7 @@ describe('iban', function() {
     it('dynamic country', function() {
         this.$iban.attr('data-fv-iban-country', 'country');
         this.fv.destroy();
-        this.fv = $('#ibanForm').bootstrapValidator().data('bootstrapValidator');
+        this.fv = $('#ibanForm').formValidation().data('formValidation');
 
         this.$country.val('AT');
         this.$iban.val('AT611904300234573201');

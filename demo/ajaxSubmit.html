@@ -54,7 +54,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#defaultForm')
-        .bootstrapValidator({
+        .formValidation({
             message: 'This value is not valid',
             icon: {
                 valid: 'glyphicon glyphicon-ok',
@@ -110,7 +110,7 @@ $(document).ready(function() {
             var $form = $(e.target);
 
             // Get the FormValidation instance
-            var bv = $form.data('bootstrapValidator');
+            var bv = $form.data('formValidation');
 
             // Use Ajax to submit form data
             $.post($form.attr('action'), $form.serialize(), function(result) {

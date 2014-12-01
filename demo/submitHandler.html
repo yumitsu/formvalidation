@@ -60,7 +60,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     $('#defaultForm')
-        .bootstrapValidator({
+        .formValidation({
             message: 'This value is not valid',
             //live: 'submitted',
             icon: {
@@ -114,7 +114,7 @@ $(document).ready(function() {
             e.preventDefault();
 
             var $form     = $(e.target),
-                validator = $form.data('bootstrapValidator');
+                validator = $form.data('formValidation');
             $form.find('.alert').html('Thanks for signing up. Now you can sign in as ' + validator.getFieldElements('username').val()).show();
         });
 });

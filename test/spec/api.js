@@ -14,7 +14,7 @@ describe('api', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#apiForm').bootstrapValidator({
+        $('#apiForm').formValidation({
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -22,13 +22,13 @@ describe('api', function() {
             }
         });
 
-        this.fv     = $('#apiForm').data('bootstrapValidator');
+        this.fv     = $('#apiForm').data('formValidation');
         this.$email = this.fv.getFieldElements('email');
         this.$note  = $('#apiForm').find('input[name="note"]');
     });
 
     afterEach(function() {
-        $('#apiForm').bootstrapValidator('destroy').remove();
+        $('#apiForm').formValidation('destroy').remove();
     });
 
     it('revalidateField()', function() {
@@ -43,7 +43,7 @@ describe('api', function() {
 
     it('destroy()', function() {
         this.fv.destroy();
-        expect($('#apiForm').data('bootstrapValidator')).toBeUndefined();
+        expect($('#apiForm').data('formValidation')).toBeUndefined();
         expect($('#apiForm').find('i[data-fv-icon-for]').length).toEqual(0);
         expect($('#apiForm').find('.help-block[data-fv-for]').length).toEqual(0);
         expect($('#apiForm').find('.has-feedback').length).toEqual(0);

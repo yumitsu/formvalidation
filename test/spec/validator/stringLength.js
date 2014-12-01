@@ -41,9 +41,9 @@ describe('stringLength', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#stringLengthForm').bootstrapValidator();
+        $('#stringLengthForm').formValidation();
 
-        this.fv                             = $('#stringLengthForm').data('bootstrapValidator');
+        this.fv                             = $('#stringLengthForm').data('formValidation');
         this.$textCharMaxLength             = this.fv.getFieldElements('textCharMaxLength');
         this.$textareaCharMaxLength         = this.fv.getFieldElements('textareaCharMaxLength');
         this.$textUTF8BytesMaxLength        = this.fv.getFieldElements('textUTF8BytesMaxLength');
@@ -59,7 +59,7 @@ describe('stringLength', function() {
     });
 
     afterEach(function() {
-        $('#stringLengthForm').bootstrapValidator('destroy').remove();
+        $('#stringLengthForm').formValidation('destroy').remove();
     });
 
     it('Valid max lengths', function() {

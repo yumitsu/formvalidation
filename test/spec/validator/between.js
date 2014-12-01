@@ -44,16 +44,16 @@ describe('between', function() {
             '</form>'
         ].join('\n')).appendTo('body');
 
-        $('#betweenForm').bootstrapValidator();
+        $('#betweenForm').formValidation();
 
-        this.fv      = $('#betweenForm').data('bootstrapValidator');
+        this.fv      = $('#betweenForm').data('formValidation');
         this.$minAge = this.fv.getFieldElements('minAge');
         this.$maxAge = this.fv.getFieldElements('maxAge');
         this.$age    = this.fv.getFieldElements('age');
     });
 
     afterEach(function() {
-        $('#betweenForm').bootstrapValidator('destroy').remove();
+        $('#betweenForm').formValidation('destroy').remove();
     });
 
     it('not a number', function() {
