@@ -141,7 +141,9 @@
 $(document).ready(function() {
     $('form').formValidation({
         framework: 'uikit',
-        container: 'tooltip',
+        err: {
+            container: 'tooltip'
+        },
         icon: {
             valid: 'fa fa-check',
             invalid: 'fa fa-times',

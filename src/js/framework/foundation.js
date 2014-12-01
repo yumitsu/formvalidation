@@ -85,6 +85,7 @@
                         that._hideTooltip($field, type);
                     });
                 Foundation.libs.tooltip.create($icon);
+                $icon.data('fv.foundation.tooltip', $icon);
             }
         },
 
@@ -97,7 +98,16 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                Foundation.libs.tooltip.hide($icon);
+                $icon.css({
+                    'cursor': ''
+                });
+                var $tooltip = $icon.data('fv.foundation.tooltip');
+                if ($tooltip) {
+                    // Foundation doesn't provide method to destroy particular tooltip instance
+                    $tooltip.off('.fndtn.tooltip');
+                    Foundation.libs.tooltip.hide($tooltip);
+                    $icon.removeData('fv.foundation.tooltip');
+                }
             }
         },
 
@@ -113,7 +123,10 @@
                 $icon.css({
                     'cursor': ''
                 });
-                Foundation.libs.tooltip.hide($icon);
+                var $tooltip = $icon.data('fv.foundation.tooltip');
+                if ($tooltip) {
+                    Foundation.libs.tooltip.hide($tooltip);
+                }
             }
         },
 
@@ -125,9 +138,14 @@
          */
         _showTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
-            // FIXME: Remove isValidField() checking
-            if ($icon && !this.isValidField($field)) {
-                Foundation.libs.tooltip.show($icon);
+            if ($icon) {
+                var $tooltip = $icon.data('fv.foundation.tooltip');
+                if ($tooltip) {
+                    $icon.css({
+                        'cursor': 'pointer'
+                    });
+                    Foundation.libs.tooltip.show($tooltip);
+                }
             }
         }
     });

@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-01 12:56:54 AM
+ * @version     v0.6.0-dev, built on 2014-12-01 1:00:41 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -85,6 +85,7 @@
                         that._hideTooltip($field, type);
                     });
                 Foundation.libs.tooltip.create($icon);
+                $icon.data('fv.foundation.tooltip', $icon);
             }
         },
 
@@ -97,7 +98,16 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
             if ($icon) {
-                Foundation.libs.tooltip.hide($icon);
+                $icon.css({
+                    'cursor': ''
+                });
+                var $tooltip = $icon.data('fv.foundation.tooltip');
+                if ($tooltip) {
+                    // Foundation doesn't provide method to destroy particular tooltip instance
+                    $tooltip.off('.fndtn.tooltip');
+                    Foundation.libs.tooltip.hide($tooltip);
+                    $icon.removeData('fv.foundation.tooltip');
+                }
             }
         },
 
@@ -113,7 +123,10 @@
                 $icon.css({
                     'cursor': ''
                 });
-                Foundation.libs.tooltip.hide($icon);
+                var $tooltip = $icon.data('fv.foundation.tooltip');
+                if ($tooltip) {
+                    Foundation.libs.tooltip.hide($tooltip);
+                }
             }
         },
 
@@ -125,9 +138,14 @@
          */
         _showTooltip: function($field, type) {
             var $icon = $field.data('bv.icon');
-            // FIXME: Remove isValidField() checking
-            if ($icon && !this.isValidField($field)) {
-                Foundation.libs.tooltip.show($icon);
+            if ($icon) {
+                var $tooltip = $icon.data('fv.foundation.tooltip');
+                if ($tooltip) {
+                    $icon.css({
+                        'cursor': 'pointer'
+                    });
+                    Foundation.libs.tooltip.show($tooltip);
+                }
             }
         }
     });
