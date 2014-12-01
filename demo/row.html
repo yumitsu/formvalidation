@@ -16,21 +16,21 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="page-header">
-                    <h2>group option</h2>
+                    <h2>row option</h2>
                 </div>
 
                 <form id="form" method="post" class="form-horizontal" action="target.php">
                     <div class="form-group">
-                        <div class="group">
+                        <div class="rowContainer">
                             <label class="col-sm-2 control-label">First name</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" name="firstName" />
                             </div>
                         </div>
-                        <div class="group">
+                        <div class="rowContainer">
                             <label class="col-sm-2 control-label">Last name</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="lastName" data-fv-group=".group" />
+                                <input type="text" class="form-control" name="lastName" data-fv-row=".rowContainer" />
                             </div>
                         </div>
                     </div>
@@ -75,10 +75,9 @@ $(document).ready(function() {
             invalid: 'glyphicon glyphicon-remove',
             validating: 'glyphicon glyphicon-refresh'
         },
-        //group: '.form-group',
         fields: {
             firstName: {
-                group: '.group',
+                row: '.rowContainer',
                 validators: {
                     notEmpty: {
                         message: 'The first name is required and cannot be empty'
@@ -86,8 +85,8 @@ $(document).ready(function() {
                 }
             },
             lastName: {
-                // The "group" option can be set via HTML attribute
-                // <input type="text" class="form-control" name="lastName" data-fv-group=".group" />
+                // The "row" option can be set via HTML attribute
+                // <input type="text" class="form-control" name="lastName" data-fv-row=".rowContainer" />
                 validators: {
                     notEmpty: {
                         message: 'The last name is required and cannot be empty'

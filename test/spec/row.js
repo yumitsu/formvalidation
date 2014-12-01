@@ -1,4 +1,4 @@
-describe('group option', function() {
+describe('row option', function() {
     beforeEach(function() {
         $([
             '<form id="groupForm" method="post" class="form-horizontal">',
@@ -12,7 +12,7 @@ describe('group option', function() {
                     '<div class="lastNameGroup">',
                         '<label class="col-sm-2 control-label">Last name</label>',
                         '<div class="col-sm-4">',
-                            '<input type="text" class="form-control" name="lastName" data-fv-group=".lastNameGroup" />',
+                            '<input type="text" class="form-control" name="lastName" data-fv-row=".lastNameGroup" />',
                         '</div>',
                     '</div>',
                 '</div>',
@@ -29,7 +29,7 @@ describe('group option', function() {
         $('#groupForm').bootstrapValidator({
             fields: {
                 firstName: {
-                    group: '.firstNameGroup',
+                    row: '.firstNameGroup',
                     validators: {
                         notEmpty: {
                             message: 'The first name is required and cannot be empty'
@@ -72,7 +72,7 @@ describe('group option', function() {
         $('#groupForm').bootstrapValidator('destroy').remove();
     });
 
-    it('group default', function() {
+    it('default', function() {
         this.$username.val('123@#$');
         this.fv.validate();
         expect(this.$username.parents('.form-group').hasClass('has-error')).toBeTruthy();
@@ -85,7 +85,7 @@ describe('group option', function() {
         expect(this.$username.parents('.form-group').hasClass('has-error')).toEqual(false);
     });
 
-    it('group programmatically', function() {
+    it('programmatically usage', function() {
         this.$firstName.val('');
         this.fv.validate();
         expect(this.$firstName.parents('.firstNameGroup').hasClass('has-error')).toBeTruthy();
@@ -93,7 +93,7 @@ describe('group option', function() {
         expect(this.$firstName.parents('.form-group').hasClass('has-error')).toEqual(false);
     });
 
-    it('group declarative', function() {
+    it('declarative usage', function() {
         this.$firstName.val('First');
         this.$lastName.val('Last');
         this.fv.validate();
