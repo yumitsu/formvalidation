@@ -40,7 +40,9 @@ describe('container form option', function() {
 
     it('form container programmatically', function() {
         $('#containerForm').bootstrapValidator({
-            container: '#errors'
+            err: {
+                container: '#errors'
+            }
         });
 
         this.fv         = $('#containerForm').data('bootstrapValidator');
@@ -84,7 +86,7 @@ describe('container field option', function() {
         $('#containerForm').bootstrapValidator({
             fields: {
                 lastName: {
-                    container: '.lastNameMessage'
+                    err: '.lastNameMessage'
                 }
             }
         });
@@ -180,10 +182,12 @@ describe('container tooltip/popover', function() {
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
             },
-            container: 'tooltip',
+            err: {
+                container: 'tooltip'
+            },
             fields: {
                 lastName: {
-                    container: 'popover'
+                    err: 'popover'
                 }
             }
         });
@@ -214,7 +218,9 @@ describe('container tooltip/popover', function() {
                 invalid: 'glyphicon glyphicon-remove',
                 validating: 'glyphicon glyphicon-refresh'
             },
-            container: 'tooltip',
+            err: {
+                container: 'tooltip'
+            },
             trigger: 'blur',
             fields: {
                 firstName: {

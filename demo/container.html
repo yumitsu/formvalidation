@@ -64,7 +64,7 @@ $(document).ready(function() {
         },
         fields: {
             firstName: {
-                container: '#firstNameMessage',
+                err: '#firstNameMessage',
                 validators: {
                     notEmpty: {
                         message: 'The first name is required and cannot be empty'
@@ -72,7 +72,7 @@ $(document).ready(function() {
                 }
             },
             lastName: {
-                container: '.lastNameMessage',
+                err: '.lastNameMessage',
                 validators: {
                     notEmpty: {
                         message: 'The last name is required and cannot be empty'

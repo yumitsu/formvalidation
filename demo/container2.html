@@ -95,7 +95,9 @@
 $(document).ready(function() {
     $('#defaultForm').bootstrapValidator({
         message: 'This value is not valid',
-        container: '#errors',
+        err: {
+            container: '#errors'
+        },
         icon: {
             valid: 'glyphicon glyphicon-ok',
             invalid: 'glyphicon glyphicon-remove',
