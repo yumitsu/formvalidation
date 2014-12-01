@@ -12,10 +12,9 @@ __Required__: [jQuery 1.9.1+](http://jquery.com/) and [Bootstrap 3+](http://getb
 
 Next version will be a big release with the following new features and improvements:
 
-- [ ] Support many frameworks:
+- [x] Support many frameworks:
     - [x] [Bootstrap](http://getbootstrap.com/)
     - [x] [Foundation](http://foundation.zurb.com/)
-    - [x] [Pure](http://purecss.io/)
     - [x] [Semantic UI](http://semantic-ui.com/)
     - [x] [UIKit](http://getuikit.com/)
 - [x] Support add-ons
@@ -23,7 +22,7 @@ Next version will be a big release with the following new features and improveme
 - [x] Add ```transformer``` option, allowing to hook the field value before validating
 - [x] Allow to reuse data returned by the validator
 
-Follow [@nghuuphuoc](https://twitter.com/nghuuphuoc) and [@bsvalidator](https://twitter.com/bsvalidator) to be up-to-date.
+Follow [@nghuuphuoc](https://twitter.com/nghuuphuoc) and [@formvalidation](https://twitter.com/formvalidation) to be up-to-date.
 
 ## Live demo
 
