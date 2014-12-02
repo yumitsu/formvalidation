@@ -32,8 +32,9 @@
         validate: function(validator, $field, options) {
             var type = $field.attr('type');
             if ('radio' === type || 'checkbox' === type) {
+                var ns = validator.getNamespace();
                 return validator
-                            .getFieldElements($field.attr('data-fv-field'))
+                            .getFieldElements($field.attr('data-' + ns + '-field'))
                             .filter(':checked')
                             .length > 0;
             }

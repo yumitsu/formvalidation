@@ -1023,14 +1023,14 @@ describe('event form trigger with default events', function() {
 
         $('#eventForm1')
             .formValidation()
-            .on('bv.form.success', function(e) {
-                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.success event');
+            .on('fv.form.success', function(e) {
+                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered fv.form.success event');
             })
             .on('success.form.fv', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered success.form.fv event');
             })
-            .on('bv.form.error', function(e) {
-                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.error event');
+            .on('fv.form.error', function(e) {
+                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered fv.form.error event');
             })
             .on('error.form.fv', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
@@ -1044,10 +1044,10 @@ describe('event form trigger with default events', function() {
         $('#eventForm1').formValidation('destroy').remove();
     });
 
-    it('does not trigger bv.form.success', function() {
+    it('does not trigger fv.form.success', function() {
         this.$email.val('email@domain.com');
         this.fv.validate();
-        expect($('#msg').html()).not.toEqual('form eventForm1 triggered bv.form.success event');
+        expect($('#msg').html()).not.toEqual('form eventForm1 triggered fv.form.success event');
     });
 
     it('triggers success.form.fv', function() {
@@ -1056,10 +1056,10 @@ describe('event form trigger with default events', function() {
         expect($('#msg').html()).toEqual('form eventForm1 triggered success.form.fv event');
     });
 
-    it('does not trigger bv.form.error', function() {
+    it('does not trigger fv.form.error', function() {
         this.$email.val('A@b@c@example.com');
         this.fv.validate();
-        expect($('#msg').html()).not.toEqual('form eventForm1 triggered bv.form.error event');
+        expect($('#msg').html()).not.toEqual('form eventForm1 triggered fv.form.error event');
     });
 
     it('triggers error.form.fv', function() {
@@ -1088,11 +1088,11 @@ describe('event field trigger with default events', function() {
             .on('error.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered error.field.fv on ' + data.field);
             })
-            .on('bv.field.success', '[name="email"]', function(e, data) {
-                $('#msg').html('triggered bv.field.success on ' + data.field);
+            .on('fv.field.success', '[name="email"]', function(e, data) {
+                $('#msg').html('triggered fv.field.success on ' + data.field);
             })
-            .on('bv.field.error', '[name="email"]', function(e, data) {
-                $('#msg').html('triggered bv.field.error on ' + data.field);
+            .on('fv.field.error', '[name="email"]', function(e, data) {
+                $('#msg').html('triggered fv.field.error on ' + data.field);
             });
 
         this.fv     = $('#eventForm3').data('formValidation');
@@ -1109,10 +1109,10 @@ describe('event field trigger with default events', function() {
         expect($('#msg').html()).toEqual('triggered success.field.fv on email');
     });
 
-    it('does not trigger bv.field.success', function() {
+    it('does not trigger fv.field.success', function() {
         this.$email.val('email@domain.com');
         this.fv.validate();
-        expect($('#msg').html()).not.toEqual('triggered bv.field.success on email');
+        expect($('#msg').html()).not.toEqual('triggered fv.field.success on email');
     });
 
     it('does not trigger error.field.fv', function() {
@@ -1121,10 +1121,10 @@ describe('event field trigger with default events', function() {
         expect($('#msg').html()).toEqual('triggered error.field.fv on email');
     });
 
-    it('triggers bv.field.error', function() {
+    it('triggers fv.field.error', function() {
         this.$email.val('just"not"right@example.com');
         this.fv.validate();
-        expect($('#msg').html()).not.toEqual('triggered bv.field.error on email');
+        expect($('#msg').html()).not.toEqual('triggered fv.field.error on email');
     });
 });
 
@@ -1135,15 +1135,15 @@ describe('event form trigger with events changed', function() {
         FormValidation.DEFAULT_OPTIONS = $.extend({}, FormValidation.DEFAULT_OPTIONS, {
             events: {
                 formInit: 'init.form.fv',
-                formError: 'bv.form.error',
-                formSuccess: 'bv.form.success',
+                formError: 'fv.form.error',
+                formSuccess: 'fv.form.success',
                 fieldAdded: 'added.field.fv',
                 fieldRemoved: 'removed.field.fv',
                 fieldInit: 'init.field.fv',
-                fieldError: 'bv.field.error',
-                fieldSuccess: 'bv.field.success',
+                fieldError: 'fv.field.error',
+                fieldSuccess: 'fv.field.success',
                 fieldStatus: 'status.field.fv',
-                validatorError: 'bv.validator.error',
+                validatorError: 'fv.validator.error',
                 validatorSuccess: 'success.validator.fv'
             }
         });
@@ -1159,14 +1159,14 @@ describe('event form trigger with events changed', function() {
 
         $('#eventForm2')
             .formValidation()
-            .on('bv.form.success', function(e) {
-                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.success event');
+            .on('fv.form.success', function(e) {
+                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered fv.form.success event');
             })
             .on('success.form.fv', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered success.form.fv event');
             })
-            .on('bv.form.error', function(e) {
-                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered bv.form.error event');
+            .on('fv.form.error', function(e) {
+                $('#msg').html('form ' + $(e.target).attr('id') + ' triggered fv.form.error event');
             })
             .on('error.form.fv', function(e) {
                 $('#msg').html('form ' + $(e.target).attr('id') + ' triggered error.form.fv event');
@@ -1181,10 +1181,10 @@ describe('event form trigger with events changed', function() {
         FormValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
-    it('triggers bv.form.success', function() {
+    it('triggers fv.form.success', function() {
         this.$email.val('email@domain.com');
         this.fv.validate();
-        expect($('#msg').html()).toEqual('form eventForm2 triggered bv.form.success event');
+        expect($('#msg').html()).toEqual('form eventForm2 triggered fv.form.success event');
     });
 
     it('does not trigger success.form.fv', function() {
@@ -1193,12 +1193,12 @@ describe('event form trigger with events changed', function() {
         expect($('#msg').html()).not.toEqual('form eventForm2 triggered success.form.fv event');
     });
 
-    it('triggers bv.form.error', function() {
+    it('triggers fv.form.error', function() {
         spyOn(window, 'onerror');
 
         this.$email.val('this is"not\\allowed@example.com');
         this.fv.validate();
-        expect($('#msg').html()).toEqual('form eventForm2 triggered bv.form.error event');
+        expect($('#msg').html()).toEqual('form eventForm2 triggered fv.form.error event');
 
         expect(window.onerror).not.toHaveBeenCalled();
     });
@@ -1211,15 +1211,15 @@ describe('event field trigger with events changed', function() {
         FormValidation.DEFAULT_OPTIONS = $.extend({}, FormValidation.DEFAULT_OPTIONS, {
             events: {
                 formInit: 'init.form.fv',
-                formError: 'bv.form.error',
-                formSuccess: 'bv.form.success',
+                formError: 'fv.form.error',
+                formSuccess: 'fv.form.success',
                 fieldAdded: 'added.field.fv',
                 fieldRemoved: 'removed.field.fv',
                 fieldInit: 'init.field.fv',
-                fieldError: 'bv.field.error',
-                fieldSuccess: 'bv.field.success',
+                fieldError: 'fv.field.error',
+                fieldSuccess: 'fv.field.success',
                 fieldStatus: 'status.field.fv',
-                validatorError: 'bv.validator.error',
+                validatorError: 'fv.validator.error',
                 validatorSuccess: 'success.validator.fv'
             }
         });
@@ -1241,11 +1241,11 @@ describe('event field trigger with events changed', function() {
             .on('error.field.fv', '[name="email"]', function(e, data) {
                 $('#msg').html('triggered error.field.fv on ' + data.field);
             })
-            .on('bv.field.success', '[name="email"]', function(e, data) {
-                $('#msg').html('triggered bv.field.success on ' + data.field);
+            .on('fv.field.success', '[name="email"]', function(e, data) {
+                $('#msg').html('triggered fv.field.success on ' + data.field);
             })
-            .on('bv.field.error', '[name="email"]', function(e, data) {
-                $('#msg').html('triggered bv.field.error on ' + data.field);
+            .on('fv.field.error', '[name="email"]', function(e, data) {
+                $('#msg').html('triggered fv.field.error on ' + data.field);
             });
 
         this.fv     = $('#eventForm4').data('formValidation');
@@ -1263,10 +1263,10 @@ describe('event field trigger with events changed', function() {
         expect($('#msg').html()).not.toEqual('triggered success.field.fv on email');
     });
 
-    it('does not trigger bv.field.success', function() {
+    it('does not trigger fv.field.success', function() {
         this.$email.val('email@domain.com');
         this.fv.validate();
-        expect($('#msg').html()).toEqual('triggered bv.field.success on email');
+        expect($('#msg').html()).toEqual('triggered fv.field.success on email');
     });
 
     it('does not trigger error.field.fv', function() {
@@ -1275,12 +1275,12 @@ describe('event field trigger with events changed', function() {
         expect($('#msg').html()).not.toEqual('triggered error.field.fv on email');
     });
 
-    it('triggers bv.field.error', function() {
+    it('triggers fv.field.error', function() {
         spyOn(window, 'onerror');
 
         this.$email.val('Abc.example.com');
         this.fv.validate();
-        expect($('#msg').html()).toEqual('triggered bv.field.error on email');
+        expect($('#msg').html()).toEqual('triggered fv.field.error on email');
 
         expect(window.onerror).not.toHaveBeenCalled();
     });

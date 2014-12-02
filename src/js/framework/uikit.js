@@ -71,7 +71,7 @@
                     .css({
                         'cursor': 'pointer'
                     })
-                    .data('tooltip', new $.UIkit.tooltip($icon));
+                    .data('fv.uikit.tooltip', new $.UIkit.tooltip($icon));
             }
         },
 
@@ -84,11 +84,11 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var tooltip = $icon.data('tooltip');
+                var tooltip = $icon.data('fv.uikit.tooltip');
                 if (tooltip) {
                     tooltip.hide();
                     $icon.off('focus mouseenter')
-                         .removeData('tooltip');
+                         .removeData('fv.uikit.tooltip');
                 }
             }
         },
@@ -102,7 +102,7 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var tooltip = $icon.data('tooltip');
+                var tooltip = $icon.data('fv.uikit.tooltip');
                 if (tooltip) {
                     tooltip.hide();
                 }
@@ -118,7 +118,7 @@
         _showTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var tooltip = $icon.data('tooltip');
+                var tooltip = $icon.data('fv.uikit.tooltip');
                 if (tooltip) {
                     tooltip.show();
                 }

@@ -11,7 +11,7 @@
  * This class supports validating Bootstrap form (http://getbootstrap.com/)
  */
 (function($) {
-    FormValidation.Framework.Bootstrap = function(element, options) {
+    FormValidation.Framework.Bootstrap = function(element, options, namespace) {
         options = $.extend(true, {
             button: {
                 // The class of disabled button
@@ -56,7 +56,7 @@
             }
         }, options);
 
-        FormValidation.Base.apply(this, [element, options]);
+        FormValidation.Base.apply(this, [element, options, namespace]);
     };
 
     FormValidation.Framework.Bootstrap.prototype = $.extend({}, FormValidation.Base.prototype, {
@@ -67,8 +67,9 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
-            var type    = $field.attr('type'),
-                field   = $field.attr('data-fv-field'),
+            var ns      = this._namespace,
+                type    = $field.attr('type'),
+                field   = $field.attr('data-' + ns + '-field'),
                 row     = this.options.fields[field].row || this.options.row.selector,
                 $parent = $field.closest(row);
 
@@ -104,7 +105,8 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _createTooltip: function($field, message, type) {
-            var $icon = $field.data('fv.icon');
+            var ns    = this._namespace,
+                $icon = $field.data(ns + '.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -150,7 +152,8 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _destroyTooltip: function($field, type) {
-            var $icon = $field.data('fv.icon');
+            var ns    = this._namespace,
+                $icon = $field.data(ns + '.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -183,7 +186,8 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _hideTooltip: function($field, type) {
-            var $icon = $field.data('fv.icon');
+            var ns    = this._namespace,
+                $icon = $field.data(ns + '.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -206,7 +210,8 @@
          * @param {String} type Can be 'tooltip' or 'popover'
          */
         _showTooltip: function($field, type) {
-            var $icon = $field.data('fv.icon');
+            var ns    = this._namespace,
+                $icon = $field.data(ns + '.icon');
             if ($icon) {
                 switch (type) {
                     case 'popover':
@@ -238,7 +243,24 @@
                 data    = $this.data('formValidation') || $this.data('bootstrapValidator'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                data = new FormValidation.Framework.Bootstrap(this, options);
+                data = new FormValidation.Framework.Bootstrap(this, $.extend({}, {
+                    events: {
+                        // Support backward
+                        formInit: 'init.form.bv',
+                        formError: 'error.form.bv',
+                        formSuccess: 'success.form.bv',
+                        fieldAdded: 'added.field.bv',
+                        fieldRemoved: 'removed.field.bv',
+                        fieldInit: 'init.field.bv',
+                        fieldError: 'error.field.bv',
+                        fieldSuccess: 'success.field.bv',
+                        fieldStatus: 'status.field.bv',
+                        localeChanged: 'changed.locale.bv',
+                        validatorError: 'error.validator.bv',
+                        validatorSuccess: 'success.validator.bv'
+                    }
+                }, options), 'bv');
+
                 $this.addClass('fv-form-bootstrap')
                      .data('formValidation', data)
                      .data('bootstrapValidator', data);

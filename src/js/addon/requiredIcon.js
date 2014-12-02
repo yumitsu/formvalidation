@@ -27,12 +27,13 @@
             }
 
             var that = this,
+                ns   = validator.getNamespace(),
                 opts = validator.getOptions();
 
             for (var field in opts.fields) {
                 validator.getFieldElements(field).each(function() {
                     var $field 	   = $(this),
-                        $icon      = $field.data('fv.icon'),
+                        $icon      = $field.data(ns + '.icon'),
                         validators = opts.fields[field].validators;    // The field validators
 
                     if (validators.notEmpty && !that._isEmpty(validator, $field)) {
@@ -50,12 +51,12 @@
             removedIcons[validator.STATUS_INVALID]    = [];
             removedIcons[validator.STATUS_VALIDATING] = [];
 
-            if (opts.feedbackIcons) {
+            if (opts.icon) {
                 // Maybe the required icon consists of one which is in the list of valid/invalid/validating feedback icons (for example, fa, glyphicon)
                 var feedbackIcons = {};
-                feedbackIcons[validator.STATUS_VALID]      = opts.feedbackIcons.valid      ? opts.feedbackIcons.valid.split(' ')      : [];
-                feedbackIcons[validator.STATUS_INVALID]    = opts.feedbackIcons.invalid    ? opts.feedbackIcons.invalid.split(' ')    : [];
-                feedbackIcons[validator.STATUS_VALIDATING] = opts.feedbackIcons.validating ? opts.feedbackIcons.validating.split(' ') : [];
+                feedbackIcons[validator.STATUS_VALID]      = opts.icon.valid      ? opts.icon.valid.split(' ')      : [];
+                feedbackIcons[validator.STATUS_INVALID]    = opts.icon.invalid    ? opts.icon.invalid.split(' ')    : [];
+                feedbackIcons[validator.STATUS_VALIDATING] = opts.icon.validating ? opts.icon.validating.split(' ') : [];
 
                 for (var status in feedbackIcons) {
                     for (var i = 0; i < icons.length; i++) {
@@ -72,11 +73,11 @@
                 .getForm()
                 .on(opts.events.fieldStatus, function(e, data) {
                     // Remove the required icon when the field updates its status
-                    var $icon      = data.element.data('fv.icon'),
+                    var $icon      = data.element.data(ns + '.icon'),
                         validators = data.fv.getOptions(data.field).validators; // The field validators
 
                     if (validators.notEmpty) {
-                        (opts.feedbackIcons && (opts.feedbackIcons.valid || opts.feedbackIcons.invalid || opts.feedbackIcons.validating))
+                        (opts.icon && (opts.icon.valid || opts.icon.invalid || opts.icon.validating))
                             ? $icon.removeClass(removedIcons[data.status])
                             : $icon.removeClass(options.icon);
                     }

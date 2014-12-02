@@ -39,6 +39,7 @@ if (typeof jQuery === 'undefined') {
         // Use custom event name to avoid window.onerror being invoked by jQuery
         // See #630
         events: {
+            // Support backward
             formInit: 'init.form.fv',
             formError: 'error.form.fv',
             formSuccess: 'success.form.fv',
@@ -161,10 +162,20 @@ if (typeof jQuery === 'undefined') {
     };
 
     // TODO: Remove backward compatibility in v0.7.0
-    FormValidation.Base = function(form, options) {
-        this.$form   = $(form);
-        this.options = $.extend({}, FormValidation.DEFAULT_OPTIONS);
-        this.options = $.extend(true, this.options, options);
+    /**
+     * Constructor
+     *
+     * @param {jQuery|String} form The form element or selector
+     * @param {Object} options The options
+     * @param {String} [namespace] The optional namespace which is used for data-{namespace}-xxx attributes and internal data.
+     * Currently, it's used to support backward version
+     * @constructor
+     */
+    FormValidation.Base = function(form, options, namespace) {
+        this.$form      = $(form);
+        this.options    = $.extend({}, FormValidation.DEFAULT_OPTIONS);
+        this.options    = $.extend(true, this.options, options);
+        this._namespace = namespace || 'fv';
 
         this.$invalidFields = $([]);    // Array of invalid fields
         this.$submitButton  = null;     // The submit button which is clicked to submit form
@@ -209,7 +220,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         _exceedThreshold: function($field) {
-            var field     = $field.attr('data-fv-field'),
+            var ns        = this._namespace,
+                field     = $field.attr('data-' + ns + '-field'),
                 threshold = this.options.fields[field].threshold || this.options.threshold;
             if (!threshold) {
                 return true;
@@ -223,57 +235,58 @@ if (typeof jQuery === 'undefined') {
          */
         _init: function() {
             var that    = this,
+                ns      = this._namespace,
                 options = {
                     addOns:         {},
-                    autoFocus:      this.$form.attr('data-fv-autofocus'),
+                    autoFocus:      this.$form.attr('data-' + ns + '-autofocus'),
                     button: {
-                        selector: this.$form.attr('data-fv-button-selector') || this.$form.attr('data-fv-submitbuttons'), // Support backward
-                        disabled: this.$form.attr('data-fv-button-disabled')
+                        selector: this.$form.attr('data-' + ns + '-button-selector') || this.$form.attr('data-' + ns + '-submitbuttons'), // Support backward
+                        disabled: this.$form.attr('data-' + ns + '-button-disabled')
                     },
                     control: {
-                        valid:   this.$form.attr('data-fv-control-valid'),
-                        invalid: this.$form.attr('data-fv-control-invalid')
+                        valid:   this.$form.attr('data-' + ns + '-control-valid'),
+                        invalid: this.$form.attr('data-' + ns + '-control-invalid')
                     },
                     err: {
-                        clazz:     this.$form.attr('data-fv-err-clazz'),
-                        container: this.$form.attr('data-fv-err-container') || this.$form.attr('data-fv-container'), // Support backward
-                        parent:    this.$form.attr('data-fv-err-parent')
+                        clazz:     this.$form.attr('data-' + ns + '-err-clazz'),
+                        container: this.$form.attr('data-' + ns + '-err-container') || this.$form.attr('data-' + ns + '-container'), // Support backward
+                        parent:    this.$form.attr('data-' + ns + '-err-parent')
                     },
                     events: {
-                        formInit:         this.$form.attr('data-fv-events-form-init'),
-                        formError:        this.$form.attr('data-fv-events-form-error'),
-                        formSuccess:      this.$form.attr('data-fv-events-form-success'),
-                        fieldAdded:       this.$form.attr('data-fv-events-field-added'),
-                        fieldRemoved:     this.$form.attr('data-fv-events-field-removed'),
-                        fieldInit:        this.$form.attr('data-fv-events-field-init'),
-                        fieldError:       this.$form.attr('data-fv-events-field-error'),
-                        fieldSuccess:     this.$form.attr('data-fv-events-field-success'),
-                        fieldStatus:      this.$form.attr('data-fv-events-field-status'),
-                        localeChanged:    this.$form.attr('data-fv-events-locale-changed'),
-                        validatorError:   this.$form.attr('data-fv-events-validator-error'),
-                        validatorSuccess: this.$form.attr('data-fv-events-validator-success')
+                        formInit:         this.$form.attr('data-' + ns + '-events-form-init'),
+                        formError:        this.$form.attr('data-' + ns + '-events-form-error'),
+                        formSuccess:      this.$form.attr('data-' + ns + '-events-form-success'),
+                        fieldAdded:       this.$form.attr('data-' + ns + '-events-field-added'),
+                        fieldRemoved:     this.$form.attr('data-' + ns + '-events-field-removed'),
+                        fieldInit:        this.$form.attr('data-' + ns + '-events-field-init'),
+                        fieldError:       this.$form.attr('data-' + ns + '-events-field-error'),
+                        fieldSuccess:     this.$form.attr('data-' + ns + '-events-field-success'),
+                        fieldStatus:      this.$form.attr('data-' + ns + '-events-field-status'),
+                        localeChanged:    this.$form.attr('data-' + ns + '-events-locale-changed'),
+                        validatorError:   this.$form.attr('data-' + ns + '-events-validator-error'),
+                        validatorSuccess: this.$form.attr('data-' + ns + '-events-validator-success')
                     },
-                    excluded:      this.$form.attr('data-fv-excluded'),
+                    excluded:      this.$form.attr('data-' + ns + '-excluded'),
                     icon: {
-                        valid:      this.$form.attr('data-fv-icon-valid')      || this.$form.attr('data-fv-feedbackicons-valid'),      // Support backward
-                        invalid:    this.$form.attr('data-fv-icon-invalid')    || this.$form.attr('data-fv-feedbackicons-invalid'),    // Support backward
-                        validating: this.$form.attr('data-fv-icon-validating') || this.$form.attr('data-fv-feedbackicons-validating'), // Support backward
-                        feedback:   this.$form.attr('data-fv-icon-feedback')
+                        valid:      this.$form.attr('data-' + ns + '-icon-valid')      || this.$form.attr('data-' + ns + '-feedbackicons-valid'),      // Support backward
+                        invalid:    this.$form.attr('data-' + ns + '-icon-invalid')    || this.$form.attr('data-' + ns + '-feedbackicons-invalid'),    // Support backward
+                        validating: this.$form.attr('data-' + ns + '-icon-validating') || this.$form.attr('data-' + ns + '-feedbackicons-validating'), // Support backward
+                        feedback:   this.$form.attr('data-' + ns + '-icon-feedback')
                     },
-                    live:          this.$form.attr('data-fv-live'),
-                    locale:        this.$form.attr('data-fv-locale'),
-                    message:       this.$form.attr('data-fv-message'),
-                    onError:       this.$form.attr('data-fv-onerror'),
-                    onSuccess:     this.$form.attr('data-fv-onsuccess'),
+                    live:          this.$form.attr('data-' + ns + '-live'),
+                    locale:        this.$form.attr('data-' + ns + '-locale'),
+                    message:       this.$form.attr('data-' + ns + '-message'),
+                    onError:       this.$form.attr('data-' + ns + '-onerror'),
+                    onSuccess:     this.$form.attr('data-' + ns + '-onsuccess'),
                     row: {
-                        selector: this.$form.attr('data-fv-row-selector') || this.$form.attr('data-fv-group'), // Support backward
-                        valid:    this.$form.attr('data-fv-row-valid'),
-                        invalid:  this.$form.attr('data-fv-row-invalid'),
-                        feedback: this.$form.attr('data-fv-row-feedback')
+                        selector: this.$form.attr('data-' + ns + '-row-selector') || this.$form.attr('data-' + ns + '-group'), // Support backward
+                        valid:    this.$form.attr('data-' + ns + '-row-valid'),
+                        invalid:  this.$form.attr('data-' + ns + '-row-invalid'),
+                        feedback: this.$form.attr('data-' + ns + '-row-feedback')
                     },
-                    threshold:     this.$form.attr('data-fv-threshold'),
-                    trigger:       this.$form.attr('data-fv-trigger'),
-                    verbose:       this.$form.attr('data-fv-verbose'),
+                    threshold:     this.$form.attr('data-' + ns + '-threshold'),
+                    trigger:       this.$form.attr('data-' + ns + '-trigger'),
+                    verbose:       this.$form.attr('data-' + ns + '-verbose'),
                     fields:        {}
                 };
 
@@ -282,23 +295,23 @@ if (typeof jQuery === 'undefined') {
                 .attr('novalidate', 'novalidate')
                 .addClass(this.options.elementClass)
                 // Disable the default submission first
-                .on('submit.fv', function(e) {
+                .on('submit.' + ns, function(e) {
                     e.preventDefault();
                     that.validate();
                 })
-                .on('click.fv', this.options.button.selector, function() {
+                .on('click.' + ns, this.options.button.selector, function() {
                     that.$submitButton  = $(this);
                     // The user just click the submit button
                     that._submitIfValid = true;
                 })
-                // Find all fields which have either "name" or "data-fv-field" attribute
-                .find('[name], [data-fv-field]')
+                // Find all fields which have either "name" or "data-{namespace}-field" attribute
+                .find('[name], [data-' + ns + '-field]')
                     .each(function() {
                         var $field = $(this),
-                            field  = $field.attr('name') || $field.attr('data-fv-field'),
+                            field  = $field.attr('name') || $field.attr('data-' + ns + '-field'),
                             opts   = that._parseOptions($field);
                         if (opts) {
-                            $field.attr('data-fv-field', field);
+                            $field.attr('data-' + ns + '-field', field);
                             options.fields[field] = $.extend({}, opts, options.fields[field]);
                         }
                     });
@@ -328,6 +341,8 @@ if (typeof jQuery === 'undefined') {
                 delete this.options.submitButtons;
             }
 
+            //console.log(this.options.events);
+
             // If the locale is not found, reset it to default one
             if (!FormValidation.I18n[this.options.locale]) {
                 this.options.locale = FormValidation.DEFAULT_OPTIONS.locale;
@@ -346,7 +361,7 @@ if (typeof jQuery === 'undefined') {
                                     .css({ display: 'none', width: 0, height: 0 });
 
             this.$form
-                .on('click.fv', '[type="submit"]', function(e) {
+                .on('click.' +  this._namespace, '[type="submit"]', function(e) {
                     // #746: Check if the button click handler returns false
                     if (!e.isDefaultPrevented()) {
                         var $target = $(e.target),
@@ -356,7 +371,7 @@ if (typeof jQuery === 'undefined') {
                         // Don't perform validation when clicking on the submit button/input
                         // which aren't defined by the 'button.selector' option
                         if (that.options.button.selector && !$button.is(that.options.button.selector) && !$button.is(that.$hiddenButton)) {
-                            that.$form.off('submit.fv').submit();
+                            that.$form.off('submit.' + that._namespace).submit();
                         }
                     }
                 });
@@ -397,15 +412,16 @@ if (typeof jQuery === 'undefined') {
          * @param {String|jQuery} field The field name or field element
          */
         _initField: function(field) {
-            var fields = $([]);
+            var ns     = this._namespace,
+                fields = $([]);
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-fv-field');
+                    field  = field.attr('data-' + ns + '-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
-                    fields.attr('data-fv-field', field);
+                    fields.attr('data-' + ns + '-field', field);
                     break;
                 default:
                     break;
@@ -436,7 +452,7 @@ if (typeof jQuery === 'undefined') {
                 updateAll = (total === 1) || ('radio' === type) || ('checkbox' === type),
                 trigger   = this._getFieldTrigger(fields.eq(0)),
                 events    = $.map(trigger, function(item) {
-                    return item + '.update.fv';
+                    return item + '.update.' + ns;
                 }).join(' ');
 
             for (var i = 0; i < total; i++) {
@@ -455,8 +471,8 @@ if (typeof jQuery === 'undefined') {
                 }
 
                 // Remove all error messages and feedback icons
-                $message.find('.' + this.options.err.clazz.split(' ').join('.') + '[data-fv-validator][data-fv-for="' + field + '"]').remove();
-                $parent.find('i[data-fv-icon-for="' + field + '"]').remove();
+                $message.find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]').remove();
+                $parent.find('i[data-' + ns + '-icon-for="' + field + '"]').remove();
 
                 // Whenever the user change the field value, mark it as not validated yet
                 $field.off(events).on(events, function() {
@@ -464,19 +480,17 @@ if (typeof jQuery === 'undefined') {
                 });
 
                 // Create help block elements for showing the error messages
-                $field.data('fv.messages', $message);
+                $field.data(ns + '.messages', $message);
                 for (validatorName in this.options.fields[field].validators) {
-                    $field.data('fv.result.' + validatorName, this.STATUS_NOT_VALIDATED);
+                    $field.data(ns + '.result.' + validatorName, this.STATUS_NOT_VALIDATED);
 
                     if (!updateAll || i === total - 1) {
                         $('<small/>')
                             .css('display', 'none')
                             .addClass(this.options.err.clazz)
-                            .attr({
-                                'data-fv-validator': validatorName,
-                                'data-fv-for': field,
-                                'data-fv-result': this.STATUS_NOT_VALIDATED
-                            })
+                            .attr('data-' + ns + '-validator', validatorName)
+                            .attr('data-' + ns + '-for', field)
+                            .attr('data-' + ns + '-result', this.STATUS_NOT_VALIDATED)
                             .html(this._getMessage(field, validatorName))
                             .appendTo($message);
                     }
@@ -500,11 +514,11 @@ if (typeof jQuery === 'undefined') {
                     var $icon = $('<i/>')
                                     .css('display', 'none')
                                     .addClass(this.options.icon.feedback)
-                                    .attr('data-fv-icon-for', field)
+                                    .attr('data-' + ns + '-icon-for', field)
                                     .insertAfter($field);
 
                     // Store the icon as a data of field element
-                    (!updateAll ? $field : fields).data('fv.icon', $icon);
+                    (!updateAll ? $field : fields).data(ns + '.icon', $icon);
 
                     if ('tooltip' === container || 'popover' === container) {
                         (!updateAll ? $field : fields)
@@ -517,13 +531,13 @@ if (typeof jQuery === 'undefined') {
 
                         $field
                             // Show tooltip/popover message when field gets focus
-                            .off('focus.container.fv')
-                            .on('focus.container.fv', function() {
+                            .off('focus.container.' + ns)
+                            .on('focus.container.' + ns, function() {
                                 that._showTooltip($field, container);
                             })
                             // and hide them when losing focus
-                            .off('blur.container.fv')
-                            .on('blur.container.fv', function() {
+                            .off('blur.container.' + ns)
+                            .on('blur.container.' + ns, function() {
                                 that._hideTooltip($field, container);
                             });
                     }
@@ -592,9 +606,10 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         _isExcluded: function($field) {
-            var excludedAttr = $field.attr('data-fv-excluded'),
+            var ns           = this._namespace,
+                excludedAttr = $field.attr('data-' + ns + '-excluded'),
                 // I still need to check the 'name' attribute while initializing the field
-                field        = $field.attr('data-fv-field') || $field.attr('name');
+                field        = $field.attr('data-' + ns + '-field') || $field.attr('name');
 
             switch (true) {
                 case (!!field && this.options.fields && this.options.fields[field] && (this.options.fields[field].excluded === 'true' || this.options.fields[field].excluded === true)):
@@ -636,18 +651,19 @@ if (typeof jQuery === 'undefined') {
          * @returns {String[]} The event names triggered on field change
          */
         _getFieldTrigger: function($field) {
-            var trigger = $field.data('fv.trigger');
+            var ns      = this._namespace,
+                trigger = $field.data(ns + '.trigger');
             if (trigger) {
                 return trigger;
             }
 
             var type  = $field.attr('type'),
-                name  = $field.attr('data-fv-field'),
+                name  = $field.attr('data-' + ns + '-field'),
                 event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $field.get(0).tagName) ? 'change' : this._changeEvent;
             trigger   = (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
 
             // Since the trigger data is used many times, I need to cache it to use later
-            $field.data('fv.trigger', trigger);
+            $field.data(ns + '.trigger', trigger);
 
             return trigger;
         },
@@ -713,7 +729,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         _parseAddOnOptions: function() {
-            var names  = this.$form.attr('data-fv-addons'),
+            var ns     = this._namespace,
+                names  = this.$form.attr('data-' + ns + '-addons'),
                 addOns = this.options.addOns || {};
 
             if (names) {
@@ -737,7 +754,7 @@ if (typeof jQuery === 'undefined') {
                 attrMap = FormValidation.AddOn[addOn].html5Attributes;
                 if (attrMap) {
                     for (attr in attrMap) {
-                        option = this.$form.attr('data-fv-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
+                        option = this.$form.attr('data-' + ns + '-addons-' + addOn.toLowerCase() + '-' + attr.toLowerCase());
                         if (option) {
                             addOns[addOn][attrMap[attr]] = option;
                         }
@@ -755,7 +772,8 @@ if (typeof jQuery === 'undefined') {
          * @returns {Object}
          */
         _parseOptions: function($field) {
-            var field      = $field.attr('name') || $field.attr('data-fv-field'),
+            var ns         = this._namespace,
+                field      = $field.attr('name') || $field.attr('data-' + ns + '-field'),
                 validators = {},
                 validator,
                 v,          // Validator name
@@ -769,7 +787,7 @@ if (typeof jQuery === 'undefined') {
 
             for (v in FormValidation.Validator) {
                 validator    = FormValidation.Validator[v];
-                attrName     = 'data-fv-' + v.toLowerCase(),
+                attrName     = 'data-' + ns + '-' + v.toLowerCase(),
                 enabled      = $field.attr(attrName) + '';
                 html5AttrMap = ('function' === typeof validator.enableByHtml5) ? validator.enableByHtml5($field) : null;
 
@@ -787,7 +805,7 @@ if (typeof jQuery === 'undefined') {
 
                     for (html5AttrName in validator.html5Attributes) {
                         optionName  = validator.html5Attributes[html5AttrName];
-                        optionAttrName = 'data-fv-' + v.toLowerCase() + '-' + html5AttrName,
+                        optionAttrName = 'data-' + ns + '-' + v.toLowerCase() + '-' + html5AttrName,
                         optionValue = $field.attr(optionAttrName);
                         if (optionValue) {
                             if ('true' === optionValue || optionAttrName === optionValue.toLowerCase()) {
@@ -802,20 +820,20 @@ if (typeof jQuery === 'undefined') {
             }
 
             var opts = {
-                    autoFocus:   $field.attr('data-fv-autofocus'),
-                    err:         $field.attr('data-fv-err-container') || $field.attr('data-fv-container'), // Support backward
-                    excluded:    $field.attr('data-fv-excluded'),
-                    icon:        $field.attr('data-fv-icon') || $field.attr('data-fv-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null), // Support backward
-                    message:     $field.attr('data-fv-message'),
-                    onError:     $field.attr('data-fv-onerror'),
-                    onStatus:    $field.attr('data-fv-onstatus'),
-                    onSuccess:   $field.attr('data-fv-onsuccess'),
-                    row:         $field.attr('data-fv-row') || $field.attr('data-fv-group') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group : null), // Support backward
-                    selector:    $field.attr('data-fv-selector'),
-                    threshold:   $field.attr('data-fv-threshold'),
-                    transformer: $field.attr('data-fv-transformer'),
-                    trigger:     $field.attr('data-fv-trigger'),
-                    verbose:     $field.attr('data-fv-verbose'),
+                    autoFocus:   $field.attr('data-' + ns + '-autofocus'),
+                    err:         $field.attr('data-' + ns + '-err-container') || $field.attr('data-' + ns + '-container'), // Support backward
+                    excluded:    $field.attr('data-' + ns + '-excluded'),
+                    icon:        $field.attr('data-' + ns + '-icon') || $field.attr('data-' + ns + '-feedbackicons') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].feedbackIcons : null), // Support backward
+                    message:     $field.attr('data-' + ns + '-message'),
+                    onError:     $field.attr('data-' + ns + '-onerror'),
+                    onStatus:    $field.attr('data-' + ns + '-onstatus'),
+                    onSuccess:   $field.attr('data-' + ns + '-onsuccess'),
+                    row:         $field.attr('data-' + ns + '-row') || $field.attr('data-' + ns + '-group') || (this.options.fields && this.options.fields[field] ? this.options.fields[field].group : null), // Support backward
+                    selector:    $field.attr('data-' + ns + '-selector'),
+                    threshold:   $field.attr('data-' + ns + '-threshold'),
+                    transformer: $field.attr('data-' + ns + '-transformer'),
+                    trigger:     $field.attr('data-' + ns + '-trigger'),
+                    verbose:     $field.attr('data-' + ns + '-verbose'),
                     validators:  validators
                 },
                 emptyOptions    = $.isEmptyObject(opts),        // Check if the field options are set using HTML attributes
@@ -881,9 +899,10 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Determined the first invalid field which will be focused on automatically
+            var ns = this._namespace;
             for (var i = 0; i < this.$invalidFields.length; i++) {
                 var $field    = this.$invalidFields.eq(i),
-                    autoFocus = this.isOptionEnabled($field.attr('data-fv-field'), 'autoFocus');
+                    autoFocus = this.isOptionEnabled($field.attr('data-' + ns + '-field'), 'autoFocus');
                 if (autoFocus) {
                     // Activate the tab containing the field if exists
                     // TODO: Move this behavior to add-on
@@ -906,7 +925,8 @@ if (typeof jQuery === 'undefined') {
          * @param {String} [validatorName] The validator name
          */
         _onFieldValidated: function($field, validatorName) {
-            var field         = $field.attr('data-fv-field'),
+            var ns            = this._namespace,
+                field         = $field.attr('data-' + ns + '-field'),
                 validators    = this.options.fields[field].validators,
                 counter       = {},
                 numValidators = 0,
@@ -916,12 +936,12 @@ if (typeof jQuery === 'undefined') {
                     field: field,
                     element: $field,
                     validator: validatorName,
-                    result: $field.data('fv.response.' + validatorName)
+                    result: $field.data(ns + '.response.' + validatorName)
                 };
 
             // Trigger an event after given validator completes
             if (validatorName) {
-                switch ($field.data('fv.result.' + validatorName)) {
+                switch ($field.data(ns + '.result.' + validatorName)) {
                     case this.STATUS_INVALID:
                         $field.trigger($.Event(this.options.events.validatorError), data);
                         break;
@@ -944,7 +964,7 @@ if (typeof jQuery === 'undefined') {
                 }
 
                 numValidators++;
-                var result = $field.data('fv.result.' + v);
+                var result = $field.data(ns + '.result.' + v);
                 if (result) {
                     counter[result]++;
                 }
@@ -1041,14 +1061,15 @@ if (typeof jQuery === 'undefined') {
          * It also does not perform any validations when submitting the form
          */
         defaultSubmit: function() {
+            var ns = this._namespace;
             if (this.$submitButton) {
                 // Create hidden input to send the submit buttons
                 $('<input/>')
                     .attr({
                         'type': 'hidden',
-                        'data-fv-submit-hidden': '',
                         name: this.$submitButton.attr('name')
                     })
+                    .attr('data-' + ns + '-submit-hidden', '')
                     .val(this.$submitButton.val())
                     .appendTo(this.$form);
             }
@@ -1104,7 +1125,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {String}
          */
         getFieldValue: function(field, validatorName) {
-            var $field;
+            var $field, ns = this._namespace;
             if ('string' === typeof field) {
                 $field = this.getFieldElements(field);
                 if ($field.length === 0) {
@@ -1112,13 +1133,22 @@ if (typeof jQuery === 'undefined') {
                 }
             } else {
                 $field = field;
-                field  = $field.attr('data-fv-field');
+                field  = $field.attr('data-' + ns + '-field');
             }
 
             var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
                                 ? this.options.fields[field].validators[validatorName].transformer : null)
                                 || this.options.fields[field].transformer;
             return transformer ? FormValidation.Helper.call(transformer, [$field, validatorName]) : $field.val();
+        },
+
+        /**
+         * Get the namespace
+         *
+         * @returns {String}
+         */
+        getNamespace: function() {
+            return this._namespace;
         },
 
         /**
@@ -1130,11 +1160,12 @@ if (typeof jQuery === 'undefined') {
          * @return {String|Object}
          */
         getOptions: function(field, validator, option) {
+            var ns = this._namespace;
             if (!field) {
                 return option ? this.options[option] : this.options;
             }
             if ('object' === typeof field) {
-                field = field.attr('data-fv-field');
+                field = field.attr('data-' + ns + '-field');
             }
             if (!this.options.fields[field]) {
                 return null;
@@ -1159,13 +1190,14 @@ if (typeof jQuery === 'undefined') {
          * @returns {String} The status. Can be 'NOT_VALIDATED', 'VALIDATING', 'INVALID' or 'VALID'
          */
         getStatus: function(field, validatorName) {
+            var ns = this._namespace;
             switch (typeof field) {
                 case 'object':
-                    return field.data('fv.result.' + validatorName);
+                    return field.data(ns + '.result.' + validatorName);
                 case 'string':
                 /* falls through */
                 default:
-                    return this.getFieldElements(field).eq(0).data('fv.result.' + validatorName);
+                    return this.getFieldElements(field).eq(0).data(ns + '.result.' + validatorName);
             }
         },
 
@@ -1210,15 +1242,16 @@ if (typeof jQuery === 'undefined') {
          */
         isValidContainer: function(container) {
             var that       = this,
+                ns         = this._namespace,
                 map        = {},
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return true;
             }
 
-            $container.find('[data-fv-field]').each(function() {
+            $container.find('[data-' + ns + '-field]').each(function() {
                 var $field = $(this),
-                    field  = $field.attr('data-fv-field');
+                    field  = $field.attr('data-' + ns + '-field');
                 if (!that._isExcluded($field) && !map[field]) {
                     map[field] = $field;
                 }
@@ -1226,9 +1259,9 @@ if (typeof jQuery === 'undefined') {
 
             for (var field in map) {
                 var $f = map[field];
-                if ($f.data('fv.messages')
-                      .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-fv-validator][data-fv-for="' + field + '"]')
-                      .filter('[data-fv-result="' + this.STATUS_INVALID +'"]')
+                if ($f.data(ns + '.messages')
+                      .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]')
+                      .filter('[data-' + ns + '-result="' + this.STATUS_INVALID +'"]')
                       .length > 0)
                 {
                     return false;
@@ -1245,11 +1278,12 @@ if (typeof jQuery === 'undefined') {
          * @returns {Boolean}
          */
         isValidField: function(field) {
-            var fields = $([]);
+            var ns     = this._namespace,
+                fields = $([]);
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-fv-field');
+                    field  = field.attr('data-' + ns + '-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -1275,7 +1309,7 @@ if (typeof jQuery === 'undefined') {
                         continue;
                     }
 
-                    status = $field.data('fv.result.' + validatorName);
+                    status = $field.data(ns + '.result.' + validatorName);
                     if (status !== this.STATUS_VALID) {
                         return false;
                     }
@@ -1297,9 +1331,10 @@ if (typeof jQuery === 'undefined') {
                 return this;
             }
 
-            var trigger = this._getFieldTrigger($fields.eq(0)),
+            var ns      = this._namespace,
+                trigger = this._getFieldTrigger($fields.eq(0)),
                 events  = $.map(trigger, function(item) {
-                    return item + '.' + namespace + '.fv';
+                    return item + '.' + namespace + '.' + ns;
                 }).join(' ');
 
             $fields.off(events);
@@ -1319,9 +1354,10 @@ if (typeof jQuery === 'undefined') {
                 return this;
             }
 
-            var trigger = this._getFieldTrigger($fields.eq(0)),
+            var ns      = this._namespace,
+                trigger = this._getFieldTrigger($fields.eq(0)),
                 events  = $.map(trigger, function(item) {
-                    return item + '.' + namespace + '.fv';
+                    return item + '.' + namespace + '.' + ns;
                 }).join(' ');
 
             switch (this.options.live) {
@@ -1352,11 +1388,12 @@ if (typeof jQuery === 'undefined') {
          */
         updateMessage: function(field, validator, message) {
             var that    = this,
+                ns      = this._namespace,
                 $fields = $([]);
             switch (typeof field) {
                 case 'object':
                     $fields = field;
-                    field   = field.attr('data-fv-field');
+                    field   = field.attr('data-' + ns + '-field');
                     break;
                 case 'string':
                     $fields = this.getFieldElements(field);
@@ -1366,7 +1403,9 @@ if (typeof jQuery === 'undefined') {
             }
 
             $fields.each(function() {
-                $(this).data('fv.messages').find('.' + that.options.err.clazz + '[data-fv-validator="' + validator + '"][data-fv-for="' + field + '"]').html(message);
+                $(this)
+                    .data(ns + '.messages')
+                    .find('.' + that.options.err.clazz + '[data-' + ns + '-validator="' + validator + '"][data-' + ns + '-for="' + field + '"]').html(message);
             });
         },
 
@@ -1379,11 +1418,12 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         updateStatus: function(field, status, validatorName) {
-            var fields = $([]);
+            var ns     = this._namespace,
+                fields = $([]);
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-fv-field');
+                    field  = field.attr('data-' + ns + '-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -1410,10 +1450,10 @@ if (typeof jQuery === 'undefined') {
                 }
 
                 var $parent      = $field.closest(row),
-                    $message     = $field.data('fv.messages'),
-                    $allErrors   = $message.find('.' + this.options.err.clazz.split(' ').join('.') + '[data-fv-validator][data-fv-for="' + field + '"]'),
-                    $errors      = validatorName ? $allErrors.filter('[data-fv-validator="' + validatorName + '"]') : $allErrors,
-                    $icon        = $field.data('fv.icon'),
+                    $message     = $field.data(ns + '.messages'),
+                    $allErrors   = $message.find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]'),
+                    $errors      = validatorName ? $allErrors.filter('[data-' + ns + '-validator="' + validatorName + '"]') : $allErrors,
+                    $icon        = $field.data(ns + '.icon'),
                     // Support backward
                     container    = ('function' === typeof (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container))
                                     ? (this.options.fields[field].container || this.options.fields[field].err || this.options.err.container).call(this, $field, this)
@@ -1422,15 +1462,15 @@ if (typeof jQuery === 'undefined') {
 
                 // Update status
                 if (validatorName) {
-                    $field.data('fv.result.' + validatorName, status);
+                    $field.data(ns + '.result.' + validatorName, status);
                 } else {
                     for (var v in this.options.fields[field].validators) {
-                        $field.data('fv.result.' + v, status);
+                        $field.data(ns + '.result.' + v, status);
                     }
                 }
 
                 // Show/hide error elements and feedback icons
-                $errors.attr('data-fv-result', status);
+                $errors.attr('data-' + ns + '-result', status);
 
                 // Determine the tab containing the element
                 // TODO: Move this behavior to add-on
@@ -1469,8 +1509,8 @@ if (typeof jQuery === 'undefined') {
 
                     case this.STATUS_VALID:
                         // If the field is valid (passes all validators)
-                        isValidField = ($allErrors.filter('[data-fv-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
-                                     ? ($allErrors.filter('[data-fv-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
+                        isValidField = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
+                                     ? ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
                                      : null;                                                                                            // There are some validators that have not done
                         $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
                         if (isValidField !== null) {
@@ -1509,7 +1549,7 @@ if (typeof jQuery === 'undefined') {
                 if ($icon && ('tooltip' === container || 'popover' === container)) {
                     (isValidField === false)
                         // Only show the first error message
-                        ? this._createTooltip($field, $allErrors.filter('[data-fv-result="' + that.STATUS_INVALID + '"]').eq(0).html(), container)
+                        ? this._createTooltip($field, $allErrors.filter('[data-' + ns + '-result="' + that.STATUS_INVALID + '"]').eq(0).html(), container)
                         : this._destroyTooltip($field, container);
                 } else {
                     (status === this.STATUS_INVALID) ? $errors.show() : $errors.hide();
@@ -1558,11 +1598,12 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         validateField: function(field) {
-            var fields = $([]);
+            var ns     = this._namespace,
+                fields = $([]);
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-fv-field');
+                    field  = field.attr('data-' + ns + '-field');
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -1592,15 +1633,15 @@ if (typeof jQuery === 'undefined') {
 
                 var stop = false;
                 for (validatorName in validators) {
-                    if ($field.data('fv.dfs.' + validatorName)) {
-                        $field.data('fv.dfs.' + validatorName).reject();
+                    if ($field.data(ns + '.dfs.' + validatorName)) {
+                        $field.data(ns + '.dfs.' + validatorName).reject();
                     }
                     if (stop) {
                         break;
                     }
 
                     // Don't validate field if it is already done
-                    var result = $field.data('fv.result.' + validatorName);
+                    var result = $field.data(ns + '.result.' + validatorName);
                     if (result === this.STATUS_VALID || result === this.STATUS_INVALID) {
                         this._onFieldValidated($field, validatorName);
                         continue;
@@ -1609,22 +1650,22 @@ if (typeof jQuery === 'undefined') {
                         continue;
                     }
 
-                    $field.data('fv.result.' + validatorName, this.STATUS_VALIDATING);
+                    $field.data(ns + '.result.' + validatorName, this.STATUS_VALIDATING);
                     validateResult = FormValidation.Validator[validatorName].validate(this, $field, validators[validatorName]);
 
                     // validateResult can be a $.Deferred object ...
                     if ('object' === typeof validateResult && validateResult.resolve) {
                         this.updateStatus(updateAll ? field : $field, this.STATUS_VALIDATING, validatorName);
-                        $field.data('fv.dfs.' + validatorName, validateResult);
+                        $field.data(ns + '.dfs.' + validatorName, validateResult);
 
                         validateResult.done(function($f, v, response) {
                             // v is validator name
-                            $f.removeData('bv.dfs.' + v).data('fv.response.' + v, response);
+                            $f.removeData(ns + '.dfs.' + v).data(ns + '.response.' + v, response);
                             if (response.message) {
                                 that.updateMessage($f, v, response.message);
                             }
 
-                            that.updateStatus(updateAll ? $f.attr('data-fv-field') : $f, response.valid ? that.STATUS_VALID : that.STATUS_INVALID, v);
+                            that.updateStatus(updateAll ? $f.attr('data-' + ns + '-field') : $f, response.valid ? that.STATUS_VALID : that.STATUS_INVALID, v);
 
                             if (response.valid && that._submitIfValid === true) {
                                 // If a remote validator returns true and the form is ready to submit, then do it
@@ -1636,7 +1677,7 @@ if (typeof jQuery === 'undefined') {
                     }
                     // ... or object { valid: true/false, message: 'dynamic message', otherKey: value, ... }
                     else if ('object' === typeof validateResult && validateResult.valid !== undefined) {
-                        $field.data('fv.response.' + validatorName, validateResult);
+                        $field.data(ns + '.response.' + validatorName, validateResult);
                         if (validateResult.message) {
                             this.updateMessage(updateAll ? field : $field, validatorName, validateResult.message);
                         }
@@ -1647,7 +1688,7 @@ if (typeof jQuery === 'undefined') {
                     }
                     // ... or a boolean value
                     else if ('boolean' === typeof validateResult) {
-                        $field.data('fv.response.' + validatorName, validateResult);
+                        $field.data(ns + '.response.' + validatorName, validateResult);
                         this.updateStatus(updateAll ? field : $field, validateResult ? this.STATUS_VALID : this.STATUS_INVALID, validatorName);
                         if (!validateResult && !verbose) {
                             break;
@@ -1671,11 +1712,12 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         addField: function(field, options) {
-            var fields = $([]);
+            var ns     = this._namespace,
+                fields = $([]);
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-fv-field') || field.attr('name');
+                    field  = field.attr('data-' + ns + '-field') || field.attr('name');
                     break;
                 case 'string':
                     delete this._cacheFields[field];
@@ -1685,7 +1727,7 @@ if (typeof jQuery === 'undefined') {
                     break;
             }
 
-            fields.attr('data-fv-field', field);
+            fields.attr('data-' + ns + '-field', field);
 
             var type  = fields.attr('type'),
                 total = ('radio' === type || 'checkbox' === type) ? 1 : fields.length;
@@ -1722,7 +1764,7 @@ if (typeof jQuery === 'undefined') {
          * It will remove all error messages, feedback icons and turn off the events
          */
         destroy: function() {
-            var i, field, fields, $field, validator, $icon, row;
+            var ns = this._namespace, i, field, fields, $field, validator, $icon, row;
 
             // Destroy the validators first
             for (field in this.options.fields) {
@@ -1730,12 +1772,12 @@ if (typeof jQuery === 'undefined') {
                 for (i = 0; i < fields.length; i++) {
                     $field = fields.eq(i);
                     for (validator in this.options.fields[field].validators) {
-                        if ($field.data('fv.dfs.' + validator)) {
-                            $field.data('fv.dfs.' + validator).reject();
+                        if ($field.data(ns + '.dfs.' + validator)) {
+                            $field.data(ns + '.dfs.' + validator).reject();
                         }
-                        $field.removeData('bv.result.' + validator)
-                              .removeData('bv.response.' + validator)
-                              .removeData('bv.dfs.' + validator);
+                        $field.removeData(ns + '.result.' + validator)
+                              .removeData(ns + '.response.' + validator)
+                              .removeData(ns + '.dfs.' + validator);
 
                         // Destroy the validator
                         if ('function' === typeof FormValidation.Validator[validator].destroy) {
@@ -1753,10 +1795,10 @@ if (typeof jQuery === 'undefined') {
                     $field = fields.eq(i);
                     $field
                         // Remove all error messages
-                        .data('fv.messages')
-                            .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-fv-validator][data-fv-for="' + field + '"]').remove().end()
+                        .data(ns + '.messages')
+                            .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]').remove().end()
                             .end()
-                        .removeData('bv.messages')
+                        .removeData(ns + '.messages')
                         // Remove feedback classes
                         .closest(row)
                             .removeClass(this.options.row.valid)
@@ -1764,8 +1806,8 @@ if (typeof jQuery === 'undefined') {
                             .removeClass(this.options.row.feedback)
                             .end()
                         // Turn off events
-                        .off('.fv')
-                        .removeAttr('data-fv-field');
+                        .off('.' + ns)
+                        .removeAttr('data-' + ns + '-field');
 
                     // Remove feedback icons, tooltip/popover container
                     // Support backward
@@ -1776,13 +1818,13 @@ if (typeof jQuery === 'undefined') {
                         this._destroyTooltip($field, container);
                     }
 
-                    $icon = $field.data('fv.icon');
+                    $icon = $field.data(ns + '.icon');
                     if ($icon) {
                         $icon.remove();
                     }
-                    $field.removeData('bv.icon')
+                    $field.removeData(ns + '.icon')
                           // It's safe to remove trigger data here, because it might be used when destroying the validator
-                          .removeData('bv.trigger');
+                          .removeData(ns + '.trigger');
                 }
             }
 
@@ -1798,12 +1840,13 @@ if (typeof jQuery === 'undefined') {
 
             this.$form
                 .removeClass(this.options.elementClass)
-                .off('.fv')
+                .off('.' + ns)
                 .removeData('bootstrapValidator')   // Support backward
                 .removeData('formValidation')
                 // Remove generated hidden elements
-                .find('[data-fv-submit-hidden]').remove().end()
-                .find('[type="submit"]').off('click.fv');
+                .find('[data-' + ns + '-submit-hidden]').remove().end()
+                .find('[type="submit"]')
+                    .off('click.' + ns);
         },
 
         /**
@@ -1918,6 +1961,7 @@ if (typeof jQuery === 'undefined') {
          */
         getMessages: function(field, validator) {
             var that     = this,
+                ns       = this._namespace,
                 messages = [],
                 $fields  = $([]);
 
@@ -1937,15 +1981,15 @@ if (typeof jQuery === 'undefined') {
                     break;
             }
 
-            var filter = validator ? '[data-fv-validator="' + validator + '"]' : '';
+            var filter = validator ? '[data-' + ns + '-validator="' + validator + '"]' : '';
             $fields.each(function() {
                 messages = messages.concat(
                     $(this)
-                        .data('fv.messages')
-                        .find('.' + that.options.err.clazz + '[data-fv-for="' + $(this).attr('data-fv-field') + '"][data-fv-result="' + that.STATUS_INVALID + '"]' + filter)
+                        .data(ns + '.messages')
+                        .find('.' + that.options.err.clazz + '[data-' + ns + '-for="' + $(this).attr('data-' + ns + '-field') + '"][data-' + ns + '-result="' + that.STATUS_INVALID + '"]' + filter)
                         .map(function() {
-                            var v = $(this).attr('data-fv-validator'),
-                                f = $(this).attr('data-fv-for');
+                            var v = $(this).attr('data-' + ns + '-validator'),
+                                f = $(this).attr('data-' + ns + '-for');
                             return (that.options.fields[f].validators[v].enabled === false) ? '' : $(this).html();
                         })
                         .get()
@@ -1971,12 +2015,13 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         removeField: function(field) {
-            var fields = $([]);
+            var ns     = this._namespace,
+                fields = $([]);
             switch (typeof field) {
                 case 'object':
                     fields = field;
-                    field  = field.attr('data-fv-field') || field.attr('name');
-                    fields.attr('data-fv-field', field);
+                    field  = field.attr('data-' + ns + '-field') || field.attr('name');
+                    fields.attr('data-' + ns + '-field', field);
                     break;
                 case 'string':
                     fields = this.getFieldElements(field);
@@ -2027,11 +2072,12 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         resetField: function(field, resetValue) {
-            var $fields = $([]);
+            var ns      = this._namespace,
+                $fields = $([]);
             switch (typeof field) {
                 case 'object':
                     $fields = field;
-                    field   = field.attr('data-fv-field');
+                    field   = field.attr('data-' + ns + '-field');
                     break;
                 case 'string':
                     $fields = this.getFieldElements(field);
@@ -2044,7 +2090,7 @@ if (typeof jQuery === 'undefined') {
             if (this.options.fields[field]) {
                 for (var i = 0; i < total; i++) {
                     for (var validator in this.options.fields[field].validators) {
-                        $fields.eq(i).removeData('bv.dfs.' + validator);
+                        $fields.eq(i).removeData(ns + '.dfs.' + validator);
                     }
                 }
             }
@@ -2121,8 +2167,9 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         updateOption: function(field, validator, option, value) {
+            var ns = this._namespace;
             if ('object' === typeof field) {
-                field = field.attr('data-fv-field');
+                field = field.attr('data-' + ns + '-field');
             }
             if (this.options.fields[field] && this.options.fields[field].validators[validator]) {
                 this.options.fields[field].validators[validator][option] = value;
@@ -2141,15 +2188,16 @@ if (typeof jQuery === 'undefined') {
          */
         validateContainer: function(container) {
             var that       = this,
+                ns         = this._namespace,
                 map        = {},
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return this;
             }
 
-            $container.find('[data-fv-field]').each(function() {
+            $container.find('[data-' + ns + '-field]').each(function() {
                 var $field = $(this),
-                    field  = $field.attr('data-fv-field');
+                    field  = $field.attr('data-' + ns + '-field');
                 if (!that._isExcluded($field) && !map[field]) {
                     map[field] = $field;
                 }
@@ -2175,10 +2223,6 @@ if (typeof jQuery === 'undefined') {
                 switch (framework) {
                     case 'foundation':
                         data = new FormValidation.Framework.Foundation(this, options);
-                        break;
-
-                    case 'pure':
-                        data = new FormValidation.Framework.Pure(this, options);
                         break;
 
                     case 'semantic':

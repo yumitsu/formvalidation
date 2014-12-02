@@ -53,13 +53,14 @@
                     validator.addField(that.CAPTCHA_FIELD);
                 });
 
+                var ns = validator.getNamespace();
                 validator
                     .getForm()
                     .on(opts.events.fieldAdded, function(e, data) {
                         // The field 'recaptcha_response_field' has just been added
                         if (data.field === that.CAPTCHA_FIELD) {
                             // Move icon to other position
-                            var $icon = data.element.data('fv.icon');
+                            var $icon = data.element.data(ns + '.icon');
                             $icon.insertAfter('#' + options.element);
                         }
                     })
@@ -82,7 +83,7 @@
                         if (data.field === that.CAPTCHA_FIELD) {
                             // User enter a captcha
                             // Hide the feedback icon
-                            data.element.data('fv.icon').hide();
+                            data.element.data(ns + '.icon').hide();
                         }
                     })
                     .on('submit', function(e) {

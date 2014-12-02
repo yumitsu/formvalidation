@@ -14,7 +14,8 @@
          * @param {Object} options The add-on options
          */
         init: function(validator, options) {
-            var opts = validator.getOptions();
+            var ns   = validator.getNamespace(),
+                opts = validator.getOptions();
             validator
                 .getForm()
                 .on(opts.events.validatorError, function(e, data) {
@@ -23,11 +24,11 @@
                     }
 
                     data.element
-                        .data('fv.messages')
+                        .data(ns + '.messages')
                         // Hide all the messages
-                        .find('.help-block[data-fv-for="' + data.field + '"]').hide()
+                        .find('.help-block[data-' + ns + '-for="' + data.field + '"]').hide()
                         // Show only message associated with current validator
-                        .filter('[data-fv-validator="' + data.validator + '"]').show();
+                        .filter('[data-' + ns + '-validator="' + data.validator + '"]').show();
                 });
         }
     };

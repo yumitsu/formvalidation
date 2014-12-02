@@ -29,9 +29,11 @@
          * Destroy the timer when destroying the bootstrapValidator (using validator.destroy() method)
          */
         destroy: function(validator, $field, options) {
-            if ($field.data('fv.remote.timer')) {
-                clearTimeout($field.data('fv.remote.timer'));
-                $field.removeData('bv.remote.timer');
+            var ns    = validator.getNamespace(),
+                timer = $field.data(ns + '.remote.timer');
+            if (timer) {
+                clearTimeout(timer);
+                $field.removeData(ns + '.remote.timer');
             }
         },
 
@@ -54,14 +56,15 @@
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {
-            var value = validator.getFieldValue($field, 'remote'),
+            var ns    = validator.getNamespace(),
+                value = validator.getFieldValue($field, 'remote'),
                 dfd   = new $.Deferred();
             if (value === '') {
                 dfd.resolve($field, 'remote', { valid: true });
                 return dfd;
             }
 
-            var name    = $field.attr('data-fv-field'),
+            var name    = $field.attr('data-' + ns + '-field'),
                 data    = options.data || {},
                 url     = options.url,
                 type    = options.type || 'GET',
@@ -106,11 +109,11 @@
             if (options.delay) {
                 // Since the form might have multiple fields with the same name
                 // I have to attach the timer to the field element
-                if ($field.data('fv.remote.timer')) {
-                    clearTimeout($field.data('fv.remote.timer'));
+                if ($field.data(ns + '.remote.timer')) {
+                    clearTimeout($field.data(ns + '.remote.timer'));
                 }
 
-                $field.data('fv.remote.timer', setTimeout(runCallback, options.delay));
+                $field.data(ns + '.remote.timer', setTimeout(runCallback, options.delay));
                 return dfd;
             } else {
                 return runCallback();
