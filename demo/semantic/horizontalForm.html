@@ -14,68 +14,19 @@
 
     <script type="text/javascript" src="../../dist/js/formValidation.js"></script>
     <script type="text/javascript" src="../../dist/js/framework/semantic.js"></script>
+
+    <style type="text/css">
+    body {
+        margin: 50px 0;
+    }
+    </style>
 </head>
 <body>
     <div class="ui grid">
         <div class="four wide column"></div>
 
         <div class="eight wide column">
-            <h2 class="ui dividing header">Stacked form</h2>
-
-            <form id="stackedForm" class="ui form">
-                <div class="field">
-                    <label>Username</label>
-                    <div class="ui input icon">
-                        <input name="username" type="text" placeholder="Username" />
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Email address</label>
-                    <div class="ui input icon">
-                        <input name="email" type="text" placeholder="Email address" />
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Password</label>
-                    <div class="ui input icon">
-                        <input name="password" type="password" placeholder="Password" />
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Confirm password</label>
-                    <div class="ui input icon">
-                        <input name="confirmPassword" type="password" placeholder="Password" />
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Gender</label>
-                    <div class="ui radio">
-                        <input name="gender" type="radio" value="male" /> <label>Male</label>
-                    </div>
-                    <div class="ui radio">
-                        <input name="gender" type="radio" value="female" /> <label>Female</label>
-                    </div>
-                    <div class="ui radio">
-                        <input name="gender" type="radio" value="other" /> <label>Other</label>
-                    </div>
-                </div>
-
-                <div class="inline field">
-                    <div class="ui checkbox">
-                        <input name="agree" type="checkbox" /> <label>Agree with the terms and conditions</label>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <button type="submit" class="ui primary button">Submit</button>
-                </div>
-            </form>
-
-            <h2 class="ui dividing header">Horizontal form</h2>
+            <h2 class="ui dividing header">Semantic-UI Horizontal Form</h2>
 
             <form id="horizontalForm" class="ui grid form">
                 <div class="row field">
@@ -152,7 +103,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('form').formValidation({
+    $('#horizontalForm').formValidation({
         framework: 'semantic',
         icon: {
             valid: 'checkmark icon',

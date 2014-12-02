@@ -14,13 +14,19 @@
 
     <script type="text/javascript" src="../../dist/js/formValidation.js"></script>
     <script type="text/javascript" src="../../dist/js/framework/semantic.js"></script>
+
+    <style type="text/css">
+    body {
+        margin: 50px 0;
+    }
+    </style>
 </head>
 <body>
     <div class="ui grid">
         <div class="four wide column"></div>
 
         <div class="eight wide column">
-            <h2 class="ui dividing header">Stacked form</h2>
+            <h2 class="ui dividing header">Semantic-UI Stacked Form</h2>
 
             <form id="stackedForm" class="ui form">
                 <div class="field">
@@ -74,77 +80,6 @@
                     <button type="submit" class="ui primary button">Submit</button>
                 </div>
             </form>
-
-            <h2 class="ui dividing header">Horizontal form</h2>
-
-            <form id="horizontalForm" class="ui grid form">
-                <div class="row field">
-                    <label class="four wide column">Username</label>
-                    <div class="eight wide column">
-                        <div class="ui input icon">
-                            <input name="username" type="text" placeholder="Username" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row field">
-                    <label class="four wide column">Email address</label>
-                    <div class="eight wide column">
-                        <div class="ui input icon">
-                            <input name="email" type="text" placeholder="Email address" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row field">
-                    <label class="four wide column">Password</label>
-                    <div class="eight wide column">
-                        <div class="ui input icon">
-                            <input name="password" type="password" placeholder="Password" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row field">
-                    <label class="four wide column">Confirm password</label>
-                    <div class="eight wide column">
-                        <div class="ui input icon">
-                            <input name="confirmPassword" type="password" placeholder="Password" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row field">
-                    <label class="four wide column">Gender</label>
-                    <div class="ten wide column">
-                        <div class="ui radio">
-                            <input name="gender" type="radio" value="male" /> <label>Male</label>
-                        </div>
-                        <div class="ui radio">
-                            <input name="gender" type="radio" value="female" /> <label>Female</label>
-                        </div>
-                        <div class="ui radio">
-                            <input name="gender" type="radio" value="other" /> <label>Other</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row field">
-                    <label class="four wide column"></label>
-                    <div class="ten wide column">
-                        <div class="ui checkbox">
-                            <input name="agree" type="checkbox" /> <label>Agree with the terms and conditions</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label class="four wide column"></label>
-                    <div class="eight wide column">
-                        <button type="submit" class="ui primary button">Submit</button>
-                    </div>
-                </div>
-            </form>
         </div>
 
         <div class="four wide column"></div>
@@ -152,16 +87,13 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-    $('form').formValidation({
+    $('#stackedForm').formValidation({
         framework: 'semantic',
         icon: {
             valid: 'checkmark icon',
             invalid: 'remove icon',
             validating: 'refresh icon',
             feedback: 'fv-control-feedback'
-        },
-        err: {
-            container: 'tooltip'
         },
         fields: {
             username: {

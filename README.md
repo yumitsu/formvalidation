@@ -9,7 +9,14 @@ It's developed from scratch by [@nghuuphuoc](http://twitter.com/nghuuphuoc).
 
 __Required__: [jQuery 1.9.1+](http://jquery.com/) and [Bootstrap 3+](http://getbootstrap.com/)
 
+
+__Validating Bootstrap form__
+
 ![Screenshot](screenshots/demo.gif)
+
+__Validating Semantic UI form__
+
+![Screenshot](screenshots/semantic.gif)
 
 ## Next version :bell:
 
