@@ -11,7 +11,7 @@ __Required__: [jQuery 1.9.1+](http://jquery.com/) and [Bootstrap 3+](http://getb
 
 __Validating Bootstrap form__
 
-![Screenshot](screenshots/demo.gif)
+![Screenshot](screenshots/bootstrap.gif)
 
 __Validating Foundation form (v0.6.0)__
 
