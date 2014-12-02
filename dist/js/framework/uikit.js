@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-02 7:05:17 PM
+ * @version     v0.6.0-dev, built on 2014-12-02 9:00:10 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -91,6 +91,9 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                $icon.css({
+                    'cursor': ''
+                });
                 var tooltip = $icon.data('fv.uikit.tooltip');
                 if (tooltip) {
                     tooltip.hide();
@@ -109,6 +112,9 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                $icon.css({
+                    'cursor': ''
+                });
                 var tooltip = $icon.data('fv.uikit.tooltip');
                 if (tooltip) {
                     tooltip.hide();
@@ -125,6 +131,9 @@
         _showTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                $icon.css({
+                    'cursor': 'pointer'
+                });
                 var tooltip = $icon.data('fv.uikit.tooltip');
                 if (tooltip) {
                     tooltip.show();

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>FormValidation demo</title>
+    <title>FormValidation &rarr; Foundation demo</title>
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/normalize.min.css"/>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/5.4.7/css/foundation.min.css"/>
@@ -15,14 +15,20 @@
 
     <script type="text/javascript" src="../../dist/js/formValidation.js"></script>
     <script type="text/javascript" src="../../dist/js/framework/foundation.js"></script>
+
+    <style type="text/css">
+    body {
+        padding: 50px 0;
+    }
+    </style>
 </head>
 <body>
     <div class="row">
         <div class="small-8 small-centered columns">
-            <h2>Sign up</h2>
+            <h2>Foundation Form</h2>
             <hr/>
 
-            <form id="defaultForm" method="post" action="../target.php">
+            <form id="horizontalForm" method="post" action="../target.php">
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Full name</label>
@@ -69,15 +75,6 @@
                 
                 <div class="row">
                     <div class="small-3 columns">
-                        <label class="right">Retype password</label>
-                    </div>
-                    <div class="small-6 small-pull-3 columns">
-                        <input type="password" name="confirmPassword" />
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="small-3 columns">
                         <label class="right">Gender</label>
                     </div>
                     <div class="small-9 columns">
@@ -89,53 +86,22 @@
                 
                 <div class="row">
                     <div class="small-3 columns">
-                        <label class="right">Birthday</label>
-                    </div>
-                    <div class="small-6 small-pull-3 columns">
-                        <input type="text" name="birthday" placeholder="YYYY/MM/DD" />
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label class="right">Languages</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <input type="checkbox" name="languages[]" value="english" /><label>English</label>
-                        <input type="checkbox" name="languages[]" value="french" /><label>French</label>
-                        <input type="checkbox" name="languages[]" value="german" /><label>German</label>
-                        <input type="checkbox" name="languages[]" value="russian" /><label>Russian</label>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label class="right">Programming Languages</label>
-                    </div>
-                    <div class="small-6 small-pull-3 columns">
-                        <input type="checkbox" name="programs[]" value="net" /><label>.Net</label><br/>
-                        <input type="checkbox" name="programs[]" value="java" /><label>Java</label><br/>
-                        <input type="checkbox" name="programs[]" value="php" /><label>PHP</label><br/>
-                        <input type="checkbox" name="programs[]" value="perl" /><label>Perl</label><br/>
-                        <input type="checkbox" name="programs[]" value="ruby" /><label>Ruby</label><br/>
-                        <input type="checkbox" name="programs[]" value="python" /><label>Python</label><br/>
-                        <input type="checkbox" name="programs[]" value="javascript" /><label>Javascript</label>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="small-3 columns">
                         <label class="right" id="captchaOperation"></label>
                     </div>
                     <div class="small-3 small-pull-6 columns">
                         <input type="text" name="captcha" />
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="small-9 small-push-3 columns">
+                        <input type="checkbox" name="agree" value="agree" /> <label>Agree with the terms and conditions</label>
+                    </div>
+                </div>
                 
                 <div class="row">
-                    <div class="small-3 columns"></div>
-                    <div class="small-9 columns">
-                        <button type="submit" class="button small" name="signup" value="Sign up">Sign up</button>
+                    <div class="small-9 small-push-3 columns">
+                        <button type="submit" class="button small" name="signup" value="Sign up">Submit</button>
                     </div>
                 </div>
             </form>
@@ -152,7 +118,7 @@ $(document).ready(function() {
     };
     $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
 
-    $('#defaultForm').formValidation({
+    $('#horizontalForm').formValidation({
         framework: 'foundation',
         icon: {
             valid: 'fa fa-check',
@@ -168,7 +134,7 @@ $(document).ready(function() {
                 row: '.small-6',
                 validators: {
                     notEmpty: {
-                        message: 'The first name is required and cannot be empty'
+                        message: 'The first name is required'
                     }
                 }
             },
@@ -176,7 +142,7 @@ $(document).ready(function() {
                 row: '.small-6',
                 validators: {
                     notEmpty: {
-                        message: 'The last name is required and cannot be empty'
+                        message: 'The last name is required'
                     }
                 }
             },
@@ -184,7 +150,7 @@ $(document).ready(function() {
                 message: 'The username is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The username is required and cannot be empty'
+                        message: 'The username is required'
                     },
                     stringLength: {
                         min: 6,
@@ -199,6 +165,9 @@ $(document).ready(function() {
             },
             email: {
                 validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
                     emailAddress: {
                         message: 'The input is not a valid email address'
                     }
@@ -207,7 +176,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'The password is required and cannot be empty'
+                        message: 'The password is required'
                     },
                     different: {
                         field: 'username',
@@ -215,45 +184,10 @@ $(document).ready(function() {
                     }
                 }
             },
-            confirmPassword: {
-                validators: {
-                    notEmpty: {
-                        message: 'The confirm password is required and cannot be empty'
-                    },
-                    identical: {
-                        field: 'password',
-                        message: 'The password and its confirm are not the same'
-                    }
-                }
-            },
-            birthday: {
-                validators: {
-                    date: {
-                        format: 'YYYY/MM/DD',
-                        message: 'The birthday is not valid'
-                    }
-                }
-            },
             gender: {
                 validators: {
                     notEmpty: {
                         message: 'The gender is required'
-                    }
-                }
-            },
-            'languages[]': {
-                validators: {
-                    notEmpty: {
-                        message: 'Please specify at least one language you can speak'
-                    }
-                }
-            },
-            'programs[]': {
-                validators: {
-                    choice: {
-                        min: 2,
-                        max: 4,
-                        message: 'Please choose 2 - 4 programming languages you are good at'
                     }
                 }
             },
@@ -265,6 +199,13 @@ $(document).ready(function() {
                             var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
                             return value == sum;
                         }
+                    }
+                }
+            },
+            agree: {
+                validators: {
+                    notEmpty: {
+                        message: 'You must agree with the terms and conditions'
                     }
                 }
             }

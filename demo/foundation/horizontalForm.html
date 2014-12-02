@@ -18,7 +18,7 @@
 
     <style type="text/css">
     body {
-        margin: 50px 0;
+        padding: 50px 0;
     }
     </style>
 </head>
@@ -28,7 +28,7 @@
             <h2>Foundation Form</h2>
             <hr/>
 
-            <form id="defaultForm" method="post" action="../target.php">
+            <form id="horizontalForm" method="post" action="../target.php">
                 <div class="row">
                     <div class="small-3 columns">
                         <label class="right">Full name</label>
@@ -118,7 +118,7 @@ $(document).ready(function() {
     };
     $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
 
-    $('#defaultForm').formValidation({
+    $('#horizontalForm').formValidation({
         framework: 'foundation',
         icon: {
             valid: 'fa fa-check',
@@ -207,11 +207,6 @@ $(document).ready(function() {
                 }
             }
         }
-    });
-
-    // Validate the form manually
-    $('#validateBtn').click(function() {
-        $('#defaultForm').formValidation('validate');
     });
 });
 </script>

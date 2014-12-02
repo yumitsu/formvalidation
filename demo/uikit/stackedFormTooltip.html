@@ -23,7 +23,7 @@
 </head>
 <body>
     <div class="uk-width-1-2 uk-container-center">
-        <form id="horizontalForm" class="uk-form uk-form-horizontal">
+        <form id="stackedForm" class="uk-form uk-form-stacked">
             <h2>UIKit Form</h2>
             <hr/>
 
@@ -104,13 +104,16 @@ $(document).ready(function() {
     };
     $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
 
-    $('#horizontalForm').formValidation({
+    $('#stackedForm').formValidation({
         framework: 'uikit',
         icon: {
             valid: 'fa fa-check',
             invalid: 'fa fa-times',
             validating: 'fa fa-refresh',
             feedback: 'fv-control-feedback'
+        },
+        err: {
+            container: 'tooltip'
         },
         fields: {
             firstName: {

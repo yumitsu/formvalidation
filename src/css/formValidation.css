@@ -90,3 +90,6 @@
     color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
     display: block;
 }
+.uk-form-horizontal.fv-form-uikit .fv-control-feedback {
+    line-height: normal;
+}
