@@ -21,6 +21,10 @@ __Validating Semantic UI form (v0.6.0)__
 
 ![Screenshot](screenshots/semantic.gif)
 
+__Validating UI Kit form (v0.6.0)__
+
+![Screenshot](screenshots/uikit.gif)
+
 ## Next version :bell:
 
 Next version will be a big release with the following new features and improvements:

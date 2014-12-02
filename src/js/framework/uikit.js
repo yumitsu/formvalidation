@@ -23,8 +23,8 @@
                 invalid: 'uk-form-danger'
             },
             err: {
-                clazz: 'uk-form-help-block',
-                parent: '^.*uk-form-controls.*$'
+                clazz: 'uk-text-warning',
+                parent: '^.*(uk-form-controls|uk-width-[\\d+]-[\\d+]).*$'
             },
             // UIKit doesn't support feedback icon
             icon: {
@@ -53,6 +53,13 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
+            var type = $field.attr('type');
+            if ('checkbox' === type || 'radio' === type) {
+                var $fieldParent = $field.parent();
+                if ($fieldParent.is('label')) {
+                    $icon.insertAfter($fieldParent);
+                }
+            }
         },
 
         /**

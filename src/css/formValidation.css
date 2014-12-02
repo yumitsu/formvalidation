@@ -83,10 +83,10 @@
 /* ~~~ For UIKit form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~ */
 
-.fv-form-uikit .fv-help-block {
+.fv-form-uikit .uk-text-warning {
     color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
 }
-.fv-form-uikit .uk-form-help-block {
+.fv-form-uikit .uk-text-warning {
     color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
     display: block;
 }

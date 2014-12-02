@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-02 11:41:38 AM
+ * @version     v0.6.0-dev, built on 2014-12-02 6:43:17 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -23,8 +23,8 @@
                 invalid: 'uk-form-danger'
             },
             err: {
-                clazz: 'uk-form-help-block',
-                parent: '^.*uk-form-controls.*$'
+                clazz: 'uk-text-warning',
+                parent: '^.*(uk-form-controls|uk-width-[\\d+]-[\\d+]).*$'
             },
             // UIKit doesn't support feedback icon
             icon: {
@@ -53,6 +53,13 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
+            var type = $field.attr('type');
+            if ('checkbox' === type || 'radio' === type) {
+                var $fieldParent = $field.parent();
+                if ($fieldParent.is('label')) {
+                    $icon.insertAfter($fieldParent);
+                }
+            }
         },
 
         /**
