@@ -9,12 +9,15 @@ It's developed from scratch by [@nghuuphuoc](http://twitter.com/nghuuphuoc).
 
 __Required__: [jQuery 1.9.1+](http://jquery.com/) and [Bootstrap 3+](http://getbootstrap.com/)
 
-
 __Validating Bootstrap form__
 
 ![Screenshot](screenshots/demo.gif)
 
-__Validating Semantic UI form__
+__Validating Foundation form (v0.6.0)__
+
+![Screenshot](screenshots/foundation.gif)
+
+__Validating Semantic UI form (v0.6.0)__
 
 ![Screenshot](screenshots/semantic.gif)
 

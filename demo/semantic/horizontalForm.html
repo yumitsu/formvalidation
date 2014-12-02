@@ -26,9 +26,23 @@
         <div class="four wide column"></div>
 
         <div class="eight wide column">
-            <h2 class="ui dividing header">Semantic-UI Horizontal Form</h2>
+            <h2 class="ui dividing header">Semantic-UI Form</h2>
 
             <form id="horizontalForm" class="ui grid form">
+                <div class="row field">
+                    <label class="four wide column">Full name</label>
+                    <div class="six wide column">
+                        <div class="ui input icon">
+                            <input name="firstName" type="text" placeholder="First name" />
+                        </div>
+                    </div>
+                    <div class="six wide column">
+                        <div class="ui input icon">
+                            <input name="lastName" type="text" placeholder="Last name" />
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row field">
                     <label class="four wide column">Username</label>
                     <div class="eight wide column">
@@ -57,15 +71,6 @@
                 </div>
 
                 <div class="row field">
-                    <label class="four wide column">Confirm password</label>
-                    <div class="eight wide column">
-                        <div class="ui input icon">
-                            <input name="confirmPassword" type="password" placeholder="Password" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row field">
                     <label class="four wide column">Gender</label>
                     <div class="ten wide column">
                         <div class="ui radio">
@@ -76,6 +81,17 @@
                         </div>
                         <div class="ui radio">
                             <input name="gender" type="radio" value="other" /> <label>Other</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row field">
+                    <label class="four wide column">
+                        <span class="right" id="captchaOperation"></span>
+                    </label>
+                    <div class="four wide column">
+                        <div class="ui input icon">
+                            <input type="text" name="captcha" />
                         </div>
                     </div>
                 </div>
@@ -103,6 +119,12 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+        // Generate a simple captcha
+    function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    };
+    $('#captchaOperation').html([randomNumber(1, 100), '+', randomNumber(1, 200), '='].join(' '));
+
     $('#horizontalForm').formValidation({
         framework: 'semantic',
         icon: {
@@ -112,11 +134,27 @@ $(document).ready(function() {
             feedback: 'fv-control-feedback'
         },
         fields: {
+            firstName: {
+                row: '.small-6',
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required'
+                    }
+                }
+            },
+            lastName: {
+                row: '.small-6',
+                validators: {
+                    notEmpty: {
+                        message: 'The last name is required'
+                    }
+                }
+            },
             username: {
                 message: 'The username is not valid',
                 validators: {
                     notEmpty: {
-                        message: 'The username is required and cannot be empty'
+                        message: 'The username is required'
                     },
                     stringLength: {
                         min: 6,
@@ -131,6 +169,9 @@ $(document).ready(function() {
             },
             email: {
                 validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
                     emailAddress: {
                         message: 'The input is not a valid email address'
                     }
@@ -139,7 +180,7 @@ $(document).ready(function() {
             password: {
                 validators: {
                     notEmpty: {
-                        message: 'The password is required and cannot be empty'
+                        message: 'The password is required'
                     },
                     different: {
                         field: 'username',
@@ -147,21 +188,21 @@ $(document).ready(function() {
                     }
                 }
             },
-            confirmPassword: {
-                validators: {
-                    notEmpty: {
-                        message: 'The confirm password is required and cannot be empty'
-                    },
-                    identical: {
-                        field: 'password',
-                        message: 'The password and its confirm are not the same'
-                    }
-                }
-            },
             gender: {
                 validators: {
                     notEmpty: {
                         message: 'The gender is required'
+                    }
+                }
+            },
+            captcha: {
+                validators: {
+                    callback: {
+                        message: 'Wrong answer',
+                        callback: function(value, validator) {
+                            var items = $('#captchaOperation').html().split(' '), sum = parseInt(items[0]) + parseInt(items[2]);
+                            return value == sum;
+                        }
                     }
                 }
             },
