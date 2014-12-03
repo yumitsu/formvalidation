@@ -78,13 +78,32 @@
             var $icon = $field.data('fv.icon');
             if ($icon) {
                 // http://semantic-ui.com/modules/popup.html
-                $icon
-                    .css({
-                        'cursor': 'pointer'
-                    })
-                    .popup({
-                        content: message
-                    });
+                switch (type) {
+                    case 'popover':
+                        $icon
+                            .css({
+                                'cursor': 'pointer'
+                            })
+                            .popup({
+                                content: message,
+                                position: 'top center'
+                            });
+                        break;
+
+                    case 'tooltip':
+                    /* falls through */
+                    default:
+                        $icon
+                            .css({
+                                'cursor': 'pointer'
+                            })
+                            .popup({
+                                content: message,
+                                position: 'top center',
+                                variation: 'inverted'
+                            });
+                        break;
+                }
             }
         },
 
