@@ -39,6 +39,7 @@ __Improvements__
 * [#1197](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1197): Add sample data for [CPF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@dgmike](https://github.com/dgmike)
 * [#1207](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1207): Improve Spanish [phone](http://bootstrapvalidator.com/validators/phone/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
 * [#1218](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1218): Improve Slovenian [vat number](http://bootstrapvalidator.com/validators/vat/) validator, thanks to [@Glavic](https://github.com/Glavic)
+* [#1224](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1224): Improve tooltip style when working with Semantic UI form, thanks to [@Arkni](https://github.com/Arkni)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work

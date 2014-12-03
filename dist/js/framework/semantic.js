@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-02 9:00:10 PM
+ * @version     v0.6.0-dev, built on 2014-12-03 11:57:41 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -78,13 +78,32 @@
             var $icon = $field.data('fv.icon');
             if ($icon) {
                 // http://semantic-ui.com/modules/popup.html
-                $icon
-                    .css({
-                        'cursor': 'pointer'
-                    })
-                    .popup({
-                        content: message
-                    });
+                switch (type) {
+                    case 'popover':
+                        $icon
+                            .css({
+                                'cursor': 'pointer'
+                            })
+                            .popup({
+                                content: message,
+                                position: 'top center'
+                            });
+                        break;
+
+                    case 'tooltip':
+                    /* falls through */
+                    default:
+                        $icon
+                            .css({
+                                'cursor': 'pointer'
+                            })
+                            .popup({
+                                content: message,
+                                position: 'top center',
+                                variation: 'inverted'
+                            });
+                        break;
+                }
             }
         },
 
