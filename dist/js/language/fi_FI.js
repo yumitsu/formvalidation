@@ -68,7 +68,7 @@
             },
             iban: {
                 'default': 'Ole hyvä anna kelvollinen IBAN numero',
-                countryNotSupported: 'The country code %s is not supported',
+                countryNotSupported: 'Maakoodi %s ei ole tuettujen joukossa',
                 country: 'Ole hyvä anna kelvollinen IBAN numero maassa %s',
                 countries: {
                     AD: 'Andorra',
