@@ -77,9 +77,10 @@
         _createTooltip: function($field, message, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                // remove the popup if it's already exists
-                if($icon.popup('exists')) {
-                    $icon.popup('remove popup').popup('destroy');
+                // Remove the popup if it's already exists
+                if ($icon.popup('exists')) {
+                    $icon.popup('remove popup')
+                         .popup('destroy');
                 }
 
                 // http://semantic-ui.com/modules/popup.html
@@ -121,7 +122,12 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon && $icon.popup('exists')) {
-                $icon.css({'cursor': ''}).popup('remove popup').popup('destroy');
+                $icon
+                    .css({
+                        'cursor': ''
+                    })
+                    .popup('remove popup')
+                    .popup('destroy');
             }
         },
 

@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-04 9:14:40 AM
+ * @version     v0.6.0-dev, built on 2014-12-04 9:52:23 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -77,6 +77,12 @@
         _createTooltip: function($field, message, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                // Remove the popup if it's already exists
+                if ($icon.popup('exists')) {
+                    $icon.popup('remove popup')
+                         .popup('destroy');
+                }
+
                 // http://semantic-ui.com/modules/popup.html
                 switch (type) {
                     case 'popover':
@@ -115,15 +121,13 @@
          */
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
-            if ($icon) {
-                // TODO: Remove the popup from DOM
-                var popup = $icon.css({ 'cursor': '' }).data('module-popup');
-                if (popup) {
-                    popup.hide();
-                    popup.destroy();
-                }
-                $icon.popup('remove');
-                $icon.removeData('module-popup');
+            if ($icon && $icon.popup('exists')) {
+                $icon
+                    .css({
+                        'cursor': ''
+                    })
+                    .popup('remove popup')
+                    .popup('destroy');
             }
         },
 
@@ -136,10 +140,7 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var popup = $icon.data('module-popup');
-                if (popup) {
-                    popup.hide();
-                }
+                $icon.popup('hide');
             }
         },
 
@@ -152,10 +153,7 @@
         _showTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var popup = $icon.data('module-popup');
-                if (popup) {
-                    popup.show();
-                }
+                $icon.popup('show');
             }
         }
     });
