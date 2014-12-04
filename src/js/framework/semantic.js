@@ -134,10 +134,7 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var popup = $icon.data('module-popup');
-                if (popup) {
-                    popup.hide();
-                }
+                $icon.popup('hide');
             }
         },
 
@@ -150,10 +147,7 @@
         _showTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                var popup = $icon.data('module-popup');
-                if (popup) {
-                    popup.show();
-                }
+                $icon.popup('show');
             }
         }
     });
