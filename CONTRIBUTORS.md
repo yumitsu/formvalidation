@@ -112,6 +112,7 @@ I would like to give big thanks to the following contributors:
 * [@thx2001r](https://github.com/thx2001r)
 * [@tiagofontella](https://github.com/tiagofontella)
 * [@tomByrer](https://github.com/tomByrer)
+* [@traone](https://github.com/traone)
 * [@trondulseth](https://github.com/trondulseth)
 * [@troymccabe](https://github.com/troymccabe)
 * [@tsuyoshifujii](https://github.com/tsuyoshifujii)
