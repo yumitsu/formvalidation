@@ -77,6 +77,11 @@
         _createTooltip: function($field, message, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                // remove the popup if it's already exists
+                if($icon.popup('exists')) {
+                    $icon.popup('remove popup').popup('destroy');
+                }
+
                 // http://semantic-ui.com/modules/popup.html
                 switch (type) {
                     case 'popover':
@@ -115,15 +120,8 @@
          */
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
-            if ($icon) {
-                // TODO: Remove the popup from DOM
-                var popup = $icon.css({ 'cursor': '' }).data('module-popup');
-                if (popup) {
-                    popup.hide();
-                    popup.destroy();
-                }
-                $icon.popup('remove');
-                $icon.removeData('module-popup');
+            if ($icon && $icon.popup('exists')) {
+                $icon.css({'cursor': ''}).popup('remove popup').popup('destroy');
             }
         },
 
