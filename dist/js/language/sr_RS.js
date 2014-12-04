@@ -249,6 +249,7 @@
                     ES: 'Španije',
                     FR: 'Francuske',
                     GB: 'Engleske',
+                    IN: 'Индија',
                     MA: 'Maroka',
                     PK: 'Pakistana',
                     RO: 'Rumunije',

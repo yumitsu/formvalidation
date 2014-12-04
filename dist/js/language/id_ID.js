@@ -249,6 +249,7 @@
                     ES: 'Spanyol',
                     FR: 'Francis',
                     GB: 'Inggris',
+                    IN: 'India',
                     MA: 'Maroko',
                     PK: 'Pakistan',
                     RO: 'Romania',

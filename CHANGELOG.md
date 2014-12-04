@@ -17,6 +17,7 @@ __New Features__
 * [#1208](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1208): Support Spanish [CIF](http://bootstrapvalidator.com/validators/id/) validator, thanks to [@ethernet-zero](https://github.com/ethernet-zero)
 * [#1210](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1210): __Support UI Kit framework__
 * [#1211](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1211): __Support Semantic UI framework__
+* [#1227](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1227), [#1229](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1229): Add India [phone number](http://bootstrapvalidator.com/validators/phone/) validator, thanks to [@waveking](https://github.com/waveking)
 
 __Changes__
 * [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead

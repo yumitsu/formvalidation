@@ -249,6 +249,7 @@
                     ES: 'Spanyolországban',
                     FR: 'Franciaországban',
                     GB: 'az Egyesült Királyságban',
+                    IN: 'India',
                     MA: 'Marokkóban',
                     PK: 'Pakisztánban',
                     RO: 'Romániában',

@@ -249,6 +249,7 @@
                     ES: 'Tây Ban Nha',
                     FR: 'Pháp',
                     GB: 'Vương quốc Anh',
+                    IN: 'Ấn Độ',
                     MA: 'Maroc',
                     PK: 'Pakistan',
                     RO: 'Romania',

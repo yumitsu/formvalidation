@@ -13,6 +13,7 @@ describe('phone', function() {
                         '<option value="ES">Spain</option>',
                         '<option value="FR">France</option>',
                         '<option value="GB">United Kingdom</option>',
+                        '<option value="IN">India</option>',
                         '<option value="MA">Morocco</option>',
                         '<option value="PK">Pakistan</option>',
                         '<option value="RO">Romania</option>',
@@ -216,12 +217,12 @@ describe('phone', function() {
         }
     });
 
-    it('Indian phone number', function() {
+    it('India phone number', function() {
         this.fv.updateOption('phone', 'phone', 'country', 'IN');
 
         // Valid samples
         var validSamples = [
-            '9999114011','+919911112341','+91 9415007327','03598245785','+911204312280','1302231221'
+            '9999114011', '+919911112341', '+91 9415007327', '03598245785', '+911204312280', '1302231221'
         ];
         for (var i in validSamples) {
             this.fv.resetForm();

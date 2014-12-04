@@ -249,6 +249,7 @@
                     ES: 'Španielsko',
                     FR: 'Francúzsko',
                     GB: 'Veľkú Britániu',
+                    IN: 'India',
                     MA: 'Maroko',
                     PK: 'Pákistán',
                     RO: 'Rumunsko',

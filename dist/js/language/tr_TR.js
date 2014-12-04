@@ -249,6 +249,7 @@
                     ES: 'İspanya',
                     FR: 'Fransa',
                     GB: 'İngiltere',
+                    IN: 'Hindistan',
                     MA: 'Fas',
                     PK: 'Pakistan',
                     RO: 'Romanya',
