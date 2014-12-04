@@ -216,6 +216,21 @@ describe('phone', function() {
         }
     });
 
+    it('Indian phone number', function() {
+        this.fv.updateOption('phone', 'phone', 'country', 'IN');
+
+        // Valid samples
+        var validSamples = [
+            '9999114011','+919911112341','+91 9415007327','03598245785','+911204312280','1302231221'
+        ];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$phone.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+    });
+    
     it('United Kingdom phone number', function() {
         this.fv.updateOption('phone', 'phone', 'country', 'GB');
 
