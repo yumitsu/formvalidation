@@ -361,6 +361,7 @@
                     FR: 'Pháp',
                     GB: 'Vương quốc Anh',
                     IE: 'Ireland',
+                    IN: 'Ấn Độ',
                     IT: 'Ý',
                     MA: 'Maroc',
                     NL: 'Hà Lan',

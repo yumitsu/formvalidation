@@ -361,6 +361,7 @@
                     FR: 'Francuske',
                     GB: 'Engleske',
                     IE: 'Irske',
+                    IN: 'Индија',
                     IT: 'Italije',
                     MA: 'Maroka',
                     NL: 'Holandije',

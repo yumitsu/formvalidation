@@ -8452,6 +8452,7 @@ describe('zipCode', function() {
                             '<option value="FR">France</option>',
                             '<option value="GB">United Kingdom</option>',
                             '<option value="IE">Ireland</option>',
+                            '<option value="IN">India</option>',
                             '<option value="IT">Italy</option>',
                             '<option value="NL">Netherlands</option>',
                             '<option value="PT">Portugal</option>',
@@ -8786,6 +8787,28 @@ describe('zipCode', function() {
         }
     });
 
+    it('India postal code', function() {
+        this.fv.updateOption('zc', 'zipCode', 'country', 'IN');
+
+        // Valid samples
+        var validSamples = ['226024', '456001', '571 120'];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$zipCode.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+        
+        // Invalid samples
+        var invalidSamples = ['01000', '99999', '226-024', 'A226021'];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$zipCode.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
+        }
+    });
+    
     it('Switzerland postal code', function() {
         this.fv.updateOption('zc', 'zipCode', 'country', 'CH');
 

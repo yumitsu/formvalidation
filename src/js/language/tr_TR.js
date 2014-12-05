@@ -361,6 +361,7 @@
                     FR: 'Fransa',
                     GB: 'İngiltere',
                     IE: 'Irlanda',
+                    IN: 'Hindistan',
                     IT: 'İtalya',
                     MA: 'Fas',
                     NL: 'Hollanda',

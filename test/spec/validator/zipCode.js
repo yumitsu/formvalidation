@@ -364,7 +364,7 @@ describe('zipCode', function() {
         }
     });
 
- it('India postal code', function() {
+    it('India postal code', function() {
         this.fv.updateOption('zc', 'zipCode', 'country', 'IN');
 
         // Valid samples

@@ -361,6 +361,7 @@
                     FR: 'Franciaországban',
                     GB: 'az Egyesült Királyságban',
                     IE: 'Írországban',
+                    IN: 'India',
                     IT: 'Olaszországban',
                     MA: 'Marokkóban',
                     NL: 'Hollandiában',

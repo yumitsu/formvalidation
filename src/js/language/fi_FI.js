@@ -361,6 +361,7 @@
                     FR: 'Ranska',
                     GB: 'Yhdistyneet kuningaskunnat',
                     IE: 'Irlanti',
+                    IN: 'Intia',
                     IT: 'Italia',
                     MA: 'Marokko',
                     NL: 'Hollanti',

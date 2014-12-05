@@ -361,6 +361,7 @@
                     FR: 'Francii',
                     GB: 'Velkou Británii',
                     IE: 'Irsko',
+                    IN: 'Indie',
                     IT: 'Itálii',
                     MA: 'Maroko',
                     NL: 'Nizozemí',

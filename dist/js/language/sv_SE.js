@@ -361,6 +361,7 @@
                     FR: 'Frankrike',
                     GB: 'Förenade Kungariket',
                     IE: 'Irland',
+                    IN: 'Indien',
                     IT: 'Italien',
                     MA: 'Marocko',
                     NL: 'Nederländerna',

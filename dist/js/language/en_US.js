@@ -361,6 +361,7 @@
                     FR: 'France',
                     GB: 'United Kingdom',
                     IE: 'Ireland',
+                    IN: 'India',
                     IT: 'Italy',
                     MA: 'Morocco',
                     NL: 'Netherlands',

@@ -138,7 +138,7 @@
                     isValid = this._gb(value);
                     break;
 
-                // Indian PIN(Postal Index Number) validation
+                // Indian PIN (Postal Index Number) validation
                 // http://en.wikipedia.org/wiki/Postal_Index_Number
                 // Test: http://regex101.com/r/kV0vH3/1
                 case 'IN':
