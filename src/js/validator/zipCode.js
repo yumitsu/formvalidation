@@ -25,6 +25,7 @@
                     FR: 'France',
                     GB: 'United Kingdom',
                     IE: 'Ireland',
+                    IN: 'India',
                     IT: 'Italy',
                     MA: 'Morocco',
                     NL: 'Netherlands',
@@ -46,7 +47,7 @@
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -135,6 +136,13 @@
 
                 case 'GB':
                     isValid = this._gb(value);
+                    break;
+
+                // Indian PIN(Postal Index Number) validation
+                // http://en.wikipedia.org/wiki/Postal_Index_Number
+                // Test: http://regex101.com/r/kV0vH3/1
+                case 'IN':
+                    isValid = /^\d{3}\s?\d{3}$/.test(value);
                     break;
 
                 // http://www.eircode.ie/docs/default-source/Common/prepare-your-business-for-eircode---published-v2.pdf?sfvrsn=2
