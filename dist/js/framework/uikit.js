@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-05 8:45:49 AM
+ * @version     v0.6.0-dev, built on 2014-12-05 11:57:55 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -73,12 +73,21 @@
         _createTooltip: function($field, message, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                // Remove the tooltip if it's already exists
+                if ($icon.data('tooltip')) {
+                    $icon.data('tooltip').off();
+                    $icon.removeData('tooltip');
+                }
+
                 $icon
                     .attr('title', message)
                     .css({
                         'cursor': 'pointer'
-                    })
-                    .data('fv.uikit.tooltip', new $.UIkit.tooltip($icon));
+                    });
+
+                new $.UIkit.tooltip($icon);
+                // UIKit auto set the 'tooltip' data for the element
+                // so I can retrieve the tooltip later via $icon.data('tooltip')
             }
         },
 
@@ -91,15 +100,16 @@
         _destroyTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
+                var tooltip = $icon.data('tooltip');
+                if (tooltip) {
+                    tooltip.hide();
+                    tooltip.off();
+                    $icon.off('focus mouseenter')
+                         .removeData('tooltip');
+                }
                 $icon.css({
                     'cursor': ''
                 });
-                var tooltip = $icon.data('fv.uikit.tooltip');
-                if (tooltip) {
-                    tooltip.hide();
-                    $icon.off('focus mouseenter')
-                         .removeData('fv.uikit.tooltip');
-                }
             }
         },
 
@@ -112,13 +122,13 @@
         _hideTooltip: function($field, type) {
             var $icon = $field.data('fv.icon');
             if ($icon) {
-                $icon.css({
-                    'cursor': ''
-                });
-                var tooltip = $icon.data('fv.uikit.tooltip');
+                var tooltip = $icon.data('tooltip');
                 if (tooltip) {
                     tooltip.hide();
                 }
+                $icon.css({
+                    'cursor': ''
+                });
             }
         },
 
@@ -134,7 +144,7 @@
                 $icon.css({
                     'cursor': 'pointer'
                 });
-                var tooltip = $icon.data('fv.uikit.tooltip');
+                var tooltip = $icon.data('tooltip');
                 if (tooltip) {
                     tooltip.show();
                 }
