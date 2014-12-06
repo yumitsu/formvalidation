@@ -15,7 +15,7 @@
         options = $.extend(true, {
             button: {
                 // The class for disabled button
-                // http://foundation.zurb.com/docs/components/buttons.html
+                // http://getuikit.com/docs/button.html
                 disabled: 'disabled'
             },
             control: {
