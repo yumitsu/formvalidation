@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-05 11:57:55 PM
+ * @version     v0.6.0-dev, built on 2014-12-06 9:01:41 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -15,7 +15,7 @@
         options = $.extend(true, {
             button: {
                 // The class for disabled button
-                // http://foundation.zurb.com/docs/components/buttons.html
+                // http://getuikit.com/docs/button.html
                 disabled: 'disabled'
             },
             control: {

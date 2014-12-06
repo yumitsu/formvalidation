@@ -43,6 +43,7 @@ __Improvements__
 * [#1218](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1218): Improve Slovenian [vat number](http://bootstrapvalidator.com/validators/vat/) validator, thanks to [@Glavic](https://github.com/Glavic)
 * [#1224](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1224): Improve tooltip style when working with Semantic UI form, thanks to [@Arkni](https://github.com/Arkni)
 * [#1226](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1226): Fix destroying Semantic UI popup, thanks to [@Arkni](https://github.com/Arkni)
+* [#1239](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1239): Fix typo in UIKit class, thanks to [@Arkni](https://github.com/Arkni)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
