@@ -87,7 +87,7 @@
             // The feedback icon does not render correctly if there is no label
             // https://github.com/twbs/bootstrap/issues/12873
             if ($parent.find('label').length === 0) {
-                $icon.addClass('fv-bootstrap-no-label');
+                $icon.addClass('fv-bootstrap-icon-no-label');
             }
             // Fix feedback icons in input-group
             if ($parent.find('.input-group').length !== 0) {

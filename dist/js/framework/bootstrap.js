@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-06 9:01:41 AM
+ * @version     v0.6.0-dev, built on 2014-12-06 6:18:14 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -87,7 +87,7 @@
             // The feedback icon does not render correctly if there is no label
             // https://github.com/twbs/bootstrap/issues/12873
             if ($parent.find('label').length === 0) {
-                $icon.addClass('fv-bootstrap-no-label');
+                $icon.addClass('fv-bootstrap-icon-no-label');
             }
             // Fix feedback icons in input-group
             if ($parent.find('.input-group').length !== 0) {
