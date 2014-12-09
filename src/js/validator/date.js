@@ -308,11 +308,13 @@
          * @returns {String}
          */
         _dateFormat: function(date, format) {
-            format = format.replace(/Y/g, "y")      // Replace the Y in year to lowercase
-                           .replace(/M/g, "m")      // Replace the M in month to lowercase
-                           .replace(/D/g, "d")      // Replace the D in day to lowercase
-                           .replace(/:m/g, ":M")    // replace the month character with a UpperCase one
-                           .replace(/:mm/g, ":MM"); // See description
+            format = format.replace(/Y/g, "y")      // Replace the Y in year with LowerCase one
+                           .replace(/M/g, "m")      // Replace the M in month with LowerCase one
+                           .replace(/D/g, "d")      // Replace the D in day with LowerCase one
+                           .replace(/:m/g, ":M")    // Replace the minute character with UpperCase one
+                           .replace(/:mm/g, ":MM")
+                           .replace(/:S/, ":s")     // Replace the second character with LowerCase one
+                           .replace(/:SS/, ":ss");
 
             var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMs])\1?|"[^"]*"|'[^']*'/g,
                 pad = function (val, len) {
