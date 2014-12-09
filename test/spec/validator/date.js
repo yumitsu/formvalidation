@@ -845,4 +845,133 @@ describe('date', function() {
         this.fv.validate();
         expect(this.fv.isValidField('maxDate')).toBeFalsy();
     });
+
+    // Using a Date object as value for the min or the max option
+    // min
+    it('min using a date object', function() {
+        this.$minDate.removeAttr('data-fv-date-min');
+        this.fv.destroy();
+        this.fv = $('#dateForm')
+            .formValidation({
+                fields: {
+                    minDate: {
+                        validators: {
+                            date: {
+                                min:  new Date()
+                            }
+                        }
+                    }
+                }
+            })
+            .data('formValidation');
+        this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
+
+        this.$minDate.val('2018/09/09');
+        this.fv.validate();
+        expect(this.fv.isValidField('minDate')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$minDate.val('2019/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('minDate')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$minDate.val('2011/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('minDate')).toBeFalsy();
+    });
+
+    it('min using a date object: callback programmatically', function() {
+        this.$minDate.removeAttr('data-fv-date-min');
+        this.fv.destroy();
+        this.fv = $('#dateForm')
+            .formValidation({
+                fields: {
+                    minDate: {
+                        validators: {
+                            date: {
+                                min: function(value, validator, $field) {
+                                    return new Date();
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .data('formValidation');
+        this.fv.updateOption('minDate', 'date', 'format', 'YYYY/MM/DD');
+
+        this.$minDate.val('2018/09/09');
+        this.fv.validate();
+        expect(this.fv.isValidField('minDate')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$minDate.val('2019/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('minDate')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$minDate.val('2011/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('minDate')).toBeFalsy();
+    });
+
+    // max
+    it('max using a date object', function() {
+        this.$maxDate.removeAttr('data-fv-date-max');
+        this.fv.destroy();
+        this.fv = $('#dateForm')
+            .formValidation({
+                fields: {
+                    maxDate: {
+                        validators: {
+                            date: {
+                                max:  new Date()
+                            }
+                        }
+                    }
+                }
+            })
+            .data('formValidation');
+        this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
+
+        this.$maxDate.val('2014/09/09');
+        this.fv.validate();
+        expect(this.fv.isValidField('maxDate')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$maxDate.val('2014/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('maxDate')).toBeTruthy();
+    });
+
+    it('max using a date object: callback programmatically 1', function() {
+        this.$maxDate.removeAttr('data-fv-date-max');
+        this.fv.destroy();
+        this.fv = $('#dateForm')
+            .formValidation({
+                fields: {
+                    maxDate: {
+                        validators: {
+                            date: {
+                                max: function(value, validator, $field) {
+                                    return new Date();
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .data('formValidation');
+        this.fv.updateOption('maxDate', 'date', 'format', 'YYYY/MM/DD');
+
+        this.$maxDate.val('2014/09/09');
+        this.fv.validate();
+        expect(this.fv.isValidField('maxDate')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$maxDate.val('2014/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('maxDate')).toBeTruthy();
+    });
 });

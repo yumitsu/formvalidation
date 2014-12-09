@@ -198,17 +198,23 @@
                 if (isNaN(Date.parse(minOption))) {
                     minOption = validator.getDynamicOption($field, minOption);
                 }
-                min = this._parseDate(minOption, dateFormat, separator);
+                min = minOption instanceof Date ? minOption : this._parseDate(minOption, dateFormat, separator);
+
+                // In order to avoid displaying a date string like "Mon Dec 08 2014 19:14:12 GMT+0000 (WET)"
+                minOption = minOption instanceof Date ? this._dateFormat(minOption, options.format) : minOption;
             }
 
             if (maxOption) {
                 if (isNaN(Date.parse(maxOption))) {
                     maxOption = validator.getDynamicOption($field, maxOption);
                 }
-                max = this._parseDate(maxOption, dateFormat, separator);
+                max = maxOption instanceof Date ? maxOption : this._parseDate(maxOption, dateFormat, separator);
+
+                // In order to avoid displaying a date string like "Mon Dec 08 2014 19:14:12 GMT+0000 (WET)"
+                maxOption = maxOption instanceof Date ? this._dateFormat(maxOption, options.format) : maxOption;
             }
 
-            date = new Date(year, month, day, hours, minutes, seconds);
+            date = new Date(year, month -1, day, hours, minutes, seconds);
 
             switch (true) {
                 case (minOption && !maxOption && valid):
@@ -265,7 +271,92 @@
                 seconds     = timeSection.length > 2 ? timeSection[2] : null;
             }
 
-            return new Date(year, month, day, hours, minutes, seconds);
+            return new Date(year, month -1, day, hours, minutes, seconds);
+        },
+
+        /**
+         * This function is based on the dateFormat function from the Date Format 1.2.3
+         * Credit to (c) 2007-2009 Steven Levithan <stevenlevithan.com>
+         * MIT license
+         * see http://blog.stevenlevithan.com/archives/date-time-format for the complete lib
+         *
+         * Return the date string formatted following the mask provided as param
+         *
+         * @param {Date} date      The date object to format
+         * @param {String} format  The date format
+         * The format can be:
+         *   - date: Consist of DD, MM, YYYY parts which are separated by the separator option
+         *   - date and time:
+         *     The time can consist of h/hh/H/HH, M/MM, s/ss parts which are separated by :
+         * with
+         *      d	   Day of the month as digits; no leading zero for single-digit days.
+         *      dd	   Day of the month as digits; leading zero for single-digit days.
+         *      m	   Month as digits; no leading zero for single-digit months.
+         *      mm	   Month as digits; leading zero for single-digit months.
+         *      yy	   Year as last two digits; leading zero for years less than 10.
+         *      yyyy   Year represented by four digits.
+         *      h	   Hours; no leading zero for single-digit hours (12-hour clock).
+         *      hh	   Hours; leading zero for single-digit hours (12-hour clock).
+         *      H	   Hours; no leading zero for single-digit hours (24-hour clock).
+         *      HH	   Hours; leading zero for single-digit hours (24-hour clock).
+         *      M	   Minutes; no leading zero for single-digit minutes.
+         *             Uppercase M unlike CF timeFormat's m to avoid conflict with months.
+         *      MM	   Minutes; leading zero for single-digit minutes.
+         *             Uppercase MM unlike CF timeFormat's mm to avoid conflict with months.
+         *      s	   Seconds; no leading zero for single-digit seconds.
+         *      ss	   Seconds; leading zero for single-digit seconds.
+         * @returns {String}
+         */
+        _dateFormat: function(date, format) {
+            format = format.replace(/Y/g, "y")      // Replace the Y in year to lowercase
+                           .replace(/M/g, "m")      // Replace the M in month to lowercase
+                           .replace(/D/g, "d")      // Replace the D in day to lowercase
+                           .replace(/:m/g, ":M")    // replace the month character with a UpperCase one
+                           .replace(/:mm/g, ":MM"); // See description
+
+            var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMs])\1?|"[^"]*"|'[^']*'/g,
+                pad = function (val, len) {
+                    val = String(val);
+                    len = len || 2;
+                    while (val.length < len)
+                        val = "0" + val;
+                    return val;
+                };
+
+            // Passing date through Date applies Date.parse, if necessary
+            date = date ? new Date(date) : new Date;
+
+            if (isNaN(date))
+                throw new SyntaxError("invalid date");
+
+            format = String(format);
+
+            var	d = date["getDate"](),
+                m = date["getMonth"](),
+                y = date["getFullYear"](),
+                H = date["getHours"](),
+                M = date["getMinutes"](),
+                s = date["getSeconds"](),
+                flags = {
+                    d:    d,
+                    dd:   pad(d),
+                    m:    m + 1,
+                    mm:   pad(m + 1),
+                    yy:   String(y).slice(2),
+                    yyyy: y,
+                    h:    H % 12 || 12,
+                    hh:   pad(H % 12 || 12),
+                    H:    H,
+                    HH:   pad(H),
+                    M:    M,
+                    MM:   pad(M),
+                    s:    s,
+                    ss:   pad(s)
+                };
+
+            return format.replace(token, function ($0) {
+                return $0 in flags ? flags[$0] : $0.slice(1, $0.length - 1);
+            });
         }
     };
 }(jQuery));
