@@ -974,4 +974,69 @@ describe('date', function() {
         this.fv.validate();
         expect(this.fv.isValidField('maxDate')).toBeTruthy();
     });
+
+    // Rang
+    it('range using a date object: callback programmatically 1', function() {
+        this.$range.removeAttr('data-fv-date-min');
+        this.$range.removeAttr('data-fv-date-max');
+        this.fv.destroy();
+        this.fv = $('#dateForm')
+            .formValidation({
+                fields: {
+                    range: {
+                        validators: {
+                            date: {
+                                min: new Date(),
+                                max: new Date(2015, 11, 31, 0, 0, 0, 0)
+                            }
+                        }
+                    }
+                }
+            })
+            .data('formValidation');
+        this.fv.updateOption('range', 'date', 'format', 'YYYY/MM/DD');
+
+        this.$range.val('2015/09/09');
+        this.fv.validate();
+        expect(this.fv.isValidField('range')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$range.val('2015/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('range')).toBeTruthy();
+    });
+
+    it('range using a date object: callback programmatically 1', function() {
+        this.$range.removeAttr('data-fv-date-min');
+        this.$range.removeAttr('data-fv-date-max');
+        this.fv.destroy();
+        this.fv = $('#dateForm')
+            .formValidation({
+                fields: {
+                    range: {
+                        validators: {
+                            date: {
+                                min: function(value, validator, $field) {
+                                        return new Date();
+                                },
+                                max: function(value, validator, $field) {
+                                        return new Date(2015, 11, 31, 0, 0, 0, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+            .data('formValidation');
+        this.fv.updateOption('range', 'date', 'format', 'YYYY/MM/DD');
+
+        this.$range.val('2015/09/09');
+        this.fv.validate();
+        expect(this.fv.isValidField('range')).toBeTruthy();
+
+        this.fv.resetForm();
+        this.$range.val('2015/08/17');
+        this.fv.validate();
+        expect(this.fv.isValidField('range')).toBeTruthy();
+    });
 });
