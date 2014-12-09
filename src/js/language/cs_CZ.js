@@ -288,7 +288,7 @@
             stringLength: {
                 'default': 'Toto pole nesmí být prázdné',
                 less: 'Prosím zadejte hodnotu menší než %s znaků',
-                more: 'Prosím zadejte hodnotu delší %s znaků',
+                more: 'Prosím zadejte hodnotu %s znaků a delší',
                 between: 'Prosím zadejte hodnotu mezi %s a %s znaky'
             },
             uri: {
