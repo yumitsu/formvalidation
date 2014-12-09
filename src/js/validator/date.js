@@ -280,7 +280,7 @@
          * MIT license
          * see http://blog.stevenlevithan.com/archives/date-time-format for the complete lib
          *
-         * Return the date string formatted following the mask provided as param
+         * Return the date string formatted following the format provided as param
          *
          * @param {Date} date      The date object to format
          * @param {String} format  The date format
