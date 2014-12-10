@@ -63,9 +63,12 @@ __Document__
 * [#1106](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1106): Add example to the [phone](http://bootstrapvalidator.com/validators/phone/) validator
 * [#1122](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1122): Add third parameter to ```callback``` method of [callback](http://bootstrapvalidator.com/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
 * [#1128](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1128): Add link to the [Examples](http://bootstrapvalidator.com/examples/) from the [homepage](http://bootstrapvalidator.com/#2)
+* [#1139](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1139): Add sample [United Arab Emirates phone numbers](http://bootstrapvalidator.com/validators/phone/), thanks to @s-a-y
 * [#1143](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1143), [#1176](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1176): Add [Form is submitted twice](http://bootstrapvalidator.com/examples/form-submit-twice/) example
 * [#1172](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1172): Add [Requiring at least one field](http://bootstrapvalidator.com/examples/requiring-at-least-one-field/) example
 * [#1174](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1174): Add [Pickadate](http://bootstrapvalidator.com/examples/pickadate/) example
+* [#1187](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1187): Add sample [Brazil ID (CPF) numbers](http://bootstrapvalidator.com/validators/id/), thanks to @igorescobar
+* [#1233](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1233): Add sample [India postal code numbers](http://bootstrapvalidator.com/validators/zipCode/), thanks to @waveking
 
 __Language Packages__
 * [#1150](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1150): Add Catalan language package, thanks to [@ArnauAregall](https://github.com/ArnauAregall)
