@@ -846,7 +846,7 @@ describe('date', function() {
         expect(this.fv.isValidField('maxDate')).toBeFalsy();
     });
 
-    // Using a Date object as value for the min or the max option
+    // #1258: Using a Date object as value for the min or the max option
     // min
     it('min using a date object', function() {
         this.$minDate.removeAttr('data-fv-date-min');
@@ -857,7 +857,7 @@ describe('date', function() {
                     minDate: {
                         validators: {
                             date: {
-                                min:  new Date()
+                                min: new Date()
                             }
                         }
                     }
@@ -945,7 +945,7 @@ describe('date', function() {
         expect(this.fv.isValidField('maxDate')).toBeTruthy();
     });
 
-    it('max using a date object: callback programmatically 1', function() {
+    it('max using a date object: callback programmatically', function() {
         this.$maxDate.removeAttr('data-fv-date-max');
         this.fv.destroy();
         this.fv = $('#dateForm')
@@ -975,8 +975,8 @@ describe('date', function() {
         expect(this.fv.isValidField('maxDate')).toBeTruthy();
     });
 
-    // Rang
-    it('range using a date object: callback programmatically 1', function() {
+    // Range
+    it('range using a date object', function() {
         this.$range.removeAttr('data-fv-date-min');
         this.$range.removeAttr('data-fv-date-max');
         this.fv.destroy();
@@ -1006,7 +1006,7 @@ describe('date', function() {
         expect(this.fv.isValidField('range')).toBeTruthy();
     });
 
-    it('range using a date object: callback programmatically 1', function() {
+    it('range using a date object: callback programmatically', function() {
         this.$range.removeAttr('data-fv-date-min');
         this.$range.removeAttr('data-fv-date-max');
         this.fv.destroy();
@@ -1017,10 +1017,10 @@ describe('date', function() {
                         validators: {
                             date: {
                                 min: function(value, validator, $field) {
-                                        return new Date();
+                                    return new Date();
                                 },
                                 max: function(value, validator, $field) {
-                                        return new Date(2015, 11, 31, 0, 0, 0, 0);
+                                    return new Date(2015, 11, 31, 0, 0, 0, 0);
                                 }
                             }
                         }

@@ -44,6 +44,7 @@ __Improvements__
 * [#1224](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1224): Improve tooltip style when working with Semantic UI form, thanks to [@Arkni](https://github.com/Arkni)
 * [#1226](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1226): Fix destroying Semantic UI popup, thanks to [@Arkni](https://github.com/Arkni)
 * [#1239](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1239): Fix typo in UIKit class, thanks to [@Arkni](https://github.com/Arkni)
+* [#1255](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1255), [#1258](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1258): Support to use a Date object as value for ```min``` and ```max``` options, thanks to [@Arkni](https://github.com/Arkni)
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work
