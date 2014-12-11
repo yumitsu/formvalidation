@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-11 11:35:54 AM
+ * @version     v0.6.0-dev, built on 2014-12-11 4:59:25 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -7412,9 +7412,9 @@ if (typeof jQuery === 'undefined') {
                     "(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))" +
                     "|" +
                     // host name
-                    "(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)" +
+                    "(?:(?:[a-z\\u00a1-\\uffff0-9]-?)*[a-z\\u00a1-\\uffff0-9]+)" +
                     // domain name
-                    "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*" +
+                    "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-?)*[a-z\\u00a1-\\uffff0-9])*" +
                     // TLD identifier
                     "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))" +
                     // Allow intranet sites (no TLD) if `allowLocal` is true
@@ -7425,7 +7425,7 @@ if (typeof jQuery === 'undefined') {
                     // resource path
                     "(?:/[^\\s]*)?" +
                     "$", "i"
-            );
+                );
 
             return urlExp.test(value);
         }
