@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-11 4:59:25 PM
+ * @version     v0.6.0-dev, built on 2014-12-11 5:41:46 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -3037,6 +3037,41 @@ if (typeof jQuery === 'undefined') {
         html5Attributes: {
             message: 'message',
             ccfield: 'creditCardField'
+        },
+
+        /**
+         * Bind the validator on the live change of the credit card field
+         *
+         * @param {FormValidation.Base} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - creditCardField: The credit card number field
+         */
+        init: function(validator, $field, options) {
+            if (options.creditCardField) {
+                var creditCardField = validator.getFieldElements(options.creditCardField);
+                validator.onLiveChange(creditCardField, 'live_cvv', function() {
+                    var status = validator.getStatus($field, 'cvv');
+                    if (status !== validator.STATUS_NOT_VALIDATED) {
+                        validator.revalidateField($field);
+                    }
+                });
+            }
+        },
+
+        /**
+         * Unbind the validator on the live change of the credit card field
+         *
+         * @param {FormValidation.Base} validator The validator plugin instance
+         * @param {jQuery} $field Field element
+         * @param {Object} options Consists of the following key:
+         * - creditCardField: The credit card number field
+         */
+        destroy: function(validator, $field, options) {
+            if (options.creditCardField) {
+                var creditCardField = validator.getFieldElements(options.creditCardField);
+                validator.offLiveChange(creditCardField, 'live_cvv');
+            }
         },
 
         /**
