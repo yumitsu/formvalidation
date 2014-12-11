@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-10 6:29:46 PM
+ * @version     v0.6.0-dev, built on 2014-12-11 11:35:54 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -341,8 +341,6 @@ if (typeof jQuery === 'undefined') {
                 delete this.options.submitButtons;
             }
 
-            //console.log(this.options.events);
-
             // If the locale is not found, reset it to default one
             if (!FormValidation.I18n[this.options.locale]) {
                 this.options.locale = FormValidation.DEFAULT_OPTIONS.locale;
@@ -660,7 +658,7 @@ if (typeof jQuery === 'undefined') {
             var type  = $field.attr('type'),
                 name  = $field.attr('data-' + ns + '-field'),
                 event = ('radio' === type || 'checkbox' === type || 'file' === type || 'SELECT' === $field.get(0).tagName) ? 'change' : this._changeEvent;
-            trigger   = (this.options.fields[name].trigger || this.options.trigger || event).split(' ');
+            trigger   = ((this.options.fields[name] ? this.options.fields[name].trigger : null) || this.options.trigger || event).split(' ');
 
             // Since the trigger data is used many times, I need to cache it to use later
             $field.data(ns + '.trigger', trigger);
@@ -1136,6 +1134,10 @@ if (typeof jQuery === 'undefined') {
                 field  = $field.attr('data-' + ns + '-field');
             }
 
+            if (!field || !this.options.fields[field]) {
+                return $field.val();
+            }
+
             var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
                                 ? this.options.fields[field].validators[validatorName].transformer : null)
                                 || this.options.fields[field].transformer;
@@ -1430,6 +1432,10 @@ if (typeof jQuery === 'undefined') {
                     break;
                 default:
                     break;
+            }
+
+            if (!field || !this.options.fields[field]) {
+                return this;
             }
 
             if (status === this.STATUS_NOT_VALIDATED) {

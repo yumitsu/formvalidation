@@ -52,6 +52,7 @@ __Bug Fixes__
 * [#1105](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1105): The [color](http://bootstrapvalidator.com/validators/color/) validator doesn't provide ```html5Attributes``` mapping
 * [#1125](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1125), [#1136](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1136): Update Brazil [ID](http://bootstrapvalidator.com/validators/id/) validator to support working with Mask plugin, thanks to [@jonasesteves](https://github.com/jonasesteves)
 * [#1243](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1243): Fix the icon without label class
+* [#1267](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1267): [identical](http://bootstrapvalidator.com/validators/identical/) validator allows to compare with any input
 
 __Document__
 * [#800](https://github.com/nghuuphuoc/bootstrapvalidator/issues/800): Add [Using uri and regexp validators](http://bootstrapvalidator.com/validators/uri/#using-with-regexp-validator) example
