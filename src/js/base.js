@@ -2210,7 +2210,7 @@ if (typeof jQuery === 'undefined') {
             });
 
             for (var field in map) {
-                this.validateField(field);
+                this.validateField(map[field]);
             }
 
             return this;
