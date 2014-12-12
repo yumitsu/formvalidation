@@ -153,7 +153,7 @@ describe('verbose option', function() {
     });
 
     // #1055
-    it('trigger "error.field.fv" event', function() {
+    it('trigger "err.field.fv" event', function() {
         var validators = [],    // Array of not passed validators
             bv         = $('#verboseForm')
                             .attr('data-fv-verbose', 'true')
@@ -166,7 +166,7 @@ describe('verbose option', function() {
                                     }
                                 }
                             })
-                            .on('error.field.fv', function(e, data) {
+                            .on('err.field.fv', function(e, data) {
                                 validators.push(data.validator);
                             })
                             .data('formValidation'),

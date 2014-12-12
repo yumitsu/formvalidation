@@ -41,16 +41,16 @@ if (typeof jQuery === 'undefined') {
         events: {
             // Support backward
             formInit: 'init.form.fv',
-            formError: 'error.form.fv',
+            formError: 'err.form.fv',
             formSuccess: 'success.form.fv',
             fieldAdded: 'added.field.fv',
             fieldRemoved: 'removed.field.fv',
             fieldInit: 'init.field.fv',
-            fieldError: 'error.field.fv',
+            fieldError: 'err.field.fv',
             fieldSuccess: 'success.field.fv',
             fieldStatus: 'status.field.fv',
             localeChanged: 'changed.locale.fv',
-            validatorError: 'error.validator.fv',
+            validatorError: 'err.validator.fv',
             validatorSuccess: 'success.validator.fv'
         },
 
