@@ -55,6 +55,7 @@ __Bug Fixes__
 * [#1125](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1125), [#1136](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1136): Update Brazil [ID](http://bootstrapvalidator.com/validators/id/) validator to support working with Mask plugin, thanks to [@jonasesteves](https://github.com/jonasesteves)
 * [#1243](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1243): Fix the icon without label class
 * [#1267](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1267): [identical](http://bootstrapvalidator.com/validators/identical/) validator allows to compare with any input
+* [#1274](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1274): Fix ```validateContainer()``` to use map value instead of key, thanks to [@jasonblalock](https://github.com/jasonblalock)
 
 __Document__
 * [#800](https://github.com/nghuuphuoc/bootstrapvalidator/issues/800): Add [Using uri and regexp validators](http://bootstrapvalidator.com/validators/uri/#using-with-regexp-validator) example
