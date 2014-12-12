@@ -120,7 +120,7 @@
                     }
                 }
             })
-            .on('error.field.fv', function(e, data) {
+            .on('err.field.fv', function(e, data) {
                 console.log(data.field, data.element, '-->error');
             })
             .on('success.field.fv', function(e, data) {

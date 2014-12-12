@@ -270,8 +270,8 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('error.form.fv', function(e) {
-            console.log('error.form.fv');
+        .on('err.form.fv', function(e) {
+            console.log('err.form.fv');
 
             // You can get the form instance and then access API
             var $form = $(e.target);
@@ -286,8 +286,8 @@ $(document).ready(function() {
             // If you want to prevent the default handler (formValidation._onSuccess(e))
             // e.preventDefault();
         })
-        .on('error.field.fv', function(e, data) {
-            console.log('error.field.fv -->', data);
+        .on('err.field.fv', function(e, data) {
+            console.log('err.field.fv -->', data);
         })
         .on('success.field.fv', function(e, data) {
             console.log('success.field.fv -->', data);

@@ -71,7 +71,7 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('error.field.fv', function(e, data) {
+        .on('err.field.fv', function(e, data) {
             if (data.field == 'postalCode') {
                 // The postal code is not valid
                 $('#lookupBtn').prop('disabled', true).removeClass('btn-success btn-warning').addClass('btn-warning');

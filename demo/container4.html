@@ -160,7 +160,7 @@ $(document).ready(function() {
                 }
             }
         })
-        .on('error.field.fv', function(e, data) {
+        .on('err.field.fv', function(e, data) {
             var messages = data.fv.getMessages(data.field);
             $('#errors').find('li[data-fv-for="' + data.field + '"]').remove();
             for (var i in messages) {
