@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-12 12:23:13 PM
+ * @version     v0.6.0-dev, built on 2014-12-13 7:55:37 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -1517,15 +1517,17 @@ if (typeof jQuery === 'undefined') {
                         // If the field is valid (passes all validators)
                         isValidField = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
                                      ? ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
-                                     : null;                                                                                            // There are some validators that have not done
+                                     : null;                                                                                                    // There are some validators that have not done
+
                         $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
                         if (isValidField !== null) {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
                             $field.addClass(isValidField ? this.options.control.valid : this.options.control.invalid);
                             if ($icon) {
+                                var isValidating = ($allErrors.filter('[data-bv-result="' + this.STATUS_VALIDATING +'"]').length > 0);
                                 $icon
                                     .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
-                                    .addClass(isValidField ? this.options.icon.valid : this.options.icon.invalid)
+                                    .addClass(isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid))
                                     .show();
                             }
                         }

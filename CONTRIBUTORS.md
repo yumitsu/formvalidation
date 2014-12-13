@@ -109,6 +109,7 @@ I would like to give big thanks to the following contributors:
 * [@stepin](https://github.com/stepin)
 * [@sventech](https://github.com/sventech)
 * [@talberti](https://github.com/talberti)
+* [@tmaly1980](https://github.com/tmaly1980)
 * [@thisisclement](https://github.com/thisisclement)
 * [@thomaslhotta](https://github.com/thomaslhotta)
 * [@thx2001r](https://github.com/thx2001r)
