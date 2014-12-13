@@ -1518,6 +1518,8 @@ if (typeof jQuery === 'undefined') {
                         isValidField = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
                                      ? ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
                                      : null;                                                                                            // There are some validators that have not done
+                        isValidating = ($allErrors.filter('[data-bv-result="' + this.STATUS_VALIDATING +'"]').length > 0);
+
                         $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
                         if (isValidField !== null) {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
@@ -1525,7 +1527,7 @@ if (typeof jQuery === 'undefined') {
                             if ($icon) {
                                 $icon
                                     .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
-                                    .addClass(isValidField ? this.options.icon.valid : this.options.icon.invalid)
+                                    .addClass(isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid))
                                     .show();
                             }
                         }
