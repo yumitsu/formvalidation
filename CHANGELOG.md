@@ -45,6 +45,7 @@ __Improvements__
 * [#1224](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1224): Improve tooltip style when working with Semantic UI form, thanks to [@Arkni](https://github.com/Arkni)
 * [#1226](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1226): Fix destroying Semantic UI popup, thanks to [@Arkni](https://github.com/Arkni)
 * [#1239](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1239): Fix typo in UIKit class, thanks to [@Arkni](https://github.com/Arkni)
+* [#1252](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1252): Validators return true for not supported countries
 * [#1255](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1255), [#1258](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1258): Support to use a Date object as value for ```min``` and ```max``` options, thanks to [@Arkni](https://github.com/Arkni)
 * [#1261](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1261): Improve [cvv](http://bootstrapvalidator.com/validators/cvv/) validator
 * [#1268](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1268): [uri](http://bootstrapvalidator.com/validators/uri/) validator gets slower if more than 25 characters

@@ -11,7 +11,6 @@
         'en_US': {
             vat: {
                 'default': 'Please enter a valid VAT number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid VAT number in %s',
                 countries: {
                     AT: 'Austria',
@@ -99,10 +98,7 @@
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return {
-                    valid: false,
-                    message: FormValidation.Helper.format(FormValidation.I18n[locale].vat.countryNotSupported, country)
-                };
+                return true;
             }
 
             var method  = ['_', country.toLowerCase()].join('');

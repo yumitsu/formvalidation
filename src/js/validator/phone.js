@@ -11,7 +11,6 @@
         'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid phone number in %s',
                 countries: {
                     AE: 'United Arab Emirates',
@@ -76,10 +75,7 @@
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return {
-                    valid: false,
-                    message: FormValidation.Helper.format(FormValidation.I18n[locale].phone.countryNotSupported, country)
-                };
+                return true;
             }
 
             var isValid = true;

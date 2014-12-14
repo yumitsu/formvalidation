@@ -195,8 +195,7 @@ describe('zipCode', function() {
         this.fv.resetForm();
         this.$zipCode.val('1234');
         this.fv.validate();
-        expect(this.fv.isValid()).toEqual(false);
-        expect(this.fv.getMessages(this.$zipCode, 'zipCode')[0]).toEqual(FormValidation.Helper.format(FormValidation.I18n[this.fv.getLocale()].zipCode.countryNotSupported, 'NOT_SUPPORTED'));
+        expect(this.fv.isValid()).toBeTruthy();
     });
 
     it('US zipcode', function() {

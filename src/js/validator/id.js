@@ -11,7 +11,6 @@
         'en_US': {
             id: {
                 'default': 'Please enter a valid identification number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid identification number in %s',
                 countries: {
                     BA: 'Bosnia and Herzegovina',
@@ -89,7 +88,7 @@
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: FormValidation.Helper.format(FormValidation.I18n[locale].id.countryNotSupported, country) };
+                return true;
             }
 
             var method  = ['_', country.toLowerCase()].join('');

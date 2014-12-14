@@ -11,7 +11,6 @@
         'en_US': {
             zipCode: {
                 'default': 'Please enter a valid postal code',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid postal code in %s',
                 countries: {
                     AT: 'Austria',
@@ -86,7 +85,7 @@
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: FormValidation.Helper.format(FormValidation.I18n[locale].zipCode.countryNotSupported, country) };
+                return true;
             }
 
             var isValid = false;

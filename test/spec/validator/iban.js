@@ -104,7 +104,7 @@ describe('iban', function() {
     it('not supported country', function() {
         this.$iban.val('US123456789');
         this.fv.validate();
-        expect(this.fv.isValidField('iban')).toEqual(false);
+        expect(this.fv.isValidField('iban')).toBeTruthy();
     });
 
     it('dynamic country', function() {

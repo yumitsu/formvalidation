@@ -11,7 +11,6 @@
         'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid IBAN number in %s',
                 countries: {
                     AD: 'Andorra',
@@ -221,10 +220,7 @@
 
             var locale = validator.getLocale();
             if (!this.REGEX[country]) {
-                return {
-                    valid: false,
-                    message: FormValidation.Helper.format(FormValidation.I18n[locale].iban.countryNotSupported, country)
-                };
+                return true;
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {

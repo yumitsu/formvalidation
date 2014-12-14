@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-13 7:55:37 PM
+ * @version     v0.6.0-dev, built on 2014-12-14 1:08:17 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -4096,7 +4096,6 @@ if (typeof jQuery === 'undefined') {
         'en_US': {
             iban: {
                 'default': 'Please enter a valid IBAN number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid IBAN number in %s',
                 countries: {
                     AD: 'Andorra',
@@ -4306,10 +4305,7 @@ if (typeof jQuery === 'undefined') {
 
             var locale = validator.getLocale();
             if (!this.REGEX[country]) {
-                return {
-                    valid: false,
-                    message: FormValidation.Helper.format(FormValidation.I18n[locale].iban.countryNotSupported, country)
-                };
+                return true;
             }
 
             if (!(new RegExp('^' + this.REGEX[country] + '$')).test(value)) {
@@ -4347,7 +4343,6 @@ if (typeof jQuery === 'undefined') {
         'en_US': {
             id: {
                 'default': 'Please enter a valid identification number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid identification number in %s',
                 countries: {
                     BA: 'Bosnia and Herzegovina',
@@ -4425,7 +4420,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: FormValidation.Helper.format(FormValidation.I18n[locale].id.countryNotSupported, country) };
+                return true;
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -6597,7 +6592,6 @@ if (typeof jQuery === 'undefined') {
         'en_US': {
             phone: {
                 'default': 'Please enter a valid phone number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid phone number in %s',
                 countries: {
                     AE: 'United Arab Emirates',
@@ -6662,10 +6656,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return {
-                    valid: false,
-                    message: FormValidation.Helper.format(FormValidation.I18n[locale].phone.countryNotSupported, country)
-                };
+                return true;
             }
 
             var isValid = true;
@@ -7524,7 +7515,6 @@ if (typeof jQuery === 'undefined') {
         'en_US': {
             vat: {
                 'default': 'Please enter a valid VAT number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid VAT number in %s',
                 countries: {
                     AT: 'Austria',
@@ -7612,10 +7602,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if ($.inArray(country, this.COUNTRY_CODES) === -1) {
-                return {
-                    valid: false,
-                    message: FormValidation.Helper.format(FormValidation.I18n[locale].vat.countryNotSupported, country)
-                };
+                return true;
             }
 
             var method  = ['_', country.toLowerCase()].join('');
@@ -9002,7 +8989,6 @@ if (typeof jQuery === 'undefined') {
         'en_US': {
             zipCode: {
                 'default': 'Please enter a valid postal code',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid postal code in %s',
                 countries: {
                     AT: 'Austria',
@@ -9077,7 +9063,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             if (!country || $.inArray(country.toUpperCase(), this.COUNTRY_CODES) === -1) {
-                return { valid: false, message: FormValidation.Helper.format(FormValidation.I18n[locale].zipCode.countryNotSupported, country) };
+                return true;
             }
 
             var isValid = false;
