@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'silahkan isi nomor IBAN yang valid',
-                countryNotSupported: 'Kode negara %s belum didukung',
                 country: 'Silahkan isi nomor IBAN yang valid dalam %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Silahkan isi nomor identitas yang valid',
-                countryNotSupported: 'Kode negara %s tidak didukung',
                 country: 'Silahkan isi nomor identitas yang valid dalam %s',
                 countries: {
                     BA: 'Bosnia and Herzegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Silahkan isi nomor telepon yang valid',
-                countryNotSupported: 'Kode negara %s belum didukung',
                 country: 'Silahkan isi nomor telepon yang valid dalam %s',
                 countries: {
                     AE: 'Uni Emirat Arab',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Silahkan isi nomor VAT yang valid',
-                countryNotSupported: 'Kode negara %s belum didukung',
                 country: 'Silahkan nomor VAT yang valid dalam %s',
                 countries: {
                     AT: 'Austria',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Silahkan isi kode pos yang valid',
-                countryNotSupported: 'Kode negara %s belum didukung',
                 country: 'Silahkan isi kode pos yang valid di %s',
                 countries: {
                     AT: 'Austria',

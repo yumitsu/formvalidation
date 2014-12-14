@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Voer een geldig IBAN nummer in',
-                countryNotSupported: 'De land code %s wordt niet ondersteund',
                 country: 'Voer een geldig IBAN nummer in uit %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Voer een geldig identificatie nummer in',
-                countryNotSupported: 'De land code %s wordt niet ondersteund',
                 country: 'Voer een geldig identificatie nummer in uit %s',
                 countries: {
                     BA: 'Bosnië en Herzegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Voer een geldig telefoonnummer in',
-                countryNotSupported: 'De land code %s wordt niet ondersteund',
                 country: 'Voer een geldig telefoonnummer in uit %s',
                 countries: {
                     AE: 'Verenigde Arabische Emiraten',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Voer een geldig BTW-nummer in',
-                countryNotSupported: 'De land code %s wordt niet ondersteund',
                 country: 'Voer een geldig BTW-nummer in uit %s',
                 countries: {
                     AT: 'Oostenrijk',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Voer een geldige postcode in',
-                countryNotSupported: 'De land code %s wordt niet ondersteund',
                 country: 'Voer een geldige postcode in uit %s',
                 countries: {
                     AT: 'Oostenrijk',

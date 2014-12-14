@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Molimo da unesete ispravan IBAN broj',
-                countryNotSupported: 'Kod %s nije podržan',
                 country: 'Molimo da unesete ispravan IBAN broj %s',
                 countries: {
                     AD: 'Andore',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Molimo da unesete ispravan identifikacioni broj',
-                countryNotSupported: 'Kod %s nije podržan',
                 country: 'Molimo da unesete ispravan identifikacioni broj %s',
                 countries: {
                     BA: 'Bosne i Herzegovine',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Molimo da unesete ispravan broj telefona',
-                countryNotSupported: 'Broj %s nije podržan',
                 country: 'Molimo da unesete ispravan broj telefona %s',
                 countries: {
                     AE: 'Ujedinjenih Arapskih Emirata',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Molimo da unesete ispravan VAT broj',
-                countryNotSupported: 'Kod %s nije podržan',
                 country: 'Molimo da unesete ispravan VAT broj %s',
                 countries: {
                     AT: 'Austrije',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Molimo da unesete ispravan poštanski broj',
-                countryNotSupported: 'Kod %s nije podržan',
                 country: 'Molimo da unesete ispravan poštanski broj %s',
                 countries: {
                     AT: 'Austrije',

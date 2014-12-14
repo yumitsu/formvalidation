@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Kérlek, hogy érvényes IBAN számot ajd meg',
-                countryNotSupported: 'A(z) %s országkód nem támogatott',
                 country: 'Kérlek, hogy %s érvényes  IBAN számot adj meg',
                 countries: {
                     AD: 'az Andorrai Fejedelemségben', /* Special case */
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Kérlek, hogy érvényes személy azonosító számot adj meg',
-                countryNotSupported: 'A(z) %s országkód nem támogatott',
                 country: 'Kérlek, hogy %s érvényes személy azonosító számot ajd meg',
                 countries: {
                     BA: 'Bosznia-Hercegovinában',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Kérlek, hogy érvényes telefonszámot adj meg',
-                countryNotSupported: 'A(z) %s országkód nem támogatott',
                 country: 'Kérlek, hogy %s érvényes telefonszámot adj meg',
                 countries: {
                     AE: 'az Egyesült Arab Emírségekben', /* Special case */
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Kérlek, hogy helyes adó számot adj meg',
-                countryNotSupported: '%s - nem támogatott ország',
                 country: 'Kérlek, hogy %s helyes  adószámot ajd meg',
                 countries: {
                     AT: 'Ausztriában',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Kérlek, hogy érvényes irányítószámot adj meg',
-                countryNotSupported: '%s - nem támogatott ország',
                 country: 'Kérlek, hogy %s érvényes irányítószámot adj meg',
                 countries: {
                     AT: 'Ausztriában',

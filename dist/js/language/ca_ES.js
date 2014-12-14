@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Si us plau introdueix un nombre IBAN vàlid',
-                countryNotSupported: 'El codi del país %s no està suportat',
                 country: 'Si us plau introdueix un nombre IBAN vàlid a %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Si us plau introdueix un nombre d\'identificació vàlid',
-                countryNotSupported: 'El codi de país no està suportat',
                 country: 'Si us plau introdueix un nombre d\'identificació vàlid a %s',
                 countries: {
                     BA: 'Bòsnia i Hercegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Si us plau introdueix un telèfon vàlid',
-                countryNotSupported: 'El codi de país %s no està suportat',
                 country: 'Si us plau introdueix un telèfon vàlid a %s',
                 countries: {
                     AE: 'Emirats Àrabs Units',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Si us plau introdueix una quantitat d\'IVA vàlida',
-                countryNotSupported: 'El codi del país %s no està suportat',
                 country: 'Si us plau introdueix una quantitat d\' IVA vàlida a %s',
                 countries: {
                     AT: 'Àustria',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Si us plau introdueix un codi postal vàlid',
-                countryNotSupported: 'El codi del país %s no està suportat',
                 country: 'Si us plau introdueix un codi postal vàlid a %s',
                 countries: {
                     AT: 'Àustria',

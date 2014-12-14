@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Udfyld venligst dette felt med et gyldigt IBAN-nummer',
-                countryNotSupported: 'Landekoden %s understøttes desværre ikke',
                 country: 'Udfyld venligst dette felt med et gyldigt IBAN-nummer i %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Udfyld venligst dette felt med et gyldigt identifikations-nummer',
-                countryNotSupported: 'Landekoden %s understøttes desværre ikke',
                 country: 'Udfyld venligst dette felt med et gyldigt identifikations-nummer i %s',
                 countries: {
                     BA: 'Bosnien-Hercegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Udfyld venligst dette felt med et gyldigt telefonnummer',
-                countryNotSupported: 'Landekoden %s understøttes desværre ikke',
                 country: 'Udfyld venligst dette felt med et gyldigt telefonnummer i %s',
                 countries: {
                     AE: 'De Forenede Arabiske Emirater',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Udfyld venligst dette felt med et gyldig moms-nummer',
-                countryNotSupported: 'Landekoden %s understøttes desværre ikke',
                 country: 'Udfyld venligst dette felt med et gyldigt moms-nummer i %s',
                 countries: {
                     AT: 'Østrig',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Udfyld venligst dette felt med et gyldigt postnummer',
-                countryNotSupported: 'Landekoden %s understøttes desværre ikke',
                 country: 'Udfyld venligst dette felt med et gyldigt postnummer i %s',
                 countries: {
                     AT: 'Østrig',

@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Ole hyvä anna kelvollinen IBAN numero',
-                countryNotSupported: 'Maakoodi %s ei ole tuettujen joukossa',
                 country: 'Ole hyvä anna kelvollinen IBAN numero maassa %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Ole hyvä anna kelvollinen henkilötunnus',
-                countryNotSupported: 'Maakoodi %s ei ole tuettujen joukossa',
                 country: 'Ole hyvä anna kelvollinen henkilötunnus maassa %s',
                 countries: {
                     BA: 'Bosnia ja Hertsegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Ole hyvä anna kelvollinen puhelinnumero',
-                countryNotSupported: 'Maakoodi %s ei ole tuettujen joukossa',
                 country: 'Ole hyvä anna kelvollinen puhelinnumero maassa %s',
                 countries: {
                     AE: 'Yhdistyneet arabiemiirikunnat',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Ole hyvä anna kelvollinen VAT numero',
-                countryNotSupported: 'Maakoodi %s ei ole tuettujen joukossa',
                 country: 'Ole hyvä anna kelvollinen VAT numero maahan: %s',
                 countries: {
                     AT: 'Itävalta',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Ole hyvä anna kelvollinen postinumero',
-                countryNotSupported: 'Maakoodi %s ei ole tuettujen joukossa',
                 country: 'Ole hyvä anna kelvollinen postinumero maassa: %s',
                 countries: {
                     AT: 'Itävalta',

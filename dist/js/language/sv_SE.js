@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Vänligen mata in ett giltigt IBAN-nummer',
-                countryNotSupported: 'Landskoden %s stöds inte',
                 country: 'Vänligen mata in ett giltigt IBAN-nummer i %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Vänligen mata in ett giltigt identifikationsnummer',
-                countryNotSupported: 'Landskoden %s stöds inte',
                 country: 'Vänligen mata in ett giltigt identifikationsnummer i %s',
                 countries: {
                     BA: 'Bosnien och Hercegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Vänligen mata in ett giltigt telefonnummer',
-                countryNotSupported: 'Landskoden %s stöds inte',
                 country: 'Vänligen mata in ett giltigt telefonnummer i %s',
                 countries: {
                     AE: 'Förenade Arabemiraten',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Vänligen mata in ett giltigt momsregistreringsnummer',
-                countryNotSupported: 'Landskoden %s stöds inte',
                 country: 'Vänligen mata in ett giltigt momsregistreringsnummer i %s',
                 countries: {
                     AT: 'Österrike',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Vänligen mata in ett giltigt postnummer',
-                countryNotSupported: 'Landskoden %s stöds inte',
                 country: 'Vänligen mata in ett giltigt postnummer i %s',
                 countries: {
                     AT: 'Österrike',

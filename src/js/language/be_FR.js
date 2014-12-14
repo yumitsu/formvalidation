@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Veuillez fournir un code IBAN valide',
-                countryNotSupported: 'Le code de pays %s n\'est pas accepté',
                 country: 'Veuillez fournir un code IBAN valide pour %s',
                 countries: {
                     AD: 'Andorre',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Veuillez fournir un numéro d\'identification valide',
-                countryNotSupported: 'Le code de pays %s n\'est pas accepté',
                 country: 'Veuillez fournir un numéro d\'identification valide pour %s',
                 countries: {
                     BA: 'Bosnie-Herzégovine',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Veuillez fournir un numéro de téléphone valide',
-                countryNotSupported: 'Le code de pays %s n\'est pas accepté',
                 country: 'Veuillez fournir un numéro de téléphone valide pour %s',
                 countries: {
                     AE: 'Émirats Arabes Unis',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Veuillez fournir un code VAT valide',
-                countryNotSupported: 'Le code de pays %s n\'est pas accepté',
                 country: 'Veuillez fournir un code VAT valide pour %s',
                 countries: {
                     AT: 'Autriche',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Veuillez fournir un code postal valide',
-                countryNotSupported: 'Le code de pays %s n\'est pas accepté',
                 country: 'Veuillez fournir un code postal valide pour %s',
                 countries: {
                     AT: 'Autriche',

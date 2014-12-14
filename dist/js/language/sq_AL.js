@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Ju lutem vendosni një numër IBAN të vlefshëm',
-                countryNotSupported: 'Kodi i shtetit %s nuk është i mundësuar',
                 country: 'Ju lutem vendosni një numër IBAN të vlefshëm në %s',
                 countries: {
                     AD: 'Andora',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Ju lutem vendosni një numër identifikimi të vlefshëm ',
-                countryNotSupported: 'Kodi i shtetit %s nuk është i mundësuar',
                 country: 'Ju lutem vendosni një numër identifikimi të vlefshëm në %s',
                 countries: {
                     BA: 'Bosnjë dhe Hercegovinë',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Ju lutem vendosni një numër telefoni të vlefshëm',
-                countryNotSupported: 'Kodi i shtetit %s nuk është i mundësuar',
                 country: 'Ju lutem vendosni një numër telefoni të vlefshëm në %s',
                 countries: {
                     AE: 'Emiratet e Bashkuara Arabe',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Ju lutem vendosni një numër VAT të vlefshëm',
-                countryNotSupported: 'Kodi i shtetit %s nuk është i mundësuar',
                 country: 'Ju lutem vendosni një numër VAT të vlefshëm në %s',
                 countries: {
                     AT: 'Austri',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Ju lutem vendosni një kod postar të vlefshëm',
-                countryNotSupported: 'Kodi i shtetit %s nuk është i mundësuar',
                 country: 'Ju lutem vendosni një kod postar të vlefshëm në %s',
                 countries: {
                     AT: 'Austri',

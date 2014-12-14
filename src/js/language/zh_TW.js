@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': '請輸入有效的IBAN(國際銀行賬戶)號碼',
-                countryNotSupported: '不支援 %s 國家',
                 country: '請輸入有效的 %s 國家的IBAN(國際銀行賬戶)號碼',
                 countries: {
                     AD: '安道​​爾',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': '請輸入有效的身份證字號',
-                countryNotSupported: '不支援 %s 國家',
                 country: '請輸入有效的 %s 身份證字號',
                 countries: {
                     BA: '波赫',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': '請輸入有效的電話號碼',
-                countryNotSupported: '不支援 %s 國家',
                 country: '請輸入有效的 %s 國家的電話號碼',
                 countries: {
                     AE: '阿聯酋',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': '請輸入有效的VAT(增值税)',
-                countryNotSupported: '不支援 %s 國家',
                 country: '請輸入有效的 %s 國家的VAT(增值税)',
                 countries: {
                     AT: '奧地利',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': '請輸入有效的郵政編碼',
-                countryNotSupported: '不支援 %s 國家',
                 country: '請輸入有效的 %s 國家的郵政編碼',
                 countries: {
                     AT: '奧地利',

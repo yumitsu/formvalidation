@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': '有効なIBANコードを入力してください',
-                countryNotSupported: 'カントリーコード%sはサポートされていません',
                 country: '有効な%sのIBANコードを入力してください',
                 countries: {
                     AD: 'アンドラ',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': '有効なIDを入力してください',
-                countryNotSupported: 'カントリーコード%sはサポートされていません',
                 country: '有効な%sのIDを入力してください',
                 countries: {
                     BA: 'スニア·ヘルツェゴビナ',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': '有効な電話番号を入力してください',
-                countryNotSupported: 'カントリーコード%sはサポートされていません',
                 country: '有効な%sの電話番号を入力してください',
                 countries: {
                     AE: 'アラブ首長国連邦',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': '有効なVAT番号を入力してください',
-                countryNotSupported: 'カントリーコード%sはサポートされていません',
                 country: '有効な%sのVAT番号を入力してください',
                 countries: {
                     AT: 'オーストリア',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': '有効な郵便番号を入力してください',
-                countryNotSupported: 'カントリーコード%sはサポートされていません',
                 country: '有効な%sの郵便番号を入力してください',
                 countries: {
                     AT: 'オーストリア',

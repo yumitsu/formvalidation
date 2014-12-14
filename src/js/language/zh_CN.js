@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': '请输入有效的IBAN(国际银行账户)号码',
-                countryNotSupported: '不支持 %s 国家或地区',
                 country: '请输入有效的 %s 国家或地区的IBAN(国际银行账户)号码',
                 countries: {
                     AD: '安道​​尔',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': '请输入有效的身份证件号码',
-                countryNotSupported: '不支持 %s 国家或地区',
                 country: '请输入有效的 %s 国家或地区的身份证件号码',
                 countries: {
                     BA: '波黑',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': '请输入有效的电话号码',
-                countryNotSupported: '不支持 %s 国家或地区',
                 country: '请输入有效的 %s 国家或地区的电话号码',
                 countries: {
                     AE: '阿联酋',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': '请输入有效的VAT(税号)',
-                countryNotSupported: '不支持 %s 国家或地区',
                 country: '请输入有效的 %s 国家或地区的VAT(税号)',
                 countries: {
                     AT: '奥地利',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': '请输入有效的邮政编码',
-                countryNotSupported: '不支持 %s 国家或地区',
                 country: '请输入有效的 %s 国家或地区的邮政编码',
                 countries: {
                     AT: '奥地利',

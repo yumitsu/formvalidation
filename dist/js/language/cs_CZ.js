@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Prosím zadejte správné IBAN číslo',
-                countryNotSupported: 'IBAN pro %s není podporován',
                 country: 'Prosím zadejte správné IBAN číslo pro %s',
                 countries: {
                     AD: 'Andorru',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Prosím zadejte správné rodné číslo',
-                countryNotSupported: 'Rodné číslo pro %s není podporované',
                 country: 'Prosím zadejte správné rodné číslo pro %s',
                 countries: {
                     BA: 'Bosnu a Hercegovinu',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Prosím zadejte správné telefoní číslo',
-                countryNotSupported: 'Telefoní číslo pro %s není podporované',
                 country: 'Prosím zadejte správné telefoní číslo pro %s',
                 countries: {
                     AE: 'Spojené arabské emiráty',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Prosím zadejte správné VAT číslo',
-                countryNotSupported: 'VAT pro %s není podporované',
                 country: 'Prosím zadejte správné VAT číslo pro %s',
                 countries: {
                     AT: 'Rakousko',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Prosím zadejte správné PSČ',
-                countryNotSupported: '%s není podporované',
                 country: 'Prosím zadejte správné PSČ pro %s',
                 countries: {
                     AT: 'Rakousko',

@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Please enter a valid IBAN number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid IBAN number in %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Please enter a valid identification number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid identification number in %s',
                 countries: {
                     BA: 'Bosnia and Herzegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Please enter a valid phone number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid phone number in %s',
                 countries: {
                     AE: 'United Arab Emirates',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Please enter a valid VAT number',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid VAT number in %s',
                 countries: {
                     AT: 'Austria',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Please enter a valid postal code',
-                countryNotSupported: 'The country code %s is not supported',
                 country: 'Please enter a valid postal code in %s',
                 countries: {
                     AT: 'Austria',

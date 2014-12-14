@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Te rog sa introduci un IBAN valid',
-                countryNotSupported: 'Tara %s nu este acceptata',
                 country: 'Te rog sa introduci un IBAN valid din %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Te rog sa introduci un numar de identificare valid',
-                countryNotSupported: 'Codul %s nu este suportat',
                 country: 'Te rog sa introduci un numar de identificare valid din %s',
                 countries: {
                     BA: 'Bosnia si Herzegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Te rog sa introduci un numar de telefon valid',
-                countryNotSupported: 'Prefixul %s nu este suportat',
                 country: 'Te rog sa introduci un numar de telefon valid din %s',
                 countries: {
                     AE: 'Emiratele Arabe unite',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Te rog sa introduci un numar TVA valid',
-                countryNotSupported: 'Tara %s nu este acceptata',
                 country: 'Te rog sa introduci un numar TVA valid din %s',
                 countries: {
                     AT: 'Austria',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Te rog sa introduci un cod postal valid',
-                countryNotSupported: 'Tara %s nu este acceptata',
                 country: 'Te rog sa introduci un cod postal valid din %s',
                 countries: {
                     AT: 'Austria',

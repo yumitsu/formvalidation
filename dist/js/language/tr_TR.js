@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Lütfen geçerli bir IBAN numarası giriniz',
-                countryNotSupported: '%s ülke kodu desteklenmemektedir',
                 country: 'Lütfen geçerli bir IBAN numarası giriniz içinde %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Lütfen geçerli bir tanımlama numarası giriniz',
-                countryNotSupported: '%s ülke kodu desteklenmiyor',
                 country: 'Lütfen geçerli bir kimlik numarası giriniz içinde %s',
                 countries: {
                     BA: 'Bosna Hersek',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Lütfen geçerli bir telefon numarası giriniz',
-                countryNotSupported: '%s ülke kodu desteklenmemektedir',
                 country: 'Lütfen geçerli bir telefon numarası giriniz içinde %s',
                 countries: {
                     AE: 'Birleşik Arap Emirlikleri',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Lütfen geçerli bir VAT kodu giriniz',
-                countryNotSupported: '%s ülke kodu desteklenmiyor',
                 country: 'Lütfen geçerli bir vergi numarası giriniz içinde %s',
                 countries: {
                     AT: 'Avustralya',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Lütfen geçerli bir posta kodu giriniz',
-                countryNotSupported: '%s ülke kodu desteklenmemektedir',
                 country: 'Lütfen geçerli bir posta kodu giriniz içinde %s',
                 countries: {
                     AT: 'Avustralya',

@@ -72,7 +72,6 @@
             },
             iban: {
                 'default': 'Vui lòng nhập số IBAN hợp lệ',
-                countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',
                 country: 'Vui lòng nhập mã IBAN hợp lệ của %s',
                 countries: {
                     AD: 'Andorra',
@@ -158,7 +157,6 @@
             },
             id: {
                 'default': 'Vui lòng nhập mã ID hợp lệ',
-                countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',
                 country: 'Vui lòng nhập mã ID hợp lệ của %s',
                 countries: {
                     BA: 'Bosnia và Herzegovina',
@@ -237,7 +235,6 @@
             },
             phone: {
                 'default': 'Vui lòng nhập số điện thoại hợp lệ',
-                countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',
                 country: 'Vui lòng nhập số điện thoại hợp lệ của %s',
                 countries: {
                     AE: 'Tiểu vương quốc Ả Rập thống nhất',
@@ -300,7 +297,6 @@
             },
             vat: {
                 'default': 'Vui lòng nhập số VAT hợp lệ',
-                countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',
                 country: 'Vui lòng nhập số VAT hợp lệ của %s',
                 countries: {
                     AT: 'Áo',
@@ -347,7 +343,6 @@
             },
             zipCode: {
                 'default': 'Vui lòng nhập mã bưu điện hợp lệ',
-                countryNotSupported: 'Mã quốc gia %s không được hỗ trợ',
                 country: 'Vui lòng nhập mã bưu điện hợp lệ của %s',
                 countries: {
                     AT: 'Áo',
