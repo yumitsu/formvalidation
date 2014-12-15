@@ -38,6 +38,7 @@ Next version will be a big release with the following new features and improveme
 - [x] Support many frameworks:
     - [x] [Bootstrap](http://getbootstrap.com/)
     - [x] [Foundation](http://foundation.zurb.com/)
+    - [x] [Pure](http://purecss.io/)
     - [x] [Semantic UI](http://semantic-ui.com/)
     - [x] [UIKit](http://getuikit.com/)
 - [x] Support add-ons
