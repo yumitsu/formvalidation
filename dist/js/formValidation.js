@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-15 9:33:23 AM
+ * @version     v0.6.0-dev, built on 2014-12-15 9:43:57 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -1107,9 +1107,14 @@ if (typeof jQuery === 'undefined') {
          */
         getFieldElements: function(field) {
             if (!this._cacheFields[field]) {
-                this._cacheFields[field] = (this.options.fields[field] && this.options.fields[field].selector)
-                                         ? $(this.options.fields[field].selector)
-                                         : this.$form.find('[name="' + field + '"]');
+                if (this.options.fields[field] && this.options.fields[field].selector) {
+                    //first search in the form if something is found using the selector
+                    var f = this.$form.find(this.options.fields[field].selector);
+                    //otherwise search the entire document
+                    this._cacheFields[field] = (f.length ? f : $(this.options.fields[field].selector))
+                } else {
+                    this._cacheFields[field] = this.$form.find('[name="' + field + '"]')
+                }
             }
 
             return this._cacheFields[field];
