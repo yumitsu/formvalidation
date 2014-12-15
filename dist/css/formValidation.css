@@ -68,6 +68,18 @@
     margin-bottom: 1rem;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~ For Pure form ~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~ */
+
+.fv-form-pure .fv-help-block {
+    color: rgb(202, 60, 60);    /* Same as Pure .button-error */
+}
+.pure-form-aligned .pure-control-group .fv-help-block {
+    margin-top: 5px;
+    margin-left: 180px;
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~ For Semantic form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~ */

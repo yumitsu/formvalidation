@@ -2233,6 +2233,10 @@ if (typeof jQuery === 'undefined') {
                         data = new FormValidation.Framework.Foundation(this, options);
                         break;
 
+                    case 'pure':
+                        data = new FormValidation.Framework.Pure(this, options);
+                        break;
+
                     case 'semantic':
                         data = new FormValidation.Framework.Semantic(this, options);
                         break;
