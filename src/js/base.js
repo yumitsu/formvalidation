@@ -1108,12 +1108,12 @@ if (typeof jQuery === 'undefined') {
         getFieldElements: function(field) {
             if (!this._cacheFields[field]) {
                 if (this.options.fields[field] && this.options.fields[field].selector) {
-                    //first search in the form if something is found using the selector
+                    // Look for the field inside the form first
                     var f = this.$form.find(this.options.fields[field].selector);
-                    //otherwise search the entire document
-                    this._cacheFields[field] = (f.length ? f : $(this.options.fields[field].selector))
+                    // If not found, search in entire document
+                    this._cacheFields[field] = f.length ? f : $(this.options.fields[field].selector);
                 } else {
-                    this._cacheFields[field] = this.$form.find('[name="' + field + '"]')
+                    this._cacheFields[field] = this.$form.find('[name="' + field + '"]');
                 }
             }
 

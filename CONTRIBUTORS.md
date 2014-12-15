@@ -31,6 +31,7 @@ I would like to give big thanks to the following contributors:
 * [@dlcrush](https://github.com/dlcrush)
 * [@dlucazeau](https://github.com/dlucazeau)
 * [@dokterpasta](https://github.com/dokterpasta)
+* [@drebrez](https://github.com/drebrez)
 * [@easonhan007](https://github.com/easonhan007)
 * [@egig](https://github.com/egig)
 * [@emilchristensen](https://github.com/emilchristensen)

@@ -32,6 +32,7 @@ __Add-ons__
 * multilingual add-on
 
 __Improvements__
+* [#883](https://github.com/nghuuphuoc/bootstrapvalidator/pull/883): Look for the field inside form first when using selector, thanks to [@drebrez](https://github.com/drebrez)
 * [#908](https://github.com/nghuuphuoc/bootstrapvalidator/issues/908), [#1156](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1156): Add option to set optional protocol in [uri](http://bootstrapvalidator.com/validators/uri/) validator, thanks to [@krecik](https://github.com/krecik)
 * [#914](https://github.com/nghuuphuoc/bootstrapvalidator/issues/914), [#1035](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1035), [#1163](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1163): Improve [identical](http://bootstrapvalidator.com/validators/identical/) validator, thanks to [@jazzzz](https://github.com/jazzzz)
 * [#1037](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1037): Show the credit card icon based on its type
