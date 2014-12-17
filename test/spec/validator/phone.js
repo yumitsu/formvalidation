@@ -437,4 +437,31 @@ describe('phone', function() {
             expect(this.fv.isValid()).toEqual(false);
         }
     });
+
+    it('US phone number', function() {
+        this.fv.updateOption('phone', 'phone', 'country', 'US');
+
+        // Valid samples
+        var validSamples = [
+            '1444-555-1234', '246.555.8888', '1235554567', '(123)456-7890', '123)456.0987', '1-444-555-1234',
+            '14325678901', '1(123)456-7890', '+1 246.555-8888', '+1 (123)456-7890', '+1(123)456-7890'
+        ];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$phone.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = [
+            '7334-12.111', 'v123.11.1111', '(23)440.4448', '123(456)7890', '0800 333333 abcdef'
+        ];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$phone.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
+        }
+    });
 });

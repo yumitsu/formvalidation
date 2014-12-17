@@ -61,6 +61,7 @@ __Bug Fixes__
 * [#1267](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1267): [identical](http://bootstrapvalidator.com/validators/identical/) validator allows to compare with any input
 * [#1274](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1274): Fix ```validateContainer()``` to use map value instead of key, thanks to [@jasonblalock](https://github.com/jasonblalock)
 * [#1279](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1279), [#1280](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1280): Show the ```validating``` icon when the field is being validated, thanks to [@tmaly1980](https://github.com/tmaly1980)
+* [#1292](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1292): Fix bug of US [phone number](http://bootstrapvalidator.com/validators/phone/) validator
 
 __Document__
 * [#800](https://github.com/nghuuphuoc/bootstrapvalidator/issues/800): Add [Using uri and regexp validators](http://bootstrapvalidator.com/validators/uri/#using-with-regexp-validator) example
