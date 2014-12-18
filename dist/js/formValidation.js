@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-17 4:29:21 PM
+ * @version     v0.6.0-dev, built on 2014-12-19 6:42:43 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -1073,7 +1073,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Submit form
-            this.$form.off('submit.fv').submit();
+            this.$form.off('submit.' + ns).submit();
         },
 
         /**

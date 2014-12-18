@@ -1073,7 +1073,7 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Submit form
-            this.$form.off('submit.fv').submit();
+            this.$form.off('submit.' + ns).submit();
         },
 
         /**
