@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             ' *',
             ' * @version     v<%= pkg.version %>, built on <%= grunt.template.today("yyyy-mm-dd h:MM:ss TT") %>',
             ' * @author      <%= pkg.author.url %>',
-            ' * @copyright   (c) 2013 - <%= grunt.template.today("yyyy") %> Nguyen Huu Phuoc',
+            ' * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc',
             ' * @license     <%= pkg.homepage %>/license/',
             ' */\n'
         ].join('\n'),
