@@ -15,6 +15,7 @@
     FormValidation.Framework.Foundation = function(element, options) {
         options = $.extend(true, {
             button: {
+                selector: '[type="submit"]',
                 // The class for disabled button
                 // http://foundation.zurb.com/docs/components/buttons.html
                 disabled: 'disabled'

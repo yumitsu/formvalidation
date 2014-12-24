@@ -483,10 +483,10 @@ describe('event field trigger with default events', function() {
 });
 
 describe('event form trigger with events changed', function() {
-    var defaultOptions = FormValidation.DEFAULT_OPTIONS;
+    var defaultOptions = $.fn.formValidation.DEFAULT_OPTIONS;
 
     beforeEach(function() {
-        FormValidation.DEFAULT_OPTIONS = $.extend({}, FormValidation.DEFAULT_OPTIONS, {
+        $.fn.formValidation.DEFAULT_OPTIONS = $.extend({}, $.fn.formValidation.DEFAULT_OPTIONS, {
             events: {
                 formInit: 'init.form.fv',
                 formError: 'fv.form.error',
@@ -532,7 +532,7 @@ describe('event form trigger with events changed', function() {
 
     afterEach(function() {
         $('#eventForm2').formValidation('destroy').remove();
-        FormValidation.DEFAULT_OPTIONS = defaultOptions;
+        $.fn.formValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
     it('triggers fv.form.success', function() {
@@ -559,10 +559,10 @@ describe('event form trigger with events changed', function() {
 });
 
 describe('event field trigger with events changed', function() {
-    var defaultOptions = FormValidation.DEFAULT_OPTIONS;
+    var defaultOptions = $.fn.formValidation.DEFAULT_OPTIONS;
 
     beforeEach(function() {
-        FormValidation.DEFAULT_OPTIONS = $.extend({}, FormValidation.DEFAULT_OPTIONS, {
+        $.fn.formValidation.DEFAULT_OPTIONS = $.extend({}, $.fn.formValidation.DEFAULT_OPTIONS, {
             events: {
                 formInit: 'init.form.fv',
                 formError: 'fv.form.error',
@@ -608,7 +608,7 @@ describe('event field trigger with events changed', function() {
 
     afterEach(function() {
         $('#eventForm4').formValidation('destroy').remove();
-        FormValidation.DEFAULT_OPTIONS = defaultOptions;
+        $.fn.formValidation.DEFAULT_OPTIONS = defaultOptions;
     });
 
     it('triggers success.field.fv', function() {

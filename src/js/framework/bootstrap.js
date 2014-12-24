@@ -14,6 +14,7 @@
     FormValidation.Framework.Bootstrap = function(element, options, namespace) {
         options = $.extend(true, {
             button: {
+                selector: '[type="submit"]',
                 // The class of disabled button
                 // http://getbootstrap.com/css/#buttons-disabled
                 disabled: 'disabled'

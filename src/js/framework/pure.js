@@ -14,6 +14,7 @@
     FormValidation.Framework.Pure = function(element, options) {
         options = $.extend(true, {
             button: {
+                selector: '[type="submit"]',
                 // The class of disabled button
                 // http://purecss.io/buttons/#disabled-buttons
                 disabled: 'pure-button-disabled'

@@ -14,6 +14,7 @@
     FormValidation.Framework.UIKit = function(element, options) {
         options = $.extend(true, {
             button: {
+                selector: '[type="submit"]',
                 // The class for disabled button
                 // http://getuikit.com/docs/button.html
                 disabled: 'disabled'

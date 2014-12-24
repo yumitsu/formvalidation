@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-19 6:42:43 AM
+ * @version     v0.6.0-dev, built on 2014-12-24 5:17:26 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -14,6 +14,7 @@
     FormValidation.Framework.Pure = function(element, options) {
         options = $.extend(true, {
             button: {
+                selector: '[type="submit"]',
                 // The class of disabled button
                 // http://purecss.io/buttons/#disabled-buttons
                 disabled: 'pure-button-disabled'

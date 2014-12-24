@@ -14,6 +14,7 @@
     FormValidation.Framework.Semantic = function(element, options) {
         options = $.extend(true, {
             button: {
+                selector: '[type="submit"]',
                 // CSS class of disabled button
                 // http://semantic-ui.com/elements/button.html#disabled
                 disabled: 'disabled'
