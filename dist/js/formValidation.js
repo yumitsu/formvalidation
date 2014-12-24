@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-24 5:17:26 PM
+ * @version     v0.6.0-dev, built on 2014-12-24 5:41:14 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -767,13 +767,6 @@ if (typeof jQuery === 'undefined') {
                 var $field    = this.$invalidFields.eq(i),
                     autoFocus = this.isOptionEnabled($field.attr('data-' + ns + '-field'), 'autoFocus');
                 if (autoFocus) {
-                    // Activate the tab containing the field if exists
-                    // TODO: Move this behavior to add-on
-                    var $tabPane = $field.parents('.tab-pane'), tabId;
-                    if ($tabPane && (tabId = $tabPane.attr('id'))) {
-                        $('a[href="#' + tabId + '"][data-toggle="tab"]').tab('show');
-                    }
-
                     // Focus the field
                     $field.focus();
                     break;
@@ -1348,14 +1341,6 @@ if (typeof jQuery === 'undefined') {
                 // Show/hide error elements and feedback icons
                 $errors.attr('data-' + ns + '-result', status);
 
-                // Determine the tab containing the element
-                // TODO: Move this behavior to add-on
-                var $tabPane = $field.parents('.tab-pane'),
-                    tabId, $tab;
-                if ($tabPane && (tabId = $tabPane.attr('id'))) {
-                    $tab = $('a[href="#' + tabId + '"][data-toggle="tab"]').parent();
-                }
-
                 switch (status) {
                     case this.STATUS_VALIDATING:
                         isValidField = null;
@@ -1364,9 +1349,6 @@ if (typeof jQuery === 'undefined') {
                         $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
                         if ($icon) {
                             $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.invalid).addClass(this.options.icon.validating).show();
-                        }
-                        if ($tab) {
-                            $tab.removeClass('bv-tab-success').removeClass('bv-tab-error');
                         }
                         break;
 
@@ -1377,9 +1359,6 @@ if (typeof jQuery === 'undefined') {
                         $parent.removeClass(this.options.row.valid).addClass(this.options.row.invalid);
                         if ($icon) {
                             $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.validating).addClass(this.options.icon.invalid).show();
-                        }
-                        if ($tab) {
-                            $tab.removeClass('bv-tab-success').addClass('bv-tab-error');
                         }
                         break;
 
@@ -1403,9 +1382,6 @@ if (typeof jQuery === 'undefined') {
                         }
 
                         $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid).addClass(this.isValidContainer($parent) ? this.options.row.valid : this.options.row.invalid);
-                        if ($tab) {
-                            $tab.removeClass('bv-tab-success').removeClass('bv-tab-error').addClass(this.isValidContainer($tabPane) ? 'bv-tab-success' : 'bv-tab-error');
-                        }
                         break;
 
                     case this.STATUS_NOT_VALIDATED:
@@ -1417,9 +1393,6 @@ if (typeof jQuery === 'undefined') {
                         $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid);
                         if ($icon) {
                             $icon.removeClass(this.options.icon.valid).removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).hide();
-                        }
-                        if ($tab) {
-                            $tab.removeClass('bv-tab-success').removeClass('bv-tab-error');
                         }
                         break;
                 }

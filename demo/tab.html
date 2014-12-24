@@ -145,6 +145,25 @@ $(document).ready(function() {
                 }
             }
         })
+        .on('err.form.fv', function(e) {
+            var $form          = $(e.target),
+                fv             = $form.data('formValidation'),
+                $invalidFields = fv.getInvalidFields();
+
+            for (var i = 0; i < $invalidFields.length; i++) {
+                var $field    = $invalidFields.eq(i),
+                    autoFocus = fv.isOptionEnabled($field.attr('data-fv-field'), 'autoFocus');
+
+                if (autoFocus) {
+                    // Activate the tab containing the field if exists
+                    var $tabPane = $field.parents('.tab-pane'), tabId;
+                    if ($tabPane && (tabId = $tabPane.attr('id'))) {
+                        $('a[href="#' + tabId + '"][data-toggle="tab"]').tab('show');
+                    }
+                    break;
+                }
+            }
+        })
         .on('status.field.fv', function(e, data) {
             var validator = data.fv,
                 $tabPane  = data.element.parents('.tab-pane'),

@@ -24,6 +24,7 @@ __New Features__
 __Changes__
 * [#1167](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1167): Remove hexColor validator. Use [color](http://bootstrapvalidator.com/validators/color/) validator instead
 * [#1272](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1272): Change event ```error.x.x``` to ```err.x.x``` to avoid ```window.onerror``` being invoked by jQuery
+* Remove tab behavior from base class
 
 __Add-ons__
 * [#1116](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1116): Showing only one message each time
