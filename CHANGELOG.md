@@ -52,6 +52,7 @@ __Improvements__
 * [#1255](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1255), [#1258](https://github.com/nghuuphuoc/bootstrapvalidator/pull/1258): Support to use a Date object as value for ```min``` and ```max``` options, thanks to [@Arkni](https://github.com/Arkni)
 * [#1261](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1261): Improve [cvv](http://bootstrapvalidator.com/validators/cvv/) validator
 * [#1268](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1268): [uri](http://bootstrapvalidator.com/validators/uri/) validator gets slower if more than 25 characters
+* The ```isValidContainer()``` method should return ```null``` if the container consists of at least one field which is not validated yet or being validated
 
 __Bug Fixes__
 * [#1101](https://github.com/nghuuphuoc/bootstrapvalidator/issues/1101): The [cusip](http://bootstrapvalidator.com/validators/cusip/) validator doesn't work

@@ -2,7 +2,7 @@
  * FormValidation (http://bootstrapvalidator.com)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-24 5:41:14 PM
+ * @version     v0.6.0-dev, built on 2014-12-24 6:21:40 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2014 Nguyen Huu Phuoc
  * @license     http://bootstrapvalidator.com/license/
@@ -1103,7 +1103,10 @@ if (typeof jQuery === 'undefined') {
          * It's useful when working with a wizard-like such as tab, collapse
          *
          * @param {String|jQuery} container The container selector or element
-         * @returns {Boolean}
+         * @returns {Boolean|null} Returns one of three values
+         * - true, if all fields inside the container are valid
+         * - false, if there is one invalid field inside the container
+         * - null, if the container consists of at least one field which is not validated yet or being validated
          */
         isValidContainer: function(container) {
             var that       = this,
@@ -1123,13 +1126,19 @@ if (typeof jQuery === 'undefined') {
             });
 
             for (var field in map) {
-                var $f = map[field];
-                if ($f.data(ns + '.messages')
-                      .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]')
-                      .filter('[data-' + ns + '-result="' + this.STATUS_INVALID +'"]')
-                      .length > 0)
-                {
+                var $f      = map[field],
+                    $errors = $f.data(ns + '.messages')
+                                .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]');
+
+                if ($errors.filter('[data-' + ns + '-result="' + this.STATUS_INVALID + '"]').length > 0) {
                     return false;
+                }
+
+                // If the field is not validated
+                if ($errors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED + '"]').length > 0
+                    || $errors.filter('[data-' + ns + '-result="' + this.STATUS_VALIDATING + '"]').length > 0)
+                {
+                    return null;
                 }
             }
 
@@ -1381,7 +1390,10 @@ if (typeof jQuery === 'undefined') {
                             }
                         }
 
-                        $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid).addClass(this.isValidContainer($parent) ? this.options.row.valid : this.options.row.invalid);
+                        var isValidContainer = this.isValidContainer($parent);
+                        if (isValidContainer !== null) {
+                            $parent.removeClass(this.options.row.valid).removeClass(this.options.row.invalid).addClass(isValidContainer ? this.options.row.valid : this.options.row.invalid);
+                        }
                         break;
 
                     case this.STATUS_NOT_VALIDATED:

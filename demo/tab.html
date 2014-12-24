@@ -176,9 +176,12 @@ $(document).ready(function() {
                 if (data.status == validator.STATUS_INVALID) {
                     $icon.removeClass('fa-check').addClass('fa-times');
                 } else if (data.status == validator.STATUS_VALID) {
+                    $icon.removeClass('fa-check fa-times');
+
                     var isValidTab = validator.isValidContainer($tabPane);
-                    $icon.removeClass('fa-check fa-times')
-                         .addClass(isValidTab ? 'fa-check' : 'fa-times');
+                    if (isValidTab !== null) {
+                        $icon.addClass(isValidTab ? 'fa-check' : 'fa-times');
+                    }
                 }
             }
         });
