@@ -76,12 +76,12 @@ __Document__
 * [#1106](https://github.com/formvalidation/formvalidation/issues/1106): Add example to the [phone](http://formvalidation.io/validators/phone/) validator
 * [#1122](https://github.com/formvalidation/formvalidation/pull/1122): Add third parameter to ```callback``` method of [callback](http://formvalidation.io/validators/callback/) validator, thanks to [@Arkni](https://github.com/Arkni)
 * [#1128](https://github.com/formvalidation/formvalidation/issues/1128): Add link to the [Examples](http://formvalidation.io/examples/) from the [homepage](http://formvalidation.io/#2)
-* [#1139](https://github.com/formvalidation/formvalidation/pull/1139): Add sample [United Arab Emirates phone numbers](http://formvalidation.io/validators/phone/), thanks to @s-a-y
+* [#1139](https://github.com/formvalidation/formvalidation/pull/1139): Add sample [United Arab Emirates phone numbers](http://formvalidation.io/validators/phone/), thanks to [@s-a-y](https://github.com/s-a-y)
 * [#1143](https://github.com/formvalidation/formvalidation/issues/1143), [#1176](https://github.com/formvalidation/formvalidation/issues/1176): Add [Form is submitted twice](http://formvalidation.io/examples/form-submit-twice/) example
 * [#1172](https://github.com/formvalidation/formvalidation/issues/1172): Add [Requiring at least one field](http://formvalidation.io/examples/requiring-at-least-one-field/) example
 * [#1174](https://github.com/formvalidation/formvalidation/issues/1174): Add [Pickadate](http://formvalidation.io/examples/pickadate/) example
-* [#1187](https://github.com/formvalidation/formvalidation/pull/1187): Add sample [Brazil ID (CPF) numbers](http://formvalidation.io/validators/id/), thanks to @igorescobar
-* [#1233](https://github.com/formvalidation/formvalidation/pull/1233): Add sample [India postal code numbers](http://formvalidation.io/validators/zipCode/), thanks to @waveking
+* [#1187](https://github.com/formvalidation/formvalidation/pull/1187): Add sample [Brazil ID (CPF) numbers](http://formvalidation.io/validators/id/), thanks to [@igorescobar](https://github.com/igorescobar)
+* [#1233](https://github.com/formvalidation/formvalidation/pull/1233): Add sample [India postal code numbers](http://formvalidation.io/validators/zipCode/), thanks to [@waveking](https://github.com/waveking)
 
 __Language Packages__
 * [#1150](https://github.com/formvalidation/formvalidation/pull/1150): Add Catalan language package, thanks to [@ArnauAregall](https://github.com/ArnauAregall)
