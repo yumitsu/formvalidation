@@ -127,4 +127,4 @@ I would like to give big thanks to the following contributors:
 * [@yakidahan](https://github.com/yakidahan)
 * [@zmira](https://github.com/zmira)
 * [@waveking](https://github.com/waveking)
-* ... might be you! Let's [fork](https://github.com/nghuuphuoc/bootstrapvalidator/fork) and make a pull request.
+* ... might be you! Let's [fork](https://github.com/formvalidation/formvalidation/fork) and make a pull request.

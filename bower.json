@@ -14,9 +14,13 @@
     "main": [
         "dist/css/formValidation.min.css",
         "dist/js/formValidation.min.js",
-        "dist/js/framework/bootstrap.min.js"
+        "dist/js/framework/bootstrap.min.js",
+        "dist/js/framework/foundation.min.js",
+        "dist/js/framework/pure.min.js",
+        "dist/js/framework/semantic.min.js",
+        "dist/js/framework/uikit.min.js"
     ],
-    "license": "http://bootstrapvalidator.com/license/",
+    "license": "http://formvalidation.io/license/",
     "keywords": [
         "jQuery",
         "plugin",
@@ -36,10 +40,10 @@
             "homepage": "https://twitter.com/nghuuphuoc"
         }
     ],
-    "homepage": "http://bootstrapvalidator.com",
+    "homepage": "http://formvalidation.io",
     "repository": {
         "type": "git",
-        "url": "https://github.com/nghuuphuoc/bootstrapvalidator.git"
+        "url": "https://github.com/formvalidation/formvalidation.git"
     },
     "dependencies": {
         "jquery": ">= 1.9.1",

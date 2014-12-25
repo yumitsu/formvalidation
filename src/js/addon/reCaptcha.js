@@ -2,10 +2,10 @@
  * reCaptcha add-on
  * This add-ons shows and validates a Google reCAPTCHA
  *
- * @link        http://bootstrapvalidator.com/addons/reCaptcha/
+ * @link        http://formvalidation.io/addons/reCaptcha/
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
- * @license     http://bootstrapvalidator.com/license/
+ * @license     http://formvalidation.io/license/
  */
 /* global Recaptcha: false */
 (function($) {

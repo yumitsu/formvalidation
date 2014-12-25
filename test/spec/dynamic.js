@@ -46,7 +46,7 @@ describe('dynamic fields', function() {
         $('#dynamicForm').formValidation('destroy').remove();
     });
 
-    // https://github.com/nghuuphuoc/bootstrapvalidator/pull/725
+    // https://github.com/formvalidation/formvalidation/pull/725
     it('adding field [does not exist but is already set in "fields" option]', function() {
         var $div   = $('<div/>').addClass('form-group').appendTo($('#dynamicForm'));
             $email = $('<input/>')

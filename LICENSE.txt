@@ -5,7 +5,7 @@ BootstrapValidator is free to use in non-commercial projects under the terms of 
 Commons BY-NC-ND 3.0 (http://creativecommons.org/licenses/by-nc-nd/3.0/) license.
 If you use BootstrapValidator in commercial projects and products, you must purchase a commercial license.
 
-For more information about the license, see http://bootstrapvalidator.com/license/
+For more information about the license, see http://formvalidation.io/license/
 
 ## BootstrapValidator commercial license agreement
 

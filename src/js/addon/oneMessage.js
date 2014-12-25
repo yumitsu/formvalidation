@@ -2,10 +2,10 @@
  * oneMessage add-on
  * This add-ons shows only one message if the field is not valid
  *
- * @link        http://bootstrapvalidator.com/addons/oneMessage/
+ * @link        http://formvalidation.io/addons/oneMessage/
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
- * @license     http://bootstrapvalidator.com/license/
+ * @license     http://formvalidation.io/license/
  */
 (function($) {
     FormValidation.AddOn.oneMessage = {

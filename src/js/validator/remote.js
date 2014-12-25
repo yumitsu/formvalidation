@@ -1,10 +1,10 @@
 /**
  * remote validator
  *
- * @link        http://bootstrapvalidator.com/validators/remote/
+ * @link        http://formvalidation.io/validators/remote/
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
- * @license     http://bootstrapvalidator.com/license/
+ * @license     http://formvalidation.io/license/
  */
 (function($) {
     FormValidation.I18n = $.extend(true, FormValidation.I18n || {}, {

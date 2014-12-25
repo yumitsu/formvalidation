@@ -514,7 +514,7 @@ describe('dynamic fields', function() {
         $('#dynamicForm').formValidation('destroy').remove();
     });
 
-    // https://github.com/nghuuphuoc/bootstrapvalidator/pull/725
+    // https://github.com/formvalidation/formvalidation/pull/725
     it('adding field [does not exist but is already set in "fields" option]', function() {
         var $div   = $('<div/>').addClass('form-group').appendTo($('#dynamicForm'));
             $email = $('<input/>')
@@ -4843,7 +4843,7 @@ describe('emailAddress', function() {
     ];
 
     var invalidEmailAddresses = [
-        // "!#$%&'*+-/=?^_`{}|~@example.org",   // This is actually passing validation; see https://github.com/nghuuphuoc/bootstrapvalidator/issues/673
+        // "!#$%&'*+-/=?^_`{}|~@example.org",   // This is actually passing validation; see https://github.com/formvalidation/formvalidation/issues/673
         'üñîçøðé@üñîçøðé.com',
         'Abc.example.com',
         'A@b@c@example.com',

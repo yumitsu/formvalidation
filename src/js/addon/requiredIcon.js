@@ -2,10 +2,10 @@
  * requiredIcon add-on
  * This add-ons shows required icons for mandatory fields
  *
- * @link        http://bootstrapvalidator.com/addons/requiredIcon/
+ * @link        http://formvalidation.io/addons/requiredIcon/
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
- * @license     http://bootstrapvalidator.com/license/
+ * @license     http://formvalidation.io/license/
  */
 (function($) {
     FormValidation.AddOn.requiredIcon = {

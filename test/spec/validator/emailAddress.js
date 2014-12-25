@@ -34,7 +34,7 @@ describe('emailAddress', function() {
     ];
 
     var invalidEmailAddresses = [
-        // "!#$%&'*+-/=?^_`{}|~@example.org",   // This is actually passing validation; see https://github.com/nghuuphuoc/bootstrapvalidator/issues/673
+        // "!#$%&'*+-/=?^_`{}|~@example.org",   // This is actually passing validation; see https://github.com/formvalidation/formvalidation/issues/673
         'üñîçøðé@üñîçøðé.com',
         'Abc.example.com',
         'A@b@c@example.com',

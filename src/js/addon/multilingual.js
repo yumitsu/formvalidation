@@ -2,10 +2,10 @@
  * multilingual add-on
  * This add-on allow to define message in multiple languages
  *
- * @link        http://bootstrapvalidator.com/addons/multilingual/
+ * @link        http://formvalidation.io/addons/multilingual/
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
- * @license     http://bootstrapvalidator.com/license/
+ * @license     http://formvalidation.io/license/
  */
 (function($) {
     /**
