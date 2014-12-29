@@ -19,7 +19,7 @@
         /**
          * Return true if the input value is a base 64 encoded string.
          *
-         * @param {FormValidation} validator The validator plugin instance
+         * @param {FormValidation.Base} validator The validator plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
          * - message: The invalid message
