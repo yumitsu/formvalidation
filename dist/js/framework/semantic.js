@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2014-12-29 10:27:13 AM
+ * @version     v0.6.0-dev, built on 2014-12-29 10:33:05 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -37,7 +37,7 @@
                 valid: null,        // 'checkmark icon'
                 invalid: null,      // 'remove icon'
                 validating: null,   // 'refresh icon'
-                feedback: ''
+                feedback: 'fv-control-feedback'
             },
             row: {
                 selector: '.field',

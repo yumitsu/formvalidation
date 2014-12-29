@@ -37,7 +37,7 @@
                 valid: null,        // 'checkmark icon'
                 invalid: null,      // 'remove icon'
                 validating: null,   // 'refresh icon'
-                feedback: ''
+                feedback: 'fv-control-feedback'
             },
             row: {
                 selector: '.field',
