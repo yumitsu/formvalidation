@@ -44,6 +44,9 @@
 .fv-form-bootstrap .fv-bootstrap-icon-input-group {
 	z-index: 100;
 }
+.form-inline.fv-form-bootstrap .form-group {
+    vertical-align: top;
+}
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~ For Foundation form ~~~ */
