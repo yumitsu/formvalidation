@@ -51,12 +51,21 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
-            var type = $field.attr('type');
+            var ns      = this._namespace,
+                type    = $field.attr('type'),
+                field   = $field.attr('data-' + ns + '-field'),
+                row     = this.options.fields[field].row || this.options.row.selector,
+                $parent = $field.closest(row);
+
             if ('checkbox' === type || 'radio' === type) {
                 var $next = $icon.next();
                 if ($next.is('label')) {
                     $icon.insertAfter($next);
                 }
+            }
+
+            if ($parent.find('label').length === 0) {
+                $icon.addClass('fv-icon-no-label');
             }
         },
 
