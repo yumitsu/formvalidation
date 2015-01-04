@@ -34,9 +34,9 @@
             row: {
                 // http://foundation.zurb.com/docs/components/forms.html
                 selector: '.row',
-                valid: '',
+                valid: 'fv-has-success',
                 invalid: 'error',
-                feedback: 'fv-has-feedback fv-foundation-has-feedback'
+                feedback: 'fv-has-feedback'
             }
         }, options);
 

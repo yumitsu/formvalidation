@@ -41,7 +41,7 @@
             },
             row: {
                 selector: '.field',
-                valid: '',
+                valid: 'fv-has-success',
                 invalid: 'error',
                 feedback: 'fv-has-feedback'
             }
