@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2015-01-04 12:10:42 PM
+ * @version     v0.6.0-dev, built on 2015-01-04 8:14:12 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -24,7 +24,7 @@
                 invalid: ''
             },
             err: {
-                clazz: 'ui red pointing prompt label transition',
+                clazz: 'ui red pointing label transition',
                 parent: '^.*(field|column).*$'
             },
             // When using feedback icon, the input must place inside 'ui input icon' element

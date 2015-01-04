@@ -24,7 +24,7 @@
                 invalid: ''
             },
             err: {
-                clazz: 'ui red pointing prompt label transition',
+                clazz: 'ui red pointing label transition',
                 parent: '^.*(field|column).*$'
             },
             // When using feedback icon, the input must place inside 'ui input icon' element

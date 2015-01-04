@@ -106,6 +106,10 @@
 .fv-form-semantic .error .icon {
     color: #d95c5c;
 }
+/* Semantic horizontal form */
+.fv-form-horizontal.fv-form-semantic .row {
+    padding-bottom: 0;
+}
 
 /* ~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~ For UIKit form ~~~ */
