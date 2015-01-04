@@ -76,7 +76,6 @@
 .fv-form-foundation .error .fv-control-feedback {
     color: #f04124;
 }
-
 /**
  * Foundation reset the bottom marin to 0 when the row has '.error' class
  * I need to adjust it when using tooltip to show the error
@@ -112,13 +111,31 @@
 /* ~~~ For UIKit form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~ */
 
-.fv-form-uikit .uk-text-warning {
-    color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
+.fv-form-uikit .fv-control-feedback {
+    top: 25px;      /* Height of UIKit label */
+    width: 30px;    /* Height of UIKit input */
+    height: 30px;
+    line-height: 30px;
 }
-.fv-form-uikit .uk-text-warning {
-    color: #d32c46;    /* Same as UIKit danger button (.uk-button-danger) */
+.fv-form-uikit .uk-text-danger {
     display: block;
 }
+/* UIKit horizontal form */
 .uk-form-horizontal.fv-form-uikit .fv-control-feedback {
-    line-height: normal;
+    /*line-height: normal;*/
+    top: 0;
+}
+.fv-form-uikit .fv-has-error label,
+.fv-form-uikit .fv-has-error .uk-form-label,
+.fv-form-uikit .fv-has-error .fv-control-feedback {
+    color: #D85030;     /* Same as .uk-form-danger */
+}
+.fv-form-uikit .fv-has-success label,
+.fv-form-uikit .fv-has-success .uk-form-label,
+.fv-form-uikit .fv-has-success .fv-control-feedback {
+    color: #659F13;     /* Same as .uk-form-success */
+}
+/* UIKit stacked form without label */
+.fv-form-uikit .fv-icon-no-label {
+	top: 0;
 }

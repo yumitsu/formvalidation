@@ -24,7 +24,7 @@
                 invalid: 'uk-form-danger'
             },
             err: {
-                clazz: 'uk-text-warning',
+                clazz: 'uk-text-danger',
                 parent: '^.*(uk-form-controls|uk-width-[\\d+]-[\\d+]).*$'
             },
             // UIKit doesn't support feedback icon
@@ -37,8 +37,8 @@
             row: {
                 // http://getuikit.com/docs/form.html
                 selector: '.uk-form-row',
-                valid: '',
-                invalid: '',
+                valid: 'fv-has-success',
+                invalid: 'fv-has-error',
                 feedback: 'fv-has-feedback'
             }
         }, options);
@@ -54,12 +54,21 @@
          * @param {jQuery} $icon The icon element
          */
         _fixIcon: function($field, $icon) {
-            var type = $field.attr('type');
+            var ns      = this._namespace,
+                type    = $field.attr('type'),
+                field   = $field.attr('data-' + ns + '-field'),
+                row     = this.options.fields[field].row || this.options.row.selector,
+                $parent = $field.closest(row);
+
             if ('checkbox' === type || 'radio' === type) {
                 var $fieldParent = $field.parent();
                 if ($fieldParent.is('label')) {
                     $icon.insertAfter($fieldParent);
                 }
+            }
+
+            if ($parent.find('label').length === 0) {
+                $icon.addClass('fv-icon-no-label');
             }
         },
 
