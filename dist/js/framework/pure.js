@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2015-01-04 8:34:03 PM
+ * @version     v0.6.0-dev, built on 2015-01-04 10:01:52 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -33,8 +33,8 @@
             row: {
                 // http://purecss.io/forms/#aligned-form
                 selector: '.pure-control-group',
-                valid: '',
-                invalid: '',
+                valid: 'fv-has-success',
+                invalid: 'fv-has-error',
                 feedback: 'fv-has-feedback'
             }
         }, options);
@@ -42,5 +42,23 @@
         FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidation.Framework.Pure.prototype = $.extend({}, FormValidation.Base.prototype, {});
+    FormValidation.Framework.Pure.prototype = $.extend({}, FormValidation.Base.prototype, {
+        /**
+         * Specific framework might need to adjust the icon position
+         *
+         * @param {jQuery} $field The field element
+         * @param {jQuery} $icon The icon element
+         */
+        _fixIcon: function($field, $icon) {
+            var ns      = this._namespace,
+                type    = $field.attr('type'),
+                field   = $field.attr('data-' + ns + '-field'),
+                row     = this.options.fields[field].row || this.options.row.selector,
+                $parent = $field.closest(row);
+
+            if ($parent.find('label').length === 0) {
+                $icon.addClass('fv-icon-no-label');
+            }
+        }
+    });
 }(jQuery));

@@ -88,12 +88,31 @@
 /* ~~~ For Pure form ~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~ */
 
-.fv-form-pure .fv-help-block {
-    color: rgb(202, 60, 60);    /* Same as Pure .button-error */
+.fv-form-pure .fv-control-feedback {
+    top: 22px;      /* Height of Pure label */
+    width: 36px;    /* Height of Pure input */
+    height: 36px;
+    line-height: 36px;
+}
+.pure-form-stacked.fv-form-pure .fv-control-feedback {
+    top: 4px;
 }
 .pure-form-aligned .pure-control-group .fv-help-block {
     margin-top: 5px;
     margin-left: 180px;
+}
+.pure-form-aligned.fv-form-pure .fv-control-feedback,    /* Pure horizontal form */
+.fv-form-pure .fv-icon-no-label {           /* Pure stacked form without label */
+	top: 0;
+}
+.fv-form-pure .fv-has-error label,
+.fv-form-pure .fv-has-error .fv-help-block,
+.fv-form-pure .fv-has-error .fv-control-feedback {
+    color: #CA3C3C;     /* Same as .button-error */
+}
+.fv-form-pure .fv-has-success label,
+.fv-form-pure .fv-has-success .fv-control-feedback {
+    /*color: #1CB841;*/     /* Same as .button-success */
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -137,7 +156,7 @@
 .fv-form-uikit .fv-has-success label,
 .fv-form-uikit .fv-has-success .uk-form-label,
 .fv-form-uikit .fv-has-success .fv-control-feedback {
-    color: #659F13;     /* Same as .uk-form-success */
+    /*color: #659F13;*/     /* Same as .uk-form-success */
 }
 /* UIKit stacked form without label */
 .fv-form-uikit .fv-icon-no-label {

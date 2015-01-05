@@ -33,8 +33,8 @@
             row: {
                 // http://purecss.io/forms/#aligned-form
                 selector: '.pure-control-group',
-                valid: '',
-                invalid: '',
+                valid: 'fv-has-success',
+                invalid: 'fv-has-error',
                 feedback: 'fv-has-feedback'
             }
         }, options);
@@ -42,5 +42,23 @@
         FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidation.Framework.Pure.prototype = $.extend({}, FormValidation.Base.prototype, {});
+    FormValidation.Framework.Pure.prototype = $.extend({}, FormValidation.Base.prototype, {
+        /**
+         * Specific framework might need to adjust the icon position
+         *
+         * @param {jQuery} $field The field element
+         * @param {jQuery} $icon The icon element
+         */
+        _fixIcon: function($field, $icon) {
+            var ns      = this._namespace,
+                type    = $field.attr('type'),
+                field   = $field.attr('data-' + ns + '-field'),
+                row     = this.options.fields[field].row || this.options.row.selector,
+                $parent = $field.closest(row);
+
+            if ($parent.find('label').length === 0) {
+                $icon.addClass('fv-icon-no-label');
+            }
+        }
+    });
 }(jQuery));
