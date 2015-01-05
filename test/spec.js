@@ -9088,7 +9088,7 @@ describe('zipCode', function() {
         this.fv.updateOption('zc', 'zipCode', 'country', 'CH');
 
         // Valid samples
-        var validSamples = [ '8280', '8090', '8238', '9490'];
+        var validSamples = ['8280', '8090', '8238', '9490'];
         for (var i in validSamples) {
             this.fv.resetForm();
             this.$zipCode.val(validSamples[i]);
@@ -9110,7 +9110,7 @@ describe('zipCode', function() {
         this.fv.updateOption('zc', 'zipCode', 'country', 'ES');
 
         // Valid samples
-        var validSamples = [ '01234', '28080', '29004', '41023'];
+        var validSamples = ['01234', '28080', '29004', '41023'];
         for (var i in validSamples) {
             this.fv.resetForm();
             this.$zipCode.val(validSamples[i]);

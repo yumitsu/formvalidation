@@ -24,6 +24,7 @@
                 invalid: ''
             },
             err: {
+                // http://semantic-ui.com/elements/label.html#pointing
                 clazz: 'ui red pointing label transition',
                 parent: '^.*(field|column).*$'
             },
@@ -40,6 +41,7 @@
                 feedback: 'fv-control-feedback'
             },
             row: {
+                // http://semantic-ui.com/collections/form.html
                 selector: '.field',
                 valid: 'fv-has-success',
                 invalid: 'error',

@@ -2247,7 +2247,7 @@ if (typeof jQuery === 'undefined') {
         row: {
             // The CSS selector for indicating the element consists of the field
             // You should adjust this option if your form group consists of many fields which not all of them need to be validated
-            container: null,
+            selector: null,
             valid: '',
             invalid: '',
             feedback: ''

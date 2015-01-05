@@ -20,6 +20,7 @@
                 disabled: 'disabled'
             },
             err: {
+                // http://getbootstrap.com/css/#forms-help-text
                 clazz: 'help-block',
                 parent: '^(.*)col-(xs|sm|md|lg)-(offset-){0,1}[0-9]+(.*)$'
             },
@@ -48,8 +49,9 @@
                 validating: null,
                 feedback: 'form-control-feedback'
             },
-            // By default, each field is placed inside the <div class="form-group"></div>
             row: {
+                // By default, each field is placed inside the <div class="form-group"></div>
+                // http://getbootstrap.com/css/#forms
                 selector: '.form-group',
                 valid: 'has-success',
                 invalid: 'has-error',

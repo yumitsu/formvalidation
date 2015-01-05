@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.0-dev, built on 2015-01-04 10:01:52 PM
+ * @version     v0.6.0-dev, built on 2015-01-05 11:49:18 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -2247,7 +2247,7 @@ if (typeof jQuery === 'undefined') {
         row: {
             // The CSS selector for indicating the element consists of the field
             // You should adjust this option if your form group consists of many fields which not all of them need to be validated
-            container: null,
+            selector: null,
             valid: '',
             invalid: '',
             feedback: ''

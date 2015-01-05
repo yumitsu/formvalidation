@@ -17,10 +17,11 @@
             button: {
                 selector: '[type="submit"]',
                 // The class for disabled button
-                // http://foundation.zurb.com/docs/components/buttons.html
+                // http://foundation.zurb.com/docs/components/buttons.html#button-colors
                 disabled: 'disabled'
             },
             err: {
+                // http://foundation.zurb.com/docs/components/forms.html#error-states
                 clazz: 'error',
                 parent: '^.*((small|medium|large)-[0-9]+)\\s.*(columns).*$'
             },

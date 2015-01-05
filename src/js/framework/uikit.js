@@ -24,6 +24,7 @@
                 invalid: 'uk-form-danger'
             },
             err: {
+                // http://getuikit.com/docs/text.html#text-styles
                 clazz: 'uk-text-danger',
                 parent: '^.*(uk-form-controls|uk-width-[\\d+]-[\\d+]).*$'
             },
