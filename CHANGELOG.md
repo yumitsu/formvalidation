@@ -1,6 +1,6 @@
 # Change Log
 
-## v0.6.0 (not released yet)
+## v0.6.0 (2015-01-06)
 
 __New Features__
 * [#708](https://github.com/formvalidation/formvalidation/issues/708), [#899](https://github.com/formvalidation/formvalidation/issues/899): Add ```setLocale()``` and ```getLocale()``` methods to support multiple languages
