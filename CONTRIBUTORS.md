@@ -124,6 +124,7 @@ I would like to give big thanks to the following contributors:
 * [@ulsa](https://github.com/ulsa)
 * [@vadail](https://github.com/vadail)
 * [@vaz](https://github.com/vaz)
+* [@xabikip](https://github.com/xabikip)
 * [@yakidahan](https://github.com/yakidahan)
 * [@zmira](https://github.com/zmira)
 * [@waveking](https://github.com/waveking)

@@ -89,6 +89,7 @@ __Language Packages__
 * [#1217](https://github.com/formvalidation/formvalidation/pull/1217), [#1247](https://github.com/formvalidation/formvalidation/pull/1247): Update Czech language package, thanks to [@budik21](https://github.com/budik21)
 * [#1225](https://github.com/formvalidation/formvalidation/pull/1225): Add Finnish language package, thanks to [@traone](https://github.com/traone)
 * [#1246](https://github.com/formvalidation/formvalidation/pull/1246): Add Hindi language package, thanks to [@gladiatorAsh](https://github.com/gladiatorAsh)
+* [#1321](https://github.com/formvalidation/formvalidation/pull/1321): Add Basque language package, thanks to [@xabikip](https://github.com/xabikip)
 
 ## v0.5.3 (2014-11-05)
 
