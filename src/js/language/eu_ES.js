@@ -248,6 +248,7 @@
                     GB: 'Erresuma Batuak',
                     IN: 'India',
                     MA: 'Maroko',
+                    NL: 'Herbeherak',
                     PK: 'Pakistan',
                     RO: 'Errumania',
                     RU: 'Errusiarra',

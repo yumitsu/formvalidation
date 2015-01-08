@@ -248,6 +248,7 @@
                     GB: 'Mbretëria e Bashkuar',
                     IN: 'Indi',
                     MA: 'Marok',
+                    NL: 'Hollandë',
                     PK: 'Pakistan',
                     RO: 'Rumani',
                     RU: 'Rusi',

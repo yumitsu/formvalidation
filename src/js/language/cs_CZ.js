@@ -248,6 +248,7 @@
                     GB: 'Velkou Británii',
                     IN: 'Indie',
                     MA: 'Maroko',
+                    NL: 'Nizozemsko',
                     PK: 'Pákistán',
                     RO: 'Rumunsko',
                     RU: 'Rusko',
