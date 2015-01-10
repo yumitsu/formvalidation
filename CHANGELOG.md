@@ -2,6 +2,9 @@
 
 ## v0.6.1 (not released yet)
 
+__Improvements__
+* [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
+
 __Bug Fixes__
 * [#1279](https://github.com/formvalidation/formvalidation/issues/1279), [#1280](https://github.com/formvalidation/formvalidation/pull/1280): Show the ```validating``` icon when the field is being validated
 

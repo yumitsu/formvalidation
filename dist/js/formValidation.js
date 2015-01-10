@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-10 8:57:10 AM
+ * @version     v0.6.1-dev, built on 2015-01-10 9:06:52 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -6918,10 +6918,17 @@ if (typeof jQuery === 'undefined') {
                     dataType: 'json',
                     data: data
                 });
-                xhr.then(function(response) {
-                    response.valid = response.valid === true || response.valid === 'true';
-                    dfd.resolve($field, 'remote', response);
-                });
+
+                xhr
+                    .success(function(response) {
+                        response.valid = response.valid === true || response.valid === 'true';
+                        dfd.resolve($field, 'remote', response);
+                    })
+                    .error(function(response) {
+                        dfd.resolve($field, 'remote', {
+                            valid: false
+                        });
+                    });
 
                 dfd.fail(function() {
                     xhr.abort();

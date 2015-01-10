@@ -94,10 +94,17 @@
                     dataType: 'json',
                     data: data
                 });
-                xhr.then(function(response) {
-                    response.valid = response.valid === true || response.valid === 'true';
-                    dfd.resolve($field, 'remote', response);
-                });
+
+                xhr
+                    .success(function(response) {
+                        response.valid = response.valid === true || response.valid === 'true';
+                        dfd.resolve($field, 'remote', response);
+                    })
+                    .error(function(response) {
+                        dfd.resolve($field, 'remote', {
+                            valid: false
+                        });
+                    });
 
                 dfd.fail(function() {
                     xhr.abort();
