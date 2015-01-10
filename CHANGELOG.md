@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.6.1 (not released yet)
+
+__Bug Fixes__
+* [#1279](https://github.com/formvalidation/formvalidation/issues/1279), [#1280](https://github.com/formvalidation/formvalidation/pull/1280): Show the ```validating``` icon when the field is being validated
+
 ## v0.6.0 (2015-01-06)
 
 __New Features__

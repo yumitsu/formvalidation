@@ -1382,7 +1382,7 @@ if (typeof jQuery === 'undefined') {
                             this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
                             $field.addClass(isValidField ? this.options.control.valid : this.options.control.invalid);
                             if ($icon) {
-                                var isValidating = ($allErrors.filter('[data-bv-result="' + this.STATUS_VALIDATING +'"]').length > 0);
+                                var isValidating = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALIDATING +'"]').length > 0);
                                 $icon
                                     .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
                                     .addClass(isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid))
