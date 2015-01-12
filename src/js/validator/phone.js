@@ -24,6 +24,7 @@
                     GB: 'United Kingdom',
                     IN: 'India',
                     MA: 'Morocco',
+                    NL: 'Netherlands',
                     PK: 'Pakistan',
                     RO: 'Romania',
                     RU: 'Russia',
@@ -43,7 +44,7 @@
         },
 
         // The supported countries
-        COUNTRY_CODES: ['AE', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
+        COUNTRY_CODES: ['AE', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -158,7 +159,13 @@
                     value   = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
                     break;
-
+                
+                case 'NL':
+                    // https://regex101.com/r/mX2wJ2/1
+                    value = $.trim(value);
+                    isValid = (/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/).test(value);
+                    break;
+                
                 case 'PK':
                     // http://regex101.com/r/yH8aV9/2
                     value   = $.trim(value);
