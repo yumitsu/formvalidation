@@ -2,6 +2,9 @@
 
 ## v0.6.1 (not released yet)
 
+__New Features__
+* [#1328](https://github.com/formvalidation/formvalidation/issues/1328), [#1330](https://github.com/formvalidation/formvalidation/pull/1330): Add Netherlands [phone](http://formvalidation.io/validators/phone/) validator, thanks to [@HendrikSwBase](https://github.com/HendrikSwBase)
+
 __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
 

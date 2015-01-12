@@ -15,6 +15,7 @@ describe('phone', function() {
                         '<option value="GB">United Kingdom</option>',
                         '<option value="IN">India</option>',
                         '<option value="MA">Morocco</option>',
+                        '<option value="NL">Netherlands</option>',
                         '<option value="PK">Pakistan</option>',
                         '<option value="RO">Romania</option>',
                         '<option value="RU">Russia</option>',
@@ -300,6 +301,19 @@ describe('phone', function() {
             this.$phone.val(invalidSamples[i]);
             this.fv.validate();
             expect(this.fv.isValid()).toEqual(false);
+        }
+    });
+
+    it('Netherlands phone number', function() {
+        this.fv.updateOption('phone', 'phone', 'country', 'NL');
+
+        // Valid samples
+        var validSamples = ['0515524589'];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$phone.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
         }
     });
 

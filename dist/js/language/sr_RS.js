@@ -248,6 +248,7 @@
                     GB: 'Engleske',
                     IN: 'Индија',
                     MA: 'Maroka',
+                    NL: 'Holandije',
                     PK: 'Pakistana',
                     RO: 'Rumunije',
                     RU: 'Rusije',

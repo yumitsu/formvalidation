@@ -47,6 +47,7 @@ I would like to give big thanks to the following contributors:
 * [@gladiatorAsh](https://github.com/gladiatorAsh)
 * [@Glavic](https://github.com/Glavic)
 * [@grzesiek](https://github.com/grzesiek)
+* [@HendrikSwBase](https://github.com/HendrikSwBase)
 * [@henningda](https://github.com/henningda)
 * [@i0](https://github.com/i0)
 * [@igorescobar](https://github.com/igorescobar)

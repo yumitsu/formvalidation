@@ -162,7 +162,7 @@
                 
                 case 'NL':
                     // https://regex101.com/r/mX2wJ2/1
-                    value = $.trim(value);
+                    value   = $.trim(value);
                     isValid = (/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/).test(value);
                     break;
                 

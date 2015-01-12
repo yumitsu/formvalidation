@@ -248,6 +248,7 @@
                     GB: 'Regno Unito',
                     IN: 'India',
                     MA: 'Marocco',
+                    NL: 'Olanda',
                     PK: 'Pakistan',
                     RO: 'Romania',
                     RU: 'Russia',
