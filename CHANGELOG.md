@@ -13,6 +13,7 @@ __Bug Fixes__
 
 __Document__
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
+* [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
 
 ## v0.6.0 (2015-01-06)
 
