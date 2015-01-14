@@ -15,6 +15,7 @@
                 countries: {
                     AT: 'Austria',
                     BR: 'Brazil',
+                    BG: 'Bulgaria',
                     CA: 'Canada',
                     CH: 'Switzerland',
                     CZ: 'Czech Republic',
@@ -46,7 +47,7 @@
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BR', 'BG', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -98,6 +99,10 @@
 
                 case 'BR':
                     isValid = /^(\d{2})([\.]?)(\d{3})([\-]?)(\d{3})$/.test(value);
+                    break;
+
+                case 'BG':
+                    isValid = /^([1-9]{1}[0-9]{3})$/.test($.trim(value));
                     break;
 
                 case 'CA':
