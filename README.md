@@ -10,7 +10,7 @@
 
 It's developed from scratch by [@nghuuphuoc](http://twitter.com/nghuuphuoc).
 
-__Required__: [jQuery 1.9.1+](http://jquery.com/) and [Bootstrap 3+](http://getbootstrap.com/)
+__Required__: [jQuery 1.9.1+](http://jquery.com/)
 
 Screenshots first because we love it!
 

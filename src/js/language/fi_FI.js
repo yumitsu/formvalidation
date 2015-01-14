@@ -347,6 +347,7 @@
                 country: 'Ole hyvä anna kelvollinen postinumero maassa: %s',
                 countries: {
                     AT: 'Itävalta',
+                    BG: 'Bulgaria',
                     BR: 'Brasilia',
                     CA: 'Kanada',
                     CH: 'Sveitsi',

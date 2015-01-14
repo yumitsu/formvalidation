@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-12 10:02:55 PM
+ * @version     v0.6.1-dev, built on 2015-01-14 9:41:00 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -8998,6 +8998,7 @@ if (typeof jQuery === 'undefined') {
                 country: 'Please enter a valid postal code in %s',
                 countries: {
                     AT: 'Austria',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CA: 'Canada',
                     CH: 'Switzerland',
@@ -9030,7 +9031,7 @@ if (typeof jQuery === 'undefined') {
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BG', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -9078,6 +9079,10 @@ if (typeof jQuery === 'undefined') {
                 // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Austria
                 case 'AT':
                     isValid = /^([1-9]{1})(\d{3})$/.test(value);
+                    break;
+
+                case 'BG':
+                    isValid = /^([1-9]{1}[0-9]{3})$/.test($.trim(value));
                     break;
 
                 case 'BR':

@@ -347,6 +347,7 @@
                 country: 'Lütfen geçerli bir posta kodu giriniz içinde %s',
                 countries: {
                     AT: 'Avustralya',
+                    BG: 'Bulgaristan',
                     BR: 'Brezilya',
                     CA: 'Kanada',
                     CH: 'İsviçre',

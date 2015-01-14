@@ -347,6 +347,7 @@
                 country: 'Prosím zadejte správné PSČ pro %s',
                 countries: {
                     AT: 'Rakousko',
+                    BG: 'Bulharsko',
                     BR: 'Brazílie',
                     CA: 'Kanadu',
                     CH: 'Švýcarsko',

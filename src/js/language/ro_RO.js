@@ -347,6 +347,7 @@
                 country: 'Te rog sa introduci un cod postal valid din %s',
                 countries: {
                     AT: 'Austria',
+                    BG: 'Bulgaria',
                     BR: 'Brazilia',
                     CA: 'Canada',
                     CH: 'Elvetia',

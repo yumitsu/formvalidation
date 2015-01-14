@@ -347,6 +347,7 @@
                 country: 'Si prega di inserire un codice postale valido per %s',
                 countries: {
                     AT: 'Austria',
+                    BG: 'Bulgaria',
                     BR: 'Brasile',
                     CA: 'Canada',
                     CH: 'Svizzera',

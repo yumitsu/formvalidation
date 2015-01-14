@@ -347,6 +347,7 @@
                 country: 'Kérlek, hogy %s érvényes irányítószámot adj meg',
                 countries: {
                     AT: 'Ausztriában',
+                    BG: 'Bulgáriában',
                     BR: 'Brazíliában',
                     CA: 'Kanadában',
                     CH: 'Svájcban',

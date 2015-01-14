@@ -347,6 +347,7 @@
                 country: 'Vennligst fyll ut dette feltet med et gyldig postnummer i %s',
                 countries: {
                     AT: 'Østerrike',
+                    BG: 'Bulgaria',
                     BR: 'Brasil',
                     CA: 'Canada',
                     CH: 'Schweiz',

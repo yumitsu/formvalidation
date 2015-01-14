@@ -347,6 +347,7 @@
                 country: 'Vänligen mata in ett giltigt postnummer i %s',
                 countries: {
                     AT: 'Österrike',
+                    BG: 'Bulgarien',
                     BR: 'Brasilien',
                     CA: 'Kanada',
                     CH: 'Schweiz',

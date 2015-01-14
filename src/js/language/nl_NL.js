@@ -347,6 +347,7 @@
                 country: 'Voer een geldige postcode in uit %s',
                 countries: {
                     AT: 'Oostenrijk',
+                    BG: 'Bulgarije',
                     BR: 'Brazilië',
                     CA: 'Canada',
                     CH: 'Zwitserland',

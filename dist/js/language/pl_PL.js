@@ -347,6 +347,7 @@
                 country: 'Wprowadź poprawny kod pocztowy w kraju %s',
                 countries: {
                     AT: 'Austria',
+                    BG: 'Bułgaria',
                     BR: 'Brazylia',
                     CA: 'Kanada',
                     CH: 'Szwajcaria',

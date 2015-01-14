@@ -53,6 +53,7 @@ I would like to give big thanks to the following contributors:
 * [@igorescobar](https://github.com/igorescobar)
 * [@ikanedo](https://github.com/ikanedo)
 * [@iplus](https://github.com/iplus)
+* [@Izopi4a](https://github.com/Izopi4a)
 * [@jasonblalock](https://github.com/jasonblalock)
 * [@jazzzz](https://github.com/jazzzz)
 * [@jcnmulio](https://github.com/jcnmulio)

@@ -347,6 +347,7 @@
                 country: 'Si us plau introdueix un codi postal vàlid a %s',
                 countries: {
                     AT: 'Àustria',
+                    BG: 'Bulgària',
                     BR: 'Brasil',
                     CA: 'Canadà',
                     CH: 'Suïssa',

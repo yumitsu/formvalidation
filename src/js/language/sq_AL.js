@@ -347,6 +347,7 @@
                 country: 'Ju lutem vendosni një kod postar të vlefshëm në %s',
                 countries: {
                     AT: 'Austri',
+                    BG: 'Bullgari',
                     BR: 'Brazil',
                     CA: 'Kanada',
                     CH: 'Zvicër',

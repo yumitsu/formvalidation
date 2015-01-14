@@ -347,6 +347,7 @@
                 country: 'Molimo da unesete ispravan poštanski broj %s',
                 countries: {
                     AT: 'Austrije',
+                    BG: 'Bugarske',
                     BR: 'Brazila',
                     CA: 'Kanade',
                     CH: 'Švajcarske',

@@ -347,6 +347,7 @@
                 country: 'Bitte gültigen Postleitzahl für %s eingeben',
                 countries: {
                     AT: 'Österreich',
+                    BG: 'Bulgarien',
                     BR: 'Brasilien',
                     CA: 'Kanada',
                     CH: 'Schweiz',

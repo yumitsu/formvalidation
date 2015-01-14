@@ -347,6 +347,7 @@
                 country: 'Silahkan isi kode pos yang valid di %s',
                 countries: {
                     AT: 'Austria',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CA: 'Kanada',
                     CH: 'Switzerland',

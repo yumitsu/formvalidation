@@ -347,6 +347,7 @@
                 country: 'Mesedez, baliozko posta kode bat sartu herrialde honetarako: %s',
                 countries: {
                     AT: 'Austria',
+                    BG: 'Bulgaria',
                     BR: 'Brasil',
                     CA: 'Kanada',
                     CH: 'Suitza',

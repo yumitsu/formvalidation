@@ -347,6 +347,7 @@
                 country: 'Vui lòng nhập mã bưu điện hợp lệ của %s',
                 countries: {
                     AT: 'Áo',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CA: 'Canada',
                     CH: 'Thuỵ Sĩ',
