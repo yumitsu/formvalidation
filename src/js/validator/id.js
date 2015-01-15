@@ -32,6 +32,7 @@
                     ME: 'Montenegro',
                     MK: 'Macedonia',
                     NL: 'Netherlands',
+                    PL: 'Poland',
                     RO: 'Romania',
                     RS: 'Serbia',
                     SE: 'Sweden',
@@ -54,7 +55,7 @@
         // Supported country codes
         COUNTRY_CODES: [
             'BA', 'BG', 'BR', 'CH', 'CL', 'CN', 'CZ', 'DK', 'EE', 'ES', 'FI', 'HR', 'IE', 'IS', 'LT', 'LV', 'ME', 'MK', 'NL',
-            'RO', 'RS', 'SE', 'SI', 'SK', 'SM', 'TH', 'ZA'
+            'PL', 'RO', 'RS', 'SE', 'SI', 'SK', 'SM', 'TH', 'ZA'
         ],
 
         /**
@@ -1273,6 +1274,27 @@
                 sum = 0;
             }
             return (sum + '' === value.charAt(length - 1));
+        },
+        
+        /**
+         * Validate Poland citizen number (PESEL)
+         * 
+         * @see http://en.wikipedia.org/wiki/National_identification_number#Poland
+         * @see http://en.wikipedia.org/wiki/PESEL
+         * @param {String} value The ID
+         * @returns {Boolean}
+         */
+        _pl: function(value) {
+            if (!/^[0-9]{11}$/.test(value)) {
+                return false;
+            }
+            
+            var digits = (""+value).split("");
+            var sum = (1*parseInt(digits[0]) + 3*parseInt(digits[1]) + 7*parseInt(digits[2]) + 9*parseInt(digits[3]) + 1*parseInt(digits[4]) + 3*parseInt(digits[5]) + 7*parseInt(digits[6]) + 9*parseInt(digits[7]) + 1*parseInt(digits[8]) + 3*parseInt(digits[9]))%10;
+            if(sum==0) sum = 10;
+            sum = 10 - sum;
+
+            return parseInt(digits[10])==sum;
         },
 
         /**
