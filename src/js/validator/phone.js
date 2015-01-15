@@ -86,6 +86,27 @@
                     value   = $.trim(value);
                     isValid = (/^(((\+|00)?971[\s\.-]?(\(0\)[\s\.-]?)?|0)(\(5(0|2|5|6)\)|5(0|2|5|6)|2|3|4|6|7|9)|60)([\s\.-]?[0-9]){7}$/).test(value);
                     break;
+                    
+                case 'BG':
+                    /**
+                    * Test cases can be found here : https://regex101.com/r/yE6vN4/1
+                    * all the codes: http://en.wikipedia.org/wiki/Telephone_numbers_in_Bulgaria
+                    *
+                    * the idea of first regex is :
+                    * remove +, spaces and dashses and () so the rest of the regex can be made much simpler
+                    *
+                    * validator itself can match phone numbers begging with 359,0,00
+                    * there are 3 mobile providers, so 087 ,088, 089 and 7 digits after
+                    * 0700 and 0900 are followed by 5 digits
+                    * for 0800 I found both 5 and 6 digits, so they are both included
+                    *
+                    * for Sofia is 02 and 7 digits after
+                    * rest of the cities starts from 030 and ends in 099 and can be both 5 or 6 digits after
+                    *
+                    */
+                    value   = value.replace(/\+|\s|-|\/|\(|\)/gi,'');
+                    isValid = (/^(0|359|00)(((700|900)[0-9]{5}|((800)[0-9]{5}|(800)[0-9]{4}))|(87|88|89)([0-9]{7})|((2[0-9]{7})|(([3-9][0-9])(([0-9]{6})|([0-9]{5})))))$/).test(value);
+                    break;
 
                 case 'BR':
                     // Test: http://regexr.com/399m1
