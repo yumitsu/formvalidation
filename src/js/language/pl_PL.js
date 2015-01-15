@@ -178,6 +178,7 @@
                     ME: 'Czarnogóra',
                     MK: 'Macedonia',
                     NL: 'Holandia',
+                    PL: 'Polska',
                     RO: 'Rumunia',
                     RS: 'Serbia',
                     SE: 'Szwecja',
