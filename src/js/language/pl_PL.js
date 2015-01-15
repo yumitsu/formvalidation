@@ -363,6 +363,7 @@
                     IT: 'Włochy',
                     MA: 'Maroko',
                     NL: 'Holandia',
+                    PT: 'Polska',
                     PT: 'Portugalia',
                     RO: 'Rumunia',
                     RU: 'Rosja',
