@@ -238,6 +238,7 @@
                 country: 'Si us plau introdueix un telèfon vàlid a %s',
                 countries: {
                     AE: 'Emirats Àrabs Units',
+                    BG: 'Bulgària',
                     BR: 'Brasil',
                     CN: 'Xina',
                     CZ: 'República Checa',

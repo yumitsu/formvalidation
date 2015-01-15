@@ -238,6 +238,7 @@
                 country: 'Si prega di inserire un numero di telefono valido per %s',
                 countries: {
                     AE: 'Emirati Arabi Uniti',
+                    BG: 'Bulgaria',
                     BR: 'Brasile',
                     CN: 'Cina',
                     CZ: 'Republica Ceca',

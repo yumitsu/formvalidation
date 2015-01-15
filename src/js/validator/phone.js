@@ -14,6 +14,7 @@
                 country: 'Please enter a valid phone number in %s',
                 countries: {
                     AE: 'United Arab Emirates',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CN: 'China',
                     CZ: 'Czech Republic',
@@ -44,7 +45,7 @@
         },
 
         // The supported countries
-        COUNTRY_CODES: ['AE', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
+        COUNTRY_CODES: ['AE', 'BG', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -88,22 +89,8 @@
                     break;
                     
                 case 'BG':
-                    /**
-                    * Test cases can be found here : https://regex101.com/r/yE6vN4/1
-                    * all the codes: http://en.wikipedia.org/wiki/Telephone_numbers_in_Bulgaria
-                    *
-                    * the idea of first regex is :
-                    * remove +, spaces and dashses and () so the rest of the regex can be made much simpler
-                    *
-                    * validator itself can match phone numbers begging with 359,0,00
-                    * there are 3 mobile providers, so 087 ,088, 089 and 7 digits after
-                    * 0700 and 0900 are followed by 5 digits
-                    * for 0800 I found both 5 and 6 digits, so they are both included
-                    *
-                    * for Sofia is 02 and 7 digits after
-                    * rest of the cities starts from 030 and ends in 099 and can be both 5 or 6 digits after
-                    *
-                    */
+                    // Test cases can be found here: https://regex101.com/r/yE6vN4/1
+                    // See http://en.wikipedia.org/wiki/Telephone_numbers_in_Bulgaria
                     value   = value.replace(/\+|\s|-|\/|\(|\)/gi,'');
                     isValid = (/^(0|359|00)(((700|900)[0-9]{5}|((800)[0-9]{5}|(800)[0-9]{4}))|(87|88|89)([0-9]{7})|((2[0-9]{7})|(([3-9][0-9])(([0-9]{6})|([0-9]{5})))))$/).test(value);
                     break;

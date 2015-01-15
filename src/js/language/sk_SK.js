@@ -238,6 +238,7 @@
                 country: 'Prosím zadajte správné telefónne číslo pre %s',
                 countries: {
                     AE: 'Spojené arabské emiráty',
+                    BG: 'Bulharsko',
                     BR: 'Brazíliu',
                     CN: 'Čínu',
                     CZ: 'Českú Republiku',

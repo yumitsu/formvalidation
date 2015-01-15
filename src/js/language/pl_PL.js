@@ -238,6 +238,7 @@
                 country: 'Wprowadź poprawny numer telefonu w kraju %s',
                 countries: {
                     AE: 'Zjednoczone Emiraty Arabskie',
+                    BG: 'Bułgaria',
                     BR: 'Brazylia',
                     CN: 'Chiny',
                     CZ: 'Czechy',

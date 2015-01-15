@@ -238,6 +238,7 @@
                 country: 'Kérlek, hogy %s érvényes telefonszámot adj meg',
                 countries: {
                     AE: 'az Egyesült Arab Emírségekben', /* Special case */
+                    BG: 'Bulgáriában',
                     BR: 'Brazíliában',
                     CN: 'Kínában',
                     CZ: 'Csehországban',

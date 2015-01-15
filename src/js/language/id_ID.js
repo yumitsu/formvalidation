@@ -238,6 +238,7 @@
                 country: 'Silahkan isi nomor telepon yang valid dalam %s',
                 countries: {
                     AE: 'Uni Emirat Arab',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CN: 'Cina',
                     CZ: 'Czech',

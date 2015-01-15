@@ -238,6 +238,7 @@
                 country: 'Lütfen geçerli bir telefon numarası giriniz içinde %s',
                 countries: {
                     AE: 'Birleşik Arap Emirlikleri',
+                    BG: 'Bulgaristan',
                     BR: 'Brezilya',
                     CN: 'Çin',
                     CZ: 'Çek Cumhuriyeti',

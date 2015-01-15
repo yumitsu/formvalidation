@@ -238,6 +238,7 @@
                 country: 'Mesedez baliozko telefono zenbaki bat sartu honako: %s',
                 countries: {
                     AE: 'Arabiar Emirerri Batua',
+                    BG: 'Bulgaria',
                     BR: 'Brasil',
                     CN: 'Txina',
                     CZ: 'Txekiar Errepublika',

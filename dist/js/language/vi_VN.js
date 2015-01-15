@@ -238,6 +238,7 @@
                 country: 'Vui lòng nhập số điện thoại hợp lệ của %s',
                 countries: {
                     AE: 'Tiểu vương quốc Ả Rập thống nhất',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CN: 'Trung Quốc',
                     CZ: 'Séc',

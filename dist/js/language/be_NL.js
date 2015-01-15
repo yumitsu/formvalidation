@@ -238,6 +238,7 @@
                 country: 'Geef een geldig telefoon nummer van %s',
                 countries: {
                     AE: 'Verenigde Arabische Emiraten',
+                    BG: 'Bulgarije',
                     BR: 'Brazilië',
                     CN: 'China',
                     CZ: 'Tsjechische',

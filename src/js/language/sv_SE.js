@@ -238,6 +238,7 @@
                 country: 'Vänligen mata in ett giltigt telefonnummer i %s',
                 countries: {
                     AE: 'Förenade Arabemiraten',
+                    BG: 'Bulgarien',
                     BR: 'Brasilien',
                     CN: 'Kina',
                     CZ: 'Tjeckien',

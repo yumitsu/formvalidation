@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-14 9:41:00 AM
+ * @version     v0.6.1-dev, built on 2015-01-15 10:41:32 AM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -6588,6 +6588,7 @@ if (typeof jQuery === 'undefined') {
                 country: 'Please enter a valid phone number in %s',
                 countries: {
                     AE: 'United Arab Emirates',
+                    BG: 'Bulgaria',
                     BR: 'Brazil',
                     CN: 'China',
                     CZ: 'Czech Republic',
@@ -6618,7 +6619,7 @@ if (typeof jQuery === 'undefined') {
         },
 
         // The supported countries
-        COUNTRY_CODES: ['AE', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
+        COUNTRY_CODES: ['AE', 'BG', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -6659,6 +6660,13 @@ if (typeof jQuery === 'undefined') {
                     // Test: http://regexr.com/39tak
                     value   = $.trim(value);
                     isValid = (/^(((\+|00)?971[\s\.-]?(\(0\)[\s\.-]?)?|0)(\(5(0|2|5|6)\)|5(0|2|5|6)|2|3|4|6|7|9)|60)([\s\.-]?[0-9]){7}$/).test(value);
+                    break;
+                    
+                case 'BG':
+                    // Test cases can be found here: https://regex101.com/r/yE6vN4/1
+                    // See http://en.wikipedia.org/wiki/Telephone_numbers_in_Bulgaria
+                    value   = value.replace(/\+|\s|-|\/|\(|\)/gi,'');
+                    isValid = (/^(0|359|00)(((700|900)[0-9]{5}|((800)[0-9]{5}|(800)[0-9]{4}))|(87|88|89)([0-9]{7})|((2[0-9]{7})|(([3-9][0-9])(([0-9]{6})|([0-9]{5})))))$/).test(value);
                     break;
 
                 case 'BR':

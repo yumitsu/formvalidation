@@ -238,6 +238,7 @@
                 country: 'Bitte valide Telefonnummer für %s eingeben',
                 countries: {
                     AE: 'Vereinigte Arabische Emirate',
+                    BG: 'Bulgarien',
                     BR: 'Brasilien',
                     CN: 'China',
                     CZ: 'Tschechische',

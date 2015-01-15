@@ -238,6 +238,7 @@
                 country: 'Ole hyvä anna kelvollinen puhelinnumero maassa %s',
                 countries: {
                     AE: 'Yhdistyneet arabiemiirikunnat',
+                    BG: 'Bulgaria',
                     BR: 'Brasilia',
                     CN: 'Kiina',
                     CZ: 'Tsekin tasavalta',

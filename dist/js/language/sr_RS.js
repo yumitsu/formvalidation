@@ -238,6 +238,7 @@
                 country: 'Molimo da unesete ispravan broj telefona %s',
                 countries: {
                     AE: 'Ujedinjenih Arapskih Emirata',
+                    BG: 'Bugarske',
                     BR: 'Brazila',
                     CN: 'Kine',
                     CZ: 'Češke',

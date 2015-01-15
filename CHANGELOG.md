@@ -5,6 +5,7 @@
 __New Features__
 * [#1328](https://github.com/formvalidation/formvalidation/issues/1328), [#1330](https://github.com/formvalidation/formvalidation/pull/1330): Add Netherlands [phone](http://formvalidation.io/validators/phone/) validator, thanks to [@HendrikSwBase](https://github.com/HendrikSwBase)
 * [#1347](https://github.com/formvalidation/formvalidation/pull/1347): Add Bulgarian [zip code](http://formvalidation.io/validators/zipCode/) validator, thanks to [@Izopi4a](https://github.com/Izopi4a)
+* [#1350](https://github.com/formvalidation/formvalidation/pull/1350): Add Bulgarian [phone number](http://formvalidation.io/validators/phone/) validator, thanks to [@Izopi4a](https://github.com/Izopi4a)
 
 __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails

@@ -238,6 +238,7 @@
                 country: 'Udfyld venligst dette felt med et gyldigt telefonnummer i %s',
                 countries: {
                     AE: 'De Forenede Arabiske Emirater',
+                    BG: 'Bulgarien',
                     BR: 'Brasilien',
                     CN: 'Kina',
                     CZ: 'Tjekkiet',

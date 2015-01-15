@@ -5,10 +5,11 @@ describe('phone', function() {
                 '<div class="form-group">',
                     '<select class="form-control" name="country">',
                         '<option value="AE">United Arab Emirates</option>',
+                        '<option value="BG">Bulgaria</option>',
                         '<option value="BR">Brazil</option>',
                         '<option value="CN">China</option>',
                         '<option value="CZ">Czech Republic</option>',
-                        '<option value="DE">Gemany</option>',
+                        '<option value="DE">Germany</option>',
                         '<option value="DK">Denmark</option>',
                         '<option value="ES">Spain</option>',
                         '<option value="FR">France</option>',
@@ -90,6 +91,40 @@ describe('phone', function() {
             this.$phone.val(validSamples[i]);
             this.fv.validate();
             expect(this.fv.isValid()).toBeTruthy();
+        }
+    });
+
+    it('Bulgaria phone number', function() {
+        this.fv.updateOption('phone', 'phone', 'country', 'BG');
+
+        // Valid samples
+        var validSamples = [
+            '359895123456', '0898111222', '0886111222', '0875111222', '0899555555', '359898111222',
+            // double 0
+            '00898111222',
+            // + and without + at the beginning
+            '+35998111222', '098111222',
+            '090012900',
+            '070010007', '070043256', '35970045045', '35970045666',
+            '08000700', '080088001', '080015333',
+            '028700000', '030100000', '03010070', '03656745'
+        ];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$phone.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = [
+            '01211212'
+        ];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$phone.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
         }
     });
 

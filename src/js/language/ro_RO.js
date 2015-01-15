@@ -238,6 +238,7 @@
                 country: 'Te rog sa introduci un numar de telefon valid din %s',
                 countries: {
                     AE: 'Emiratele Arabe unite',
+                    BG: 'Bulgaria',
                     BR: 'Brazilia',
                     CN: 'China',
                     CZ: 'Republica Cehia',
