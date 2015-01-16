@@ -714,8 +714,12 @@ if (typeof jQuery === 'undefined') {
          * Called when all validations are completed
          */
         _submit: function() {
-            var isValid   = this.isValid(),
-                eventType = isValid ? this.options.events.formSuccess : this.options.events.formError,
+            var isValid = this.isValid();
+            if (isValid === null) {
+                return;
+            }
+
+            var eventType = isValid ? this.options.events.formSuccess : this.options.events.formError,
                 e         = $.Event(eventType);
 
             this.$form.trigger(e);
@@ -1086,11 +1090,18 @@ if (typeof jQuery === 'undefined') {
         /**
          * Check the form validity
          *
-         * @returns {Boolean}
+         * @returns {Boolean|null} Returns one of three values
+         * - true, if all fields are valid
+         * - false, if there is one invalid field
+         * - null, if there is at least one field which is not validated yet or being validated
          */
         isValid: function() {
             for (var field in this.options.fields) {
-                if (!this.isValidField(field)) {
+                var isValidField = this.isValidField(field);
+                if (isValidField === null) {
+                    return null;
+                }
+                if (isValidField === false) {
                     return false;
                 }
             }
@@ -1149,7 +1160,10 @@ if (typeof jQuery === 'undefined') {
          * Check if the field is valid or not
          *
          * @param {String|jQuery} field The field name or field element
-         * @returns {Boolean}
+         * @returns {Boolean|null} Returns one of three values
+         * - true, if the field passes all validators
+         * - false, if the field doesn't pass any validator
+         * - null, if there is at least one validator which isn't validated yet or being validated
          */
         isValidField: function(field) {
             var ns     = this._namespace,
@@ -1184,7 +1198,9 @@ if (typeof jQuery === 'undefined') {
                     }
 
                     status = $field.data(ns + '.result.' + validatorName);
-                    if (status !== this.STATUS_VALID) {
+                    if (status === this.STATUS_VALIDATING || status === this.STATUS_NOT_VALIDATED) {
+                        return null;
+                    } else if (status === this.STATUS_INVALID) {
                         return false;
                     }
                 }
@@ -1372,22 +1388,33 @@ if (typeof jQuery === 'undefined') {
                         break;
 
                     case this.STATUS_VALID:
+                        var isValidating   = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALIDATING +'"]').length > 0),
+                            isNotValidated = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length > 0);
+
                         // If the field is valid (passes all validators)
-                        isValidField = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_NOT_VALIDATED +'"]').length === 0)
-                                     ? ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length === $allErrors.length)  // All validators are completed
-                                     : null;                                                                                                    // There are some validators that have not done
+                        isValidField = (isValidating || isNotValidated)     // There are some validators that have not done
+                                     ? null
+                                     : ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALID +'"]').length === $allErrors.length); // All validators are completed
 
                         $field.removeClass(this.options.control.valid).removeClass(this.options.control.invalid);
-                        if (isValidField !== null) {
-                            this.disableSubmitButtons(this.$submitButton ? !this.isValid() : !isValidField);
-                            $field.addClass(isValidField ? this.options.control.valid : this.options.control.invalid);
-                            if ($icon) {
-                                var isValidating = ($allErrors.filter('[data-' + ns + '-result="' + this.STATUS_VALIDATING +'"]').length > 0);
-                                $icon
-                                    .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
-                                    .addClass(isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid))
-                                    .show();
+
+                        if (isValidField === true) {
+                            var isValid = this.isValid();
+                            if (this.$submitButton && isValid !== null) {
+                                this.disableSubmitButtons(!isValid);
                             }
+
+                            $field.addClass(this.options.control.valid);
+                        } else if (isValidField === false) {
+                            this.disableSubmitButtons(true);
+                            $field.addClass(this.options.control.invalid);
+                        }
+
+                        if ($icon) {
+                            $icon
+                                .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
+                                .addClass(isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid))
+                                .show();
                         }
 
                         var isValidContainer = this.isValidContainer($parent);
