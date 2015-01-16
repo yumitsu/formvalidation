@@ -21,6 +21,7 @@ Other issues are fixed in this version:
 * [#1107](https://github.com/formvalidation/formvalidation/issues/1107), [#1279](https://github.com/formvalidation/formvalidation/issues/1279), [#1280](https://github.com/formvalidation/formvalidation/pull/1280): Show the ```validating``` icon when the field is being validated
 
 __Document__
+* [#1205](https://github.com/formvalidation/formvalidation/issues/1205): Add [Playing with Bootstrap Material Design](http://formvalidation.io/examples/bootstrap-material-design/) example
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
 * [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
 
