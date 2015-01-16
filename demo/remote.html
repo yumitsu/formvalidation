@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Username</label>
                             <div class="col-lg-5">
-                                <input type="text" class="form-control" name="username" autocomplete="off" value="administrator" />
+                                <input type="text" class="form-control" name="username" autocomplete="off" />
                             </div>
                         </div>
 
@@ -124,72 +124,66 @@ $(document).ready(function() {
                     }
                 }
             },
-//            'email[]': {
-//                validators: {
-//                    notEmpty: {
-//                        message: 'The email address is required and can\'t be empty'
-//                    },
-//                    emailAddress: {
-//                        message: 'The input is not a valid email address'
-//                    },
-//                    remote: {
-//                        type: 'POST',
-//                        url: 'remote.php',
-//                        message: 'The email is not available',
-//                        delay: 2000
-//                    }
-//                }
-//            },
-//            password: {
-//                validators: {
-//                    notEmpty: {
-//                        message: 'The password is required and can\'t be empty'
-//                    },
-//                    different: {
-//                        field: 'username',
-//                        message: 'The password can\'t be the same as username'
-//                    }
-//                }
-//            },
-//            confirmPassword: {
-//                validators: {
-//                    notEmpty: {
-//                        message: 'The confirm password is required and can\'t be empty'
-//                    },
-//                    identical: {
-//                        field: 'password',
-//                        message: 'The password and its confirm are not the same'
-//                    }
-//                }
-//            },
-//            website: {
-//                validators: {
-//                    uri: {
-//                        message: 'The input is not a valid URL'
-//                    }
-//                }
-//            },
-//            phoneNumber: {
-//                validators: {
-//                    digits: {
-//                        message: 'The value can contain only digits'
-//                    }
-//                }
-//            },
-//            country: {
-//                validators: {
-//                    notEmpty: {
-//                        message: 'The country is required and can\'t be empty'
-//                    }
-//                }
-//            }
+            'email[]': {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required and can\'t be empty'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    },
+                    remote: {
+                        type: 'POST',
+                        url: 'remote.php',
+                        message: 'The email is not available',
+                        delay: 2000
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and can\'t be empty'
+                    },
+                    different: {
+                        field: 'username',
+                        message: 'The password can\'t be the same as username'
+                    }
+                }
+            },
+            confirmPassword: {
+                validators: {
+                    notEmpty: {
+                        message: 'The confirm password is required and can\'t be empty'
+                    },
+                    identical: {
+                        field: 'password',
+                        message: 'The password and its confirm are not the same'
+                    }
+                }
+            },
+            website: {
+                validators: {
+                    uri: {
+                        message: 'The input is not a valid URL'
+                    }
+                }
+            },
+            phoneNumber: {
+                validators: {
+                    digits: {
+                        message: 'The value can contain only digits'
+                    }
+                }
+            },
+            country: {
+                validators: {
+                    notEmpty: {
+                        message: 'The country is required and can\'t be empty'
+                    }
+                }
+            }
         }
-    })
-    .on('err.form.fv', function() {
-        alert('error');
-    }).on('success.form.fv', function(e, data) {
-        e.preventDefault();
-        alert('send');
     });
 });
 </script>
