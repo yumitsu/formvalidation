@@ -11,11 +11,12 @@ __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
 
 __Bug Fixes__
+
 This version fixed the ```isValid()``` method which should return ```null``` when there is not validated or being validated field.
 It solves the following issues:
 
+* [#962](https://github.com/formvalidation/formvalidation/issues/962), [#1318](https://github.com/formvalidation/formvalidation/issues/1318): remote validator and ```isValid()``` combined do not work
 * [#1221](https://github.com/formvalidation/formvalidation/issues/1221), [#1344](https://github.com/formvalidation/formvalidation/issues/1344): Remote validation trigger ```err.form.fv```
-* [#1318](https://github.com/formvalidation/formvalidation/issues/1318): remote validator and ```isValid()``` combined do not work
 
 Other issues are fixed in this version:
 * [#1107](https://github.com/formvalidation/formvalidation/issues/1107), [#1279](https://github.com/formvalidation/formvalidation/issues/1279), [#1280](https://github.com/formvalidation/formvalidation/pull/1280): Show the ```validating``` icon when the field is being validated
