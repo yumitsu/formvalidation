@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-16 11:58:03 AM
+ * @version     v0.6.1-dev, built on 2015-01-19 3:36:34 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -4384,6 +4384,7 @@ if (typeof jQuery === 'undefined') {
                     ME: 'Montenegro',
                     MK: 'Macedonia',
                     NL: 'Netherlands',
+                    PL: 'Poland',
                     RO: 'Romania',
                     RS: 'Serbia',
                     SE: 'Sweden',
@@ -4406,7 +4407,7 @@ if (typeof jQuery === 'undefined') {
         // Supported country codes
         COUNTRY_CODES: [
             'BA', 'BG', 'BR', 'CH', 'CL', 'CN', 'CZ', 'DK', 'EE', 'ES', 'FI', 'HR', 'IE', 'IS', 'LT', 'LV', 'ME', 'MK', 'NL',
-            'RO', 'RS', 'SE', 'SI', 'SK', 'SM', 'TH', 'ZA'
+            'PL', 'RO', 'RS', 'SE', 'SI', 'SK', 'SM', 'TH', 'ZA'
         ],
 
         /**
@@ -5624,6 +5625,35 @@ if (typeof jQuery === 'undefined') {
             if (sum === 10) {
                 sum = 0;
             }
+            return (sum + '' === value.charAt(length - 1));
+        },
+        
+        /**
+         * Validate Poland citizen number (PESEL)
+         * 
+         * @see http://en.wikipedia.org/wiki/National_identification_number#Poland
+         * @see http://en.wikipedia.org/wiki/PESEL
+         * @param {String} value The ID
+         * @returns {Boolean}
+         */
+        _pl: function(value) {
+            if (!/^[0-9]{11}$/.test(value)) {
+                return false;
+            }
+
+            var sum    = 0,
+                length = value.length,
+                weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 7];
+
+            for (var i = 0; i < length - 1; i++) {
+                sum += weight[i] * parseInt(value.charAt(i), 10);
+            }
+            sum = sum % 10;
+            if (sum === 0) {
+                sum = 10;
+            }
+            sum = 10 - sum;
+
             return (sum + '' === value.charAt(length - 1));
         },
 
@@ -9048,6 +9078,7 @@ if (typeof jQuery === 'undefined') {
                     IT: 'Italy',
                     MA: 'Morocco',
                     NL: 'Netherlands',
+                    PL: 'Poland',
                     PT: 'Portugal',
                     RO: 'Romania',
                     RU: 'Russia',
@@ -9066,7 +9097,7 @@ if (typeof jQuery === 'undefined') {
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BG', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BG', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -9187,6 +9218,11 @@ if (typeof jQuery === 'undefined') {
                 // http://en.wikipedia.org/wiki/Postal_codes_in_the_Netherlands
                 case 'NL':
                     isValid = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i.test(value);
+                    break;
+
+                // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Poland
+                case 'PL':
+                    isValid = /^[0-9]{2}\-[0-9]{3}$/.test(value);
                     break;
 
                 // Test: http://refiddle.com/1l2t

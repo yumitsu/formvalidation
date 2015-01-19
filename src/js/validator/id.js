@@ -1288,13 +1288,21 @@
             if (!/^[0-9]{11}$/.test(value)) {
                 return false;
             }
-            
-            var digits = (""+value).split("");
-            var sum = (1*parseInt(digits[0]) + 3*parseInt(digits[1]) + 7*parseInt(digits[2]) + 9*parseInt(digits[3]) + 1*parseInt(digits[4]) + 3*parseInt(digits[5]) + 7*parseInt(digits[6]) + 9*parseInt(digits[7]) + 1*parseInt(digits[8]) + 3*parseInt(digits[9]))%10;
-            if(sum==0) sum = 10;
+
+            var sum    = 0,
+                length = value.length,
+                weight = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3, 7];
+
+            for (var i = 0; i < length - 1; i++) {
+                sum += weight[i] * parseInt(value.charAt(i), 10);
+            }
+            sum = sum % 10;
+            if (sum === 0) {
+                sum = 10;
+            }
             sum = 10 - sum;
 
-            return parseInt(digits[10])==sum;
+            return (sum + '' === value.charAt(length - 1));
         },
 
         /**

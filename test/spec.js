@@ -5744,6 +5744,7 @@ describe('id', function() {
                         '<option value="ME">Montenegro</option>',
                         '<option value="MK">Macedonia</option>',
                         '<option value="NL">Netherlands</option>',
+                        '<option value="PL">Poland</option>',
                         '<option value="RO">Romania</option>',
                         '<option value="RS">Serbia</option>',
                         '<option value="SE">Sweden</option>',
@@ -6100,6 +6101,28 @@ describe('id', function() {
 
         // Invalid samples
         var invalidSamples = ['111252333'];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$id.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
+        }
+    });
+    
+    it('Polish citizen number (PESEL)', function() {
+        this.fv.updateOption('id', 'id', 'country', 'PL');
+
+        // Valid samples
+        var validSamples = ['83010411457', '87123116221'];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$id.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = ['39100413824', '36032806768', '04271113861'];
         for (i in invalidSamples) {
             this.fv.resetForm();
             this.$id.val(invalidSamples[i]);
@@ -8780,6 +8803,7 @@ describe('zipCode', function() {
                             '<option value="IN">India</option>',
                             '<option value="IT">Italy</option>',
                             '<option value="NL">Netherlands</option>',
+                            '<option value="PL">Poland</option>',
                             '<option value="PT">Portugal</option>',
                             '<option value="SE">Sweden</option>',
                             '<option value="SK">Slovakia</option>',
@@ -9037,6 +9061,28 @@ describe('zipCode', function() {
 
         // Invalid samples
         var invalidSamples = ['a65 f4e2', 'D6W FNTO', 'T37F8HK'];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$zipCode.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
+        }
+    });
+    
+    it('Poland postal code', function() {
+        this.fv.updateOption('zc', 'zipCode', 'country', 'PL');
+
+        // Valid samples
+        var validSamples = ['02-920', '00-002', '77-400'];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$zipCode.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = ['03456', '000-02', 'AB-002', '12 345'];
         for (i in invalidSamples) {
             this.fv.resetForm();
             this.$zipCode.val(invalidSamples[i]);
