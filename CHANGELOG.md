@@ -13,9 +13,12 @@ __Improvements__
 __Bug Fixes__
 
 This version fixed the ```isValid()``` method which should return ```null``` when there is not validated or being validated field.
-It solves the following issues:
+It also solves the issues where the submit button is disabled even when the form is valid.
 
 * [#962](https://github.com/formvalidation/formvalidation/issues/962), [#1318](https://github.com/formvalidation/formvalidation/issues/1318): remote validator and ```isValid()``` combined do not work
+* [#1160](https://github.com/formvalidation/formvalidation/issues/1160): Submit button is disabled
+* [#1171](https://github.com/formvalidation/formvalidation/issues/1171): Submit button being disabled
+* [#1220](https://github.com/formvalidation/formvalidation/issues/1220): Can only submit form after changing a value
 * [#1221](https://github.com/formvalidation/formvalidation/issues/1221), [#1344](https://github.com/formvalidation/formvalidation/issues/1344): Remote validation trigger ```err.form.fv```
 
 Other issues are fixed in this version:
