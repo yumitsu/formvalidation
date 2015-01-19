@@ -23,6 +23,7 @@ describe('id', function() {
                         '<option value="ME">Montenegro</option>',
                         '<option value="MK">Macedonia</option>',
                         '<option value="NL">Netherlands</option>',
+                        '<option value="PL">Poland</option>',
                         '<option value="RO">Romania</option>',
                         '<option value="RS">Serbia</option>',
                         '<option value="SE">Sweden</option>',
@@ -379,6 +380,28 @@ describe('id', function() {
 
         // Invalid samples
         var invalidSamples = ['111252333'];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$id.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
+        }
+    });
+    
+    it('Polish citizen number (PESEL)', function() {
+        this.fv.updateOption('id', 'id', 'country', 'PL');
+
+        // Valid samples
+        var validSamples = ['83010411457', '87123116221'];
+        for (var i in validSamples) {
+            this.fv.resetForm();
+            this.$id.val(validSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = ['39100413824', '36032806768', '04271113861'];
         for (i in invalidSamples) {
             this.fv.resetForm();
             this.$id.val(invalidSamples[i]);

@@ -29,6 +29,7 @@
                     IT: 'Italy',
                     MA: 'Morocco',
                     NL: 'Netherlands',
+                    PL: 'Poland',
                     PT: 'Portugal',
                     RO: 'Romania',
                     RU: 'Russia',
@@ -47,7 +48,7 @@
             country: 'country'
         },
 
-        COUNTRY_CODES: ['AT', 'BG', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
+        COUNTRY_CODES: ['AT', 'BG', 'BR', 'CA', 'CH', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IE', 'IN', 'IT', 'MA', 'NL', 'PL', 'PT', 'RO', 'RU', 'SE', 'SG', 'SK', 'US'],
 
         /**
          * Return true if and only if the input value is a valid country zip code
@@ -168,6 +169,11 @@
                 // http://en.wikipedia.org/wiki/Postal_codes_in_the_Netherlands
                 case 'NL':
                     isValid = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i.test(value);
+                    break;
+
+                // http://en.wikipedia.org/wiki/List_of_postal_codes_in_Poland
+                case 'PL':
+                    isValid = /^[0-9]{2}\-[0-9]{3}$/.test(value);
                     break;
 
                 // Test: http://refiddle.com/1l2t
