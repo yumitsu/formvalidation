@@ -61,17 +61,18 @@ $(document).ready(function() {
             fields: {
                 percentage: {
                     selector: '.percent',
+                    verbose: false,
                     validators: {
                         notEmpty: {
                             message: 'The percentage is required'
                         },
                         stringLength: {
-                            min: 2,
-                            message: 'Require at least 2 digits'
+                            max: 3,
+                            message: 'The percentage must be less than 3 characters'
                         },
                         callback: {
                             message: 'The sum must be 100',
-                            callback: function(value, validator) {
+                            callback: function(value, validator, $field) {
                                 var percentage = validator.getFieldElements('percentage'),
                                     length     = percentage.length,
                                     sum        = 0;
@@ -90,6 +91,9 @@ $(document).ready(function() {
                     }
                 }
             }
+        })
+        .on('success.field.fv', function(e, data) {
+            data.fv.disableSubmitButtons(false);
         });
 });
 </script>
