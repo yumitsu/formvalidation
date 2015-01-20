@@ -28,9 +28,11 @@ Other issues are fixed in this version:
 * [#1343](https://github.com/formvalidation/formvalidation/issues/1343), [#1369](https://github.com/formvalidation/formvalidation/issues/1369): Fix the issue where custom validator doesn't provide default message
 
 __Document__
+* [#673](https://github.com/formvalidation/formvalidation/issues/673): Update [emailAddress](http://formvalidation.io/validators/emailAddress/) validator document
 * [#1112](https://github.com/formvalidation/formvalidation/issues/1112): Support thousand separator
 * [#1124](https://github.com/formvalidation/formvalidation/issues/1124), [#1329](https://github.com/formvalidation/formvalidation/issues/1329): Fix [CKEditor example](http://formvalidation.io/examples/ckeditor/) on Firefox
 * [#1205](https://github.com/formvalidation/formvalidation/issues/1205): Add [Playing with Bootstrap Material Design](http://formvalidation.io/examples/bootstrap-material-design/) example
+* [#1308](https://github.com/formvalidation/formvalidation/issues/1308): Update [Showing card icon](http://formvalidation.io/validators/creditCard/#showing-card-icon) example
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
 * [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
 
@@ -244,7 +246,7 @@ __Bug Fixes__
 * [#687](https://github.com/formvalidation/formvalidation/issues/687), [#711](https://github.com/formvalidation/formvalidation/pull/711): Keep disabled validators VALID, thanks to [@talberti](https://github.com/talberti)
 * [#725](https://github.com/formvalidation/formvalidation/pull/725): Fix the issue when adding field which does not exist but is already set in "fields" option
 * [#732](https://github.com/formvalidation/formvalidation/issues/732): Fix the issue when removing the radio or checkbox field
-* [#746](https://github.com/formvalidation/formvalidation/issues/746): The form is still submitted when clicking on submit button which is set ```onclick="return false;"```
+* [#746](https://github.com/formvalidation/formvalidation/issues/746), [#922](https://github.com/formvalidation/formvalidation/issues/922): The form is still submitted when clicking on submit button which is set ```onclick="return false;"```
 * [#758](https://github.com/formvalidation/formvalidation/issues/758): Using [notEmpty](http://formvalidation.io/validators/notEmpty/) validator with ```type="number"```
 * [#759](https://github.com/formvalidation/formvalidation/issues/759), [#764](https://github.com/formvalidation/formvalidation/pull/764): The tooltip/popover isn't shown if there is disabled validator.
 The tooltip/popover is shown automatically when the field gets the focus, thanks to [@leedorian](https://github.com/leedorian)
