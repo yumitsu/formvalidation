@@ -1413,7 +1413,8 @@ if (typeof jQuery === 'undefined') {
                         if ($icon) {
                             $icon
                                 .removeClass(this.options.icon.invalid).removeClass(this.options.icon.validating).removeClass(this.options.icon.valid)
-                                .addClass(isValidField ? this.options.icon.valid : (isValidating ? this.options.icon.validating : this.options.icon.invalid))
+                                .addClass(isValidField === null ? '' : (isValidField ? this.options.icon.valid
+                                                                                     : (isValidating ? this.options.icon.validating : this.options.icon.invalid)))
                                 .show();
                         }
 
