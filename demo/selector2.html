@@ -16,30 +16,30 @@
     <div class="container">
         <div class="row">
             <section>
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-xs-8 col-xs-offset-2">
                     <div class="page-header">
                         <h2><code>selector</code> example</h2>
                     </div>
 
                     <form id="sumForm" method="post" class="form-horizontal" action="target.php">
                         <div class="form-group">
-                            <label class="col-lg-3 control-label">Percentage</label>
-                            <div class="col-lg-5">
+                            <label class="col-xs-3 control-label">Percentage</label>
+                            <div class="col-xs-5">
                                 <input class="form-control percent" name="first" type="text" value="0" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-offset-3 col-lg-5">
+                            <div class="col-xs-offset-3 col-xs-5">
                                 <input class="form-control percent" name="second" type="text" value="0" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-offset-3 col-lg-5">
+                            <div class="col-xs-offset-3 col-xs-5">
                                 <input class="form-control percent" name="third" type="text" value="0" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-lg-9 col-lg-offset-3">
+                            <div class="col-xs-9 col-xs-offset-3">
                                 <button type="submit" class="btn btn-primary">Validate</button>
                             </div>
                         </div>
@@ -64,6 +64,10 @@ $(document).ready(function() {
                     validators: {
                         notEmpty: {
                             message: 'The percentage is required'
+                        },
+                        stringLength: {
+                            min: 2,
+                            message: 'Require at least 2 digits'
                         },
                         callback: {
                             message: 'The sum must be 100',
