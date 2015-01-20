@@ -1990,7 +1990,7 @@ if (typeof jQuery === 'undefined') {
 
             if (resetValue) {
                 var type = $fields.attr('type');
-                ('radio' === type || 'checkbox' === type) ? $fields.removeAttr('checked').removeAttr('selected') : $fields.val('');
+                ('radio' === type || 'checkbox' === type) ? $fields.prop('checked', false).removeAttr('selected') : $fields.val('');
             }
 
             return this;
