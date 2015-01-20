@@ -550,7 +550,7 @@ if (typeof jQuery === 'undefined') {
                     return this.options.fields[field].validators[validatorName].message;
                 case !!this.options.fields[field].message:
                     return this.options.fields[field].message;
-                case !!FormValidation.I18n[this.options.locale][validatorName]['default']:
+                case (!!FormValidation.I18n[this.options.locale] && !!FormValidation.I18n[this.options.locale][validatorName] && !!FormValidation.I18n[this.options.locale][validatorName]['default']):
                     return FormValidation.I18n[this.options.locale][validatorName]['default'];
                 default:
                     return this.options.message;
