@@ -35,6 +35,7 @@ __Document__
 * [#1308](https://github.com/formvalidation/formvalidation/issues/1308): Update [Showing card icon](http://formvalidation.io/validators/creditCard/#showing-card-icon) example
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
 * [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
+* [#1333](https://github.com/formvalidation/formvalidation/issues/1333): Update [Enabling the submit button](http://formvalidation.io/examples/enabling-submit-button/) example
 
 ## v0.6.0 (2015-01-06)
 
