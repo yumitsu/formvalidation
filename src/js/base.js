@@ -1400,7 +1400,7 @@ if (typeof jQuery === 'undefined') {
 
                         if (isValidField === true) {
                             var isValid = this.isValid();
-                            if (this.$submitButton && isValid !== null) {
+                            if (isValid !== null) {
                                 this.disableSubmitButtons(!isValid);
                             }
 

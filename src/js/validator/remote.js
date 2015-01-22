@@ -29,7 +29,7 @@
         },
 
         /**
-         * Destroy the timer when destroying the bootstrapValidator (using validator.destroy() method)
+         * Destroy the timer when destroying the FormValidation (using validator.destroy() method)
          */
         destroy: function(validator, $field, options) {
             var ns    = validator.getNamespace(),
