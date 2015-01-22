@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-20 5:04:59 PM
+ * @version     v0.6.1-dev, built on 2015-01-22 4:28:00 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -6914,12 +6914,15 @@ if (typeof jQuery === 'undefined') {
 
     FormValidation.Validator.remote = {
         html5Attributes: {
+            crossdomain: 'crossDomain',
+            data: 'data',
+            datatype: 'dataType',
+            delay: 'delay',
             message: 'message',
             name: 'name',
             type: 'type',
             url: 'url',
-            data: 'data',
-            delay: 'delay'
+            validkey: 'validKey'
         },
 
         /**
@@ -6960,12 +6963,10 @@ if (typeof jQuery === 'undefined') {
                 dfd.resolve($field, 'remote', { valid: true });
                 return dfd;
             }
-
-            var name    = $field.attr('data-' + ns + '-field'),
-                data    = options.data || {},
-                url     = options.url,
-                type    = options.type || 'GET',
-                headers = options.headers || {};
+            var name     = $field.attr('data-' + ns + '-field'),
+                data     = options.data || {},
+                url      = options.url,
+                validKey = options.validKey || 'valid';
 
             // Support dynamic data
             if ('function' === typeof data) {
@@ -6983,18 +6984,24 @@ if (typeof jQuery === 'undefined') {
             }
 
             data[options.name || name] = value;
+
+            var ajaxOptions = {
+                data: data,
+                dataType: options.dataType || 'json',
+                headers: options.headers || {},
+                type: options.type || 'GET',
+                url: url
+            };
+            if (options.crossDomain !== null) {
+                ajaxOptions.crossDomain = (options.crossDomain === true || options.crossDomain === 'true');
+            }
+
             function runCallback() {
-                var xhr = $.ajax({
-                    type: type,
-                    headers: headers,
-                    url: url,
-                    dataType: 'json',
-                    data: data
-                });
+                var xhr = $.ajax(ajaxOptions);
 
                 xhr
                     .success(function(response) {
-                        response.valid = response.valid === true || response.valid === 'true';
+                        response.valid = response[validKey] === true || response[validKey] === 'true';
                         dfd.resolve($field, 'remote', response);
                     })
                     .error(function(response) {
