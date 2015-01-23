@@ -83,20 +83,20 @@
             var isValid = true;
             switch (country.toUpperCase()) {
                 case 'AE':
-                    // Test: http://regexr.com/39tak
+                    // http://regexr.com/39tak
                     value   = $.trim(value);
                     isValid = (/^(((\+|00)?971[\s\.-]?(\(0\)[\s\.-]?)?|0)(\(5(0|2|5|6)\)|5(0|2|5|6)|2|3|4|6|7|9)|60)([\s\.-]?[0-9]){7}$/).test(value);
                     break;
                     
                 case 'BG':
-                    // Test cases can be found here: https://regex101.com/r/yE6vN4/1
+                    // https://regex101.com/r/yE6vN4/1
                     // See http://en.wikipedia.org/wiki/Telephone_numbers_in_Bulgaria
                     value   = value.replace(/\+|\s|-|\/|\(|\)/gi,'');
                     isValid = (/^(0|359|00)(((700|900)[0-9]{5}|((800)[0-9]{5}|(800)[0-9]{4}))|(87|88|89)([0-9]{7})|((2[0-9]{7})|(([3-9][0-9])(([0-9]{6})|([0-9]{5})))))$/).test(value);
                     break;
 
                 case 'BR':
-                    // Test: http://regexr.com/399m1
+                    // http://regexr.com/399m1
                     value   = $.trim(value);
                     isValid = (/^(([\d]{4}[-.\s]{1}[\d]{2,3}[-.\s]{1}[\d]{2}[-.\s]{1}[\d]{2})|([\d]{4}[-.\s]{1}[\d]{3}[-.\s]{1}[\d]{4})|((\(?\+?[0-9]{2}\)?\s?)?(\(?\d{2}\)?\s?)?\d{4,5}[-.\s]?\d{4}))$/).test(value);
                     break;
@@ -108,12 +108,12 @@
                     break;
 
                 case 'CZ':
-                    // Test: http://regexr.com/39hhl
+                    // http://regexr.com/39hhl
                     isValid = /^(((00)([- ]?)|\+)(420)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(value);
                     break;
 
                 case 'DE':
-                    // Test: http://regexr.com/39pkg
+                    // http://regexr.com/39pkg
                     value   = $.trim(value);
                     isValid = (/^(((((((00|\+)49[ \-/]?)|0)[1-9][0-9]{1,4})[ \-/]?)|((((00|\+)49\()|\(0)[1-9][0-9]{1,4}\)[ \-/]?))[0-9]{1,7}([ \-/]?[0-9]{1,5})?)$/).test(value);
                     break;
@@ -122,7 +122,7 @@
                     // Mathing DK phone numbers with country code in 1 of 3 formats and an
                     // 8 digit phone number not starting with a 0 or 1. Can have 1 space
                     // between each character except inside the country code.
-                    // Test: http://regex101.com/r/sS8fO4/1
+                    // http://regex101.com/r/sS8fO4/1
                     value   = $.trim(value);
                     isValid = (/^(\+45|0045|\(45\))?\s?[2-9](\s?\d){7}$/).test(value);
                     break;
@@ -148,14 +148,14 @@
 
             	case 'GB':
                     // http://aa-asterisk.org.uk/index.php/Regular_Expressions_for_Validating_and_Formatting_GB_Telephone_Numbers#Match_GB_telephone_number_in_any_format
-                    // Test: http://regexr.com/38uhv
+                    // http://regexr.com/38uhv
                     value   = $.trim(value);
                     isValid = (/^\(?(?:(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?\(?(?:0\)?[\s-]?\(?)?|0)(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}|\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4}|\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3})|\d{5}\)?[\s-]?\d{4,5}|8(?:00[\s-]?11[\s-]?11|45[\s-]?46[\s-]?4\d))(?:(?:[\s-]?(?:x|ext\.?\s?|\#)\d+)?)$/).test(value);
                     break;
             
                 case 'IN':
                     // http://stackoverflow.com/questions/18351553/regular-expression-validation-for-indian-phone-number-and-mobile-number
-                    // Test: http://regex101.com/r/qL6eZ5/1
+                    // http://regex101.com/r/qL6eZ5/1
                     // May begin with +91. Supports mobile and land line numbers
                     value   = $.trim(value);
                     isValid = (/((\+?)((0[ -]+)*|(91 )*)(\d{12}|\d{10}))|\d{5}([- ]*)\d{6}/).test(value);
@@ -163,7 +163,7 @@
                     
                 case 'MA':
                     // http://en.wikipedia.org/wiki/Telephone_numbers_in_Morocco
-                    // Test: http://regexr.com/399n8
+                    // http://regexr.com/399n8
                     value   = $.trim(value);
                     isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
                     break;
@@ -192,8 +192,8 @@
                     break;
 
                 case 'SK':
-                    // Test: http://regexr.com/39hhl
-                    isValid = /^(((00)([- ]?)|\+)(420)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(value);
+                    // http://regexr.com/3a95f
+                    isValid = /^(((00)([- ]?)|\+)(421)([- ]?))?((\d{3})([- ]?)){2}(\d{3})$/.test(value);
                     break;
 
                 case 'TH':
@@ -213,7 +213,7 @@
                     // Make sure US phone numbers have 10 digits
                     // May start with 1, +1, or 1-; should discard
                     // Area code may be delimited with (), & sections may be delimited with . or -
-                    // Test: http://regexr.com/38mqi
+                    // http://regexr.com/38mqi
                     isValid = (/^(?:(1\-?)|(\+1 ?))?\(?(\d{3})[\)\-\.]?(\d{3})[\-\.]?(\d{4})$/).test(value);
                     break;
             }

@@ -26,6 +26,7 @@ It also solves the issues where the submit button is disabled even when the form
 Other issues are fixed in this version:
 * [#1107](https://github.com/formvalidation/formvalidation/issues/1107), [#1279](https://github.com/formvalidation/formvalidation/issues/1279), [#1280](https://github.com/formvalidation/formvalidation/pull/1280): Show the ```validating``` icon when the field is being validated
 * [#1282](https://github.com/formvalidation/formvalidation/issues/1282): Reset checkbox when calling [resetForm()](http://formvalidation.io/api/#reset-form) method
+* [#1320](https://github.com/formvalidation/formvalidation/issues/1320): Fix Slovakia [phone number](http://formvalidation.io/validators/phone/) validator
 * [#1343](https://github.com/formvalidation/formvalidation/issues/1343), [#1369](https://github.com/formvalidation/formvalidation/issues/1369): Fix the issue where custom validator doesn't provide default message
 * [#1379](https://github.com/formvalidation/formvalidation/issues/1379): Don't continue if there is no validators attached to fields
 
