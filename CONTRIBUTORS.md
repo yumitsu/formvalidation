@@ -96,6 +96,7 @@ I would like to give big thanks to the following contributors:
 * [@oleg-voloshyn](https://github.com/oleg-voloshyn)
 * [@paquitodev](https://github.com/paquitodev)
 * [@patmoore](https://github.com/patmoore)
+* [@PatrikGallik](https://github.com/PatrikGallik)
 * [@phillprice](https://github.com/phillprice)
 * [@pRieStaKos](https://github.com/pRieStaKos)
 * [@q-state](https://github.com/q-state)

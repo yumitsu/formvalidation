@@ -1,7 +1,7 @@
 (function($) {
     /**
      * Slovak language package
-     * Translated by @budik21
+     * Translated by @budik21. Improved by @PatrikGallik
      */
     FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'sk_SK': {
@@ -376,4 +376,4 @@
             }
         }
     });
-}(window.jQuery));
+}(jQuery));

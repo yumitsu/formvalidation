@@ -41,6 +41,9 @@ __Document__
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
 * [#1333](https://github.com/formvalidation/formvalidation/issues/1333): Update [Enabling the submit button](http://formvalidation.io/examples/enabling-submit-button/) example
 
+__Language Packages__
+* [#1381](https://github.com/formvalidation/formvalidation/pull/1381): Update Slovak language package, thanks to [@PatrikGallik](https://github.com/PatrikGallik)
+
 ## v0.6.0 (2015-01-06)
 
 __New Features__
