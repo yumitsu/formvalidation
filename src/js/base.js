@@ -1466,7 +1466,7 @@ if (typeof jQuery === 'undefined') {
          * @returns {FormValidation.Base}
          */
         validate: function() {
-            if (!this.options.fields) {
+            if ($.isEmptyObject(this.options.fields)) {
                 return this;
             }
             this.disableSubmitButtons(true);
