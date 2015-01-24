@@ -29,6 +29,7 @@ Other issues are fixed in this version:
 * [#1320](https://github.com/formvalidation/formvalidation/issues/1320): Fix Slovakia [phone number](http://formvalidation.io/validators/phone/) validator
 * [#1343](https://github.com/formvalidation/formvalidation/issues/1343), [#1369](https://github.com/formvalidation/formvalidation/issues/1369): Fix the issue where custom validator doesn't provide default message
 * [#1379](https://github.com/formvalidation/formvalidation/issues/1379): Don't continue if there is no validators attached to fields
+* [#1387](https://github.com/formvalidation/formvalidation/issues/1387): [transformer](http://formvalidation.io/settings/#validator-transformer) option doesn't work with [notEmpty](http://formvalidation.io/validators/notEmpty/) validator
 
 __Document__
 * [#673](https://github.com/formvalidation/formvalidation/issues/673): Update [emailAddress](http://formvalidation.io/validators/emailAddress/) validator document
@@ -49,7 +50,7 @@ __Language Packages__
 __New Features__
 * [#708](https://github.com/formvalidation/formvalidation/issues/708), [#899](https://github.com/formvalidation/formvalidation/issues/899): Add ```setLocale()``` and ```getLocale()``` methods to support multiple languages
 * [#718](https://github.com/formvalidation/formvalidation/issues/718): Add ```validateContainer()``` method
-* [#744](https://github.com/formvalidation/formvalidation/issues/744): Add ```transformer``` option, allowing to hook the value of field before validating
+* [#744](https://github.com/formvalidation/formvalidation/issues/744): Add [transformer](http://formvalidation.io/settings/#validator-transformer) option, allowing to hook the value of field before validating
 * [#1131](https://github.com/formvalidation/formvalidation/issues/1131): Support add-on
 * [#1140](https://github.com/formvalidation/formvalidation/pull/1140): Add UAE [phone number](http://formvalidation.io/validators/phone/) validator, thanks to [@s-a-y](https://github.com/s-a-y)
 * [#1153](https://github.com/formvalidation/formvalidation/pull/1153): Add EIN validator, thanks to [@joshuachestang](https://github.com/joshuachestang)

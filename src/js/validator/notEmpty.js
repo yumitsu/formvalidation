@@ -43,7 +43,8 @@
                 return true;
             }
 
-            return $.trim($field.val()) !== '';
+            var value = validator.getFieldValue($field, 'notEmpty');
+            return $.trim(value) !== '';
         }
     };
 }(jQuery));
