@@ -1008,7 +1008,7 @@ if (typeof jQuery === 'undefined') {
             var transformer = (this.options.fields[field].validators && this.options.fields[field].validators[validatorName]
                                 ? this.options.fields[field].validators[validatorName].transformer : null)
                                 || this.options.fields[field].transformer;
-            return transformer ? FormValidation.Helper.call(transformer, [$field, validatorName]) : $field.val();
+            return transformer ? FormValidation.Helper.call(transformer, [$field, validatorName, this]) : $field.val();
         },
 
         /**

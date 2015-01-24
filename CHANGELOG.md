@@ -11,6 +11,7 @@ __New Features__
 
 __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
+* Add plugin instance to the 3rd parameter of [transformer](http://formvalidation.io/settings/#validator-transformer) callback
 
 __Bug Fixes__
 
