@@ -1122,22 +1122,23 @@ if (typeof jQuery === 'undefined') {
         isValidContainer: function(container) {
             var that       = this,
                 ns         = this._namespace,
-                map        = {},
+                fields     = [],
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return true;
             }
 
             $container.find('[data-' + ns + '-field]').each(function() {
-                var $field = $(this),
-                    field  = $field.attr('data-' + ns + '-field');
-                if (!that._isExcluded($field) && !map[field]) {
-                    map[field] = $field;
+                var $field = $(this);
+                if (!that._isExcluded($field)) {
+                    fields.push($field);
                 }
             });
 
-            for (var field in map) {
-                var $f      = map[field],
+            var total = fields.length;
+            for (var i = 0; i < total; i++) {
+                var $f      = fields[i],
+                    field   = $f.attr('data-' + ns + '-field'),
                     $errors = $f.data(ns + '.messages')
                                 .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]');
 
@@ -2080,22 +2081,22 @@ if (typeof jQuery === 'undefined') {
         validateContainer: function(container) {
             var that       = this,
                 ns         = this._namespace,
-                map        = {},
+                fields     = [],
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return this;
             }
 
             $container.find('[data-' + ns + '-field]').each(function() {
-                var $field = $(this),
-                    field  = $field.attr('data-' + ns + '-field');
-                if (!that._isExcluded($field) && !map[field]) {
-                    map[field] = $field;
+                var $field = $(this);
+                if (!that._isExcluded($field)) {
+                    fields.push($field);
                 }
             });
 
-            for (var field in map) {
-                this.validateField(map[field]);
+            var total = fields.length;
+            for (var i = 0; i < total; i++) {
+                this.validateField(fields[i]);
             }
 
             return this;

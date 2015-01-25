@@ -31,6 +31,7 @@ Other issues are fixed in this version:
 * [#1343](https://github.com/formvalidation/formvalidation/issues/1343), [#1369](https://github.com/formvalidation/formvalidation/issues/1369): Fix the issue where custom validator doesn't provide default message
 * [#1379](https://github.com/formvalidation/formvalidation/issues/1379): Don't continue if there is no validators attached to fields
 * [#1387](https://github.com/formvalidation/formvalidation/issues/1387): [transformer](http://formvalidation.io/settings/#validator-transformer) option doesn't work with [notEmpty](http://formvalidation.io/validators/notEmpty/) validator
+* [#1389](https://github.com/formvalidation/formvalidation/issues/1389): Fix ```isValidContainer()``` and ```validateContainer()``` methods to support fields with the same name
 
 __Document__
 * [#673](https://github.com/formvalidation/formvalidation/issues/673): Update [emailAddress](http://formvalidation.io/validators/emailAddress/) validator document

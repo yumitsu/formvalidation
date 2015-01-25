@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-24 8:56:18 PM
+ * @version     v0.6.1-dev, built on 2015-01-25 9:53:17 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -1122,22 +1122,23 @@ if (typeof jQuery === 'undefined') {
         isValidContainer: function(container) {
             var that       = this,
                 ns         = this._namespace,
-                map        = {},
+                fields     = [],
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return true;
             }
 
             $container.find('[data-' + ns + '-field]').each(function() {
-                var $field = $(this),
-                    field  = $field.attr('data-' + ns + '-field');
-                if (!that._isExcluded($field) && !map[field]) {
-                    map[field] = $field;
+                var $field = $(this);
+                if (!that._isExcluded($field)) {
+                    fields.push($field);
                 }
             });
 
-            for (var field in map) {
-                var $f      = map[field],
+            var total = fields.length;
+            for (var i = 0; i < total; i++) {
+                var $f      = fields[i],
+                    field   = $f.attr('data-' + ns + '-field'),
                     $errors = $f.data(ns + '.messages')
                                 .find('.' + this.options.err.clazz.split(' ').join('.') + '[data-' + ns + '-validator][data-' + ns + '-for="' + field + '"]');
 
@@ -2080,22 +2081,22 @@ if (typeof jQuery === 'undefined') {
         validateContainer: function(container) {
             var that       = this,
                 ns         = this._namespace,
-                map        = {},
+                fields     = [],
                 $container = ('string' === typeof container) ? $(container) : container;
             if ($container.length === 0) {
                 return this;
             }
 
             $container.find('[data-' + ns + '-field]').each(function() {
-                var $field = $(this),
-                    field  = $field.attr('data-' + ns + '-field');
-                if (!that._isExcluded($field) && !map[field]) {
-                    map[field] = $field;
+                var $field = $(this);
+                if (!that._isExcluded($field)) {
+                    fields.push($field);
                 }
             });
 
-            for (var field in map) {
-                this.validateField(map[field]);
+            var total = fields.length;
+            for (var i = 0; i < total; i++) {
+                this.validateField(fields[i]);
             }
 
             return this;
