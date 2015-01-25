@@ -43,6 +43,7 @@ __Document__
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
 * [#1333](https://github.com/formvalidation/formvalidation/issues/1333): Update [Enabling the submit button](http://formvalidation.io/examples/enabling-submit-button/) example
 * [#1378](https://github.com/formvalidation/formvalidation/issues/1378): Add Validating multiple inputs as one example
+* [#1388](https://github.com/formvalidation/formvalidation/issues/1388): Add [Field value is changed programmatically](http://formvalidation.io/examples/field-value-changed-programmatically/) example
 
 __Language Packages__
 * [#1381](https://github.com/formvalidation/formvalidation/pull/1381): Update Slovak language package, thanks to [@PatrikGallik](https://github.com/PatrikGallik)
