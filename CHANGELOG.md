@@ -43,7 +43,7 @@ __Document__
 * [#1308](https://github.com/formvalidation/formvalidation/issues/1308): Update [Showing card icon](http://formvalidation.io/validators/creditCard/#showing-card-icon) example
 * [#1313](https://github.com/formvalidation/formvalidation/issues/1313): Add [Adding warning validation state](http://formvalidation.io/examples/adding-warning-validation-state/) example
 * [#1333](https://github.com/formvalidation/formvalidation/issues/1333): Update [Enabling the submit button](http://formvalidation.io/examples/enabling-submit-button/) example
-* [#1378](https://github.com/formvalidation/formvalidation/issues/1378): Add Validating multiple inputs as one example
+* [#1378](https://github.com/formvalidation/formvalidation/issues/1378): Add [Validating multiple inputs as one](http://formvalidation.io/examples/validating-multiple-inputs-one/) example
 * [#1388](https://github.com/formvalidation/formvalidation/issues/1388): Add [Field value is changed programmatically](http://formvalidation.io/examples/field-value-changed-programmatically/) example
 * [#1390](https://github.com/formvalidation/formvalidation/issues/1390): Fix the [isValid()](http://formvalidation.io/api/#is-valid) method document
 
