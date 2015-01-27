@@ -11,7 +11,7 @@
  * This class supports validating UIKit form (http://getuikit.com/)
  */
 (function($) {
-    FormValidation.Framework.UIKit = function(element, options) {
+    FormValidation.Framework.Uikit = function(element, options) {
         options = $.extend(true, {
             button: {
                 selector: '[type="submit"]',
@@ -47,7 +47,7 @@
         FormValidation.Base.apply(this, [element, options]);
     };
 
-    FormValidation.Framework.UIKit.prototype = $.extend({}, FormValidation.Base.prototype, {
+    FormValidation.Framework.Uikit.prototype = $.extend({}, FormValidation.Base.prototype, {
         /**
          * Specific framework might need to adjust the icon position
          *

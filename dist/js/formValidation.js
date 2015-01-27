@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-25 9:53:17 PM
+ * @version     v0.6.1-dev, built on 2015-01-27 2:39:36 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -2111,31 +2111,14 @@ if (typeof jQuery === 'undefined') {
                 data    = $this.data('formValidation'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                var framework = (options.framework || $this.attr('data-fv-framework') || 'bootstrap').toLowerCase();
-                switch (framework) {
-                    case 'foundation':
-                        data = new FormValidation.Framework.Foundation(this, options);
-                        break;
+                var framework = (options.framework || $this.attr('data-fv-framework') || 'bootstrap').toLowerCase(),
+                    clazz     = framework.substr(0, 1).toUpperCase() + framework.substr(1);
 
-                    case 'pure':
-                        data = new FormValidation.Framework.Pure(this, options);
-                        break;
-
-                    case 'semantic':
-                        data = new FormValidation.Framework.Semantic(this, options);
-                        break;
-
-                    case 'uikit':
-                        data = new FormValidation.Framework.UIKit(this, options);
-                        break;
-
-                    case 'bootstrap':
-                    /* falls through */
-                    default:
-                        data = new FormValidation.Framework.Bootstrap(this, options);
-                        break;
+                if (typeof FormValidation.Framework[clazz] === 'undefined') {
+                    throw new Error('The class FormValidation.Framework.' + clazz + ' is not implemented');
                 }
 
+                data = new FormValidation.Framework[clazz](this, options);
                 $this.addClass('fv-form-' + framework)
                      .data('formValidation', data);
             }

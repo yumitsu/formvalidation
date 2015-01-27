@@ -2111,31 +2111,14 @@ if (typeof jQuery === 'undefined') {
                 data    = $this.data('formValidation'),
                 options = 'object' === typeof option && option;
             if (!data) {
-                var framework = (options.framework || $this.attr('data-fv-framework') || 'bootstrap').toLowerCase();
-                switch (framework) {
-                    case 'foundation':
-                        data = new FormValidation.Framework.Foundation(this, options);
-                        break;
+                var framework = (options.framework || $this.attr('data-fv-framework') || 'bootstrap').toLowerCase(),
+                    clazz     = framework.substr(0, 1).toUpperCase() + framework.substr(1);
 
-                    case 'pure':
-                        data = new FormValidation.Framework.Pure(this, options);
-                        break;
-
-                    case 'semantic':
-                        data = new FormValidation.Framework.Semantic(this, options);
-                        break;
-
-                    case 'uikit':
-                        data = new FormValidation.Framework.UIKit(this, options);
-                        break;
-
-                    case 'bootstrap':
-                    /* falls through */
-                    default:
-                        data = new FormValidation.Framework.Bootstrap(this, options);
-                        break;
+                if (typeof FormValidation.Framework[clazz] === 'undefined') {
+                    throw new Error('The class FormValidation.Framework.' + clazz + ' is not implemented');
                 }
 
+                data = new FormValidation.Framework[clazz](this, options);
                 $this.addClass('fv-form-' + framework)
                      .data('formValidation', data);
             }

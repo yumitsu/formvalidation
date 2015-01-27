@@ -8,6 +8,7 @@ __New Features__
 * [#1347](https://github.com/formvalidation/formvalidation/pull/1347): Add Bulgarian [zip code](http://formvalidation.io/validators/zipCode/) validator, thanks to [@Izopi4a](https://github.com/Izopi4a)
 * [#1350](https://github.com/formvalidation/formvalidation/pull/1350): Add Bulgarian [phone number](http://formvalidation.io/validators/phone/) validator, thanks to [@Izopi4a](https://github.com/Izopi4a)
 * [#1355](https://github.com/formvalidation/formvalidation/pull/1355): Add Polish [zip code](http://formvalidation.io/validators/zipCode/) and [id](http://formvalidation.io/validators/id/) validators, thanks to [@tjagusz](https://github.com/tjagusz)
+* [#1357](https://github.com/formvalidation/formvalidation/pull/1357): Support custom framework
 
 __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
