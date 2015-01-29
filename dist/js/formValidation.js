@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-27 2:39:36 PM
+ * @version     v0.6.1-dev, built on 2015-01-29 6:51:16 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -168,10 +168,13 @@ if (typeof jQuery === 'undefined') {
                     that.$submitButton  = $(this);
                     // The user just click the submit button
                     that._submitIfValid = true;
-                })
+                });
+
+            if (this.options.declarative === true || this.options.declarative === 'true') {
                 // Find all fields which have either "name" or "data-{namespace}-field" attribute
-                .find('[name], [data-' + ns + '-field]')
-                    .each(function() {
+                this.$form
+                    .find('[name], [data-' + ns + '-field]')
+                    .each(function () {
                         var $field = $(this),
                             field  = $field.attr('name') || $field.attr('data-' + ns + '-field'),
                             opts   = that._parseOptions($field);
@@ -180,6 +183,7 @@ if (typeof jQuery === 'undefined') {
                             options.fields[field] = $.extend({}, opts, options.fields[field]);
                         }
                     });
+            }
 
             this.options = $.extend(true, this.options, options);
 
@@ -212,7 +216,9 @@ if (typeof jQuery === 'undefined') {
             }
 
             // Parse the add-on options from HTML attributes
-            this.options = $.extend(true, this.options, { addOns: this._parseAddOnOptions() });
+            if (this.options.declarative === true || this.options.declarative === 'true') {
+                this.options = $.extend(true, this.options, { addOns: this._parseAddOnOptions() });
+            }
 
             // When pressing Enter on any field in the form, the first submit button will do its job.
             // The form then will be submitted.
@@ -1468,6 +1474,7 @@ if (typeof jQuery === 'undefined') {
          */
         validate: function() {
             if ($.isEmptyObject(this.options.fields)) {
+                this._submit();
                 return this;
             }
             this.disableSubmitButtons(true);
@@ -2137,6 +2144,10 @@ if (typeof jQuery === 'undefined') {
     $.fn.formValidation.DEFAULT_OPTIONS = {
         // The first invalid field will be focused automatically
         autoFocus: true,
+
+        // Support declarative usage (setting options via HTML 5 attributes)
+        // Setting to false can improve the performance
+        declarative: true,
 
         // The form CSS class
         elementClass: 'fv-form',

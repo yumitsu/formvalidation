@@ -4,6 +4,7 @@
 
 __New Features__
 * [#467](https://github.com/formvalidation/formvalidation/issues/467): Add ```dataType```, ```crossDomain```, ```validKey``` options for [remote](http://formvalidation.io/validators/remote/) validator
+* [#940](https://github.com/formvalidation/formvalidation/issues/940): Add ```declarative``` option to support big form
 * [#1328](https://github.com/formvalidation/formvalidation/issues/1328), [#1330](https://github.com/formvalidation/formvalidation/pull/1330): Add Netherlands [phone](http://formvalidation.io/validators/phone/) validator, thanks to [@HendrikSwBase](https://github.com/HendrikSwBase)
 * [#1347](https://github.com/formvalidation/formvalidation/pull/1347): Add Bulgarian [zip code](http://formvalidation.io/validators/zipCode/) validator, thanks to [@Izopi4a](https://github.com/Izopi4a)
 * [#1350](https://github.com/formvalidation/formvalidation/pull/1350): Add Bulgarian [phone number](http://formvalidation.io/validators/phone/) validator, thanks to [@Izopi4a](https://github.com/Izopi4a)
