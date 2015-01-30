@@ -51,6 +51,7 @@ __Document__
 
 __Language Packages__
 * [#1381](https://github.com/formvalidation/formvalidation/pull/1381): Update Slovak language package, thanks to [@PatrikGallik](https://github.com/PatrikGallik)
+* [#1400](https://github.com/formvalidation/formvalidation/pull/1400): Update Belgian Dutch language package, thanks to [@jdt](https://github.com/jdt)
 
 ## v0.6.0 (2015-01-06)
 

@@ -1,7 +1,7 @@
 (function($) {
     /**
      * Belgium (Dutch) language package
-     * Translated by @dokterpasta
+     * Translated by @dokterpasta. Improved by @jdt
      */
     FormValidation.I18n = $.extend(true, FormValidation.I18n, {
         'be_NL': {
