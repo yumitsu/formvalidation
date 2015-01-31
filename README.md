@@ -81,6 +81,12 @@ The __FormValidation__ plugin is written by Nguyen Huu Phuoc, aka @nghuuphuoc
 * [http://twitter.com/nghuuphuoc](http://twitter.com/nghuuphuoc)
 * [http://github.com/nghuuphuoc](http://github.com/nghuuphuoc)
 
+## Contribution
+
+Contributions are welcome!
+
+Please notice that **your code** may be used as part of a **commercial product** if the pull request is **merged**.
+
 ## License
 
 For more information about the license, see http://formvalidation.io/license/
