@@ -42,8 +42,8 @@ Other issues are fixed in this version:
 __Document__
 * [#673](https://github.com/formvalidation/formvalidation/issues/673): Update [emailAddress](http://formvalidation.io/validators/emailAddress/) validator document
 * [#973](https://github.com/formvalidation/formvalidation/issues/973), [#1021](https://github.com/formvalidation/formvalidation/issues/1021), [#1346](https://github.com/formvalidation/formvalidation/issues/1346): 3 ways to [improve performance](http://formvalidation.io/validators/remote/#improving-the-performance) when using remote validator
+* [#1098](https://github.com/formvalidation/formvalidation/issues/1098), [#1118](https://github.com/formvalidation/formvalidation/issues/1118), [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
 * [#1112](https://github.com/formvalidation/formvalidation/issues/1112): Support thousand separator
-* [#1118](https://github.com/formvalidation/formvalidation/issues/1118), [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
 * [#1124](https://github.com/formvalidation/formvalidation/issues/1124), [#1329](https://github.com/formvalidation/formvalidation/issues/1329): Fix [CKEditor example](http://formvalidation.io/examples/ckeditor/) on Firefox
 * [#1205](https://github.com/formvalidation/formvalidation/issues/1205): Add [Playing with Bootstrap Material Design](http://formvalidation.io/examples/bootstrap-material-design/) example
 * [#1308](https://github.com/formvalidation/formvalidation/issues/1308): Update [Showing card icon](http://formvalidation.io/validators/creditCard/#showing-card-icon) example
