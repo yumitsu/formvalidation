@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-01-30 10:13:05 AM
+ * @version     v0.6.1-dev, built on 2015-02-09 11:20:35 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -6939,16 +6939,21 @@ if (typeof jQuery === 'undefined') {
          * @param {FormValidation.Base} validator Plugin instance
          * @param {jQuery} $field Field element
          * @param {Object} options Can consist of the following keys:
-         * - url {String|Function}
-         * - type {String} [optional] Can be GET or POST (default)
+         * - crossDomain {Boolean} [optional]
          * - data {Object|Function} [optional]: By default, it will take the value
          *  {
          *      <fieldName>: <fieldValue>
          *  }
-         * - delay
+         * - dataType {String} [optional]: The type of data which is returned by remote server.
+         * It can be json (default), text, script
+         * - delay {Number} [optional]
+         * - headers {String[]} [optional]: Additional headers
+         * - message {String} [optional]: The invalid message
          * - name {String} [optional]: Override the field name for the request.
-         * - message: The invalid message
-         * - headers: Additional headers
+         * - type {String} [optional] Can be GET or POST (default)
+         * - url {String|Function}
+         * - validKey {String} [optional]: The valid key. It's "valid" by default
+         * This is useful when connecting to external remote server or APIs provided by 3rd parties
          * @returns {Deferred}
          */
         validate: function(validator, $field, options) {

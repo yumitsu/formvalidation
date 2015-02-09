@@ -184,6 +184,8 @@ $(document).ready(function() {
                 }
             }
         }
+    }).on('err.field.fv', function(e, data) {
+        console.log(data.field, data.validator);
     });
 });
 </script>
