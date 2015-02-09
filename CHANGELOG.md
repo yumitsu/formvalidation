@@ -25,6 +25,7 @@ It also solves the issues where the submit button is disabled even when the form
 * [#1171](https://github.com/formvalidation/formvalidation/issues/1171): Submit button being disabled
 * [#1220](https://github.com/formvalidation/formvalidation/issues/1220): Can only submit form after changing a value
 * [#1221](https://github.com/formvalidation/formvalidation/issues/1221), [#1344](https://github.com/formvalidation/formvalidation/issues/1344): Remote validation trigger ```err.form.fv```
+* [#1394](https://github.com/formvalidation/formvalidation/issues/1394): Submit incorrectly enabled even though form has errors
 
 Other issues are fixed in this version:
 * [#1107](https://github.com/formvalidation/formvalidation/issues/1107), [#1279](https://github.com/formvalidation/formvalidation/issues/1279), [#1280](https://github.com/formvalidation/formvalidation/pull/1280): Show the ```validating``` icon when the field is being validated
