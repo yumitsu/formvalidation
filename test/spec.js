@@ -2170,7 +2170,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(submitted).toBe(1);
             done();
-        }, 3000);
+        }, 100);
     });
 
     // #481
@@ -2187,7 +2187,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(submitted).toBe(0);
             done();
-        }, 3000);
+        }, 100);
     });
 
     // #481
@@ -2245,7 +2245,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(errorTriggered).toBe(0);
             done();
-        }, 3000);
+        }, 100);
     });
 });
 
