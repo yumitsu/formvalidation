@@ -2223,6 +2223,30 @@ describe('submit', function() {
             done();
         }, 100);
     });
+
+    // #1344
+    it('remote validator trigger err.form.fv event', function(done) {
+        var errorTriggered = 0;
+
+        this.$form
+            .on('err.form.fv', function(e) {
+                errorTriggered++;
+            });
+
+        this.fv.addField('username', {
+            validators: {
+                remote: {
+                    url: '/test/valid.json'
+                }
+            }
+        });
+
+        $('#sendButton').click();
+        setTimeout(function() {
+            expect(errorTriggered).toBe(0);
+            done();
+        }, 3000);
+    });
 });
 
 TestSuite = $.extend({}, TestSuite, {
