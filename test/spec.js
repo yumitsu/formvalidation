@@ -84,6 +84,10 @@ describe('api', function() {
 });
 
 describe('autoFocus', function() {
+    // Use $element.is(document.activeElement) instead of $element.is(':focus')
+    // to support running the test cases with PhantomJS
+    // See https://github.com/ariya/phantomjs/issues/10427
+
     beforeEach(function() {
         $([
             '<form class="form-horizontal" id="autoFocusForm">',
@@ -115,14 +119,14 @@ describe('autoFocus', function() {
 
     it('default option (autoFocus=true)', function() {
         $('#submitButton').click();
-        expect(this.$username.is(':focus')).toBeTruthy();
+        expect(this.$username.is(document.activeElement)).toBeTruthy();
         expect($(document.activeElement).attr('name')).toEqual('username');
 
         this.fv.resetForm();
         this.$username.val('user_name');
         this.$email.val('');
         $('#submitButton').click();
-        expect(this.$email.is(':focus')).toBeTruthy();
+        expect(this.$email.is(document.activeElement)).toBeTruthy();
         expect($(document.activeElement).attr('name')).toEqual('email');
     });
 
@@ -136,8 +140,8 @@ describe('autoFocus', function() {
         this.$email.val('invalid#email');
         $('#submitButton').click();
 
-        expect(this.$username.is(':focus')).toBeFalsy();
-        expect(this.$email.is(':focus')).toBeFalsy();
+        expect(this.$username.is(document.activeElement)).toBeFalsy();
+        expect(this.$email.is(document.activeElement)).toBeFalsy();
     });
 
     it('set autoFocus=false for all fields', function() {
@@ -152,8 +156,8 @@ describe('autoFocus', function() {
         this.$email.val('invalid#email');
         $('#submitButton').click();
 
-        expect(this.$username.is(':focus')).toBeFalsy();
-        expect(this.$email.is(':focus')).toBeFalsy();
+        expect(this.$username.is(document.activeElement)).toBeFalsy();
+        expect(this.$email.is(document.activeElement)).toBeFalsy();
     });
 
     it('set different autoFocus value for fields', function() {
@@ -168,8 +172,8 @@ describe('autoFocus', function() {
         this.$email.val('invalid_email');
         $('#submitButton').click();
 
-        expect(this.$username.is(':focus')).toBeFalsy();
-        expect(this.$email.is(':focus')).toBeTruthy();
+        expect(this.$username.is(document.activeElement)).toBeFalsy();
+        expect(this.$email.is(document.activeElement)).toBeTruthy();
         expect($(document.activeElement).attr('name')).toEqual('email');
     });
 });

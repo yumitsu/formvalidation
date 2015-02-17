@@ -17,6 +17,7 @@ It's possible to use remote validator to connect to external validator API, such
 __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
 * Add plugin instance to the 3rd parameter of [transformer](http://formvalidation.io/settings/#validator-transformer) callback
+* Add Grunt task that runs the jasmine test suites
 
 __Bug Fixes__
 

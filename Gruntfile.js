@@ -9,8 +9,12 @@ module.exports = function(grunt) {
         dirs: {
             src: 'src',
             dist: 'dist',
-            test: 'test'
+            test: 'test',
+            vendor: 'vendor'
         },
+
+        // The host that servers the demo and test directories
+        host: 'http://fv.dev',
 
         banner: [
             '/*!',
@@ -142,6 +146,19 @@ module.exports = function(grunt) {
             }
         },
 
+        jasmine: {
+            src: '<%= dirs.dist %>/js/**/*.js',
+            options: {
+                specs: '<%= dirs.test %>/spec/**/*.js',
+                host: '<%= host %>',
+                vendor: [
+                    '<%= dirs.vendor %>/jquery/jquery.min.js',
+                    '<%= dirs.vendor %>/bootstrap/js/bootstrap.min.js'
+                ],
+                helpers: '<%= dirs.test %>/helper.js'
+            }
+        },
+
         jshint: {
             all: [
                 '<%= dirs.src %>/js/**/*.js'
@@ -186,10 +203,12 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', 'build');
     grunt.registerTask('build',   ['copy', 'cssmin', 'concat', 'uglify']);
+    grunt.registerTask('test',    ['jshint', 'jasmine']);
 
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
