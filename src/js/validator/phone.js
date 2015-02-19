@@ -32,7 +32,8 @@
                     SK: 'Slovakia',
                     TH: 'Thailand',
                     US: 'USA',
-                    VE: 'Venezuela'
+                    VE: 'Venezuela',
+                    NL: 'Netherlands'
                 }
             }
         }
@@ -45,7 +46,7 @@
         },
 
         // The supported countries
-        COUNTRY_CODES: ['AE', 'BG', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
+        COUNTRY_CODES: ['AE', 'BG', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE', 'NL'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -206,7 +207,14 @@
                     value   = $.trim(value);
                     isValid = (/^0(?:2(?:12|4[0-9]|5[1-9]|6[0-9]|7[0-8]|8[1-35-8]|9[1-5]|3[45789])|4(?:1[246]|2[46]))\d{7}$/).test(value);
                     break;
-
+                
+                case 'NL':
+                    // http://en.wikipedia.org/wiki/Telephone_numbers_in_the_Netherlands
+                    // http://regexr.com/3aevr
+                    value   = $.trim(value);
+                    isValid = (/^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)[1-9]((\s|\s?\-\s?)?[0-9])((\s|\s?-\s?)?[0-9])((\s|\s?-\s?)?[0-9])\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]$/gm).test(value);
+                    break;
+                    
                 case 'US':
                 /* falls through */
                 default:
