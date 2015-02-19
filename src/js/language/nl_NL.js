@@ -257,7 +257,8 @@
                     SK: 'Slowakije',
                     TH: 'Thailand',
                     US: 'VS',
-                    VE: 'Venezuela'
+                    VE: 'Venezuela',
+                    NL: 'Nederland'
                 }
             },
             regexp: {
