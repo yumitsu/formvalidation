@@ -168,7 +168,7 @@
                     isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
                     break;
                 
-                    case 'NL':
+                case 'NL':
                     // http://en.wikipedia.org/wiki/Telephone_numbers_in_the_Netherlands
                     // http://regexr.com/3aevr
                     value   = $.trim(value);
