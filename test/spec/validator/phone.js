@@ -343,12 +343,48 @@ describe('phone', function() {
         this.fv.updateOption('phone', 'phone', 'country', 'NL');
 
         // Valid samples
-        var validSamples = ['0515524589'];
+        var validSamples = [
+            // Popular formats
+            '0101234567',
+            '010-1234567',
+            '010 - 123 45 67',
+            '010 1234 567',
+            '06-12345678',
+            '06 123 456 78',
+            '0111-123456',
+            '0111 123456',
+
+            // International notation
+            '+31101234567',
+            '0031101234567',
+            '+31(0) 10123 4567',
+            '+3110-1234567',
+            '003110 1234567',
+            '+316 123 456 78',
+            '+31(0)6 123 45678',
+            '+31111-123456',
+            '0031111-123456'
+        ];
         for (var i in validSamples) {
             this.fv.resetForm();
             this.$phone.val(validSamples[i]);
             this.fv.validate();
             expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = [
+            '06-1234-5678',         // An extra dash is not allowed
+            '06 123456789',         // Too long
+            '06 1234567',           // Too short
+            '+31(06) 123 45678',    // Invalid optional declaration
+            '1234567'               // Without regional number
+        ];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$phone.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
         }
     });
 
