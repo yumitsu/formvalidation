@@ -258,7 +258,6 @@
                     TH: 'Thailand',
                     US: 'VS',
                     VE: 'Venezuela',
-                    NL: 'Nederland'
                 }
             },
             regexp: {
