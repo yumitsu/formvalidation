@@ -32,8 +32,7 @@
                     SK: 'Slovakia',
                     TH: 'Thailand',
                     US: 'USA',
-                    VE: 'Venezuela',
-                    NL: 'Netherlands'
+                    VE: 'Venezuela'
                 }
             }
         }
@@ -46,7 +45,7 @@
         },
 
         // The supported countries
-        COUNTRY_CODES: ['AE', 'BG', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE', 'NL'],
+        COUNTRY_CODES: ['AE', 'BG', 'BR', 'CN', 'CZ', 'DE', 'DK', 'ES', 'FR', 'GB', 'IN', 'MA', 'NL', 'PK', 'RO', 'RU', 'SK', 'TH', 'US', 'VE'],
 
         /**
          * Return true if the input value contains a valid phone number for the country
@@ -169,10 +168,11 @@
                     isValid = (/^(?:(?:(?:\+|00)212[\s]?(?:[\s]?\(0\)[\s]?)?)|0){1}(?:5[\s.-]?[2-3]|6[\s.-]?[13-9]){1}[0-9]{1}(?:[\s.-]?\d{2}){3}$/).test(value);
                     break;
                 
-                case 'NL':
-                    // https://regex101.com/r/mX2wJ2/1
+                    case 'NL':
+                    // http://en.wikipedia.org/wiki/Telephone_numbers_in_the_Netherlands
+                    // http://regexr.com/3aevr
                     value   = $.trim(value);
-                    isValid = (/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/).test(value);
+                    isValid = (/^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)[1-9]((\s|\s?\-\s?)?[0-9])((\s|\s?-\s?)?[0-9])((\s|\s?-\s?)?[0-9])\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]$/gm).test(value);
                     break;
                 
                 case 'PK':
@@ -207,14 +207,7 @@
                     value   = $.trim(value);
                     isValid = (/^0(?:2(?:12|4[0-9]|5[1-9]|6[0-9]|7[0-8]|8[1-35-8]|9[1-5]|3[45789])|4(?:1[246]|2[46]))\d{7}$/).test(value);
                     break;
-                
-                case 'NL':
-                    // http://en.wikipedia.org/wiki/Telephone_numbers_in_the_Netherlands
-                    // http://regexr.com/3aevr
-                    value   = $.trim(value);
-                    isValid = (/^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)[1-9]((\s|\s?\-\s?)?[0-9])((\s|\s?-\s?)?[0-9])((\s|\s?-\s?)?[0-9])\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]$/gm).test(value);
-                    break;
-                    
+  
                 case 'US':
                 /* falls through */
                 default:
