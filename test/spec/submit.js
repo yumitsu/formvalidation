@@ -106,7 +106,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(submitted).toBe(1);
             done();
-        }, 3000);
+        }, 100);
     });
 
     // #481
@@ -123,7 +123,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(submitted).toBe(0);
             done();
-        }, 3000);
+        }, 100);
     });
 
     // #481
@@ -156,6 +156,30 @@ describe('submit', function() {
         $('#sendButton').click();
         setTimeout(function() {
             expect(submitted).toBe(0);
+            done();
+        }, 100);
+    });
+
+    // #1344
+    it('remote validator trigger err.form.fv event', function(done) {
+        var errorTriggered = 0;
+
+        this.$form
+            .on('err.form.fv', function(e) {
+                errorTriggered++;
+            });
+
+        this.fv.addField('username', {
+            validators: {
+                remote: {
+                    url: '/test/valid.json'
+                }
+            }
+        });
+
+        $('#sendButton').click();
+        setTimeout(function() {
+            expect(errorTriggered).toBe(0);
             done();
         }, 100);
     });

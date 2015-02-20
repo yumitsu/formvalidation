@@ -27,6 +27,7 @@ I would like to give big thanks to the following contributors:
 * [@cylon-v](https://github.com/cylon-v)
 * [@desaretiuss](https://github.com/desaretiuss)
 * [@dgmike](https://github.com/dgmike)
+* [@DiederikLascaris](https://github.com/DiederikLascaris)
 * [@Djarnis](https://github.com/Djarnis)
 * [@dlcrush](https://github.com/dlcrush)
 * [@dlucazeau](https://github.com/dlucazeau)

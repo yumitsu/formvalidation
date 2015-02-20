@@ -2,7 +2,7 @@
  * FormValidation (http://formvalidation.io)
  * The best jQuery plugin to validate form fields. Support Bootstrap, Foundation, Pure, SemanticUI, UIKit frameworks
  *
- * @version     v0.6.1-dev, built on 2015-02-09 11:20:35 PM
+ * @version     v0.6.1-dev, built on 2015-02-19 8:09:32 PM
  * @author      https://twitter.com/nghuuphuoc
  * @copyright   (c) 2013 - 2015 Nguyen Huu Phuoc
  * @license     http://formvalidation.io/license/
@@ -6797,9 +6797,10 @@ if (typeof jQuery === 'undefined') {
                     break;
                 
                 case 'NL':
-                    // https://regex101.com/r/mX2wJ2/1
+                    // http://en.wikipedia.org/wiki/Telephone_numbers_in_the_Netherlands
+                    // http://regexr.com/3aevr
                     value   = $.trim(value);
-                    isValid = (/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/).test(value);
+                    isValid = (/^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)[1-9]((\s|\s?\-\s?)?[0-9])((\s|\s?-\s?)?[0-9])((\s|\s?-\s?)?[0-9])\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]\s?[0-9]$/gm).test(value);
                     break;
                 
                 case 'PK':
@@ -6834,7 +6835,7 @@ if (typeof jQuery === 'undefined') {
                     value   = $.trim(value);
                     isValid = (/^0(?:2(?:12|4[0-9]|5[1-9]|6[0-9]|7[0-8]|8[1-35-8]|9[1-5]|3[45789])|4(?:1[246]|2[46]))\d{7}$/).test(value);
                     break;
-
+  
                 case 'US':
                 /* falls through */
                 default:

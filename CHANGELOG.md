@@ -16,7 +16,9 @@ It's possible to use remote validator to connect to external validator API, such
 
 __Improvements__
 * [#1327](https://github.com/formvalidation/formvalidation/issues/1327): [remote](http://formvalidation.io/validators/remote/) validator fails if Ajax request fails
+* [#1427](https://github.com/formvalidation/formvalidation/pull/1427): Update Netherlands [phone number](http://formvalidation.io/validators/phone/) validator, thanks to [@DiederikLascaris](https://github.com/DiederikLascaris)
 * Add plugin instance to the 3rd parameter of [transformer](http://formvalidation.io/settings/#validator-transformer) callback
+* Add Grunt task that runs the jasmine test suites
 
 __Bug Fixes__
 
@@ -41,8 +43,10 @@ Other issues are fixed in this version:
 
 __Document__
 * [#673](https://github.com/formvalidation/formvalidation/issues/673): Update [emailAddress](http://formvalidation.io/validators/emailAddress/) validator document
+* [#688](https://github.com/formvalidation/formvalidation/issues/688): Add a [notice](http://formvalidation.io/settings/#form-icon) when using FontAwesome icon
 * [#973](https://github.com/formvalidation/formvalidation/issues/973), [#1021](https://github.com/formvalidation/formvalidation/issues/1021), [#1346](https://github.com/formvalidation/formvalidation/issues/1346): 3 ways to [improve performance](http://formvalidation.io/validators/remote/#improving-the-performance) when using remote validator
 * [#1098](https://github.com/formvalidation/formvalidation/issues/1098), [#1118](https://github.com/formvalidation/formvalidation/issues/1118), [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
+* [#1109](https://github.com/formvalidation/formvalidation/issues/1109), [#1326](https://github.com/formvalidation/formvalidation/issues/1326): Add [Playing with Typehead](http://formvalidation.io/examples/typeahead/) example
 * [#1112](https://github.com/formvalidation/formvalidation/issues/1112): Support thousand separator
 * [#1124](https://github.com/formvalidation/formvalidation/issues/1124), [#1329](https://github.com/formvalidation/formvalidation/issues/1329): Fix [CKEditor example](http://formvalidation.io/examples/ckeditor/) on Firefox
 * [#1205](https://github.com/formvalidation/formvalidation/issues/1205): Add [Playing with Bootstrap Material Design](http://formvalidation.io/examples/bootstrap-material-design/) example
@@ -53,6 +57,9 @@ __Document__
 * [#1388](https://github.com/formvalidation/formvalidation/issues/1388): Add [Field value is changed programmatically](http://formvalidation.io/examples/field-value-changed-programmatically/) example
 * [#1390](https://github.com/formvalidation/formvalidation/issues/1390): Fix the [isValid()](http://formvalidation.io/api/#is-valid) method document
 * [#1397](https://github.com/formvalidation/formvalidation/issues/1397): Add [Updating validator options](http://formvalidation.io/examples/updating-validator-options/) example
+* [#1423](https://github.com/formvalidation/formvalidation/issues/1423): Update the [UIKit icon usage](http://formvalidation.io/settings/#form-icon)
+* [formvalidation.io#11](https://github.com/formvalidation/formvalidation.io/pull/11): Fix the issue in [Settings Structure](http://formvalidation.io/settings/#settings-structure) section, thanks to [@DiederikLascaris](https://github.com/DiederikLascaris)
+* [support#29](https://github.com/formvalidation/support/issues/29): Add [Playing with jQuery UI Datepicker](http://formvalidation.io/examples/jquery-ui-datepicker/) example
 
 __Language Packages__
 * [#1381](https://github.com/formvalidation/formvalidation/pull/1381): Update Slovak language package, thanks to [@PatrikGallik](https://github.com/PatrikGallik)

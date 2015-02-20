@@ -84,6 +84,10 @@ describe('api', function() {
 });
 
 describe('autoFocus', function() {
+    // Use $element.is(document.activeElement) instead of $element.is(':focus')
+    // to support running the test cases with PhantomJS
+    // See https://github.com/ariya/phantomjs/issues/10427
+
     beforeEach(function() {
         $([
             '<form class="form-horizontal" id="autoFocusForm">',
@@ -115,14 +119,14 @@ describe('autoFocus', function() {
 
     it('default option (autoFocus=true)', function() {
         $('#submitButton').click();
-        expect(this.$username.is(':focus')).toBeTruthy();
+        expect(this.$username.is(document.activeElement)).toBeTruthy();
         expect($(document.activeElement).attr('name')).toEqual('username');
 
         this.fv.resetForm();
         this.$username.val('user_name');
         this.$email.val('');
         $('#submitButton').click();
-        expect(this.$email.is(':focus')).toBeTruthy();
+        expect(this.$email.is(document.activeElement)).toBeTruthy();
         expect($(document.activeElement).attr('name')).toEqual('email');
     });
 
@@ -136,8 +140,8 @@ describe('autoFocus', function() {
         this.$email.val('invalid#email');
         $('#submitButton').click();
 
-        expect(this.$username.is(':focus')).toBeFalsy();
-        expect(this.$email.is(':focus')).toBeFalsy();
+        expect(this.$username.is(document.activeElement)).toBeFalsy();
+        expect(this.$email.is(document.activeElement)).toBeFalsy();
     });
 
     it('set autoFocus=false for all fields', function() {
@@ -152,8 +156,8 @@ describe('autoFocus', function() {
         this.$email.val('invalid#email');
         $('#submitButton').click();
 
-        expect(this.$username.is(':focus')).toBeFalsy();
-        expect(this.$email.is(':focus')).toBeFalsy();
+        expect(this.$username.is(document.activeElement)).toBeFalsy();
+        expect(this.$email.is(document.activeElement)).toBeFalsy();
     });
 
     it('set different autoFocus value for fields', function() {
@@ -168,8 +172,8 @@ describe('autoFocus', function() {
         this.$email.val('invalid_email');
         $('#submitButton').click();
 
-        expect(this.$username.is(':focus')).toBeFalsy();
-        expect(this.$email.is(':focus')).toBeTruthy();
+        expect(this.$username.is(document.activeElement)).toBeFalsy();
+        expect(this.$email.is(document.activeElement)).toBeTruthy();
         expect($(document.activeElement).attr('name')).toEqual('email');
     });
 });
@@ -2170,7 +2174,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(submitted).toBe(1);
             done();
-        }, 3000);
+        }, 100);
     });
 
     // #481
@@ -2187,7 +2191,7 @@ describe('submit', function() {
         setTimeout(function() {
             expect(submitted).toBe(0);
             done();
-        }, 3000);
+        }, 100);
     });
 
     // #481
@@ -2220,6 +2224,30 @@ describe('submit', function() {
         $('#sendButton').click();
         setTimeout(function() {
             expect(submitted).toBe(0);
+            done();
+        }, 100);
+    });
+
+    // #1344
+    it('remote validator trigger err.form.fv event', function(done) {
+        var errorTriggered = 0;
+
+        this.$form
+            .on('err.form.fv', function(e) {
+                errorTriggered++;
+            });
+
+        this.fv.addField('username', {
+            validators: {
+                remote: {
+                    url: '/test/valid.json'
+                }
+            }
+        });
+
+        $('#sendButton').click();
+        setTimeout(function() {
+            expect(errorTriggered).toBe(0);
             done();
         }, 100);
     });
@@ -7357,12 +7385,48 @@ describe('phone', function() {
         this.fv.updateOption('phone', 'phone', 'country', 'NL');
 
         // Valid samples
-        var validSamples = ['0515524589'];
+        var validSamples = [
+            // Popular formats
+            '0101234567',
+            '010-1234567',
+            '010 - 123 45 67',
+            '010 1234 567',
+            '06-12345678',
+            '06 123 456 78',
+            '0111-123456',
+            '0111 123456',
+
+            // International notation
+            '+31101234567',
+            '0031101234567',
+            '+31(0) 10123 4567',
+            '+3110-1234567',
+            '003110 1234567',
+            '+316 123 456 78',
+            '+31(0)6 123 45678',
+            '+31111-123456',
+            '0031111-123456'
+        ];
         for (var i in validSamples) {
             this.fv.resetForm();
             this.$phone.val(validSamples[i]);
             this.fv.validate();
             expect(this.fv.isValid()).toBeTruthy();
+        }
+
+        // Invalid samples
+        var invalidSamples = [
+            '06-1234-5678',         // An extra dash is not allowed
+            '06 123456789',         // Too long
+            '06 1234567',           // Too short
+            '+31(06) 123 45678',    // Invalid optional declaration
+            '1234567'               // Without regional number
+        ];
+        for (i in invalidSamples) {
+            this.fv.resetForm();
+            this.$phone.val(invalidSamples[i]);
+            this.fv.validate();
+            expect(this.fv.isValid()).toEqual(false);
         }
     });
 
