@@ -43,6 +43,7 @@ Other issues are fixed in this version:
 
 __Document__
 * [#673](https://github.com/formvalidation/formvalidation/issues/673): Update [emailAddress](http://formvalidation.io/validators/emailAddress/) validator document
+* [#688](https://github.com/formvalidation/formvalidation/issues/688): Add a [notice](http://formvalidation.io/settings/#form-icon) when using FontAwesome icon
 * [#973](https://github.com/formvalidation/formvalidation/issues/973), [#1021](https://github.com/formvalidation/formvalidation/issues/1021), [#1346](https://github.com/formvalidation/formvalidation/issues/1346): 3 ways to [improve performance](http://formvalidation.io/validators/remote/#improving-the-performance) when using remote validator
 * [#1098](https://github.com/formvalidation/formvalidation/issues/1098), [#1118](https://github.com/formvalidation/formvalidation/issues/1118), [#1325](https://github.com/formvalidation/formvalidation/issues/1325): Add [Playing with Fuel UX Wizard](http://formvalidation.io/examples/fuel-ux-wizard/) example
 * [#1109](https://github.com/formvalidation/formvalidation/issues/1109), [#1326](https://github.com/formvalidation/formvalidation/issues/1326): Add [Playing with Typehead](http://formvalidation.io/examples/typeahead/) example
