@@ -59,6 +59,7 @@ __Document__
 * [#1397](https://github.com/formvalidation/formvalidation/issues/1397): Add [Updating validator options](http://formvalidation.io/examples/updating-validator-options/) example
 * [#1423](https://github.com/formvalidation/formvalidation/issues/1423): Update the [UIKit icon usage](http://formvalidation.io/settings/#form-icon)
 * Fix the [issue](https://github.com/formvalidation/formvalidation.io/pull/11) in [Settings Structure](http://formvalidation.io/settings/#settings-structure) section, thanks to [@DiederikLascaris](https://github.com/DiederikLascaris)
+* Add [Playing with jQuery UI Datepicker](http://formvalidation.io/examples/jquery-ui-datepicker/) example
 
 __Language Packages__
 * [#1381](https://github.com/formvalidation/formvalidation/pull/1381): Update Slovak language package, thanks to [@PatrikGallik](https://github.com/PatrikGallik)
